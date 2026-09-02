@@ -36,6 +36,7 @@ class RiskLevel(str, Enum):
 class AdapterKind(str, Enum):
     BUILTIN = "builtin"
     BUOY_CLI = "buoy_cli"
+    PYTHON = "python"
     PLANNED = "planned"
 
 

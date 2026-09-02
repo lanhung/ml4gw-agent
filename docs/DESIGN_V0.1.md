@@ -29,7 +29,7 @@ The governing rule is unchanged:
 | Scientific planner / reasoner | `planning.py` (`BaselinePlanner`) | Deterministic keyword router. LLM planner is Phase 5. |
 | Skill registry ("what can I actually execute?") | `registry.py`, `skill_manifests/*.yaml` | Ten validated contracts. |
 | Policy layer | `policy.py` (`ExecutionPolicy`) | Task count, data window, sample count, model pinning, high-risk approval. |
-| Adapter / executor | `adapters/` (`builtin`, `mock`, `buoy`) | Buoy CLI is the only real scientific adapter. |
+| Adapter / executor | `adapters/` (`builtin`, `mock`, `buoy`, `gwosc`, `strain`, `aframe`, `amplfi`) | Buoy CLI plus, since v0.2, real data/Aframe/AMPLFI adapters. |
 | Scientific validator | `validation.py`, per-skill `validations:` | JSON Schema plus artifact checks. Physics-level checks are Phase 1b onward. |
 | Provenance | `provenance.py`, `RunManifest` | Atomic checkpointed manifest, SHA-256 artifacts, command vector. |
 | Interfaces | `cli.py` | `skills`, `plan`, `validate-plan`, `run`, `run-plan`, `doctor`. |
@@ -46,11 +46,11 @@ checked at registry load and again at every task boundary.
 | Skill | Adapter | Status | Risk | GPU | Purpose |
 |---|---|---|---|---|---|
 | `data.resolve_event` | builtin | stable | low | none | Validate event identifier, classify source, attach catalog time when known |
-| `data.fetch` | planned (mldatafind or GWOSC) | planned | medium | none | Retrieve strain for a bounded window |
-| `data.inspect` | planned (GWPy checks) | planned | low | none | Detector availability, finite strain, duration, science mode |
+| `data.fetch` | python (`gwosc_fetch`) | experimental | medium | none | Retrieve public strain for a bounded, Buoy-aligned window |
+| `data.inspect` | python (`strain_inspect`) | experimental | low | none | Detector availability, finite strain, duration, science segments |
 | `buoy.analyze` | buoy_cli | experimental | medium | preferred | Event to Aframe to AMPLFI vertical pipeline |
-| `aframe.detect` | planned | planned | medium | preferred | CBC candidate detection |
-| `amplfi.pe` | planned | planned | medium | preferred | Likelihood-free parameter estimation |
+| `aframe.detect` | python (`aframe_inference`, via `buoy.models.Aframe`) | experimental | medium | preferred | CBC candidate detection |
+| `amplfi.pe` | python (`amplfi_inference`, via `buoy.models.Amplfi`) | experimental | medium | preferred | Likelihood-free parameter estimation |
 | `gwak.scan` | planned (Snakemake) | planned | medium | required | Unmodeled anomaly scan |
 | `deepclean.check_applicability` | planned | planned | low | none | Witness / coupling / model support decision |
 | `deepclean.clean` | planned (Law) | planned | high, approval required | required | Noise subtraction |
@@ -511,11 +511,11 @@ stopped by an external GWOSC outage. See `REAL_RUN_2026-09-02.md`.
 | Typed tool calls, policy layer, no unrestricted shell | Done | `policy.py`, `runtime.py`, argument vectors |
 | Plan as a DAG with task states | Done | `PlanSpec`, `TaskStatus` |
 | Conditional execution | Done | `ConditionSpec`, `when` |
-| Precondition reasoning | Partial | Declared in manifests; enforced by Buoy preflight only |
+| Precondition reasoning | Partial | Declared in manifests; enforced in Buoy, GWOSC, Aframe, and AMPLFI preflights |
 | DeepClean is not run unconditionally | Done (guard) | `deepclean.check_applicability` scheduled, `deepclean.clean` never auto-scheduled |
 | Observation beyond exit code | Partial | Schema and artifact checks; `signif_integrated` read from HDF5; no physics thresholds |
 | Provenance manifest and report | Done | `run_manifest.json`, `report.md` |
-| Buoy-first MVP, then decomposed skills | Done / next | Buoy adapter real; Aframe, AMPLFI, GWAK, data adapters are Phase 1b to 2 |
+| Buoy-first MVP, then decomposed skills | Done (code) | Buoy adapter real; data, Aframe, AMPLFI adapters real in v0.2; GWAK is Phase 2 |
 | Compute cost awareness | Declared only | `ResourceSpec` per skill; no scheduler decision yet |
 | Compute planner (HTCondor, K8s, Triton) | Not started | Phase 4 |
 | Infrastructure and external tools (GraceDB, GWOSC, GCN, ADS) | Not started | Buoy handles GWOSC/GraceDB internally |
@@ -524,17 +524,25 @@ stopped by an external GWOSC outage. See `REAL_RUN_2026-09-02.md`.
 | Benchmark | Seed | `benchmarks/v0_prompts.yaml`, ten cases |
 | MCP-style tool bus | Not started | Registry summaries are already the natural tool descriptions |
 
-## 9. Immediate next work (Phase 1b)
+## 9. Phase 1b status and next work
 
-1. Real `data.fetch` adapter over GWOSC public data (mldatafind for LDG
-   later), writing an HDF5 strain artifact inside the run directory.
-2. Real `data.inspect` adapter with finite-strain, duration, and segment
-   checks; a `quality_passed` that Aframe and GWAK conditions can trust.
-3. Real `aframe.detect` adapter over the supported Aframe inference
-   entrypoint with a frozen model/preprocessing compatibility record.
-4. Real `amplfi.pe` adapter with detector and parameter-range support
-   checks, reading `coalescence_time` from the Aframe output reference.
-5. Scientific validators: finite statistics, timestamps inside the
-   requested interval, posterior sample shape, detector availability.
-6. A five-event acceptance suite compared numerically against direct Buoy
-   runs, then the GW150914 real run recorded in `V0_ACCEPTANCE.md`.
+Done in v0.2 (see `PHASE1B_ACCEPTANCE.md`):
+
+1. Real `data.fetch` over GWOSC public data with Buoy-identical windowing.
+2. Real `data.inspect` with finite-strain, duration, detector, and
+   science-segment checks that fail closed.
+3. Real `aframe.detect` over `buoy.models.Aframe` with a frozen config
+   record, a sample-rate compatibility check, and Buoy's output layout.
+4. Real `amplfi.pe` over `buoy.models.Amplfi` with HL/HLV selection,
+   coalescence-time bounds, posterior, sky map, and credible intervals.
+5. In-adapter scientific checks: finite statistics, predicted time inside
+   the strain interval, non-empty posterior summary.
+
+Next:
+
+1. Run `scripts/phase1b_acceptance.sh` on a GWOSC-connected GPU node and
+   record the GW150914 result and Buoy comparison in `V0_ACCEPTANCE.md`.
+2. Extend to the five-event suite (GW150914, GW170817 where model support
+   permits, GW190521, one GPS event, one noise segment).
+3. Replace the uncalibrated Aframe threshold with a background-derived one.
+4. `mldatafind` adapter for non-public frames.

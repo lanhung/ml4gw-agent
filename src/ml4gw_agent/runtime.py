@@ -4,7 +4,13 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
-from .adapters import BuiltinAdapter, BuoyCLIAdapter, ExecutionContext, MockAdapter
+from .adapters import (
+    PYTHON_ADAPTERS,
+    BuiltinAdapter,
+    BuoyCLIAdapter,
+    ExecutionContext,
+    MockAdapter,
+)
 from .adapters.base import SkillAdapter
 from .errors import (
     AdapterError,
@@ -105,6 +111,14 @@ class AgentRuntime:
             return MockAdapter()
         if skill.adapter.kind == AdapterKind.BUOY_CLI:
             return BuoyCLIAdapter(skill.adapter.entrypoint)
+        if skill.adapter.kind == AdapterKind.PYTHON:
+            try:
+                return PYTHON_ADAPTERS[skill.adapter.entrypoint]()
+            except KeyError as exc:
+                raise AdapterUnavailableError(
+                    f"{skill.name} names unknown python adapter entrypoint "
+                    f"'{skill.adapter.entrypoint}'"
+                ) from exc
         raise AdapterUnavailableError(
             f"{skill.name} has no real adapter in this release"
         )

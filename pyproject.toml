@@ -1,6 +1,6 @@
 [project]
 name = "ml4gw-agent"
-version = "0.1.0"
+version = "0.2.0"
 description = "A safe, provenance-aware scientific orchestration layer for ML4GW tools"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -8,13 +8,20 @@ authors = [
   { name = "ML4GW Agent contributors" },
 ]
 dependencies = [
+  "h5py>=3.10,<4",
   "jsonschema>=4.23,<5",
+  "numpy>=1.26",
   "pydantic>=2.9,<3",
   "PyYAML>=6,<7",
 ]
 
 [project.optional-dependencies]
+data = [
+  "gwosc>=0.7",
+  "gwpy>=3.0.12",
+]
 buoy = [
+  "ml4gw-agent[data]",
   "ml4gw-buoy==0.6.1",
   "jsonargparse[signatures]==4.50.0",
   "zuko==1.4.1",

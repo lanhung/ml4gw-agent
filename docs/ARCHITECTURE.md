@@ -108,8 +108,21 @@ revisions, command vector, logs, files, and checksums.
 ## Composed analysis baseline
 
 An explicit request for data quality, Aframe, AMPLFI, GWAK, or DeepClean creates
-a decomposed plan. The current deterministic baseline can exercise this plan in
-mock mode. Real adapters are introduced phase by phase.
+a decomposed plan. Since v0.2 the data, Aframe, and AMPLFI legs run for real:
+
+```mermaid
+flowchart LR
+    RE["resolve_event"] --> FD["data.fetch<br/>GWOSC"] --> ID["data.inspect"]
+    ID -->|quality_passed| AF["aframe.detect<br/>buoy.models.Aframe"]
+    AF -->|candidate_found| PE["amplfi.pe<br/>buoy.models.Amplfi"]
+    PE --> RP["report"]
+```
+
+`python` adapters are registered by entrypoint name in
+`adapters/__init__.py`; a manifest cannot name arbitrary code. Each reaches
+its upstream library through one loader function so the unit suite can run
+the whole real-mode path with fake scientific backends. GWAK and DeepClean
+remain `planned` and still block real mode.
 
 DeepClean is intentionally preceded by `deepclean.check_applicability`.
 The v0.1 baseline reports applicability but does not schedule cleaning. A future

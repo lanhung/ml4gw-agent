@@ -49,17 +49,25 @@ Remaining exit test:
 
 ## Phase 1b — data + Aframe + AMPLFI composition
 
-Target: replace the large Buoy tool with independently composable real skills.
+Status: **adapters implemented and unit-tested with fake backends (v0.2);
+GW150914 acceptance run pending on a GWOSC-connected GPU node.** Runbook:
+`PHASE1B_ACCEPTANCE.md`.
 
 Work items:
 
-- Implement GWOSC and `mldatafind` data adapters.
-- Add science-segment and finite-strain validation.
-- Wrap the supported Aframe inference entrypoint and freeze model/preprocessing
-  compatibility metadata.
-- Wrap AMPLFI inference with detector/model support checks.
-- Branch to AMPLFI only when a validated candidate time is present.
-- Cross-check decomposed outputs against Buoy on a small event suite.
+- [x] GWOSC data adapter (`data.fetch`, Buoy-compatible window and HDF5).
+- [ ] `mldatafind` adapter for non-public frames.
+- [x] Science-segment, finite-strain, duration, and detector validation
+      (`data.inspect`, fails closed).
+- [x] Aframe inference over `buoy.models.Aframe` with frozen config metadata
+      and a sample-rate compatibility check (`aframe.detect`).
+- [x] AMPLFI inference over `buoy.models.Amplfi` with HL/HLV selection and
+      coalescence-time bounds check (`amplfi.pe`).
+- [x] AMPLFI branches only on `candidate_found`; coalescence time arrives by
+      typed reference.
+- [ ] Cross-check decomposed outputs against Buoy on GW150914, then the
+      five-event suite (`scripts/compare_with_buoy.py`).
+- [ ] FAR-calibrated Aframe threshold from a background study.
 
 Exit criteria:
 

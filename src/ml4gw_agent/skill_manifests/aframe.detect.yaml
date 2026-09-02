@@ -1,12 +1,12 @@
 schema_version: "1.0"
 name: aframe.detect
-version: "0.1.0"
+version: "0.2.0"
 description: Detect compact-binary-merger candidates in strain using Aframe.
-status: planned
+status: experimental
 risk: medium
 requires_approval: false
 adapter:
-  kind: planned
+  kind: python
   entrypoint: aframe_inference
   timeout_seconds: 3600
 input_schema:
@@ -21,7 +21,9 @@ input_schema:
       minItems: 2
       items: {enum: [H1, L1]}
     model_revision: {type: string, minLength: 1}
-    threshold: {type: number}
+    threshold: {type: number, default: 0.0}
+    device: {enum: [cpu, cuda], default: cuda}
+    seed: {type: [integer, "null"], minimum: 0}
 output_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
   type: object
@@ -38,7 +40,10 @@ output_schema:
     candidate_times: {type: array, items: {type: number}}
     predicted_coalescence_time: {type: [number, "null"]}
     detection_statistic: {type: number}
+    threshold: {type: number}
+    threshold_calibrated: {type: boolean}
     output_artifact: {type: string}
+    model: {type: object}
     simulated: {type: boolean}
 preconditions:
   - name: compatible_strain
@@ -58,4 +63,6 @@ resources:
 tags: [aframe, detection, cbc]
 source_repository: https://github.com/ML4GW/aframe
 notes:
-  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.
+  - Real adapter wraps buoy.models.Aframe (TorchScript weights and config from the ML4GW/aframe Hugging Face repository at the pinned revision).
+  - Output file layout matches Buoy's aframe_outputs.hdf5 so direct and agent runs can be diffed.
+  - threshold is an uncalibrated integrated-output cut; candidate_found is provisional until a background study supplies a FAR threshold.

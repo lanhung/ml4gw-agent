@@ -9,7 +9,7 @@ wraps tools such as Buoy, Aframe, AMPLFI, GWAK, DeepClean, and data services as
 versioned scientific skills with explicit inputs, outputs, preconditions,
 resource needs, validation, and provenance.
 
-## Current status: v0.1
+## Current status: v0.2 (Phase 1b code complete, acceptance run pending)
 
 Implemented now:
 
@@ -19,6 +19,10 @@ Implemented now:
   execution.
 - A safe Buoy CLI adapter that uses an argument vector (`shell=False`) and
   constrains every exposed option.
+- Real decomposed adapters: `data.fetch` over public GWOSC strain,
+  `data.inspect` quality gates, `aframe.detect` and `amplfi.pe` over
+  `buoy.models`. They write Buoy-compatible files so agent and direct runs
+  can be diffed with `scripts/compare_with_buoy.py`.
 - An offline mock adapter for testing orchestration without model weights,
   credentials, or a GPU.
 - Output schema checks, artifact checksums, checkpointed run manifests, and a
@@ -27,12 +31,11 @@ Implemented now:
 
 Not yet claimed as complete:
 
-- Real Aframe, AMPLFI, GWAK, DeepClean, mldatafind, HTCondor, Kubernetes, or
-  Triton adapters.
+- Real GWAK, DeepClean, mldatafind, HTCondor, Kubernetes, or Triton adapters.
 - LLM-based planning and reflection.
-- A scientifically validated production run over GW150914. The adapter is
-  ready, but that run needs a Buoy environment, model downloads, and preferably
-  a GPU.
+- A scientifically validated run over GW150914. The adapters are ready; the
+  run needs GWOSC access, model downloads, and preferably a GPU. See
+  `docs/PHASE1B_ACCEPTANCE.md` and `scripts/phase1b_acceptance.sh`.
 
 ## Quick start
 
@@ -54,6 +57,22 @@ artifacts/
 
 Every simulated value is explicitly marked as simulated. Mock output is useful
 for testing the agent runtime; it is not a scientific result.
+
+## Run the decomposed real pipeline
+
+```bash
+uv sync --extra buoy
+uv run ml4gw-agent run \
+  "Fetch strain data for GW150914, check data quality, run Aframe detection and AMPLFI parameter estimation." \
+  --mode real --runs-dir ./runs --device cuda \
+  --aframe-revision 3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4 \
+  --amplfi-revision 8b97d2f8459d04924cb010dfee0262260bf3da80
+```
+
+This plans `data.resolve_event -> data.fetch -> data.inspect -> aframe.detect
+-> amplfi.pe -> report.generate`. Aframe runs only when the quality gate
+passes, and AMPLFI runs only when Aframe reports a candidate; its coalescence
+time comes from the Aframe output through a typed reference.
 
 ## Run the real Buoy vertical slice
 
@@ -100,6 +119,9 @@ refuses skills that still have `planned` adapters.
   LLM planner prompt, the GW150914 trace, and the design-to-code gap map.
 - `docs/ROADMAP.md`: phased delivery plan and exit criteria.
 - `docs/V0_ACCEPTANCE.md`: exact v0.1 acceptance checklist.
+- `docs/PHASE1B_ACCEPTANCE.md`: GW150914 real-run runbook and criteria.
+- `scripts/phase1b_acceptance.sh`, `scripts/compare_with_buoy.py`: acceptance
+  driver and agent-versus-Buoy numerical comparison.
 - `benchmarks/v0_prompts.yaml`: initial planning benchmark cases.
 
 ## Design principle

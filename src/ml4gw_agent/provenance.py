@@ -9,6 +9,7 @@ import sys
 from collections.abc import Iterable
 from pathlib import Path
 
+from ._version import __version__
 from .errors import ValidationError
 from .models import ArtifactRecord, RunManifest
 
@@ -60,7 +61,7 @@ def runtime_environment() -> dict[str, object]:
         "python_executable": sys.executable,
         "platform": platform.platform(),
         "process_id": os.getpid(),
-        "agent_version": "0.1.0",
+        "agent_version": __version__,
     }
 
 

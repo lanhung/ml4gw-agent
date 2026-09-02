@@ -10,6 +10,7 @@ from pathlib import Path
 
 from pydantic import ValidationError as PydanticValidationError
 
+from .adapters import PYTHON_ADAPTERS
 from .errors import ML4GWAgentError
 from .models import AdapterKind, PlanSpec, RunStatus
 from .planning import BaselinePlanner, PlannerConfig
@@ -31,6 +32,19 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--aframe-revision")
     parser.add_argument("--amplfi-revision")
     parser.add_argument("--gwak-revision")
+    parser.add_argument(
+        "--window-seconds",
+        type=float,
+        default=128.0,
+        help="Strain window for decomposed plans (Buoy uses 2 x psd_length = 128)",
+    )
+    parser.add_argument("--sample-rate", type=int, default=2048)
+    parser.add_argument(
+        "--aframe-threshold",
+        type=float,
+        default=0.0,
+        help="Uncalibrated integrated-output threshold for candidate_found",
+    )
 
 
 def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
@@ -48,6 +62,9 @@ def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
         amplfi_revision=args.amplfi_revision,
         gwak_revision=args.gwak_revision,
         seed=args.seed,
+        window_seconds=args.window_seconds,
+        sample_rate=args.sample_rate,
+        aframe_threshold=args.aframe_threshold,
     )
     return BaselinePlanner(registry, config)
 
@@ -126,6 +143,7 @@ def _doctor(mode: str) -> int:
     registry = load_default_registry()
     rows = []
     vertical_ready = True
+    phase1b_ready = True
     for skill in registry.all():
         if mode == "mock":
             availability = (
@@ -156,6 +174,13 @@ def _doctor(mode: str) -> int:
                         else f"broken: exit {probe.returncode}"
                     )
             vertical_ready = vertical_ready and availability == "available"
+        elif skill.adapter.kind == AdapterKind.PYTHON:
+            adapter_class = PYTHON_ADAPTERS.get(skill.adapter.entrypoint)
+            if adapter_class is None:
+                availability = "broken: unregistered entrypoint"
+            else:
+                availability = adapter_class().probe()
+            phase1b_ready = phase1b_ready and availability == "available"
         else:
             availability = "planned"
         rows.append(
@@ -167,7 +192,12 @@ def _doctor(mode: str) -> int:
         )
     print(
         json.dumps(
-            {"mode": mode, "v0_buoy_ready": vertical_ready, "skills": rows},
+            {
+                "mode": mode,
+                "v0_buoy_ready": vertical_ready,
+                "phase1b_decomposed_ready": phase1b_ready,
+                "skills": rows,
+            },
             indent=2,
         )
     )

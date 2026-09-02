@@ -1,13 +1,13 @@
 schema_version: "1.0"
 name: data.fetch
-version: "0.1.0"
+version: "0.2.0"
 description: Discover and retrieve gravitational-wave strain for a bounded event window.
-status: planned
+status: experimental
 risk: medium
 requires_approval: false
 adapter:
-  kind: planned
-  entrypoint: mldatafind_or_gwosc
+  kind: python
+  entrypoint: gwosc_fetch
   timeout_seconds: 3600
 input_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
@@ -16,12 +16,14 @@ input_schema:
   required: [event, ifos]
   properties:
     event: {type: string, minLength: 1}
+    gps_time: {type: [number, "null"], minimum: 100000000}
     ifos:
       type: array
       minItems: 1
       uniqueItems: true
       items: {enum: [H1, L1, V1, K1]}
-    window_seconds: {type: number, minimum: 1, maximum: 4096, default: 64}
+    window_seconds: {type: number, minimum: 1, maximum: 4096, default: 128}
+    event_offset_fraction: {type: number, minimum: 0.05, maximum: 0.95, default: 0.75}
     sample_rate: {type: integer, enum: [1024, 2048, 4096, 8192, 16384]}
 output_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
@@ -34,8 +36,13 @@ output_schema:
     gps_start: {type: number}
     gps_end: {type: number}
     source: {type: string}
+    sample_rate: {type: number}
+    event_time: {type: number}
     simulated: {type: boolean}
 preconditions:
+  - name: public_event
+    description: The real adapter serves GWTC names and GPS times from public GWOSC data; GraceDB identifiers need credentials and are refused.
+    machine_check: gwosc_public_event
   - name: bounded_query
     description: The requested interval must be finite and within policy limits.
     machine_check: bounded_data_window
@@ -53,5 +60,7 @@ resources:
 tags: [data, gwosc, mldatafind]
 source_repository: https://github.com/ML4GW/mldatafind
 notes:
-  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.
+  - Real adapter fetches public data through gwpy fetch_open_data and writes a Buoy-compatible HDF5 file.
+  - The window is placed with event_offset_fraction of its length before the event, integer-aligned, exactly as Buoy does with 2 x psd_length.
+  - mldatafind support for non-public frames is still planned.
 

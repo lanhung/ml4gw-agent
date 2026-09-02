@@ -27,6 +27,10 @@ class PlannerConfig:
     amplfi_revision: str | None = None
     gwak_revision: str | None = None
     seed: int | None = 0
+    window_seconds: float = 128.0
+    event_offset_fraction: float = 0.75
+    sample_rate: int = 2048
+    aframe_threshold: float = 0.0
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
@@ -199,9 +203,11 @@ class BaselinePlanner:
                 skill="data.fetch",
                 parameters={
                     "event": event,
+                    "gps_time": "${resolve_event.outputs.catalog_time}",
                     "ifos": list(self.config.ifos),
-                    "window_seconds": 64,
-                    "sample_rate": 2048,
+                    "window_seconds": self.config.window_seconds,
+                    "event_offset_fraction": self.config.event_offset_fraction,
+                    "sample_rate": self.config.sample_rate,
                 },
                 depends_on=["resolve_event"],
             ),
@@ -210,6 +216,8 @@ class BaselinePlanner:
                 skill="data.inspect",
                 parameters={
                     "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+                    "expected_ifos": list(self.config.ifos),
+                    "min_duration_seconds": self.config.window_seconds,
                     "require_science_mode": True,
                 },
                 depends_on=["fetch_data"],
@@ -248,6 +256,9 @@ class BaselinePlanner:
                         "strain_artifact": "${fetch_data.outputs.strain_artifact}",
                         "ifos": list(self.config.ifos),
                         "model_revision": aframe_revision,
+                        "device": self.config.device,
+                        "threshold": self.config.aframe_threshold,
+                        "seed": self.config.seed,
                     },
                     depends_on=["inspect_data"],
                     when=ConditionSpec(
@@ -274,6 +285,11 @@ class BaselinePlanner:
                         "ifos": list(self.config.ifos),
                         "model_revision": amplfi_revision,
                         "samples": self.config.samples_per_event,
+                        "device": self.config.device,
+                        "seed": self.config.seed,
+                        "nside": self.config.nside,
+                        "min_samples_per_pix": self.config.min_samples_per_pix,
+                        "use_distance": self.config.use_distance,
                     },
                     depends_on=["run_aframe"],
                     when=ConditionSpec(

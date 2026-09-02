@@ -1,12 +1,12 @@
 schema_version: "1.0"
 name: amplfi.pe
-version: "0.1.0"
+version: "0.2.0"
 description: Perform rapid likelihood-free parameter estimation with AMPLFI.
-status: planned
+status: experimental
 risk: medium
 requires_approval: false
 adapter:
-  kind: planned
+  kind: python
   entrypoint: amplfi_inference
   timeout_seconds: 3600
 input_schema:
@@ -24,6 +24,11 @@ input_schema:
       items: {enum: [H1, L1, V1]}
     model_revision: {type: string, minLength: 1}
     samples: {type: integer, minimum: 100, maximum: 100000, default: 20000}
+    device: {enum: [cpu, cuda], default: cuda}
+    seed: {type: [integer, "null"], minimum: 0}
+    nside: {type: integer, enum: [16, 32, 64, 128, 256], default: 64}
+    min_samples_per_pix: {type: integer, minimum: 1, maximum: 100, default: 5}
+    use_distance: {type: boolean, default: true}
 output_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
   type: object
@@ -33,6 +38,11 @@ output_schema:
     posterior_artifact: {type: string}
     credible_intervals: {type: object}
     skymap_artifact: {type: string}
+    summary_artifact: {type: string}
+    n_samples: {type: integer, minimum: 0}
+    coalescence_time: {type: number}
+    ifos: {type: array, items: {type: string}}
+    model: {type: object}
     simulated: {type: boolean}
 preconditions:
   - name: candidate_time
@@ -52,5 +62,6 @@ resources:
 tags: [amplfi, parameter-estimation, posterior]
 source_repository: https://github.com/ML4GW/amplfi
 notes:
-  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.
+  - Real adapter wraps buoy.models.Amplfi and selects the published HL or HLV checkpoint from the detector set.
+  - Writes Buoy's posterior_samples.dat, a FITS sky map, and a credible-interval summary computed from the samples.
 
