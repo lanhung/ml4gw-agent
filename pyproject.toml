@@ -1,0 +1,59 @@
+[project]
+name = "ml4gw-agent"
+version = "0.1.0"
+description = "A safe, provenance-aware scientific orchestration layer for ML4GW tools"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "ML4GW Agent contributors" },
+]
+dependencies = [
+  "jsonschema>=4.23,<5",
+  "pydantic>=2.9,<3",
+  "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+buoy = [
+  "ml4gw-buoy==0.6.1",
+  "jsonargparse[signatures]==4.50.0",
+  "zuko==1.4.1",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.2,<10",
+  "pytest-cov>=5,<8",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+ml4gw-agent = "ml4gw_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"ml4gw_agent.skill_manifests" = ["*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=ml4gw_agent --cov-report=term-missing --cov-fail-under=85"
+
+[tool.coverage.run]
+source = ["ml4gw_agent"]
+branch = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]

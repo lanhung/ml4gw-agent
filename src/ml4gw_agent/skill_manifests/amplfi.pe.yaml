@@ -1,0 +1,56 @@
+schema_version: "1.0"
+name: amplfi.pe
+version: "0.1.0"
+description: Perform rapid likelihood-free parameter estimation with AMPLFI.
+status: planned
+risk: medium
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: amplfi_inference
+  timeout_seconds: 3600
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [strain_artifact, coalescence_time, ifos, model_revision]
+  properties:
+    strain_artifact: {type: string, minLength: 1}
+    coalescence_time: {type: number}
+    ifos:
+      type: array
+      minItems: 2
+      maxItems: 3
+      items: {enum: [H1, L1, V1]}
+    model_revision: {type: string, minLength: 1}
+    samples: {type: integer, minimum: 100, maximum: 100000, default: 20000}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [posterior_artifact, credible_intervals, skymap_artifact, simulated]
+  properties:
+    posterior_artifact: {type: string}
+    credible_intervals: {type: object}
+    skymap_artifact: {type: string}
+    simulated: {type: boolean}
+preconditions:
+  - name: candidate_time
+    description: A validated coalescence time must be present.
+    machine_check: coalescence_time
+  - name: model_support
+    description: The event must lie within the trained model's detector and parameter support.
+    machine_check: amplfi_model_support
+validations:
+  - {kind: artifact_exists, target: posterior_artifact, required: true}
+  - {kind: artifact_nonempty, target: posterior_artifact, required: true}
+resources:
+  cpu_cores: 4
+  memory_gb: 16
+  gpu: preferred
+  estimated_runtime: seconds to minutes on GPU
+tags: [amplfi, parameter-estimation, posterior]
+source_repository: https://github.com/ML4GW/amplfi
+notes:
+  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.
+

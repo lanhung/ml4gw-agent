@@ -1,0 +1,48 @@
+schema_version: "1.0"
+name: data.resolve_event
+version: "0.1.0"
+description: Validate an event identifier and classify its source before execution.
+status: stable
+risk: low
+requires_approval: false
+adapter:
+  kind: builtin
+  entrypoint: resolve_event
+  timeout_seconds: 30
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event]
+  properties:
+    event:
+      oneOf:
+        - {type: string, minLength: 1}
+        - {type: number, minimum: 100000000}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event, event_kind, delegated_resolution, simulated]
+  properties:
+    event: {type: string}
+    event_kind:
+      enum: [gwtc, gracedb_event, gracedb_superevent, gps]
+    catalog_time: {type: [number, "null"]}
+    delegated_resolution: {type: boolean}
+    simulated: {type: boolean}
+preconditions:
+  - name: recognized_event_format
+    description: Event must be a GWTC name, GraceDB ID, superevent ID, or GPS time.
+    machine_check: event_identifier
+validations:
+  - {kind: output_field, target: event, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 0.1
+  gpu: none
+  estimated_runtime: less than one second
+tags: [data, event, builtin]
+notes:
+  - This skill validates identity syntax; Buoy or a future catalog service resolves full metadata.
+

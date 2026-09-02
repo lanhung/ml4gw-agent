@@ -1,0 +1,36 @@
+schema_version: "1.0"
+name: report.generate
+version: "0.1.0"
+description: Generate a human-readable summary from recorded task outputs and validation states.
+status: stable
+risk: low
+requires_approval: false
+adapter:
+  kind: builtin
+  entrypoint: generate_report
+  timeout_seconds: 30
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  properties:
+    title: {type: string, minLength: 1}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [report_path, simulated]
+  properties:
+    report_path: {type: string}
+    simulated: {type: boolean}
+preconditions: []
+validations:
+  - {kind: artifact_exists, target: report_path, required: true}
+  - {kind: artifact_nonempty, target: report_path, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 0.2
+  gpu: none
+  estimated_runtime: less than one second
+tags: [report, provenance, builtin]
+

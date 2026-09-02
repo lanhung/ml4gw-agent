@@ -1,0 +1,46 @@
+schema_version: "1.0"
+name: data.inspect
+version: "0.1.0"
+description: Check detector availability, finite strain, duration, and basic data quality.
+status: planned
+risk: low
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: gwpy_quality_checks
+  timeout_seconds: 900
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [strain_artifact]
+  properties:
+    strain_artifact: {type: string, minLength: 1}
+    require_science_mode: {type: boolean, default: true}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [quality_passed, available_ifos, diagnostics_artifact, simulated]
+  properties:
+    quality_passed: {type: boolean}
+    available_ifos: {type: array, items: {type: string}}
+    diagnostics_artifact: {type: string}
+    issues: {type: array, items: {type: string}}
+    simulated: {type: boolean}
+preconditions:
+  - name: strain_available
+    description: A readable strain artifact from data.fetch must exist.
+    machine_check: input_artifact
+validations:
+  - {kind: output_field, target: quality_passed, required: true}
+  - {kind: artifact_exists, target: diagnostics_artifact, required: true}
+resources:
+  cpu_cores: 2
+  memory_gb: 4
+  gpu: none
+  estimated_runtime: seconds
+tags: [data, quality, validation]
+notes:
+  - Real adapter is a Phase 1 deliverable; mock results are never scientific evidence.
+

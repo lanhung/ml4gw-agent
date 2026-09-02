@@ -1,0 +1,51 @@
+schema_version: "1.0"
+name: deepclean.check_applicability
+version: "0.1.0"
+description: Decide whether DeepClean has the witness data, coupling configuration, and model support required for a valid subtraction.
+status: planned
+risk: low
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: deepclean_applicability
+  timeout_seconds: 900
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event, strain_artifact, ifos]
+  properties:
+    event: {type: string, minLength: 1}
+    strain_artifact: {type: string, minLength: 1}
+    ifos:
+      type: array
+      minItems: 1
+      items: {enum: [H1, L1, V1]}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [applicable, reasons, simulated]
+  properties:
+    applicable: {type: boolean}
+    reasons: {type: array, items: {type: string}}
+    witness_artifact: {type: [string, "null"]}
+    coupling_config: {type: [string, "null"]}
+    model_revision: {type: [string, "null"]}
+    simulated: {type: boolean}
+preconditions:
+  - name: strain_available
+    description: A readable strain artifact must exist before applicability is assessed.
+    machine_check: input_artifact
+validations:
+  - {kind: output_field, target: applicable, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 2
+  gpu: none
+  estimated_runtime: seconds
+tags: [deepclean, precondition, validation]
+source_repository: https://github.com/ML4GW/DeepClean
+notes:
+  - A false result must skip DeepClean rather than fabricate witness data or model support.
+

@@ -1,0 +1,57 @@
+schema_version: "1.0"
+name: data.fetch
+version: "0.1.0"
+description: Discover and retrieve gravitational-wave strain for a bounded event window.
+status: planned
+risk: medium
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: mldatafind_or_gwosc
+  timeout_seconds: 3600
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event, ifos]
+  properties:
+    event: {type: string, minLength: 1}
+    ifos:
+      type: array
+      minItems: 1
+      uniqueItems: true
+      items: {enum: [H1, L1, V1, K1]}
+    window_seconds: {type: number, minimum: 1, maximum: 4096, default: 64}
+    sample_rate: {type: integer, enum: [1024, 2048, 4096, 8192, 16384]}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [strain_artifact, ifos, gps_start, gps_end, source, simulated]
+  properties:
+    strain_artifact: {type: string}
+    ifos: {type: array, items: {type: string}}
+    gps_start: {type: number}
+    gps_end: {type: number}
+    source: {type: string}
+    simulated: {type: boolean}
+preconditions:
+  - name: bounded_query
+    description: The requested interval must be finite and within policy limits.
+    machine_check: bounded_data_window
+  - name: data_authorization
+    description: Non-public frame data requires valid LIGO credentials.
+    machine_check: public_or_ligo_credentials
+validations:
+  - {kind: artifact_exists, target: strain_artifact, required: true}
+  - {kind: artifact_nonempty, target: strain_artifact, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 2
+  gpu: none
+  estimated_runtime: seconds to minutes
+tags: [data, gwosc, mldatafind]
+source_repository: https://github.com/ML4GW/mldatafind
+notes:
+  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.
+

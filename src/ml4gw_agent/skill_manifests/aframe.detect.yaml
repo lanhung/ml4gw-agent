@@ -1,0 +1,61 @@
+schema_version: "1.0"
+name: aframe.detect
+version: "0.1.0"
+description: Detect compact-binary-merger candidates in strain using Aframe.
+status: planned
+risk: medium
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: aframe_inference
+  timeout_seconds: 3600
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [strain_artifact, ifos, model_revision]
+  properties:
+    strain_artifact: {type: string, minLength: 1}
+    ifos:
+      type: array
+      minItems: 2
+      items: {enum: [H1, L1]}
+    model_revision: {type: string, minLength: 1}
+    threshold: {type: number}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required:
+    - candidate_found
+    - candidate_times
+    - predicted_coalescence_time
+    - detection_statistic
+    - output_artifact
+    - simulated
+  properties:
+    candidate_found: {type: boolean}
+    candidate_times: {type: array, items: {type: number}}
+    predicted_coalescence_time: {type: [number, "null"]}
+    detection_statistic: {type: number}
+    output_artifact: {type: string}
+    simulated: {type: boolean}
+preconditions:
+  - name: compatible_strain
+    description: H1/L1 strain must match the selected model's sample rate and preprocessing.
+    machine_check: aframe_compatible_input
+  - name: immutable_model
+    description: An immutable model revision must be supplied.
+    machine_check: pinned_model_revision
+validations:
+  - {kind: output_field, target: detection_statistic, required: true}
+  - {kind: artifact_exists, target: output_artifact, required: true}
+resources:
+  cpu_cores: 4
+  memory_gb: 16
+  gpu: preferred
+  estimated_runtime: seconds per short segment on GPU
+tags: [aframe, detection, cbc]
+source_repository: https://github.com/ML4GW/aframe
+notes:
+  - Real adapter is a Phase 1 deliverable; real mode fails closed until it exists.

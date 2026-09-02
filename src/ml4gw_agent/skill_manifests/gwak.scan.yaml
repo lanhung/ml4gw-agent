@@ -1,0 +1,49 @@
+schema_version: "1.0"
+name: gwak.scan
+version: "0.1.0"
+description: Scan compatible strain for unmodeled or anomalous gravitational-wave transients.
+status: planned
+risk: medium
+requires_approval: false
+adapter:
+  kind: planned
+  entrypoint: gwak_snakemake
+  timeout_seconds: 86400
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [strain_artifact, model_revision]
+  properties:
+    strain_artifact: {type: string, minLength: 1}
+    model_revision: {type: string, minLength: 1}
+    top_k: {type: integer, minimum: 1, maximum: 1000, default: 10}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [anomaly_found, top_segments, anomaly_artifact, simulated]
+  properties:
+    anomaly_found: {type: boolean}
+    top_segments: {type: array, items: {type: object}}
+    anomaly_artifact: {type: string}
+    simulated: {type: boolean}
+preconditions:
+  - name: compatible_preprocessing
+    description: Input representation and preprocessing must match the selected GWAK models.
+    machine_check: gwak_compatible_input
+  - name: immutable_model
+    description: An immutable model revision must be supplied.
+    machine_check: pinned_model_revision
+validations:
+  - {kind: artifact_exists, target: anomaly_artifact, required: true}
+resources:
+  cpu_cores: 4
+  memory_gb: 16
+  gpu: required
+  estimated_runtime: seconds for a segment; distributed execution for long scans
+tags: [gwak, anomaly, unmodeled]
+source_repository: https://github.com/ML4GW/gwak
+notes:
+  - Real adapter is a Phase 2 deliverable; real mode fails closed until it exists.
+

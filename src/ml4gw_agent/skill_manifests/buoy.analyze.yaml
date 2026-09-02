@@ -1,0 +1,83 @@
+schema_version: "1.0"
+name: buoy.analyze
+version: "0.1.0"
+description: Run Buoy's event-to-Aframe-to-AMPLFI vertical analysis pipeline.
+status: experimental
+risk: medium
+requires_approval: false
+adapter:
+  kind: buoy_cli
+  entrypoint: buoy
+  timeout_seconds: 7200
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event]
+  properties:
+    event:
+      oneOf:
+        - {type: string, minLength: 1}
+        - {type: number, minimum: 100000000}
+    samples_per_event: {type: integer, minimum: 100, maximum: 100000, default: 20000}
+    nside: {type: integer, enum: [16, 32, 64, 128, 256], default: 64}
+    min_samples_per_pix: {type: integer, minimum: 1, maximum: 100, default: 5}
+    use_distance: {type: boolean, default: true}
+    use_true_tc_for_amplfi: {type: boolean, default: false}
+    ifos:
+      type: array
+      minItems: 1
+      maxItems: 3
+      uniqueItems: true
+      items: {enum: [H1, L1, V1]}
+    device: {enum: [cpu, cuda], default: cuda}
+    seed: {type: [integer, "null"], minimum: 0}
+    aframe_revision: {type: [string, "null"]}
+    amplfi_revision: {type: [string, "null"]}
+    runner: {enum: [cli, python], default: cli}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required:
+    - event
+    - output_directory
+    - aframe_output
+    - posterior_samples
+    - plots
+    - simulated
+  properties:
+    event: {type: string}
+    output_directory: {type: string}
+    aframe_output: {type: string}
+    posterior_samples: {type: string}
+    plots: {type: array, items: {type: string}}
+    summary_html: {type: [string, "null"]}
+    detection_statistic: {type: [number, "null"]}
+    predicted_coalescence_time: {type: [number, "null"]}
+    simulated: {type: boolean}
+preconditions:
+  - name: buoy_executable
+    description: The ml4gw-buoy package and buoy executable must be installed.
+    machine_check: executable:buoy
+  - name: supported_device
+    description: CUDA requests require a visible GPU; CPU execution is allowed but slow.
+    machine_check: requested_device
+  - name: data_authorization
+    description: GraceDB or unreleased data requires valid LIGO credentials.
+    machine_check: public_or_ligo_credentials
+validations:
+  - {kind: artifact_exists, target: aframe_output, required: true}
+  - {kind: artifact_nonempty, target: aframe_output, required: true}
+  - {kind: artifact_exists, target: posterior_samples, required: true}
+  - {kind: artifact_nonempty, target: posterior_samples, required: true}
+resources:
+  cpu_cores: 4
+  memory_gb: 16
+  gpu: preferred
+  estimated_runtime: seconds to minutes on GPU; about 15 minutes on CPU
+tags: [buoy, aframe, amplfi, vertical-slice]
+source_repository: https://github.com/ML4GW/buoy
+notes:
+  - Pin aframe_revision and amplfi_revision for reproducible scientific runs.
+  - Buoy currently downloads roughly 320 MB of model weights on first use.

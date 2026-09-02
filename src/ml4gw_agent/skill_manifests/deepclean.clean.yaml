@@ -1,0 +1,61 @@
+schema_version: "1.0"
+name: deepclean.clean
+version: "0.1.0"
+description: Subtract modeled detector noise only when witness-channel coupling is valid.
+status: planned
+risk: high
+requires_approval: true
+adapter:
+  kind: planned
+  entrypoint: deepclean_law
+  timeout_seconds: 86400
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required:
+    - strain_artifact
+    - witness_artifact
+    - coupling_config
+    - model_revision
+  properties:
+    strain_artifact: {type: string, minLength: 1}
+    witness_artifact: {type: string, minLength: 1}
+    coupling_config: {type: string, minLength: 1}
+    model_revision: {type: string, minLength: 1}
+    ifo: {enum: [H1, L1, V1]}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [cleaned_strain_artifact, subtraction_diagnostics, applicable, simulated]
+  properties:
+    cleaned_strain_artifact: {type: string}
+    subtraction_diagnostics: {type: string}
+    applicable: {type: boolean}
+    simulated: {type: boolean}
+preconditions:
+  - name: witness_channels
+    description: Required witness channels must exist for the exact interval and detector.
+    machine_check: deepclean_witness_channels
+  - name: coupling_configuration
+    description: A scientifically reviewed coupling configuration must match the target noise.
+    machine_check: deepclean_coupling
+  - name: compatible_model
+    description: Model weights must match the detector, channels, frequency band, and preprocessing.
+    machine_check: deepclean_model_support
+validations:
+  - {kind: output_field, target: applicable, required: true}
+  - {kind: artifact_exists, target: cleaned_strain_artifact, required: true}
+  - {kind: artifact_exists, target: subtraction_diagnostics, required: true}
+resources:
+  cpu_cores: 8
+  memory_gb: 32
+  gpu: required
+  estimated_runtime: minutes for inference; hours for training
+tags: [deepclean, denoising, witness-channels]
+source_repository: https://github.com/ML4GW/DeepClean
+notes:
+  - The agent must skip this skill when any scientific precondition is unverified.
+  - Real adapter is a Phase 3 deliverable; real mode fails closed until it exists.
+

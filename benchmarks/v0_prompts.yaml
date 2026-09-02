@@ -1,0 +1,42 @@
+schema_version: "1.0"
+cases:
+  - id: buoy_named_event
+    prompt: Analyze GW150914.
+    expected_skills: [data.resolve_event, buoy.analyze, report.generate]
+  - id: buoy_gps_event
+    prompt: Analyze GPS 1187008882.4.
+    expected_skills: [data.resolve_event, buoy.analyze, report.generate]
+  - id: buoy_chinese
+    prompt: 请分析 GW150914。
+    expected_skills: [data.resolve_event, buoy.analyze, report.generate]
+  - id: data_quality
+    prompt: Fetch strain data and check data quality for GW150914.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, report.generate]
+  - id: aframe_detection
+    prompt: Run Aframe detection on GW150914 strain data.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, aframe.detect, report.generate]
+  - id: amplfi_parameter_estimation
+    prompt: Perform AMPLFI parameter estimation for GW190521.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, aframe.detect, amplfi.pe, report.generate]
+  - id: gwak_anomaly
+    prompt: Scan GW150914 for unusual unmodeled anomalies with GWAK.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, gwak.scan, report.generate]
+  - id: deepclean_guard
+    prompt: Use DeepClean if appropriate for GW150914.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, deepclean.check_applicability, report.generate]
+    forbidden_skills: [deepclean.clean]
+  - id: composed_analysis
+    prompt: Analyze GW150914, check data quality, use DeepClean if appropriate, run Aframe and AMPLFI parameter estimation, then scan anomalies with GWAK.
+    expected_skills:
+      - data.resolve_event
+      - data.fetch
+      - data.inspect
+      - deepclean.check_applicability
+      - aframe.detect
+      - amplfi.pe
+      - gwak.scan
+      - report.generate
+  - id: unbounded_o3
+    prompt: Scan all of O3.
+    expected_error: No supported event identifier
+

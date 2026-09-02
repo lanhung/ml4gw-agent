@@ -1,0 +1,80 @@
+from pathlib import Path
+
+import pytest
+import yaml
+
+from ml4gw_agent.errors import PlanningError
+from ml4gw_agent.planning import BaselinePlanner, PlannerConfig
+
+
+def test_generic_event_analysis_uses_buoy_vertical_slice(registry):
+    plan = BaselinePlanner(registry).plan("Analyze GW150914")
+    assert [task.skill for task in plan.tasks] == [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate",
+    ]
+    assert plan.tasks[1].parameters["event"] == "GW150914"
+    assert any("not fully pinned" in warning for warning in plan.warnings)
+
+
+def test_chinese_generic_prompt_is_supported(registry):
+    plan = BaselinePlanner(registry).plan("请分析 GW150914")
+    assert plan.tasks[1].skill == "buoy.analyze"
+
+
+def test_explicit_composition_builds_conditional_dag(registry):
+    planner = BaselinePlanner(
+        registry,
+        PlannerConfig(
+            aframe_revision="aframe-sha",
+            amplfi_revision="amplfi-sha",
+            gwak_revision="gwak-sha",
+        ),
+    )
+    plan = planner.plan(
+        "Analyze GW150914: check data quality, use DeepClean if appropriate, "
+        "run Aframe detection and AMPLFI parameter estimation, and scan with GWAK."
+    )
+    by_id = {task.id: task for task in plan.tasks}
+    assert by_id["fetch_data"].skill == "data.fetch"
+    assert by_id["check_deepclean"].skill == "deepclean.check_applicability"
+    assert "deepclean.clean" not in {task.skill for task in plan.tasks}
+    assert by_id["run_aframe"].when.reference.endswith("quality_passed}")
+    assert by_id["run_amplfi"].depends_on == ["run_aframe"]
+    assert by_id["run_amplfi"].when.reference.endswith("candidate_found}")
+    assert by_id["run_gwak"].depends_on == ["inspect_data"]
+    assert by_id["generate_report"].allow_failed_dependencies
+
+
+def test_parameter_estimation_schedules_aframe_for_tc(registry):
+    plan = BaselinePlanner(registry).plan("Perform parameter estimation for GW190521")
+    skills = [task.skill for task in plan.tasks]
+    assert "aframe.detect" in skills
+    assert "amplfi.pe" in skills
+
+
+def test_gps_event_is_extracted(registry):
+    plan = BaselinePlanner(registry).plan("Analyze GPS 1187008882.4")
+    assert plan.tasks[0].parameters["event"] == "1187008882.4"
+
+
+def test_prompt_without_event_fails_closed(registry):
+    with pytest.raises(PlanningError, match="No supported event"):
+        BaselinePlanner(registry).plan("Scan all of O3")
+
+
+def test_v0_prompt_benchmark(registry):
+    benchmark_path = Path(__file__).parents[1] / "benchmarks" / "v0_prompts.yaml"
+    benchmark = yaml.safe_load(benchmark_path.read_text())
+    planner = BaselinePlanner(registry)
+    for case in benchmark["cases"]:
+        if "expected_error" in case:
+            with pytest.raises(PlanningError, match=case["expected_error"]):
+                planner.plan(case["prompt"])
+            continue
+        plan = planner.plan(case["prompt"])
+        actual = [task.skill for task in plan.tasks]
+        assert actual == case["expected_skills"], case["id"]
+        for forbidden in case.get("forbidden_skills", []):
+            assert forbidden not in actual, case["id"]
