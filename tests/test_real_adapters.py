@@ -527,6 +527,9 @@ def test_aframe_preflight_and_probe(registry, tmp_path, monkeypatch):
         "run_aframe",
         _aframe_params(path, tmp_path, model_revision="UNPINNED", device="cuda"),
     )
+    # Simulate an environment without the optional science stack so the test
+    # passes both with and without ``uv sync --extra buoy``.
+    monkeypatch.setattr("ml4gw_agent.adapters.aframe._missing", lambda: ["buoy"])
     with pytest.raises(AdapterUnavailableError, match="uv sync --extra buoy"):
         AframeAdapter().preflight(context)
     assert AframeAdapter().probe().startswith("missing")
@@ -736,6 +739,7 @@ def test_amplfi_preflight_probe_and_intervals(registry, tmp_path, monkeypatch):
         "run_amplfi",
         _amplfi_params(path, tmp_path, model_revision="UNPINNED", device="cuda"),
     )
+    monkeypatch.setattr("ml4gw_agent.adapters.amplfi._missing", lambda: ["buoy"])
     with pytest.raises(AdapterUnavailableError, match="uv sync --extra buoy"):
         AmplfiAdapter().preflight(context)
     assert AmplfiAdapter().probe().startswith("missing")
@@ -863,7 +867,11 @@ def test_decomposed_plan_skips_pe_when_no_candidate(registry, tmp_path, monkeypa
     assert manifest.tasks["generate_report"].status == TaskStatus.COMPLETED
 
 
-def test_doctor_reports_python_adapter_probes(capsys):
+def test_doctor_reports_python_adapter_probes(capsys, monkeypatch):
+    # Force the "science stack not installed" picture regardless of the host.
+    monkeypatch.setattr("ml4gw_agent.cli.shutil.which", lambda _: None)
+    monkeypatch.setattr("ml4gw_agent.adapters.aframe._missing", lambda: ["buoy"])
+    monkeypatch.setattr("ml4gw_agent.adapters.amplfi._missing", lambda: ["buoy"])
     assert main(["doctor", "--mode", "real"]) == 2
     payload = json.loads(capsys.readouterr().out)
     rows = {row["skill"]: row for row in payload["skills"]}
