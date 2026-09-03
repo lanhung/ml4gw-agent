@@ -25,12 +25,24 @@ from .registry import (
     executor_availability,
     select_executor,
 )
-from .submit import Submission, resume_submission, submit_plan
+from .ssh import SSHConfig, SSHExecutor, SSHTransport
+from .submit import (
+    SegmentedSubmission,
+    Submission,
+    resume_submission,
+    submit_plan,
+    submit_segmented,
+)
 
 __all__ = [
+    "SSHConfig",
+    "SSHExecutor",
+    "SSHTransport",
+    "SegmentedSubmission",
     "Submission",
     "resume_submission",
     "submit_plan",
+    "submit_segmented",
     "BudgetDecision",
     "BudgetPolicy",
     "CommandResult",

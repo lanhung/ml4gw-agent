@@ -181,9 +181,15 @@ def build_parser() -> argparse.ArgumentParser:
         )
         executing.add_argument(
             "--executor",
-            choices=["local", "htcondor", "kubernetes"],
+            choices=["local", "htcondor", "ssh", "kubernetes"],
             default="local",
             help="Where tasks execute; batch executors need their CLI on PATH",
+        )
+        executing.add_argument(
+            "--segment-seconds",
+            type=float,
+            default=None,
+            help="Split a long data window into segments of this length (batch only)",
         )
         executing.add_argument(
             "--max-gpu-hours",
@@ -252,6 +258,8 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
             budget=budget,
             poll_interval=getattr(args, "poll_interval", 15.0),
             wait_timeout=getattr(args, "wait_timeout", 7200.0),
+            segment_seconds=getattr(args, "segment_seconds", None),
+            max_window_seconds=policy.max_data_window_seconds,
         )
         summary = submission.as_dict()
         summary["run_status"] = (

@@ -12,6 +12,9 @@ from .estimate import ResourceEstimate
 from .htcondor import HTCondorExecutor
 from .kubernetes import KubernetesExecutor
 from .local import LocalExecutor
+from .ssh import SSHExecutor
+
+KUBERNETES_DEFERRED = "deferred (no cluster available; the ssh executor stands in)"
 
 PLANNED_REASONS = {
     ExecutorKind.SNAKEMAKE: (
@@ -64,6 +67,7 @@ def build_executors(
         ExecutorKind.LOCAL: LocalExecutor(),
         ExecutorKind.HTCONDOR: HTCondorExecutor(runner),
         ExecutorKind.KUBERNETES: KubernetesExecutor(runner, image=image),
+        ExecutorKind.SSH: SSHExecutor(),
     }
     for kind in (ExecutorKind.SNAKEMAKE, ExecutorKind.LAW, ExecutorKind.TRITON):
         executors[kind] = PlannedExecutor(kind)
@@ -73,7 +77,10 @@ def build_executors(
 def executor_availability(
     executors: dict[ExecutorKind, Executor],
 ) -> dict[str, str]:
-    return {kind.value: executor.probe() for kind, executor in executors.items()}
+    rows = {kind.value: executor.probe() for kind, executor in executors.items()}
+    if "kubernetes" in rows and rows["kubernetes"] != "available":
+        rows["kubernetes"] = f"{KUBERNETES_DEFERRED}; {rows['kubernetes']}"
+    return rows
 
 
 @dataclass(frozen=True)
@@ -109,7 +116,7 @@ def select_executor(
 
     batch_kinds = [
         kind
-        for kind in (ExecutorKind.HTCONDOR, ExecutorKind.KUBERNETES)
+        for kind in (ExecutorKind.HTCONDOR, ExecutorKind.SSH, ExecutorKind.KUBERNETES)
         if kind in available and available[kind].probe() == "available"
     ]
     needs_batch = (
