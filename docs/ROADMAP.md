@@ -156,21 +156,31 @@ Exit criteria:
 
 Target: choose compute based on bounded cost and data locality.
 
+Status: **executor contracts, estimates, budget policy, partitioning, and
+local/HTCondor/Kubernetes executors implemented with fake-scheduler unit
+tests (`PHASE4_EXECUTION.md`); no real pool or cluster has been exercised.**
+
 Work items:
 
-- Add executor contracts for Law/Luigi, Snakemake, HTCondor, Kubernetes, and
-  Triton/Hermes.
-- Add job handles, polling, cancellation, checkpoint/resume, caching, and retry
-  policies.
-- Estimate CPU/GPU hours, memory, transfer volume, and expected latency before
-  submission.
+- [x] Executor contracts: local, HTCondor, and Kubernetes implemented;
+      Law/Luigi, Snakemake, and Triton/Hermes registered as planned with
+      stated blockers (`ml4gw_agent.executors`).
+- [x] Job handles, polling, cancellation, checkpoint/resume, a per-run
+      result cache, and retry policies.
+- [x] `estimate_plan`: CPU/GPU hours, memory, transfer volume, and expected
+      latency from the contracts plus the runtimes measured in the Phase 1
+      runs; `ml4gw-agent estimate "<prompt>"`.
 
 Exit criteria:
 
-- Short event analyses run locally or on one GPU.
-- Long scans are partitioned and aggregated without duplicate or missing
-  segments.
-- Budget and authorization policies are enforced before submission.
+- [x] Short event analyses run locally or on one GPU (every Phase 1 run).
+- [x] Long scans are partitioned and aggregated without duplicate or missing
+      segments (`partition_scan`/`merge_segment_outputs`, property tests).
+      Automatic splitting of one long request into per-segment sub-plans is
+      the next wiring step.
+- [x] Budget and authorization policies are enforced before submission
+      (`BudgetPolicy`, checked before preflight, recorded in the manifest).
+- [ ] The HTCondor and Kubernetes executors on a real pool or cluster.
 
 ## Phase 5 — measured agentic planning
 
