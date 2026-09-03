@@ -177,20 +177,33 @@ Exit criteria:
 Target: add LLM planning, observation, reflection, and experiment memory without
 weakening the deterministic execution boundary.
 
+Status: **implemented and measured with a replay client
+(`PHASE5_PLANNING.md`); the real-model row of the evaluation needs API
+credentials, which this host does not have.**
+
 Work items:
 
-- Require LLM output to validate as `PlanSpec`.
-- Retrieve only registry summaries relevant to the request.
-- Add structured observations and bounded replanning.
-- Store experiment memory (data, model, configuration, result, failure), not
-  merely chat history.
-- Build 50–100 benchmark tasks and adversarial prompts.
+- [x] Require LLM output to validate as `PlanSpec` (plus registry, parameter,
+      reference, condition, and policy checks; one repair round; baseline
+      fallback).
+- [x] Retrieve only registry summaries relevant to the request.
+- [x] Structured observations (`observe`) and bounded replanning (`replan`,
+      at most once, only after a failure).
+- [x] Experiment memory (`ExperimentMemory`: data, models, configuration,
+      result, failures), fed back per event.
+- [x] 71 benchmark cases across `v0_prompts.yaml` and `v1_prompts.yaml`,
+      including adversarial and Chinese prompts.
 
 Exit criteria:
 
-- Report tool-selection accuracy, plan validity, execution success, scientific
-  correctness, recovery, cost, latency, and reproducibility against the
-  deterministic baseline.
-- No prompt can bypass registry, policy, adapter, validation, or provenance
-  controls.
+- [x] Tool-selection accuracy, plan validity, execution success (mock),
+      recovery, cost, latency, and reproducibility are reported by
+      `scripts/evaluate_planner.py` against the deterministic baseline
+      (replay client: all 1.000, recovery true). Scientific correctness is
+      carried by the Phase 1 acceptance records, which the planner reuses
+      unchanged.
+- [ ] The same report with `--client anthropic` on a credentialed host.
+- [x] No prompt bypasses registry, policy, adapter, validation, or provenance
+      controls (unit tests over injected invalid plans and adversarial
+      prompts).
 

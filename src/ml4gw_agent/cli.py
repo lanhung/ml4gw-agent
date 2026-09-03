@@ -41,6 +41,20 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument("--sample-rate", type=int, default=2048)
     parser.add_argument(
+        "--planner",
+        choices=["baseline", "llm"],
+        default="baseline",
+        help="llm: Claude proposes the plan, validated by the same rules (needs the "
+        "llm extra and ANTHROPIC_API_KEY); baseline: deterministic router",
+    )
+    parser.add_argument("--llm-model", default="claude-opus-5")
+    parser.add_argument(
+        "--memory",
+        type=Path,
+        default=None,
+        help="JSONL experiment memory read for prior runs and appended after runs",
+    )
+    parser.add_argument(
         "--data-source",
         choices=["gwosc", "ldg"],
         default="gwosc",
@@ -71,9 +85,8 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     )
 
 
-def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
-    registry = load_default_registry()
-    config = PlannerConfig(
+def _config_from_args(args: argparse.Namespace) -> PlannerConfig:
+    return PlannerConfig(
         ifos=tuple(args.ifos),
         device=args.device,
         samples_per_event=args.samples_per_event,
@@ -93,6 +106,22 @@ def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
         candidate_window_seconds=args.candidate_window_seconds,
         data_source=args.data_source,
     )
+
+
+def _planner_from_args(args: argparse.Namespace):
+    registry = load_default_registry()
+    config = _config_from_args(args)
+    if getattr(args, "planner", "baseline") == "llm":
+        from .llm_planner import AnthropicClient, ExperimentMemory, LLMPlanner
+
+        memory = ExperimentMemory(args.memory) if args.memory else None
+        return LLMPlanner(
+            registry,
+            AnthropicClient(model=args.llm_model),
+            config,
+            memory=memory,
+            mode=getattr(args, "mode", "real"),
+        )
     return BaselinePlanner(registry, config)
 
 
@@ -155,6 +184,10 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
             plan, runs_dir=args.runs_dir, mode=args.mode
         )
     run_dir = Path(manifest.run_directory)
+    if getattr(args, "memory", None):
+        from .llm_planner import ExperimentMemory
+
+        ExperimentMemory(args.memory).record(plan, manifest, _config_from_args(args))
     summary = {
         "run_id": manifest.run_id,
         "status": manifest.status.value,

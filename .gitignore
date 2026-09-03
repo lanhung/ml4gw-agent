@@ -10,3 +10,6 @@ build/
 runs/
 .ruff_cache/
 
+
+# Claude Code worktrees and session files
+.claude/

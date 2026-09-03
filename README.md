@@ -9,7 +9,7 @@ wraps tools such as Buoy, Aframe, AMPLFI, GWAK, DeepClean, and data services as
 versioned scientific skills with explicit inputs, outputs, preconditions,
 resource needs, validation, and provenance.
 
-## Current status: v0.2 (Phase 1b code complete; GW150914 acceptance run passed on 2026-09-03)
+## Current status: v0.3 (Phases 1–5 implemented; GW150914 and the five-event suite passed on 2026-09-03)
 
 Implemented now:
 
