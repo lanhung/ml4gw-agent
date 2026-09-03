@@ -48,7 +48,8 @@ def test_plan_estimate_and_mock_run(client):
 
 
 def test_guards(client):
-    assert client.post("/api/plan", json={"prompt": "Scan all of O3."}).status_code == 422
+    unbounded = client.post("/api/plan", json={"prompt": "Scan all of O3."})
+    assert unbounded.status_code == 422
     real = {"prompt": "Analyze GW150914", "mode": "real", "passcode": "secret"}
     assert client.post("/api/run", json=real).status_code == 400  # node not configured
     assert client.get("/api/jobs/nope").status_code == 404
