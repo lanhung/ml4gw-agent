@@ -488,6 +488,7 @@ def test_accounting_attributes_come_from_the_environment(monkeypatch, tmp_path):
     assert "+MaxHours = 2" in text
     assert text.strip().endswith("queue 1")
     assert "getenv" not in text  # forbidden on IGWN pools
+    assert "request_disk = 4096MB" in text
     monkeypatch.setenv("GWPY_CACHE", "1")
     monkeypatch.setenv("ML4GW_NODE_PASSWORD", "never")
     monkeypatch.setenv("HOME", "/home/x")

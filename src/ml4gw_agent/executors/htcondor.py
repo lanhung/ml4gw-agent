@@ -47,6 +47,7 @@ def render_submit_description(
     memory_gb: float,
     gpus: int,
     extra: dict[str, str] | None = None,
+    disk_gb: float = 4.0,
 ) -> str:
     """HTCondor submit description; one job per description, no shell."""
     lines = [
@@ -59,6 +60,8 @@ def render_submit_description(
         f"request_cpus = {int(cpus)}",
         f"request_memory = {int(round(memory_gb * 1024))}MB",
         f"request_gpus = {int(gpus)}",
+        # IGWN pools require an explicit disk request
+        f"request_disk = {int(round(disk_gb * 1024))}MB",
         "should_transfer_files = NO",
         # IGWN pools forbid getenv = True (SUBMIT_ALLOW_GETENV = false); pass
         # an explicit, whitelisted environment instead.
@@ -209,6 +212,7 @@ class HTCondorExecutor(Executor):
             memory_gb=float(description.get("memory_gb", 2.0)),
             gpus=int(description.get("gpus", 0)),
             extra=description.get("extra"),
+            disk_gb=float(description.get("disk_gb", 4.0)),
         )
         submit_file = job_dir / "job.sub"
         submit_file.write_text(text, encoding="utf-8")
