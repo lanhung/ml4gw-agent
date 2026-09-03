@@ -13,6 +13,14 @@ from pydantic import ValidationError as PydanticValidationError
 
 from .adapters import PYTHON_ADAPTERS
 from .errors import ML4GWAgentError
+from .executors import (
+    BudgetPolicy,
+    EstimateConfig,
+    build_executors,
+    estimate_plan,
+    executor_availability,
+    select_executor,
+)
 from .models import AdapterKind, PlanSpec, RunStatus
 from .planning import BaselinePlanner, PlannerConfig
 from .policy import ExecutionPolicy
@@ -126,6 +134,35 @@ def build_parser() -> argparse.ArgumentParser:
     run_plan.add_argument("--allow-unpinned-models", action="store_true")
     run_plan.add_argument("--approve-high-risk", action="store_true")
 
+    # Phase 4: execution placement and budget (run, run-plan) and the
+    # pre-submission estimate.
+    for executing in (run, run_plan):
+        executing.add_argument(
+            "--executor",
+            choices=["local", "htcondor", "kubernetes"],
+            default="local",
+            help="Where tasks execute; batch executors need their CLI on PATH",
+        )
+        executing.add_argument(
+            "--max-gpu-hours",
+            type=float,
+            default=BudgetPolicy().max_gpu_hours,
+            help="Refuse plans whose GPU estimate exceeds this before submission",
+        )
+        executing.add_argument(
+            "--authorize-budget",
+            action="store_true",
+            help="Authorize GPU estimates above the authorization threshold",
+        )
+    estimate = subparsers.add_parser(
+        "estimate", help="Estimate a prompt's resources and budget decision"
+    )
+    estimate.add_argument("prompt")
+    estimate.add_argument("--no-cache", action="store_false", dest="data_cached")
+    estimate.add_argument("--no-gpu", action="store_false", dest="gpu_available")
+    estimate.add_argument("--max-gpu-hours", type=float, default=None)
+    _add_planner_arguments(estimate)
+
     validate = subparsers.add_parser(
         "validate-plan", help="Validate a saved plan and registered skill names"
     )
@@ -148,10 +185,22 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
         allow_high_risk=args.approve_high_risk,
         allow_unpinned_models=args.allow_unpinned_models,
     )
+    executors = build_executors()
+    executor = executors[
+        select_executor(
+            estimate_plan(plan, registry),
+            executors,
+            preference=getattr(args, "executor", "local"),
+        ).kind
+    ]
+    budget = BudgetPolicy(
+        max_gpu_hours=getattr(args, "max_gpu_hours", BudgetPolicy().max_gpu_hours),
+        authorized=getattr(args, "authorize_budget", False),
+    )
     # Third-party libraries (bilby, astropy) print to stdout during real runs;
     # keep stdout for the JSON summary only.
     with contextlib.redirect_stdout(sys.stderr):
-        manifest = AgentRuntime(registry, policy).run(
+        manifest = AgentRuntime(registry, policy, executor=executor, budget=budget).run(
             plan, runs_dir=args.runs_dir, mode=args.mode
         )
     run_dir = Path(manifest.run_directory)
@@ -301,6 +350,39 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         if args.command == "doctor":
             return _doctor(args.mode)
+
+        if args.command == "estimate":
+            plan = _planner_from_args(args).plan(args.prompt)
+            registry = load_default_registry()
+            estimate = estimate_plan(
+                plan,
+                registry,
+                EstimateConfig(
+                    data_cached=args.data_cached, gpu_available=args.gpu_available
+                ),
+            )
+            budget = (
+                BudgetPolicy(max_gpu_hours=args.max_gpu_hours)
+                if args.max_gpu_hours is not None
+                else BudgetPolicy()
+            )
+            executors = build_executors()
+            selection = select_executor(estimate, executors)
+            print(
+                json.dumps(
+                    {
+                        "plan_id": plan.id,
+                        "tasks": [task.id for task in plan.topological_order()],
+                        "estimate": estimate.as_dict(),
+                        "budget": budget.as_dict(),
+                        "decision": budget.check(estimate).as_dict(),
+                        "executors": executor_availability(executors),
+                        "selection": selection.as_dict(),
+                    },
+                    indent=2,
+                )
+            )
+            return 0 if budget.check(estimate).allowed else 3
     except (ML4GWAgentError, PydanticValidationError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

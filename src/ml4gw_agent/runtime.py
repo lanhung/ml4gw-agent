@@ -18,8 +18,19 @@ from .errors import (
     ML4GWAgentError,
     ValidationError,
 )
+from .executors import (
+    BudgetPolicy,
+    EstimateConfig,
+    Executor,
+    ExecutorKind,
+    LocalExecutor,
+    ResultCache,
+    cache_key,
+    estimate_plan,
+)
 from .models import (
     AdapterKind,
+    ExecutionRecord,
     PlanSpec,
     RunManifest,
     RunStatus,
@@ -99,9 +110,35 @@ class AgentRuntime:
         self,
         registry: SkillRegistry,
         policy: ExecutionPolicy | None = None,
+        *,
+        executor: Executor | None = None,
+        budget: BudgetPolicy | None = None,
+        estimate_config: EstimateConfig | None = None,
     ):
         self.registry = registry
         self.policy = policy or ExecutionPolicy()
+        # Phase 4: the executor decides where an already-validated task runs;
+        # the budget is checked against the plan's estimate before anything
+        # is submitted. Defaults reproduce the pre-Phase-4 behaviour.
+        self.executor = executor or LocalExecutor()
+        self.budget = budget or BudgetPolicy()
+        self.estimate_config = estimate_config or EstimateConfig()
+        self.cache = ResultCache()
+
+    def _execution_record(self, plan: PlanSpec) -> ExecutionRecord:
+        estimate = estimate_plan(plan, self.registry, self.estimate_config)
+        decision = self.budget.check(estimate)
+        return ExecutionRecord(
+            executor=self.executor.kind.value,
+            selection_reason=(
+                "runtime default"
+                if self.executor.kind == ExecutorKind.LOCAL
+                else "configured by caller"
+            ),
+            estimate=estimate.as_dict(),
+            budget=self.budget.as_dict(),
+            decision=decision.as_dict(),
+        )
 
     def _adapter_for(self, skill_name: str, mode: str) -> SkillAdapter:
         skill = self.registry.get(skill_name)
@@ -160,6 +197,9 @@ class AgentRuntime:
         run_id = new_identifier("run")
         run_dir = runs_dir.resolve() / run_id
         run_dir.mkdir(parents=True, exist_ok=False)
+        # The result cache is scoped to one run: artifacts of a cached outcome
+        # live inside that run's directory, so reuse across runs would escape.
+        self.cache = ResultCache()
         records = {
             task.id: TaskRecord(
                 task_id=task.id,
@@ -177,11 +217,19 @@ class AgentRuntime:
             run_directory=str(run_dir),
             warnings=list(plan.warnings),
             environment=runtime_environment(),
+            execution=self._execution_record(plan),
         )
         manifest_path = run_dir / "run_manifest.json"
         write_manifest(manifest, manifest_path)
 
         try:
+            self.executor.require_available()
+            decision = manifest.execution.decision if manifest.execution else {}
+            if decision and not decision.get("allowed", True):
+                raise ML4GWAgentError(
+                    "plan exceeds the execution budget before submission:\n- "
+                    + "\n- ".join(decision.get("reasons", []))
+                )
             warnings = self.preflight(plan, mode, run_dir, records)
             manifest.warnings.extend(warnings)
         except ML4GWAgentError as exc:
@@ -284,10 +332,30 @@ class AgentRuntime:
                 write_manifest(manifest, manifest_path)
 
                 outcome = None
+                key = cache_key(
+                    skill.name,
+                    skill.version,
+                    parameters,
+                    getattr(adapter, "name", type(adapter).__name__),
+                )
+                cached = self.cache.get(key) if mode == "real" else None
                 for attempt in range(task.max_retries + 1):
                     record.attempts = attempt + 1
                     try:
-                        outcome = adapter.execute(context)
+                        if cached is not None:
+                            outcome = cached
+                            record.adapter_metadata["result_cache"] = "hit"
+                            break
+                        handle = self.executor.submit(
+                            f"{run_id}-{task.id}",
+                            lambda run=adapter, ctx=context: run.execute(ctx),
+                            run_dir=run_dir,
+                            description={"task": task.id, "mode": mode},
+                        )
+                        if manifest.execution is not None:
+                            manifest.execution.jobs.append(handle.as_dict())
+                        outcome = handle.result
+                        self.cache.put(key, outcome)
                         break
                     except AdapterError:
                         if attempt >= task.max_retries:
