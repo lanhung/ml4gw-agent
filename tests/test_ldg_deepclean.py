@@ -198,28 +198,32 @@ def test_applicability_rules():
             }
         ]
     }
-    ok, reasons, cfg = applicability(
+    ok, reasons, cfg, _ = applicability(
         source="gwosc", ifos=["H1"], t0=1.1e9, gps_end=1.1e9 + 128, table=table
     )
     assert ok is False and any("public" in r for r in reasons) and cfg is None
-    ok, reasons, cfg = applicability(
+    ok, reasons, cfg, uncovered = applicability(
         source="ldg", ifos=["H1"], t0=1.1e9, gps_end=1.1e9 + 128, table=table
     )
     assert ok is True and reasons == [] and cfg["model_revision"] == "deadbeef"
-    ok, reasons, _ = applicability(
+    assert uncovered == []
+    ok, reasons, cfg, uncovered = applicability(
         source="ldg", ifos=["H1", "L1"], t0=1.1e9, gps_end=1.1e9 + 128, table=table
     )
-    assert ok is False and any("covers L1" in r for r in reasons)
-    ok, reasons, _ = applicability(
+    # per-detector subtraction: H1 is cleaned, L1 is reported as uncovered
+    assert ok is True and reasons == [] and cfg["ifo"] == "H1"
+    assert uncovered == ["L1"]
+    ok, reasons, _, uncovered = applicability(
         source="ldg", ifos=["H1"], t0=3e9, gps_end=3e9 + 128, table=table
     )
-    assert ok is False and any("covers H1" in r for r in reasons)
+    assert ok is False and any("covers any of ['H1']" in r for r in reasons)
+    assert uncovered == ["H1"]
 
 
-def test_shipped_support_table_is_empty_and_public_data_is_inapplicable(
-    registry, tmp_path
-):
-    assert load_support_table()["configurations"] == []
+def test_shipped_support_table_and_public_data_is_inapplicable(registry, tmp_path):
+    configs = load_support_table()["configurations"]
+    assert [c["ifo"] for c in configs] == ["H1"]
+    assert len(configs[0]["model_revision"]) == 64
     assert PYTHON_ADAPTERS["deepclean_applicability"] is DeepCleanApplicabilityAdapter
     path = _strain(tmp_path, "gwosc")
     params = {
@@ -237,10 +241,11 @@ def test_shipped_support_table_is_empty_and_public_data_is_inapplicable(
     assert outcome.outputs["simulated"] is False
     assert outcome.outputs["model_revision"] is None
     assert any("public" in r for r in outcome.outputs["reasons"])
-    assert any("covers H1" in r for r in outcome.outputs["reasons"])
+    assert any("covers any of" in r for r in outcome.outputs["reasons"])
+    assert outcome.outputs["uncovered_ifos"] == ["H1", "L1"]
     record = json.loads(outcome.artifacts[0].read_text())
     assert record["strain_source"] == "gwosc"
-    assert outcome.metadata["configurations_reviewed"] == 0
+    assert outcome.metadata["configurations_reviewed"] == 1
 
 
 def test_normalize_units_restores_seconds_and_hertz():

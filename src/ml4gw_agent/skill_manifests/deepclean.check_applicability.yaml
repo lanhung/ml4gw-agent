@@ -33,6 +33,7 @@ output_schema:
     coupling_config: {type: [string, "null"]}
     model_revision: {type: [string, "null"]}
     ifo: {type: [string, "null"]}
+    uncovered_ifos: {type: array, items: {type: string}}
     simulated: {type: boolean}
 preconditions:
   - name: strain_available

@@ -69,8 +69,15 @@ def applicability(
     t0: float,
     gps_end: float,
     table: dict[str, Any],
-) -> tuple[bool, list[str], dict[str, Any] | None]:
-    """Evaluate the three static conditions; returns (applicable, reasons, config)."""
+) -> tuple[bool, list[str], dict[str, Any] | None, list[str]]:
+    """Evaluate the static conditions.
+
+    Returns ``(applicable, reasons, config, uncovered_ifos)``. DeepClean is a
+    per-detector subtraction, so the check passes when the strain source can
+    serve witnesses and at least one requested detector has a reviewed
+    configuration covering the interval; detectors without one are reported
+    in ``uncovered_ifos`` and left untouched by ``deepclean.clean``.
+    """
     reasons: list[str] = []
     if source in PUBLIC_SOURCES:
         reasons.append(
@@ -80,6 +87,7 @@ def applicability(
         )
     configs = table.get("configurations", [])
     chosen: dict[str, Any] | None = None
+    uncovered: list[str] = []
     for ifo in ifos:
         matches = [
             cfg
@@ -91,14 +99,17 @@ def applicability(
             and cfg.get("witness_channels")
         ]
         if not matches:
-            reasons.append(
-                f"no reviewed DeepClean coupling configuration covers {ifo} for "
-                f"[{t0}, {gps_end}] (witness channels, frequency band, sample "
-                "rate, and immutable weights must all be recorded)"
-            )
+            uncovered.append(ifo)
         elif chosen is None:
             chosen = matches[0]
-    return (not reasons, reasons, chosen if not reasons else None)
+    if chosen is None:
+        reasons.append(
+            f"no reviewed DeepClean coupling configuration covers any of {ifos} "
+            f"for [{t0}, {gps_end}] (witness channels, frequency band, sample "
+            "rate, and immutable weights must all be recorded)"
+        )
+    applicable = not reasons
+    return applicable, reasons, chosen if applicable else None, uncovered
 
 
 # --- witness artifacts ------------------------------------------------------
@@ -161,7 +172,7 @@ class DeepCleanApplicabilityAdapter(SkillAdapter):
         )
         ifos = [str(ifo) for ifo in params["ifos"]]
         table = load_support_table()
-        applicable, reasons, config = applicability(
+        applicable, reasons, config, uncovered = applicability(
             source=strain.source,
             ifos=ifos,
             t0=strain.t0,
@@ -199,6 +210,7 @@ class DeepCleanApplicabilityAdapter(SkillAdapter):
             "gps_end": strain.gps_end,
             "applicable": applicable,
             "reasons": reasons,
+            "uncovered_ifos": uncovered,
             "configuration": config if applicable else None,
             "witness_artifact": (
                 relative_to_run(witness_path, context.run_dir) if witness_path else None
@@ -216,6 +228,7 @@ class DeepCleanApplicabilityAdapter(SkillAdapter):
                 str(config["model_revision"]) if applicable and config else None
             ),
             "ifo": str(config["ifo"]) if applicable and config else None,
+            "uncovered_ifos": uncovered,
             "simulated": False,
         }
         artifacts = [artifact] + ([witness_path] if witness_path else [])

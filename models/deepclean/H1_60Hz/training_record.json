@@ -1,0 +1,58 @@
+{
+  "ifo": "H1",
+  "strain_channel": "H1:GDS-CALIB_STRAIN",
+  "witness_channels": [
+    "H1:PEM-CS_MAINSMON_EBAY_1_DQ"
+  ],
+  "freq_low": 55.0,
+  "freq_high": 65.0,
+  "sample_rate": 4096.0,
+  "gps_start": 1421344000.0,
+  "gps_end": 1421349120.0,
+  "train_seconds": 4096.0,
+  "data_file": "/root/autodl-tmp/deepclean/H1_1421344000_5120.hdf5",
+  "data_sha256": "9e42008a8d16256b74efd2e557a9f195f81293ffe65fd33add5e490875abbfbc",
+  "weights_file": "deepclean.pt",
+  "weights_sha256": "b1960171f6b1b8480f6a34926e357e1e7353b18d5744ea32ba732bd5ad1d897f",
+  "best_val_asd_ratio": 0.8947626553876544,
+  "best_epoch": 19,
+  "epochs_run": 40,
+  "training_seconds": 489.19201588630676,
+  "held_out_metrics": {
+    "in_band_asd_ratio": 0.909569798260963,
+    "in_band_asd_ratio_min": 0.268564939673846,
+    "out_of_band_asd_ratio": 0.9999999901246891,
+    "freq_low": 55.0,
+    "freq_high": 65.0
+  },
+  "config": {
+    "ifo": "H1",
+    "strain_channel": "H1:GDS-CALIB_STRAIN",
+    "witness_channels": [
+      "H1:PEM-CS_MAINSMON_EBAY_1_DQ"
+    ],
+    "freq_low": 55.0,
+    "freq_high": 65.0,
+    "sample_rate": 4096.0,
+    "kernel_length": 8.0,
+    "train_stride": 0.25,
+    "clean_kernel_length": 1.0,
+    "inference_sampling_rate": 4.0,
+    "filter_order": 8,
+    "fftlength": 2.0,
+    "hidden_channels": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "batch_size": 32,
+    "max_epochs": 100,
+    "lr": 0.032,
+    "weight_decay": 1e-05,
+    "patience": 20,
+    "valid_frac": 0.1,
+    "seed": 0
+  },
+  "reference": "ML4GW/deepcleanv2 myprojects/60Hz-O3-MDC config and couplings/sub_60Hz.py"
+}

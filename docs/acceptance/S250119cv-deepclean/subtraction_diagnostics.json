@@ -1,0 +1,38 @@
+{
+  "ifo": "H1",
+  "strain_source": "nds2",
+  "gps_start": 1421348480.0,
+  "gps_end": 1421348608.0,
+  "sample_rate": 2048.0,
+  "model_sample_rate": 4096.0,
+  "witness_channels": [
+    "H1:PEM-CS_MAINSMON_EBAY_1_DQ"
+  ],
+  "coupling_config": "H1_60Hz/training_record.json",
+  "model_revision": "b1960171f6b1b8480f6a34926e357e1e7353b18d5744ea32ba732bd5ad1d897f",
+  "training_record": {
+    "gps_start": 1421344000.0,
+    "gps_end": 1421349120.0,
+    "train_seconds": 4096.0,
+    "best_val_asd_ratio": 0.8947626553876544,
+    "held_out_metrics": {
+      "in_band_asd_ratio": 0.909569798260963,
+      "in_band_asd_ratio_min": 0.268564939673846,
+      "out_of_band_asd_ratio": 0.9999999901246891,
+      "freq_low": 55.0,
+      "freq_high": 65.0
+    },
+    "reference": "ML4GW/deepcleanv2 myprojects/60Hz-O3-MDC config and couplings/sub_60Hz.py"
+  },
+  "asd_ratios": {
+    "in_band_asd_ratio": 0.9017399159467032,
+    "in_band_asd_ratio_min": 0.275270500488623,
+    "out_of_band_asd_ratio": 1.0000002539414639,
+    "freq_low": 55.0,
+    "freq_high": 65.0
+  },
+  "improved_in_band": true,
+  "out_of_band_preserved": true,
+  "applicable": true,
+  "signal_preservation": "the noise estimate is a function of the witness channels only and is band-limited before subtraction; strain content outside [55.0, 65.0] Hz is untouched (out-of-band ASD ratio checked to be unity)"
+}

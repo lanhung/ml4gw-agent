@@ -1,0 +1,32 @@
+{
+  "raw": {
+    "candidate_found": true,
+    "predicted_coalescence_time": 1421348576.234375,
+    "raw_peak_time": 1421348576.234375,
+    "peak_in_window": true,
+    "detection_statistic": 8.502804534775871,
+    "threshold": 2.7006401797746933,
+    "threshold_calibrated": true,
+    "threshold_far_per_year": 365.25,
+    "target_time": 1421348576.32,
+    "target_offset_seconds": -0.08562493324279785,
+    "peak_near_target": true,
+    "output_artifact": "artifacts/aframe_raw/aframe_outputs.hdf5",
+    "simulated": false
+  },
+  "cleaned": {
+    "candidate_found": true,
+    "predicted_coalescence_time": 1421348576.234375,
+    "raw_peak_time": 1421348576.234375,
+    "peak_in_window": true,
+    "detection_statistic": 8.665541925600596,
+    "threshold": 2.7006401797746933,
+    "threshold_calibrated": true,
+    "threshold_far_per_year": 365.25,
+    "target_time": 1421348576.32,
+    "target_offset_seconds": -0.08562493324279785,
+    "peak_near_target": true,
+    "output_artifact": "artifacts/aframe_cleaned/aframe_outputs.hdf5",
+    "simulated": false
+  }
+}

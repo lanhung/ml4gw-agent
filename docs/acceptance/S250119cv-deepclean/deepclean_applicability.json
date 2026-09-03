@@ -1,0 +1,45 @@
+{
+  "event": "1421348576.32",
+  "strain_source": "nds2",
+  "ifos": [
+    "H1",
+    "L1"
+  ],
+  "gps_start": 1421348480.0,
+  "gps_end": 1421348608.0,
+  "applicable": true,
+  "reasons": [],
+  "uncovered_ifos": [
+    "L1"
+  ],
+  "configuration": {
+    "ifo": "H1",
+    "name": "H1 60 Hz mains coupling (O4)",
+    "gps_start": 1368975618,
+    "gps_end": 1500000000,
+    "observing_run": "O4",
+    "witness_channels": [
+      "H1:PEM-CS_MAINSMON_EBAY_1_DQ"
+    ],
+    "freq_low": 55.0,
+    "freq_high": 65.0,
+    "sample_rate": 4096.0,
+    "coupling_config": "H1_60Hz/training_record.json",
+    "model_revision": "b1960171f6b1b8480f6a34926e357e1e7353b18d5744ea32ba732bd5ad1d897f",
+    "trained_on": {
+      "gps_start": 1421344000.0,
+      "gps_end": 1421348096.0,
+      "source": "NDS2 H1:GDS-CALIB_STRAIN + H1:PEM-CS_MAINSMON_EBAY_1_DQ, 2026-09-04"
+    },
+    "validated_on": {
+      "gps_start": 1421348096.0,
+      "gps_end": 1421349120.0,
+      "in_band_asd_ratio": 0.909569798260963,
+      "line_60hz_asd_ratio": 0.144,
+      "out_of_band_asd_ratio": 0.9999999901246891
+    },
+    "reference": "ML4GW/deepcleanv2 60Hz configuration (autoencoder, PSD-ratio loss, 55-65 Hz, 4096 Hz)",
+    "review": "self-trained stand-in for the DeepClean team's deployed weights; see docs/PHASE3_DEEPCLEAN_RUN_2026-09-04.md"
+  },
+  "witness_artifact": "artifacts/check_deepclean/witnesses.hdf5"
+}

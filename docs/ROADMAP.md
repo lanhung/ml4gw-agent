@@ -136,47 +136,63 @@ Exit criteria:
 
 Target: scientifically guarded noise subtraction.
 
-Status: **applicability gate implemented and verified on real public data
-(GW150914, 2026-09-03: `applicable: false` with the public-strain and
-missing-configuration reasons, cleaning skipped); the cleaning step needs
-LDG witness channels and a reviewed configuration.**
+Status: **real cleaning route running (2026-09-04,
+`PHASE3_DEEPCLEAN_RUN_2026-09-04.md`): a deepcleanv2-style 60 Hz H1 model
+trained by the agent on O4 NDS2 data (weights pinned by SHA-256 in
+`models/deepclean`, registered in `calibration/deepclean_support.json`),
+witness channels fetched by the applicability check, `deepclean.clean`
+verified on S250119cv (60 Hz line reduced, out-of-band ASD unchanged,
+Aframe statistic 8.50 → 8.67 on the cleaned strain). The weights are a
+self-trained stand-in for the DeepClean team's reviewed model; the
+injection campaign for a reviewed tolerance is open.**
 
 Work items:
 
 - [x] Witness-channel access check: public strain sources are refused; LDG
-      sources are accepted only with a reviewed configuration. Witness
-      channels themselves were reached through NDS2 with the IGWN credential
-      at an O4 time (`LDG_ACCESS_2026-09-03.md`).
+      and NDS2 sources are accepted only with a reviewed configuration, and
+      the configuration's witness channels are fetched through NDS2 as part
+      of the check (a fetch failure is a recorded reason).
 - [x] Versioned coupling configurations with exact channel lists, band,
       sample rate, interval, and immutable weights
-      (`calibration/deepclean_support.json`, empty until reviewed).
+      (`calibration/deepclean_support.json`: H1 60 Hz mains coupling, O4).
 - [x] IFO, frequency-band, sample-rate, and weight support encoded in the
-      same table and checked per detector and interval.
-- [ ] Before/after signal-preservation and subtraction diagnostics
-      (`deepclean.clean`, needs LDG access).
-- [ ] Conditional cleaned/raw merge after an applicability pass.
+      same table and checked per detector and interval; detectors without a
+      configuration are reported as `uncovered_ifos` and left untouched.
+- [x] Before/after signal-preservation and subtraction diagnostics
+      (`deepclean.clean`: in-band / out-of-band ASD ratios, hash-verified
+      weights, band-limited witness-only subtraction; Aframe re-run on the
+      cleaned strain as the preservation check).
+- [x] Conditional cleaned/raw merge after an applicability pass
+      (`clean_deepclean` runs only when `check_deepclean` reports
+      `applicable`; the cleaned artifact keeps the untouched detectors).
+- [ ] Injection campaign on O4 data with a reviewer-set tolerance; swap in
+      the DeepClean team's reviewed weights when released.
 
 Exit criteria:
 
 - [x] Inapplicable public-data cases are skipped with a correct reason.
-- [ ] Applicable cases preserve injected astrophysical signals within a reviewed
-      tolerance while reducing the targeted noise coupling.
+- [~] Applicable cases preserve astrophysical signals while reducing the
+      targeted noise coupling: shown on one real event (S250119cv) and on
+      held-out O4 data; the injected-signal tolerance study is pending.
 
 ## Phase 4 — scalable execution
 
 Target: choose compute based on bounded cost and data locality.
 
 Status: **executor contracts, estimates, budget policy, partitioning, and
-local/HTCondor/Kubernetes executors implemented (`PHASE4_EXECUTION.md`);
+local/HTCondor/SSH executors implemented (`PHASE4_EXECUTION.md`);
 whole-plan submission verified on the CIT LDG HTCondor pool with submit,
 poll, resume and cancel on 2026-09-03 (`PHASE4_HTCONDOR_RUN_2026-09-03.md`).
-Kubernetes is fake-tested only.**
+Long GPS-time scans are split into overlapping segments and merged
+(`submit_plan(segment_seconds=...)`, `--segment-seconds`). Kubernetes is
+deferred: no cluster is available, so the `ssh` executor (a remote GPU host
+over paramiko) stands in for it and is registered as deferred.**
 
 Work items:
 
-- [x] Executor contracts: local, HTCondor, and Kubernetes implemented;
-      Law/Luigi, Snakemake, and Triton/Hermes registered as planned with
-      stated blockers (`ml4gw_agent.executors`).
+- [x] Executor contracts: local, HTCondor, and SSH implemented; Kubernetes
+      deferred (no cluster), Law/Luigi, Snakemake, and Triton/Hermes
+      registered as planned with stated blockers (`ml4gw_agent.executors`).
 - [x] Job handles, polling, cancellation, checkpoint/resume, a per-run
       result cache, and retry policies.
 - [x] `estimate_plan`: CPU/GPU hours, memory, transfer volume, and expected
@@ -187,14 +203,16 @@ Exit criteria:
 
 - [x] Short event analyses run locally or on one GPU (every Phase 1 run).
 - [x] Long scans are partitioned and aggregated without duplicate or missing
-      segments (`partition_scan`/`merge_segment_outputs`, property tests).
-      Automatic splitting of one long request into per-segment sub-plans is
-      the next wiring step.
+      segments (`partition_scan`/`merge_segment_outputs`, property tests);
+      `submit_plan` splits a GPS-time request above the policy window into
+      overlapping per-segment sub-plans and merges them into `segments.json`
+      (`SegmentedSubmission`, tested with a fake batch executor).
 - [x] Budget and authorization policies are enforced before submission
       (`BudgetPolicy`, checked before preflight, recorded in the manifest).
 - [x] The HTCondor executor on a real pool (CIT LDG, job 557860537: all six
       tasks completed on `aframe.ldas.cit`; cancel and resume verified).
-- [ ] The Kubernetes executor on a real cluster.
+- [ ] The Kubernetes executor on a real cluster (deferred 2026-09-04: no
+      cluster available; the `ssh` executor covers the remote-GPU case).
 
 ## Phase 5 — measured agentic planning
 
