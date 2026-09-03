@@ -40,6 +40,12 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument("--sample-rate", type=int, default=2048)
     parser.add_argument(
+        "--data-source",
+        choices=["gwosc", "ldg"],
+        default="gwosc",
+        help="gwosc: public strain; ldg: authenticated frames (needs IGWN credentials)",
+    )
+    parser.add_argument(
         "--aframe-threshold",
         type=float,
         default=None,
@@ -84,6 +90,7 @@ def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
         aframe_threshold=args.aframe_threshold,
         aframe_far_per_year=args.aframe_far_per_year,
         candidate_window_seconds=args.candidate_window_seconds,
+        data_source=args.data_source,
     )
     return BaselinePlanner(registry, config)
 

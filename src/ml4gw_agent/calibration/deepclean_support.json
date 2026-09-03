@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "description": "Reviewed DeepClean coupling configurations. Each entry must name the detector, the GPS interval it was trained and validated for, the witness channels, the frequency band, the sample rate, the coupling configuration file, and an immutable model revision. Empty until a configuration has passed the Phase 3 signal-preservation review.",
+  "configurations": []
+}

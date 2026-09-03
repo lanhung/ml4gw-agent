@@ -20,6 +20,11 @@ data = [
   "gwosc>=0.7",
   "gwpy>=3.0.12",
 ]
+ldg = [
+  "ml4gw-agent[data]",
+  "gwdatafind>=1.2",
+  "igwn-auth-utils>=1.1",
+]
 buoy = [
   "ml4gw-agent[data]",
   "ml4gw-buoy==0.6.1",

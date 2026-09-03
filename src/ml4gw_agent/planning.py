@@ -34,6 +34,7 @@ class PlannerConfig:
     aframe_threshold: float | None = None
     aframe_far_per_year: float = 1.0
     candidate_window_seconds: float = 2.0
+    data_source: str = "gwosc"
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
@@ -227,6 +228,7 @@ class BaselinePlanner:
                 skill="data.fetch",
                 parameters={
                     "event": event,
+                    "source": self.config.data_source,
                     "gps_time": "${resolve_event.outputs.catalog_time}",
                     "ifos": list(self.config.ifos),
                     "window_seconds": self.config.window_seconds,

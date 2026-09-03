@@ -28,6 +28,7 @@ from .base import (
     artifact_directory,
     relative_to_run,
 )
+from .ldg import STRAIN_CHANNELS, ldg_preflight, load_ldg_backend
 from .strain_io import StrainData, package_versions, write_strain
 
 REQUIRED_MODULES = ("gwosc", "gwpy", "h5py", "numpy")
@@ -86,11 +87,20 @@ class GWOSCFetchAdapter(SkillAdapter):
         event = str(context.parameters.get("event", ""))
         if not EVENT_PATTERN.fullmatch(event):
             raise AdapterError(f"unsupported event identifier: {event}")
+        source = str(context.parameters.get("source", "gwosc"))
+        if source == "ldg":
+            ldg_preflight([str(ifo) for ifo in context.parameters.get("ifos", [])])
+            if event[:1] in {"G", "S"} and not event.startswith("GW"):
+                raise AdapterUnavailableError(
+                    "GraceDB identifiers must be resolved to a GPS time first; "
+                    "pass gps_time or use buoy.analyze"
+                )
+            return []
         if event[:1] in {"G", "S"} and not event.startswith("GW"):
             raise AdapterUnavailableError(
                 "the public GWOSC adapter cannot fetch GraceDB events; use "
-                "buoy.analyze with LIGO credentials or wait for the mldatafind "
-                "adapter"
+                "buoy.analyze with LIGO credentials or data.fetch with "
+                "source: ldg"
             )
         missing = missing_modules(REQUIRED_MODULES)
         if missing:
@@ -103,6 +113,13 @@ class GWOSCFetchAdapter(SkillAdapter):
     def describe_invocation(
         self, context: ExecutionContext
     ) -> tuple[list[str] | None, dict[str, Any]]:
+        if str(context.parameters.get("source", "gwosc")) == "ldg":
+            return None, {
+                "adapter": self.name,
+                "python_call": "gwpy.timeseries.TimeSeries.get",
+                "data_source": "LIGO Data Grid frames via gwdatafind",
+                "channels": STRAIN_CHANNELS,
+            }
         return None, {
             "adapter": self.name,
             "python_call": "gwpy.timeseries.TimeSeries.fetch_open_data",
@@ -126,7 +143,20 @@ class GWOSCFetchAdapter(SkillAdapter):
 
     def execute(self, context: ExecutionContext) -> AdapterOutcome:
         params = context.parameters
+        source = str(params.get("source", "gwosc"))
         backend = load_gwosc_backend()
+        if source == "ldg":
+            ldg = load_ldg_backend()
+
+            def fetch(ifo: str, start: float, end: float):
+                return ldg.get_timeseries(STRAIN_CHANNELS[ifo], start, end)
+
+            backend = GWOSCBackend(
+                event_gps=backend.event_gps,
+                event_detectors=backend.event_detectors,
+                fetch_open_data=fetch,
+                get_segments=backend.get_segments,
+            )
         event = str(params["event"])
         ifos = [str(ifo) for ifo in params["ifos"]]
         window = float(params.get("window_seconds", 128))
@@ -146,7 +176,7 @@ class GWOSCFetchAdapter(SkillAdapter):
                 timeseries = backend.fetch_open_data(ifo, start, end)
             except Exception as exc:
                 raise AdapterError(
-                    f"GWOSC fetch failed for {ifo} over [{start}, {end}]: "
+                    f"{source} fetch failed for {ifo} over [{start}, {end}]: "
                     f"{type(exc).__name__}: {exc}"
                 ) from exc
             span_start, span_end = timeseries.span
@@ -176,7 +206,7 @@ class GWOSCFetchAdapter(SkillAdapter):
             t0=start,
             sample_rate=float(sample_rate),
             event_time=event_time,
-            source="gwosc",
+            source=source,
             event=event,
             extra_attrs={"event_time_source": time_source},
         )
@@ -188,7 +218,7 @@ class GWOSCFetchAdapter(SkillAdapter):
             "ifos": ifos,
             "gps_start": start,
             "gps_end": end,
-            "source": "gwosc",
+            "source": source,
             "sample_rate": sample_rate,
             "event_time": event_time,
             "simulated": False,
@@ -197,7 +227,12 @@ class GWOSCFetchAdapter(SkillAdapter):
             "adapter": self.name,
             "event_time_source": time_source,
             "native_sample_rates_hz": native_rates,
-            "packages": package_versions("gwpy", "gwosc", "h5py", "numpy"),
+            "packages": package_versions(
+                "gwpy", "gwosc", "gwdatafind", "igwn-auth-utils", "h5py", "numpy"
+            ),
+            "channels": (
+                {ifo: STRAIN_CHANNELS[ifo] for ifo in ifos} if source == "ldg" else None
+            ),
         }
         return AdapterOutcome(
             outputs=outputs, artifacts=[artifact], metadata=metadata, warnings=warnings

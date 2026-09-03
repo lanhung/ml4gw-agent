@@ -2,11 +2,11 @@ schema_version: "1.0"
 name: deepclean.check_applicability
 version: "0.1.0"
 description: Decide whether DeepClean has the witness data, coupling configuration, and model support required for a valid subtraction.
-status: planned
+status: experimental
 risk: low
 requires_approval: false
 adapter:
-  kind: planned
+  kind: python
   entrypoint: deepclean_applicability
   timeout_seconds: 900
 input_schema:
@@ -48,4 +48,5 @@ tags: [deepclean, precondition, validation]
 source_repository: https://github.com/ML4GW/DeepClean
 notes:
   - A false result must skip DeepClean rather than fabricate witness data or model support.
+  - The real adapter decides from the strain artifact's source and the reviewed table ml4gw_agent/calibration/deepclean_support.json; public GWOSC strain is always inapplicable because it carries no witness channels.
 

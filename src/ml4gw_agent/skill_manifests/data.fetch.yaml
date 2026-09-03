@@ -16,6 +16,10 @@ input_schema:
   required: [event, ifos]
   properties:
     event: {type: string, minLength: 1}
+    source:
+      description: gwosc serves public strain; ldg reads authenticated frames through gwdatafind (mldatafind route).
+      enum: [gwosc, ldg]
+      default: gwosc
     gps_time: {type: [number, "null"], minimum: 100000000}
     ifos:
       type: array
