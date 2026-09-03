@@ -25,6 +25,18 @@ cases:
     prompt: Use DeepClean if appropriate for GW150914.
     expected_skills: [data.resolve_event, data.fetch, data.inspect, deepclean.check_applicability, report.generate]
     forbidden_skills: [deepclean.clean]
+  - id: route_aframe_only
+    prompt: Run Aframe detection on GW190521.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, aframe.detect, report.generate]
+    forbidden_skills: [gwak.scan, analysis.reconcile, amplfi.pe]
+  - id: route_gwak_only
+    prompt: Look for unmodeled anomalies around GPS 1126260200 with GWAK.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, gwak.scan, report.generate]
+    forbidden_skills: [aframe.detect, amplfi.pe, analysis.reconcile]
+  - id: route_both_reconciled
+    prompt: Run Aframe and GWAK on GW150914 and reconcile the two results.
+    expected_skills: [data.resolve_event, data.fetch, data.inspect, aframe.detect, gwak.scan, analysis.reconcile, report.generate]
+    forbidden_skills: [amplfi.pe]
   - id: composed_analysis
     prompt: Analyze GW150914, check data quality, use DeepClean if appropriate, run Aframe and AMPLFI parameter estimation, then scan anomalies with GWAK.
     expected_skills:
@@ -35,6 +47,7 @@ cases:
       - aframe.detect
       - amplfi.pe
       - gwak.scan
+      - analysis.reconcile
       - report.generate
   - id: unbounded_o3
     prompt: Scan all of O3.

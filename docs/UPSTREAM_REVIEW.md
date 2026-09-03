@@ -56,16 +56,52 @@ These are recorded as a reproducible starting point, not silently selected as
 runtime defaults. A production operator should confirm the intended model
 revisions with maintainers and pass them explicitly.
 
+## GWAK (reviewed 2026-09-03)
+
+- Repository: <https://github.com/ML4GW/gwak> (GWAK 2.0, with the GWAK 1
+  configuration kept under `_gwak1` Snakefile targets).
+- Interface: Snakemake targets only (`snakemake -c1 train_all`,
+  `snakemake -c1 scan_all`, `build_containers`, `production_export`) on top of
+  `data`, `train` (PyTorch Lightning), and `deploy` (Triton/hermes)
+  sub-projects; Python 3.11; installed from a checkout with submodules.
+- Not provided: a packaged release, a documented inference entry point, or
+  pretrained weights at an immutable revision. The `gwak.scan` contract's
+  `immutable_model` and `compatible_preprocessing` preconditions therefore
+  cannot be met from public artifacts.
+- Agent decision: `gwak.scan` is a fail-closed python adapter that reports
+  this blocker in `doctor` and `preflight`; planner routing
+  (`analysis.reconcile`) and the benchmark are exercised in mock mode.
+  Re-review when GWAK publishes an inference package and weights.
+
+## DeepClean (reviewed 2026-09-03)
+
+- Repository: <https://github.com/ML4GW/DeepClean>; `libs` + `projects`
+  layout run through `pinto`/Poetry with Luigi/Law tasks; Conda environment;
+  git submodules required.
+- Inputs are the calibrated strain plus auxiliary witness channels from LDG
+  frames; no pretrained weights or coupling configurations are published.
+- Agent decision: `deepclean.check_applicability` is real and decides from
+  the strain source and the reviewed table
+  `ml4gw_agent/calibration/deepclean_support.json` (empty until a
+  configuration passes the signal-preservation review). Public GWOSC strain
+  is inapplicable by construction. `deepclean.clean` stays planned.
+
+## mldatafind (reviewed 2026-09-03)
+
+- Repository: <https://github.com/ML4GW/mldatafind>; Law workflows
+  (`law run mldatafind.law.tasks.Fetch`, `--workflow local|htcondor`) that
+  query science segments and strain from LDG; configuration via
+  `LAW_CONFIG_FILE`; Apptainer images for HTCondor.
+- Agent decision: instead of wrapping the Law task, `data.fetch` with
+  `source: ldg` mirrors Buoy's own non-public access
+  (`gwpy.timeseries.TimeSeries.get` on `H1:GDS-CALIB_STRAIN_CLEAN`,
+  `L1:GDS-CALIB_STRAIN_CLEAN`, `V1:Hrec_hoft_16384Hz`, discovered through
+  `gwdatafind`) and fails closed without IGWN credentials. Cannot be
+  exercised from the public GPU node; the fake-backend unit tests cover the
+  contract.
+
 ## Other initial repositories
 
-Contracts identify the intended upstream source but do not yet claim a stable
-real invocation for:
-
-- <https://github.com/ML4GW/mldatafind>
-- <https://github.com/ML4GW/aframe>
-- <https://github.com/ML4GW/amplfi>
-- <https://github.com/ML4GW/gwak>
-- <https://github.com/ML4GW/DeepClean>
-
-Their real adapters require a separate interface and scientific review in the
-phases listed in `ROADMAP.md`.
+- <https://github.com/ML4GW/aframe> and <https://github.com/ML4GW/amplfi>
+  are reached through Buoy's published model wrappers at the pinned Hugging
+  Face revisions; direct upstream training or inference code is not used.

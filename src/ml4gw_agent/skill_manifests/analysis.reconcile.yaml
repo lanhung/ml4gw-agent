@@ -1,0 +1,48 @@
+schema_version: "1.0"
+name: analysis.reconcile
+version: "0.1.0"
+description: Reconcile the modelled (Aframe) and unmodeled (GWAK) detection routes and decide the follow-up.
+status: experimental
+risk: low
+requires_approval: false
+adapter:
+  kind: builtin
+  entrypoint: reconcile_detections
+  timeout_seconds: 30
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  properties:
+    aframe_task: {type: string, default: run_aframe}
+    gwak_task: {type: string, default: run_gwak}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [route, follow_up, parameter_estimation_recommended, simulated]
+  properties:
+    route:
+      enum:
+        - consistent_candidate
+        - consistent_null
+        - aframe_only
+        - gwak_only
+        - undetermined
+    aframe_candidate: {type: [boolean, "null"]}
+    gwak_anomaly: {type: [boolean, "null"]}
+    follow_up: {type: string}
+    parameter_estimation_recommended: {type: boolean}
+    simulated: {type: boolean}
+preconditions: []
+validations:
+  - {kind: output_field, target: route, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 1
+  gpu: none
+  estimated_runtime: milliseconds
+tags: [aframe, gwak, discrepancy, routing]
+notes:
+  - Aframe negative with GWAK positive routes to morphology diagnostics, never to AMPLFI; AMPLFI stays conditioned on the Aframe candidate.
+  - Runs after both detection tasks even when one failed or was skipped, and reports undetermined in that case.

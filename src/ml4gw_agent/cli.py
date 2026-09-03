@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import shutil
 import subprocess
@@ -147,9 +148,12 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
         allow_high_risk=args.approve_high_risk,
         allow_unpinned_models=args.allow_unpinned_models,
     )
-    manifest = AgentRuntime(registry, policy).run(
-        plan, runs_dir=args.runs_dir, mode=args.mode
-    )
+    # Third-party libraries (bilby, astropy) print to stdout during real runs;
+    # keep stdout for the JSON summary only.
+    with contextlib.redirect_stdout(sys.stderr):
+        manifest = AgentRuntime(registry, policy).run(
+            plan, runs_dir=args.runs_dir, mode=args.mode
+        )
     run_dir = Path(manifest.run_directory)
     summary = {
         "run_id": manifest.run_id,
@@ -163,6 +167,9 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
     }
     print(json.dumps(summary, indent=2))
     return 0 if manifest.status == RunStatus.COMPLETED else 2
+
+
+PHASE1B_SKILLS = {"data.fetch", "data.inspect", "aframe.detect", "amplfi.pe"}
 
 
 def _doctor(mode: str) -> int:
@@ -206,7 +213,8 @@ def _doctor(mode: str) -> int:
                 availability = "broken: unregistered entrypoint"
             else:
                 availability = adapter_class().probe()
-            phase1b_ready = phase1b_ready and availability == "available"
+            if skill.name in PHASE1B_SKILLS:
+                phase1b_ready = phase1b_ready and availability == "available"
         else:
             availability = "planned"
         rows.append(

@@ -4,6 +4,7 @@ from .base import AdapterOutcome, ExecutionContext, SkillAdapter
 from .builtin import BuiltinAdapter
 from .buoy import BuoyCLIAdapter
 from .deepclean import DeepCleanApplicabilityAdapter
+from .gwak import GWAKAdapter
 from .gwosc import GWOSCFetchAdapter
 from .mock import MockAdapter
 from .strain import StrainInspectAdapter
@@ -16,6 +17,7 @@ PYTHON_ADAPTERS: dict[str, type[SkillAdapter]] = {
     "aframe_inference": AframeAdapter,
     "amplfi_inference": AmplfiAdapter,
     "deepclean_applicability": DeepCleanApplicabilityAdapter,
+    "gwak_snakemake": GWAKAdapter,
 }
 
 __all__ = [
@@ -27,6 +29,7 @@ __all__ = [
     "BuiltinAdapter",
     "DeepCleanApplicabilityAdapter",
     "ExecutionContext",
+    "GWAKAdapter",
     "GWOSCFetchAdapter",
     "MockAdapter",
     "SkillAdapter",

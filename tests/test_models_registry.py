@@ -9,7 +9,7 @@ from ml4gw_agent.registry import SkillRegistry
 
 def test_default_registry_loads_all_initial_contracts(registry):
     names = {skill.name for skill in registry.all()}
-    assert len(registry) == 10
+    assert len(registry) == 11
     assert {
         "data.resolve_event",
         "data.fetch",
@@ -20,6 +20,7 @@ def test_default_registry_loads_all_initial_contracts(registry):
         "gwak.scan",
         "deepclean.check_applicability",
         "deepclean.clean",
+        "analysis.reconcile",
         "report.generate",
     } == names
 

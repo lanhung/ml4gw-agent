@@ -6,7 +6,7 @@ status: planned
 risk: medium
 requires_approval: false
 adapter:
-  kind: planned
+  kind: python
   entrypoint: gwak_snakemake
   timeout_seconds: 86400
 input_schema:
@@ -45,5 +45,5 @@ resources:
 tags: [gwak, anomaly, unmodeled]
 source_repository: https://github.com/ML4GW/gwak
 notes:
-  - Real adapter is a Phase 2 deliverable; real mode fails closed until it exists.
+  - Real mode fails closed with the upstream blocker (no packaged inference entry point or published weights, reviewed 2026-09-03); mock mode exercises the planner's Aframe/GWAK routing.
 

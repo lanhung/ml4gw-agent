@@ -61,7 +61,9 @@ records: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
 Work items:
 
 - [x] GWOSC data adapter (`data.fetch`, Buoy-compatible window and HDF5).
-- [ ] `mldatafind` adapter for non-public frames.
+- [x] Non-public frames: `data.fetch` with `source: ldg` (Buoy's channel map
+      through `gwdatafind`; fails closed without IGWN credentials; not
+      runnable from the public GPU node).
 - [x] Science-segment, finite-strain, duration, and detector validation
       (`data.inspect`, fails closed).
 - [x] Aframe inference over `buoy.models.Aframe` with frozen config metadata
@@ -98,37 +100,57 @@ Exit criteria:
 
 Target: parallel CBC and unmodeled analysis paths.
 
+Status: **routing implemented and benchmarked; the GWAK adapter is
+fail-closed because upstream publishes no inference interface or weights
+(`UPSTREAM_REVIEW.md`, 2026-09-03).**
+
 Work items:
 
-- Freeze the supported GWAK workflow and model revisions.
-- Map its Snakemake inputs/outputs to the skill contract.
-- Define anomaly-score calibration and top-segment validation.
-- Add discrepancy logic: Aframe negative/GWAK positive leads to morphology
-  diagnostics, not AMPLFI.
+- [ ] Freeze the supported GWAK workflow and model revisions. Blocked
+      upstream: no packaged release, scan entry point, or pretrained weights
+      at an immutable revision exist.
+- [ ] Map its Snakemake inputs/outputs to the skill contract (blocked by the
+      same item).
+- [ ] Define anomaly-score calibration and top-segment validation (blocked).
+- [x] Discrepancy logic: `analysis.reconcile` runs after both detection
+      tasks; Aframe negative/GWAK positive routes to morphology diagnostics
+      and never to AMPLFI, which stays conditioned on the Aframe candidate.
 
 Exit criteria:
 
-- Known injections, known glitches, and background segments are included in the
-  acceptance suite.
-- The planner chooses Aframe, GWAK, or both correctly on the benchmark.
+- [ ] Known injections, known glitches, and background segments in the
+      acceptance suite (needs a runnable GWAK).
+- [x] The planner chooses Aframe, GWAK, or both correctly on the benchmark
+      (`benchmarks/v0_prompts.yaml`: `route_aframe_only`, `route_gwak_only`,
+      `route_both_reconciled`, `composed_analysis`).
 
 ## Phase 3 — DeepClean conditioning
 
 Target: scientifically guarded noise subtraction.
 
+Status: **applicability gate implemented and verified on real public data
+(GW150914, 2026-09-03: `applicable: false` with the public-strain and
+missing-configuration reasons, cleaning skipped); the cleaning step needs
+LDG witness channels and a reviewed configuration.**
+
 Work items:
 
-- Implement witness-channel discovery and access checks.
-- Version coupling configurations and exact channel lists.
-- Encode IFO, frequency-band, sample-rate, preprocessing, and weight support.
-- Add before/after signal-preservation and subtraction diagnostics.
-- Introduce the conditional cleaned/raw merge only after an applicability pass.
+- [x] Witness-channel access check: public strain sources are refused; LDG
+      sources are accepted only with a reviewed configuration.
+- [x] Versioned coupling configurations with exact channel lists, band,
+      sample rate, interval, and immutable weights
+      (`calibration/deepclean_support.json`, empty until reviewed).
+- [x] IFO, frequency-band, sample-rate, and weight support encoded in the
+      same table and checked per detector and interval.
+- [ ] Before/after signal-preservation and subtraction diagnostics
+      (`deepclean.clean`, needs LDG access).
+- [ ] Conditional cleaned/raw merge after an applicability pass.
 
 Exit criteria:
 
-- Inapplicable public-data cases are skipped with a correct reason.
-- Applicable cases preserve injected astrophysical signals within a reviewed
-  tolerance while reducing the targeted noise coupling.
+- [x] Inapplicable public-data cases are skipped with a correct reason.
+- [ ] Applicable cases preserve injected astrophysical signals within a reviewed
+      tolerance while reducing the targeted noise coupling.
 
 ## Phase 4 — scalable execution
 

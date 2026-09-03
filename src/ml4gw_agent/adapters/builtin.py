@@ -29,7 +29,80 @@ class BuiltinAdapter(SkillAdapter):
             return self._resolve_event(context)
         if self.entrypoint == "generate_report":
             return self._generate_report(context)
+        if self.entrypoint == "reconcile_detections":
+            return self._reconcile_detections(context)
         raise AdapterError(f"unknown builtin entrypoint: {self.entrypoint}")
+
+    @staticmethod
+    def _reconcile_detections(context: ExecutionContext) -> AdapterOutcome:
+        """Route on the Aframe/GWAK outcome pair; never promote GWAK-only to PE."""
+        aframe_id = str(context.parameters.get("aframe_task", "run_aframe"))
+        gwak_id = str(context.parameters.get("gwak_task", "run_gwak"))
+
+        def flag(task_id: str, key: str) -> bool | None:
+            record = context.records.get(task_id)
+            if record is None or record.status != TaskStatus.COMPLETED:
+                return None
+            value = record.outputs.get(key)
+            return bool(value) if value is not None else None
+
+        aframe = flag(aframe_id, "candidate_found")
+        gwak = flag(gwak_id, "anomaly_found")
+        if aframe is None or gwak is None:
+            route, follow_up = (
+                "undetermined",
+                (
+                    "one detection route did not complete; rerun or inspect the "
+                    "failed task before drawing conclusions"
+                ),
+            )
+        elif aframe and gwak:
+            route, follow_up = (
+                "consistent_candidate",
+                (
+                    "both routes fired: AMPLFI parameter estimation on the Aframe "
+                    "candidate and GWAK morphology review of the same time"
+                ),
+            )
+        elif aframe:
+            route, follow_up = (
+                "aframe_only",
+                (
+                    "modelled search fired without an unmodeled anomaly: proceed "
+                    "with AMPLFI, note that GWAK did not flag the segment"
+                ),
+            )
+        elif gwak:
+            route, follow_up = (
+                "gwak_only",
+                (
+                    "unmodeled anomaly without a modelled candidate: morphology "
+                    "diagnostics (time-frequency, glitch classification) are the "
+                    "next step; AMPLFI is not run because there is no CBC "
+                    "coalescence time to condition on"
+                ),
+            )
+        else:
+            route, follow_up = (
+                "consistent_null",
+                ("neither route fired within the analysed window"),
+            )
+        simulated = any(
+            bool(context.records[task_id].outputs.get("simulated"))
+            for task_id in (aframe_id, gwak_id)
+            if task_id in context.records
+        )
+        return AdapterOutcome(
+            outputs={
+                "route": route,
+                "aframe_candidate": aframe,
+                "gwak_anomaly": gwak,
+                "follow_up": follow_up,
+                "parameter_estimation_recommended": bool(aframe),
+                "simulated": simulated,
+            },
+            metadata={"adapter": "builtin-reconcile-v0.3"},
+        )
 
     @staticmethod
     def _resolve_event(context: ExecutionContext) -> AdapterOutcome:

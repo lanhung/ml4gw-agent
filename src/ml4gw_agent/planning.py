@@ -362,6 +362,21 @@ class BaselinePlanner:
             if gwak_revision == "UNPINNED":
                 warnings.append("GWAK model revision is not pinned.")
 
+        if wants_gwak and wants_aframe:
+            # Discrepancy logic: an Aframe-negative / GWAK-positive segment is
+            # routed to morphology diagnostics, never to AMPLFI (which stays
+            # conditioned on the Aframe candidate above).
+            tasks.append(
+                TaskSpec(
+                    id="reconcile_detections",
+                    skill="analysis.reconcile",
+                    parameters={"aframe_task": "run_aframe", "gwak_task": "run_gwak"},
+                    depends_on=["run_aframe", "run_gwak"],
+                    allow_failed_dependencies=True,
+                )
+            )
+            terminal_ids.append("reconcile_detections")
+
         tasks.append(
             TaskSpec(
                 id="generate_report",
