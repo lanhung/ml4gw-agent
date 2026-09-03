@@ -165,6 +165,33 @@ def normalize_units(series: Any, channel: str) -> Any:
     )
 
 
+def read_gwf_channel(path: str, channel: str) -> Any:
+    """Read one channel of one GWF file into a unit-safe ``TimeSeries``.
+
+    ``framel.frgetvect1d`` is used first because it returns plain arrays
+    with the frame start time and sample spacing, which are then given
+    explicit units; gwpy's own GWF readers are the fallback. (gwpy 4.0.2
+    with the frameCPP backend drops the time unit during its internal merge
+    and fails on ``sample_rate``, observed 2026-09-03.)
+    """
+    from gwpy.timeseries import TimeSeries
+
+    try:
+        import framel
+    except ImportError:
+        framel = None
+    if framel is not None:
+        data, t0, x0, dx, *_ = framel.frgetvect1d(str(path), channel)
+        return TimeSeries(
+            data,
+            t0=float(t0) + float(x0),
+            sample_rate=1.0 / float(dx),
+            channel=channel,
+            name=channel,
+        )
+    return normalize_units(TimeSeries.read(str(path), channel), channel)
+
+
 def load_ldg_backend() -> LDGBackend:
     missing = missing_modules()
     if missing:
@@ -173,15 +200,9 @@ def load_ldg_backend() -> LDGBackend:
         )
     os.environ.setdefault("GWDATAFIND_SERVER", DEFAULT_DATAFIND_SERVER)
     from gwdatafind import find_urls
-    from gwpy.timeseries import TimeSeries
 
     def read(files: list[str], channel: str, start: float, end: float):
-        # gwpy 4 + frameCPP loses the time unit when it pads a start/end
-        # selection during the multi-file merge; reading whole files and
-        # cropping after normalisation avoids that path.
-        pieces = [
-            normalize_units(TimeSeries.read(path, channel), channel) for path in files
-        ]
+        pieces = [read_gwf_channel(path, channel) for path in files]
         series = pieces[0]
         for piece in pieces[1:]:
             series = series.append(piece, inplace=False)

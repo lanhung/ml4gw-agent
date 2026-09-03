@@ -255,3 +255,28 @@ def test_normalize_units_restores_seconds_and_hertz():
     assert np.array_equal(fixed.value, raw.value)
     resampled = fixed.resample(1.0)
     assert resampled.sample_rate == 1.0 * u.Hz
+
+
+def test_read_gwf_channel_prefers_framel(monkeypatch):
+    pytest.importorskip("gwpy")
+    import sys
+    import types
+
+    from ml4gw_agent.adapters.ldg import read_gwf_channel
+
+    fake = types.ModuleType("framel")
+    fake.frgetvect1d = lambda path, channel: (
+        np.arange(16.0),
+        1126259366.0,
+        0.0,
+        0.5,
+        "s",
+        "strain",
+    )
+    monkeypatch.setitem(sys.modules, "framel", fake)
+    series = read_gwf_channel("/nonexistent.gwf", "H1:TEST")
+    assert float(series.t0.value) == 1126259366.0
+    assert float(series.sample_rate.value) == 2.0
+    assert series.channel.name == "H1:TEST"
+    cropped = series.crop(1126259368.0, 1126259370.0)
+    assert cropped.shape == (4,)
