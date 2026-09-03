@@ -1,0 +1,248 @@
+{
+  "ended_at": "2026-09-03T03:47:51.001040Z",
+  "environment": {
+    "agent_version": "0.2.0",
+    "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+    "process_id": 2677940,
+    "python_executable": "/root/ml4gw-agent/.venv/bin/python3",
+    "python_version": "3.12.12"
+  },
+  "mode": "real",
+  "plan": {
+    "created_at": "2026-09-03T03:47:32.142519Z",
+    "goal": "Analyze 1187008882.4 with the Buoy Aframe+AMPLFI vertical pipeline.",
+    "id": "plan_f1785cd055aa",
+    "planner": "baseline-deterministic-v0.1",
+    "prompt": "Analyze 1187008882.4",
+    "schema_version": "1.0",
+    "tasks": [
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [],
+        "id": "resolve_event",
+        "max_retries": 0,
+        "parameters": {
+          "event": "1187008882.4"
+        },
+        "skill": "data.resolve_event",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "resolve_event"
+        ],
+        "id": "analyze_event",
+        "max_retries": 0,
+        "parameters": {
+          "aframe_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+          "amplfi_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "device": "cuda",
+          "event": "1187008882.4",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "min_samples_per_pix": 5,
+          "nside": 64,
+          "runner": "cli",
+          "samples_per_event": 20000,
+          "seed": 0,
+          "use_distance": true,
+          "use_true_tc_for_amplfi": false
+        },
+        "skill": "buoy.analyze",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": true,
+        "depends_on": [
+          "analyze_event"
+        ],
+        "id": "generate_report",
+        "max_retries": 0,
+        "parameters": {
+          "title": "ML4GW Agent report: 1187008882.4"
+        },
+        "skill": "report.generate",
+        "when": null
+      }
+    ],
+    "warnings": []
+  },
+  "run_directory": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-buoy/run_99a8a19dda73",
+  "run_id": "run_99a8a19dda73",
+  "schema_version": "1.0",
+  "started_at": "2026-09-03T03:47:32.241152Z",
+  "status": "failed",
+  "tasks": {
+    "analyze_event": {
+      "adapter_metadata": {
+        "adapter": "buoy-cli-v0.1"
+      },
+      "artifacts": [],
+      "attempts": 1,
+      "command": [
+        "buoy",
+        "--events",
+        "1187008882.4",
+        "--outdir",
+        "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-buoy/run_99a8a19dda73/artifacts/analyze_event/buoy-output",
+        "--samples_per_event",
+        "20000",
+        "--nside",
+        "64",
+        "--min_samples_per_pix",
+        "5",
+        "--use_distance",
+        "true",
+        "--use_true_tc_for_amplfi",
+        "false",
+        "--device",
+        "cuda",
+        "--run_aframe",
+        "true",
+        "--run_amplfi",
+        "true",
+        "--generate_plots",
+        "true",
+        "--to_html",
+        "true",
+        "--ifos",
+        "[\"H1\", \"L1\"]",
+        "--seed",
+        "0",
+        "--aframe_revision",
+        "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "--amplfi_revision",
+        "8b97d2f8459d04924cb010dfee0262260bf3da80"
+      ],
+      "ended_at": "2026-09-03T03:47:50.992581Z",
+      "error": "AdapterError: Buoy exited with code 1; see logs/analyze_event.stderr.log",
+      "outputs": {},
+      "parameters": {
+        "aframe_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "amplfi_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+        "device": "cuda",
+        "event": "1187008882.4",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_samples_per_pix": 5,
+        "nside": 64,
+        "runner": "cli",
+        "samples_per_event": 20000,
+        "seed": 0,
+        "use_distance": true,
+        "use_true_tc_for_amplfi": false
+      },
+      "skill": "buoy.analyze",
+      "started_at": "2026-09-03T03:47:32.246001Z",
+      "status": "failed",
+      "task_id": "analyze_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        }
+      ]
+    },
+    "generate_report": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "text/markdown",
+          "relative_path": "report.md",
+          "sha256": "fe9ba4ee563a9335bea91cd5b61889d7c0f49daebe10e3d5e1f5a2f472b979b8",
+          "size_bytes": 687
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T03:47:50.999725Z",
+      "error": null,
+      "outputs": {
+        "report_path": "report.md",
+        "simulated": false
+      },
+      "parameters": {
+        "title": "ML4GW Agent report: 1187008882.4"
+      },
+      "skill": "report.generate",
+      "started_at": "2026-09-03T03:47:50.994075Z",
+      "status": "completed",
+      "task_id": "generate_report",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:report_path",
+          "message": "artifact 'report_path' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:report_path",
+          "message": "artifact 'report_path' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "resolve_event": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/resolve_event/event_info.json",
+          "sha256": "1d845b6ee2bcf0385426c6631def85f362e29f19ee4ae13a223ef977d957099b",
+          "size_bytes": 140
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T03:47:32.245610Z",
+      "error": null,
+      "outputs": {
+        "catalog_time": 1187008882.4,
+        "delegated_resolution": false,
+        "event": "1187008882.4",
+        "event_kind": "gps",
+        "simulated": false
+      },
+      "parameters": {
+        "event": "1187008882.4"
+      },
+      "skill": "data.resolve_event",
+      "started_at": "2026-09-03T03:47:32.242016Z",
+      "status": "completed",
+      "task_id": "resolve_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:event",
+          "message": "output field 'event' is present",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "warnings": []
+}

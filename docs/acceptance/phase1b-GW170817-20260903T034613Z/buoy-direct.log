@@ -1,0 +1,33 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]
+2026-09-03 11:47:07,758 - root - INFO - Setting up models
+2026-09-03 11:47:07,758 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:47:08,022 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:47:08,030 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:47:08,845 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:47:09,056 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:47:09,387 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:47:09,652 - GW170817 - INFO - Fetching or loading data
+2026-09-03 11:47:11,016 - root - INFO - Fetching data from between GPS times 1187008786.0 and 1187008914.0 for ['G1', 'H1', 'L1', 'V1']
+2026-09-03 11:47:11,017 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:47:11,018 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:47:13,840 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:47:13,840 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:47:15,727 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:47:15,727 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:47:17,646 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:47:17,646 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:47:19,535 - root - INFO - Fetched data for detectors ['G1', 'H1', 'L1', 'V1']
+Traceback (most recent call last):
+  File "/root/ml4gw-agent/.venv/bin/buoy", line 10, in <module>
+    sys.exit(cli())
+             ^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/cli.py", line 13, in cli
+    main(**vars(args))
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 438, in main
+    _process_event(event)
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 298, in _process_event
+    data, ifos, t0, event_time = get_data(
+                                 ^^^^^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/utils/data.py", line 251, in get_data
+    raise ValueError(
+ValueError: Event GW170817 does not have the required detectors. Expected ['H1', 'L1'] or ['H1', 'L1', 'V1'], got ['G1', 'H1', 'L1', 'V1']

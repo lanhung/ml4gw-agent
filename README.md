@@ -33,11 +33,13 @@ Not yet claimed as complete:
 
 - Real GWAK, DeepClean, mldatafind, HTCondor, Kubernetes, or Triton adapters.
 - LLM-based planning and reflection.
-- Domain-reviewer sign-off on the GW150914 run. The run itself completed on
-  a GPU node with both agent paths matching a direct Buoy run within
-  tolerance (`docs/PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`); the remaining
-  Phase 1b events, a calibrated Aframe threshold, and the expert review are
-  still open.
+- Domain-reviewer sign-off. GW150914, GW190521, a GPS-identified event, and
+  a noise segment ran on a GPU node with both agent paths matching a direct
+  Buoy run within tolerance, and GW170817 is documented as unsupported by
+  Buoy (`docs/PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
+  `docs/PHASE1B_SUITE_RUN_2026-09-03.md`). A FAR-calibrated Aframe threshold
+  is still missing: the noise segment yields `candidate_found: true` with
+  the raw threshold, so no run here is a detection claim.
 
 ## Quick start
 

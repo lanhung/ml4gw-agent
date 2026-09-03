@@ -1,0 +1,6 @@
+agent-buoy exit=2
+agent-decomposed exit=0
+buoy-direct exit=1
+compare-buoy-slice exit=1
+compare-decomposed exit=1
+compare-decomposed rerun after 55b4a9a fix: exit=0

@@ -1,0 +1,13 @@
+{
+  "run_id": "run_396f2cdb9ed5",
+  "status": "completed",
+  "run_directory": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-decomposed/run_396f2cdb9ed5",
+  "manifest": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-decomposed/run_396f2cdb9ed5/run_manifest.json",
+  "report": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-decomposed/run_396f2cdb9ed5/report.md",
+  "warnings": [
+    "aframe.detect threshold is a raw integrated network output, not a false-alarm-rate calibrated threshold; treat candidate_found as provisional until a background study fixes the threshold",
+    "H1 strain resampled from 4096 Hz to 2048 Hz",
+    "L1 strain resampled from 4096 Hz to 2048 Hz",
+    "Aframe's maximum integrated output maps to 1187008784.0078125, outside the strain interval [1187008786.0, 1187008914.0]; treated as a filter start-up artefact, no candidate reported"
+  ]
+}

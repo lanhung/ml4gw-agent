@@ -1,0 +1,18 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]
+Traceback (most recent call last):
+  File "/root/ml4gw-agent/.venv/bin/buoy", line 10, in <module>
+    sys.exit(cli())
+             ^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/cli.py", line 13, in cli
+    main(**vars(args))
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 438, in main
+    _process_event(event)
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 343, in _process_event
+    result = amplfi_model(
+             ^^^^^^^^^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/models/amplfi.py", line 188, in __call__
+    psd_data, window = slice_amplfi_data(
+                       ^^^^^^^^^^^^^^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/utils/data.py", line 113, in slice_amplfi_data
+    raise ValueError(
+ValueError: The start of the AMPLFI window before the start of the data. This may be due to the event time being too close to the start of the data.

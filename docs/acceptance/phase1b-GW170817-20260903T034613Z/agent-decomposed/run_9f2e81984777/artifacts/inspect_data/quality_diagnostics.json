@@ -1,0 +1,29 @@
+{
+  "strain_artifact": "artifacts/fetch_data/strain_GW170817.hdf5",
+  "ifos": [
+    "H1",
+    "L1"
+  ],
+  "gps_start": 1187008786.0,
+  "gps_end": 1187008914.0,
+  "duration_seconds": 128.0,
+  "sample_rate": 2048.0,
+  "event_time": 1187008882.4,
+  "source": "gwosc",
+  "per_ifo": {
+    "H1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 5.355577555773587e-19,
+      "max_abs": 1.2795559853301562e-18
+    },
+    "L1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 9.667836826586281e-20,
+      "max_abs": 1.6913274997413473e-18
+    }
+  },
+  "issues": [],
+  "quality_passed": true
+}

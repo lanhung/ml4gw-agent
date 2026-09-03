@@ -1,0 +1,10 @@
+{
+  "agent_run": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-buoy/run_99a8a19dda73",
+  "agent_amplfi_network": null,
+  "buoy_amplfi_network": null,
+  "checks": [],
+  "aframe": "not compared (missing file)",
+  "amplfi": "not compared (missing file)",
+  "reason": "no quantity could be compared",
+  "passed": false
+}

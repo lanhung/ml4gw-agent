@@ -1,0 +1,18 @@
+2026-09-03 11:46:27,967 - root - INFO - Setting up models
+2026-09-03 11:46:27,967 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:46:28,232 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:46:28,240 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:46:29,033 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:46:29,244 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:46:29,653 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:46:29,929 - GW170817 - INFO - Fetching or loading data
+2026-09-03 11:46:31,353 - root - INFO - Fetching data from between GPS times 1187008786.0 and 1187008914.0 for ['G1', 'H1', 'L1', 'V1']
+2026-09-03 11:46:31,354 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:46:31,355 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:46:34,458 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:46:34,458 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:46:36,387 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:46:36,387 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:46:38,307 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:46:38,307 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:46:40,246 - root - INFO - Fetched data for detectors ['G1', 'H1', 'L1', 'V1']

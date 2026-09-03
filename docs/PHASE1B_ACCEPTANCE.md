@@ -106,6 +106,8 @@ Science (to be reviewed by an ML4GW domain expert):
 - [ ] Domain reviewer sign-off.
 - [x] The sky map FITS file opens with `ligo.skymap` and its 90% area is
       recorded (610 deg²).
+- [x] Five-event suite run (GW190521 HLV, GPS event, noise segment,
+      GW170817): `PHASE1B_SUITE_RUN_2026-09-03.md`.
 
 Provenance:
 

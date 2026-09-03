@@ -52,9 +52,11 @@ Exit test:
 ## Phase 1b — data + Aframe + AMPLFI composition
 
 Status: **adapters implemented, unit-tested with fake backends (v0.2), and
-passed the GW150914 acceptance run on a GPU node on 2026-09-03; the
-five-event suite and the calibrated threshold remain.** Runbook:
-`PHASE1B_ACCEPTANCE.md`; record: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`.
+passed the GW150914 acceptance run and the five-event suite on a GPU node on
+2026-09-03; the calibrated threshold, a candidate-time window, mldatafind,
+and domain-reviewer sign-off remain.** Runbook: `PHASE1B_ACCEPTANCE.md`;
+records: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
+`PHASE1B_SUITE_RUN_2026-09-03.md`.
 
 Work items:
 
@@ -70,13 +72,23 @@ Work items:
       typed reference.
 - [x] Cross-check decomposed outputs against Buoy on GW150914
       (`compare-decomposed.json`, 7/7 within tolerance, 2026-09-03).
-- [ ] Cross-check on the five-event suite (`scripts/compare_with_buoy.py`).
-- [ ] FAR-calibrated Aframe threshold from a background study.
+- [x] Cross-check on the five-event suite (`PHASE1B_SUITE_RUN_2026-09-03.md`):
+      GW190521 (HLV), a GPS-identified event, and a noise segment match Buoy
+      within tolerance; GW170817 is unsupported by Buoy 0.6.1 (GEO in the
+      GWOSC detector list, start-up peak before the window) and the
+      decomposed path reports no candidate without failing.
+- [ ] FAR-calibrated Aframe threshold from a background study. The noise
+      segment in the suite gives `candidate_found: true` at statistic 0.51
+      with the raw threshold, so this is a blocker for any detection claim.
+- [ ] Candidate-time window relative to the requested time, so a peak far
+      from the target (59 s in the noise case) is not reported as its
+      coalescence time.
 
 Exit criteria:
 
 - GW150914, GW170817 (where model support permits), GW190521, one GPS event, and
-  one negative/noise segment have reviewed expected outcomes.
+  one negative/noise segment have reviewed expected outcomes (runs and
+  expected outcomes recorded; reviewer sign-off pending).
 - Direct tool runs and agent runs are numerically equivalent within declared
   tolerance.
 - Reruns from manifests reproduce the same versions, configuration, and seeded

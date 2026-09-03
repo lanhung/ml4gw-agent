@@ -1,0 +1,19 @@
+{
+  "agent_run": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1187008882.4-20260903T034721Z/agent-decomposed/run_396f2cdb9ed5",
+  "agent_amplfi_network": null,
+  "buoy_amplfi_network": null,
+  "checks": [
+    {
+      "quantity": "detection_statistic",
+      "agent": -0.12894825424466813,
+      "buoy": -0.1289481520652771,
+      "difference": 7.924067882718127e-07,
+      "relative": true,
+      "tolerance": 0.001,
+      "passed": true
+    }
+  ],
+  "predicted_tc": "not compared: agent=None, buoy=1187008784.0078125 (a null value means the peak lay outside the strain window)",
+  "amplfi": "not compared (missing file)",
+  "passed": true
+}

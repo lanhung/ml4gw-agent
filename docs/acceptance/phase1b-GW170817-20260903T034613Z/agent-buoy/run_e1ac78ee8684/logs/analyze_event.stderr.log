@@ -1,0 +1,15 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]
+Traceback (most recent call last):
+  File "/root/ml4gw-agent/.venv/bin/buoy", line 10, in <module>
+    sys.exit(cli())
+             ^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/cli.py", line 13, in cli
+    main(**vars(args))
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 438, in main
+    _process_event(event)
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/main.py", line 298, in _process_event
+    data, ifos, t0, event_time = get_data(
+                                 ^^^^^^^^^
+  File "/root/ml4gw-agent/.venv/lib/python3.12/site-packages/buoy/utils/data.py", line 251, in get_data
+    raise ValueError(
+ValueError: Event GW170817 does not have the required detectors. Expected ['H1', 'L1'] or ['H1', 'L1', 'V1'], got ['G1', 'H1', 'L1', 'V1']
