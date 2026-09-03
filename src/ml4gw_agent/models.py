@@ -220,6 +220,20 @@ class TaskRecord(StrictModel):
     error: str | None = None
 
 
+class ExecutionRecord(StrictModel):
+    """Where the run executed and what it was expected to cost.
+
+    Optional so manifests written before Phase 4 still validate.
+    """
+
+    executor: str
+    selection_reason: str = ""
+    estimate: dict[str, Any] = Field(default_factory=dict)
+    budget: dict[str, Any] = Field(default_factory=dict)
+    decision: dict[str, Any] = Field(default_factory=dict)
+    jobs: list[dict[str, Any]] = Field(default_factory=list)
+
+
 class RunManifest(StrictModel):
     schema_version: Literal["1.0"] = "1.0"
     run_id: str = Field(default_factory=lambda: new_identifier("run"))
@@ -232,3 +246,4 @@ class RunManifest(StrictModel):
     ended_at: datetime | None = None
     warnings: list[str] = Field(default_factory=list)
     environment: dict[str, Any] = Field(default_factory=dict)
+    execution: ExecutionRecord | None = None
