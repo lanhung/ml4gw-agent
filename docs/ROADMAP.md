@@ -61,9 +61,10 @@ records: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
 Work items:
 
 - [x] GWOSC data adapter (`data.fetch`, Buoy-compatible window and HDF5).
-- [x] Non-public frames: `data.fetch` with `source: ldg` (Buoy's channel map
-      through `gwdatafind`; fails closed without IGWN credentials; not
-      runnable from the public GPU node).
+- [x] Non-public frames: `data.fetch` with `source: ldg` (gwdatafind plus
+      token-authorized OSDF download plus framel read; per-run frame types);
+      verified on GW150914 against the public strain with an IGWN token
+      (`LDG_ACCESS_2026-09-03.md`).
 - [x] Science-segment, finite-strain, duration, and detector validation
       (`data.inspect`, fails closed).
 - [x] Aframe inference over `buoy.models.Aframe` with frozen config metadata
@@ -139,7 +140,9 @@ LDG witness channels and a reviewed configuration.**
 Work items:
 
 - [x] Witness-channel access check: public strain sources are refused; LDG
-      sources are accepted only with a reviewed configuration.
+      sources are accepted only with a reviewed configuration. Witness
+      channels themselves were reached through NDS2 with the IGWN credential
+      at an O4 time (`LDG_ACCESS_2026-09-03.md`).
 - [x] Versioned coupling configurations with exact channel lists, band,
       sample rate, interval, and immutable weights
       (`calibration/deepclean_support.json`, empty until reviewed).

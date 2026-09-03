@@ -1,0 +1,29 @@
+{
+  "strain_artifact": "artifacts/fetch_data/strain_GW150914.hdf5",
+  "ifos": [
+    "H1",
+    "L1"
+  ],
+  "gps_start": 1126259366.0,
+  "gps_end": 1126259494.0,
+  "duration_seconds": 128.0,
+  "sample_rate": 2048.0,
+  "event_time": 1126259462.4,
+  "source": "ldg",
+  "per_ifo": {
+    "H1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 2.211759848681116e-19,
+      "max_abs": 1.1880882993817474e-18
+    },
+    "L1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 2.3472330761637213e-19,
+      "max_abs": 2.1684024241942725e-18
+    }
+  },
+  "issues": [],
+  "quality_passed": true
+}
