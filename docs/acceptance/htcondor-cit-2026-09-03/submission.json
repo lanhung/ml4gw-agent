@@ -1,0 +1,149 @@
+{
+  "submission_dir": "/home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7",
+  "plan_file": "/home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/plan.json",
+  "executor": "htcondor",
+  "job_id": "557860537",
+  "description": {
+    "plan_file": "/home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/plan.json",
+    "mode": "real",
+    "runs_dir": "/home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/worker",
+    "cpus": 4,
+    "memory_gb": 16.0,
+    "gpus": 1,
+    "budget": {
+      "allowed": true,
+      "reasons": [],
+      "authorization_required": false
+    },
+    "estimate": {
+      "cpu_hours": 0.0283,
+      "gpu_hours": 0.0056,
+      "memory_gb": 16.0,
+      "transfer_gb": 0.0,
+      "expected_latency_seconds": 37.0,
+      "n_segments": 1,
+      "per_task": [
+        {
+          "task": "resolve_event",
+          "skill": "data.resolve_event",
+          "seconds": 1.0,
+          "cpu_cores": 1,
+          "memory_gb": 0.1,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "catalog lookup"
+        },
+        {
+          "task": "fetch_data",
+          "skill": "data.fetch",
+          "seconds": 10.0,
+          "cpu_cores": 1,
+          "memory_gb": 2.0,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "cached astropy download cache, per detector"
+        },
+        {
+          "task": "inspect_data",
+          "skill": "data.inspect",
+          "seconds": 5.0,
+          "cpu_cores": 2,
+          "memory_gb": 4.0,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "segment query and finite checks"
+        },
+        {
+          "task": "run_aframe",
+          "skill": "aframe.detect",
+          "seconds": 5.0,
+          "cpu_cores": 4,
+          "memory_gb": 16.0,
+          "gpu": "yes",
+          "n_segments": 1,
+          "basis": "per 128 s window, RTX 5000 Ada"
+        },
+        {
+          "task": "run_amplfi",
+          "skill": "amplfi.pe",
+          "seconds": 15.0,
+          "cpu_cores": 4,
+          "memory_gb": 16.0,
+          "gpu": "yes",
+          "n_segments": 1,
+          "basis": "20000 samples plus sky map, RTX 5000 Ada"
+        },
+        {
+          "task": "generate_report",
+          "skill": "report.generate",
+          "seconds": 1.0,
+          "cpu_cores": 1,
+          "memory_gb": 0.2,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "less than one second"
+        }
+      ],
+      "assumptions": [
+        "runtimes measured on an RTX 5000 Ada with cached GWOSC strain (2026-09-03 acceptance runs); CPU-only execution scaled by 20x"
+      ]
+    }
+  },
+  "status": "completed",
+  "polls": [
+    {
+      "at": 1788465385.3518834,
+      "status": "submitted"
+    },
+    {
+      "at": 1788465405.3894455,
+      "status": "submitted"
+    },
+    {
+      "at": 1788465425.4303112,
+      "status": "running"
+    },
+    {
+      "at": 1788465445.477074,
+      "status": "running"
+    },
+    {
+      "at": 1788465465.7228432,
+      "status": "running"
+    },
+    {
+      "at": 1788465485.7666974,
+      "status": "running"
+    },
+    {
+      "at": 1788465505.8067272,
+      "status": "running"
+    },
+    {
+      "at": 1788465525.935649,
+      "status": "running"
+    },
+    {
+      "at": 1788465545.9787312,
+      "status": "running"
+    },
+    {
+      "at": 1788465566.031449,
+      "status": "running"
+    },
+    {
+      "at": 1788465586.0846727,
+      "status": "running"
+    },
+    {
+      "at": 1788465606.143622,
+      "status": "running"
+    },
+    {
+      "at": 1788465626.2034585,
+      "status": "completed"
+    }
+  ],
+  "manifest_path": "/home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/worker/run_c044f735ccbb/run_manifest.json",
+  "error": null
+}

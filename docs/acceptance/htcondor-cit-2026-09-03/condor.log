@@ -1,0 +1,38 @@
+000 (557860537.000.000) 2026-09-03 12:56:25 Job submitted from host: <10.14.0.12:9618?addrs=10.14.0.12-9618&alias=ldas-grid.ligo.caltech.edu&noUDP&sock=schedd_2434_199b>
+...
+001 (557860537.000.000) 2026-09-03 12:56:59 Job executing on host: <10.14.0.201:9618?addrs=10.14.0.201-9618&alias=aframe.ldas.cit&noUDP&sock=startd_4736_149f>
+	SlotName: slot1_7@aframe.ldas.cit
+	AvailableGPUs = { GPUs_GPU_765738f6 }
+	CondorScratchDir = "/var/lib/condor/execute/dir_333698/scratch"
+	Cpus = 4
+	Disk = 4194304
+	GPUs = 1
+	GPUs_GPU_765738f6 = [ Id = "GPU-765738f6"; ClockMhz = 1440.0; Capability = 8.0; CoresPerCU = 64; DeviceName = "NVIDIA A30"; DeviceUuid = "765738f6-5e9f-1f80-20f4-e46c1ad2dc3c"; ECCEnabled = true; ComputeUnits = 56; NvidiaDriver = "610.57.04"; DriverVersion = 13.3; DevicePciBusId = "0000:17:00.0"; GlobalMemoryMb = 24186; MaxSupportedVersion = 13030 ]
+	Memory = 16384
+...
+006 (557860537.000.000) 2026-09-03 12:57:07 Image size of job updated: 30028
+	30  -  MemoryUsage of job (MB)
+	30028  -  ResidentSetSize of job (KB)
+...
+006 (557860537.000.000) 2026-09-03 13:00:20 Image size of job updated: 1534816
+	30  -  MemoryUsage of job (MB)
+	30028  -  ResidentSetSize of job (KB)
+...
+005 (557860537.000.000) 2026-09-03 13:00:20 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:16, Sys 0 00:00:03  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:16, Sys 0 00:00:03  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :                 4         4 
+	   Disk (KB)            :        1  4194304   4194304 
+	   GPUs                 :                 1         1 "GPU-765738f6"
+	   Memory (MB)          :       30    16384     16384 
+	   TimeExecute (s)      :      201                    
+	   TimeSlotBusy (s)     :      203                    
+...

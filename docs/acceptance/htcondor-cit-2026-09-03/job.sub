@@ -1,0 +1,16 @@
+executable = /home/fan.zhang/ml4gw-agent/.venv/bin/ml4gw-agent
+arguments = run-plan /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/plan.json --mode real --runs-dir /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/worker
+initialdir = /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/jobs/plan-plan_51ba1be35ff7
+log = /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/jobs/plan-plan_51ba1be35ff7/condor.log
+output = /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/jobs/plan-plan_51ba1be35ff7/condor.out
+error = /home/fan.zhang/ml4gw-runs/condor/submission_plan_51ba1be35ff7/jobs/plan-plan_51ba1be35ff7/condor.err
+request_cpus = 4
+request_memory = 16384MB
+request_gpus = 1
+request_disk = 4096MB
+should_transfer_files = NO
+environment = "GWDATAFIND_SERVER='datafind.ldas.cit:80' GWPY_CACHE='1' HF_HOME='/home/fan.zhang/hf-cache' HF_HUB_OFFLINE='1' ML4GW_CONDOR_ACCOUNTING_GROUP='ligo.dev.o4.cbc.explore.test' ML4GW_CONDOR_ACCOUNTING_USER='fan.zhang' ML4GW_CONDOR_EXTRA='{""requirements"": ""(Microarch >= \""x86_64-v3\"")""}' PYTHONUNBUFFERED='1' X509_USER_PROXY='/home/fan.zhang/opt/cilogon_cert/CERT_KEY.pem'"
+accounting_group = ligo.dev.o4.cbc.explore.test
+accounting_group_user = fan.zhang
+requirements = (Microarch >= "x86_64-v3")
+queue 1

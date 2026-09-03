@@ -167,8 +167,10 @@ Exit criteria:
 Target: choose compute based on bounded cost and data locality.
 
 Status: **executor contracts, estimates, budget policy, partitioning, and
-local/HTCondor/Kubernetes executors implemented with fake-scheduler unit
-tests (`PHASE4_EXECUTION.md`); no real pool or cluster has been exercised.**
+local/HTCondor/Kubernetes executors implemented (`PHASE4_EXECUTION.md`);
+whole-plan submission verified on the CIT LDG HTCondor pool with submit,
+poll, resume and cancel on 2026-09-03 (`PHASE4_HTCONDOR_RUN_2026-09-03.md`).
+Kubernetes is fake-tested only.**
 
 Work items:
 
@@ -190,7 +192,9 @@ Exit criteria:
       the next wiring step.
 - [x] Budget and authorization policies are enforced before submission
       (`BudgetPolicy`, checked before preflight, recorded in the manifest).
-- [ ] The HTCondor and Kubernetes executors on a real pool or cluster.
+- [x] The HTCondor executor on a real pool (CIT LDG, job 557860537: all six
+      tasks completed on `aframe.ldas.cit`; cancel and resume verified).
+- [ ] The Kubernetes executor on a real cluster.
 
 ## Phase 5 — measured agentic planning
 

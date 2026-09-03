@@ -38,8 +38,9 @@ Not yet claimed as complete:
   Buoy run within tolerance, and GW170817 is documented as unsupported by
   Buoy (`docs/PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
   `docs/PHASE1B_SUITE_RUN_2026-09-03.md`). A FAR-calibrated Aframe threshold
-  is still missing: the noise segment yields `candidate_found: true` with
-  the raw threshold, so no run here is a detection claim.
+  is now calibrated at 1/day from a time-shifted background; the GWAK route
+  runs on user-trained models; the HTCondor executor completed a full plan
+  on the CIT LDG pool (`docs/STATUS_2026-09-03.md` for the whole picture).
 
 ## Quick start
 
