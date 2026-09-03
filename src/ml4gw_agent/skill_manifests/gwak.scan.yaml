@@ -58,6 +58,10 @@ output_schema:
     target_score: {type: [number, "null"]}
     target_zscore: {type: [number, "null"]}
     target_rank: {type: [integer, "null"]}
+    target_far_per_year:
+      description: Measured background rate at or above the target score from the shipped calibration (null when uncalibrated or below the tabulated range).
+      type: [number, "null"]
+    max_far_per_year: {type: [number, "null"]}
     model: {type: object}
     simulated: {type: boolean}
 preconditions:

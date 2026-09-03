@@ -104,3 +104,27 @@ def aframe_threshold(
         livetime_seconds=livetime,
         source=str(entry.get("source", default_source)),
     )
+
+
+def far_at_score(
+    kind: str, revision: str | None, score: float, table: dict[str, Any] | None = None
+) -> float | None:
+    """Measured false-alarm rate (per year) of background peaks at or above
+    ``score`` for ``revision``, from the study's ``far_curve``.
+
+    Returns ``None`` when no curve exists or the score lies below the first
+    tabulated threshold (the rate there exceeds what the table records). A
+    score above the loudest background peak returns the rate of one event
+    per livetime, an upper bound rather than a measurement.
+    """
+    if not revision:
+        return None
+    table = load_table(kind) if table is None else table
+    entry = table.get("revisions", {}).get(revision) or {}
+    curve = entry.get("far_curve") or []
+    if not curve:
+        return None
+    below = [far for threshold, far in curve if threshold <= score]
+    if not below:
+        return None
+    return float(below[-1])

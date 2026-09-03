@@ -314,3 +314,26 @@ def test_gwak_threshold_lookup_mirrors_aframe(registry, monkeypatch):
         "Scan GW150914 with GWAK"
     )
     assert any("No background calibration" in w for w in plan.warnings)
+
+
+def test_far_at_score_reads_the_curve():
+    from ml4gw_agent.calibration import far_at_score, load_gwak_table
+
+    table = {
+        "revisions": {
+            "rev1": {"far_curve": [[10.0, 1000.0], [15.0, 100.0], [25.0, 1.0]]}
+        }
+    }
+    assert far_at_score("gwak", "rev1", 9.0, table) is None
+    assert far_at_score("gwak", "rev1", 10.0, table) == 1000.0
+    assert far_at_score("gwak", "rev1", 14.9, table) == 1000.0
+    assert far_at_score("gwak", "rev1", 15.35, table) == 100.0
+    assert far_at_score("gwak", "rev1", 30.0, table) == 1.0
+    assert far_at_score("gwak", "nope", 30.0, table) is None
+    assert far_at_score("gwak", None, 30.0, table) is None
+    shipped = load_gwak_table()["revisions"]
+    for entry in shipped.values():
+        curve = entry["far_curve"]
+        assert all(
+            a[0] < b[0] and a[1] >= b[1] for a, b in zip(curve, curve[1:], strict=False)
+        )

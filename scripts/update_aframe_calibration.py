@@ -39,6 +39,22 @@ def measurable_thresholds(result: dict) -> dict[str, float]:
     return thresholds
 
 
+def far_curve(result: dict) -> list[list[float]]:
+    """Monotone (threshold, FAR per year) points: the far table plus the
+    loudest background peaks (rank / livetime), so a score above the table's
+    last row still maps to a measured rate."""
+    livetime = float(result["livetime_seconds"])
+    points = {
+        float(row["threshold"]): float(row["far_per_year"])
+        for row in result.get("far_table", [])
+        if row.get("far_per_year") is not None
+    }
+    loudest = sorted(result.get("loudest_background_peaks", []), reverse=True)
+    for rank, value in enumerate(loudest, start=1):
+        points.setdefault(float(value), rank / livetime * SECONDS_PER_YEAR)
+    return [[t, points[t]] for t in sorted(points)]
+
+
 def entry_from_result(result: dict, source: str) -> dict:
     return {
         "source": source,
@@ -57,6 +73,7 @@ def entry_from_result(result: dict, source: str) -> dict:
         "shift_step_seconds": result.get("shift_step_seconds"),
         "n_lags": len(result.get("lags", [])),
         "thresholds_by_far_per_year": measurable_thresholds(result),
+        "far_curve": far_curve(result),
     }
 
 

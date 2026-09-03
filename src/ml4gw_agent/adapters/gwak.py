@@ -27,6 +27,7 @@ from typing import Any
 import h5py
 import numpy as np
 
+from ..calibration import far_at_score
 from ..errors import AdapterError, AdapterUnavailableError
 from .base import (
     AdapterOutcome,
@@ -357,6 +358,12 @@ class GWAKAdapter(SkillAdapter):
             "target_score": target_score,
             "target_zscore": target_zscore,
             "target_rank": target_rank,
+            "target_far_per_year": (
+                far_at_score("gwak", revision, target_score)
+                if target_score is not None
+                else None
+            ),
+            "max_far_per_year": far_at_score("gwak", revision, max_score),
             "model": {
                 "revision": revision,
                 "source_commit": manifest.get("source_commit"),

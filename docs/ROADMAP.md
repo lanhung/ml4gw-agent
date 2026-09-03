@@ -105,9 +105,15 @@ Exit criteria:
 Target: parallel CBC and unmodeled analysis paths.
 
 Status: **real GWAK route running on the user's own exported GWAK 2.0
-models; GW150914 and GW190521 are the loudest kernel at the catalog time,
-the noise segment is not (`PHASE2_GWAK_RUN_2026-09-03.md`); threshold
-calibration and author confirmation of the model pairing remain.**
+models (S4 SimCLR embedder + background-only normalizing flow, the only
+pairing that separates; upstream release ≥ 3 months away); GW150914 and
+GW190521 are the loudest kernel at the catalog time, the noise segment is
+not. Threshold calibrated from a 5.56 d time-shifted background
+(`calibration/gwak_thresholds.json`, 1/day = 25.55, planner `--gwak-far`);
+the background is glitch-dominated, so the BBH events (rates 9e3–1.2e4 /yr)
+are reported through `target_far_per_year`, z-score and rank rather than
+`anomaly_found` (`PHASE2_GWAK_RUN_2026-09-03.md`). Author confirmation of
+the pairing remains.**
 
 Work items:
 
