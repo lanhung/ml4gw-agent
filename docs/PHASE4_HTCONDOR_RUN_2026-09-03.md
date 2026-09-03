@@ -43,11 +43,14 @@ completed) and collected the worker manifest.
 | budget decision | allowed (0.0056 GPU h estimated) |
 | worker run | `run_c044f735ccbb`, all six tasks completed; fetch 30 s (cache), Aframe 104 s, AMPLFI 32 s |
 | Aframe | statistic 9.5059, candidate at 1126259462.414, threshold 2.701 (calibrated, 1/day) |
-| AMPLFI medians | chirp mass 29.48 M☉, mass ratio 0.829, distance 461 Mpc (19966 samples) |
+| AMPLFI medians | chirp mass 29.47 M☉, mass ratio 0.829, distance 461.9 Mpc (19968 samples) |
 
-The numbers match the GPU-node runs of the same plan (`PHASE1B_SUITE_RUN_2026-09-03.md`)
-to the same precision as before, on different hardware and a different
-node type.
+Aframe reproduces the GPU-node runs of the same plan (9.5059, same
+coalescence time); the AMPLFI medians differ from the RTX 5000 Ada run at
+the 1e-3 level (29.47 vs 29.48 M☉, 461.9 vs 461.0 Mpc) with a slightly
+different accepted-sample count (19968 vs 19966), which is the GPU-to-GPU
+nondeterminism already seen between two Buoy runs on one machine, not a
+change in the pipeline.
 
 ## Cancel and resume on the same pool
 
