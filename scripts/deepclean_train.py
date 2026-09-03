@@ -26,16 +26,18 @@ import h5py
 import numpy as np
 
 
-def resample(x: np.ndarray, rate_in: float, rate_out: float) -> np.ndarray:
-    if abs(rate_in - rate_out) < 1e-9:
-        return x
-    from scipy import signal
-
-    factor = rate_in / rate_out
-    if abs(factor - round(factor)) < 1e-9:
-        return signal.resample_poly(x, 1, int(round(factor)))
-    n_out = int(round(len(x) * rate_out / rate_in))
-    return signal.resample(x, n_out)
+def stationarity(strain: np.ndarray, sample_rate: float) -> dict:
+    """Per-second RMS summary; seconds louder than 100x the median are 'loud'."""
+    n = int(sample_rate)
+    per_second = strain[: len(strain) // n * n].reshape(-1, n).std(axis=1)
+    median = float(np.median(per_second))
+    loud = np.where(per_second > 100 * median)[0]
+    return {
+        "median_rms": median,
+        "max_rms": float(per_second.max()),
+        "loud_seconds": int(len(loud)),
+        "first_loud_second": int(loud[0]) if len(loud) else None,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -51,11 +53,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-epochs", type=int, default=100)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--allow-nonstationary",
+        action="store_true",
+        help="train even when the strain contains loud (out-of-lock) seconds",
+    )
     args = parser.parse_args(argv)
 
     from ml4gw_agent.adapters.deepclean_model import (
         DeepCleanConfig,
         clean_strain,
+        resample,
         save_weights,
         train_deepclean,
     )
@@ -78,6 +86,17 @@ def main(argv: list[str] | None = None) -> int:
                 for c in args.witness
             ]
         )
+    quality = stationarity(strain, args.sample_rate)
+    print(json.dumps({"strain_quality": quality}), file=sys.stderr, flush=True)
+    if quality["loud_seconds"] and not args.allow_nonstationary:
+        print(
+            f"refusing to train: {quality['loud_seconds']} loud seconds "
+            f"(first at +{quality['first_loud_second']} s); the detector was "
+            "probably not observing. Pick another stretch or pass "
+            "--allow-nonstationary.",
+            file=sys.stderr,
+        )
+        return 2
     n_train = int(args.train_seconds * args.sample_rate)
     config = DeepCleanConfig(
         ifo=args.ifo,
@@ -125,7 +144,9 @@ def main(argv: list[str] | None = None) -> int:
         "training_seconds": train_seconds,
         "held_out_metrics": metrics,
         "config": config.as_dict(),
-        "reference": "ML4GW/deepcleanv2 myprojects/60Hz-O3-MDC config and couplings/sub_60Hz.py",
+        "reference": (
+            "ML4GW/deepcleanv2 myprojects/60Hz-O3-MDC config and couplings/sub_60Hz.py"
+        ),
     }
     (args.output / "training_record.json").write_text(
         json.dumps(record, indent=2) + "\n"

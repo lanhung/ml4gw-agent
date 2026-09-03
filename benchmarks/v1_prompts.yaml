@@ -332,9 +332,9 @@ cases:
   - data.fetch
   - data.inspect
   - deepclean.check_applicability
-  - report.generate
-  forbidden_skills:
   - deepclean.clean
+  - report.generate
+  forbidden_skills: []
 - id: deepclean_1
   prompt: Clean GW190521 with DeepClean before detection with Aframe.
   tag: nominal
@@ -343,10 +343,10 @@ cases:
   - data.fetch
   - data.inspect
   - deepclean.check_applicability
+  - deepclean.clean
   - aframe.detect
   - report.generate
-  forbidden_skills:
-  - deepclean.clean
+  forbidden_skills: []
 - id: composed_full
   prompt: Analyze GW150914, check data quality, use DeepClean if appropriate, run
     Aframe and AMPLFI parameter estimation, then scan anomalies with GWAK.
@@ -356,14 +356,14 @@ cases:
   - data.fetch
   - data.inspect
   - deepclean.check_applicability
+  - deepclean.clean
   - aframe.detect
   - amplfi.pe
   - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate
-  forbidden_skills:
-  - deepclean.clean
+  forbidden_skills: []
 - id: composed_zh
   prompt: 分析 GW190521：检查数据质量，运行 Aframe 探测和 AMPLFI 参数估计，再用 GWAK 扫描异常。
   tag: nominal

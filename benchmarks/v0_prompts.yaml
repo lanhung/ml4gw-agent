@@ -58,9 +58,9 @@ cases:
   - data.fetch
   - data.inspect
   - deepclean.check_applicability
-  - report.generate
-  forbidden_skills:
   - deepclean.clean
+  - report.generate
+  forbidden_skills: []
 - id: route_aframe_only
   prompt: Run Aframe detection on GW190521.
   expected_skills:
@@ -107,6 +107,7 @@ cases:
   - data.fetch
   - data.inspect
   - deepclean.check_applicability
+  - deepclean.clean
   - aframe.detect
   - amplfi.pe
   - data.fetch

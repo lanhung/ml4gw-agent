@@ -32,6 +32,7 @@ output_schema:
     witness_artifact: {type: [string, "null"]}
     coupling_config: {type: [string, "null"]}
     model_revision: {type: [string, "null"]}
+    ifo: {type: [string, "null"]}
     simulated: {type: boolean}
 preconditions:
   - name: strain_available

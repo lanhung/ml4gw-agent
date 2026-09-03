@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "statistic": "gwak.scan score (negative log-probability of the normalizing-flow metric on the S4 SimCLR embedding, 1/16 s stride)",
+  "revisions": {}
+}

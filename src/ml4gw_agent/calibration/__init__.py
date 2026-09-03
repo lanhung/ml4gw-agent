@@ -35,13 +35,41 @@ class AframeThreshold:
         }
 
 
-def load_aframe_table() -> dict[str, Any]:
-    path = resources.files(__name__).joinpath("aframe_thresholds.json")
+TABLE_FILES = {
+    "aframe": "aframe_thresholds.json",
+    "gwak": "gwak_thresholds.json",
+}
+
+
+def load_table(kind: str) -> dict[str, Any]:
+    path = resources.files(__name__).joinpath(TABLE_FILES[kind])
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def aframe_threshold(
+def load_aframe_table() -> dict[str, Any]:
+    return load_table("aframe")
+
+
+def load_gwak_table() -> dict[str, Any]:
+    return load_table("gwak")
+
+
+def gwak_threshold(
     revision: str | None, far_per_year: float, table: dict[str, Any] | None = None
+) -> AframeThreshold | None:
+    """GWAK counterpart of :func:`aframe_threshold` (same table layout)."""
+    table = load_gwak_table() if table is None else table
+    return aframe_threshold(
+        revision, far_per_year, table=table, default_source="gwak_background.py"
+    )
+
+
+def aframe_threshold(
+    revision: str | None,
+    far_per_year: float,
+    table: dict[str, Any] | None = None,
+    *,
+    default_source: str = "aframe_background.py",
 ) -> AframeThreshold | None:
     """Threshold for ``revision`` at the tightest FAR not above ``far_per_year``.
 
@@ -74,5 +102,5 @@ def aframe_threshold(
         far_per_year=far,
         threshold=value,
         livetime_seconds=livetime,
-        source=str(entry.get("source", "aframe_background.py")),
+        source=str(entry.get("source", default_source)),
     )

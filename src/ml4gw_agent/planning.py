@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-from .calibration import aframe_threshold
+from .calibration import aframe_threshold, gwak_threshold
 from .errors import PlanningError
 from .models import ConditionSpec, PlanSpec, TaskSpec
 from .registry import SkillRegistry
@@ -33,6 +33,8 @@ class PlannerConfig:
     sample_rate: int = 2048
     aframe_threshold: float | None = None
     aframe_far_per_year: float = 1.0
+    gwak_threshold: float | None = None
+    gwak_far_per_year: float = 365.25
     candidate_window_seconds: float = 2.0
     data_source: str = "gwosc"
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
@@ -204,6 +206,24 @@ class BaselinePlanner:
             return 0.0, None
         return calibrated.threshold, calibrated.as_dict()
 
+    def _gwak_threshold(
+        self, warnings: list[str]
+    ) -> tuple[float, dict[str, object] | None]:
+        """Explicit GWAK threshold, else the calibrated one for the revision."""
+        if self.config.gwak_threshold is not None:
+            return float(self.config.gwak_threshold), None
+        calibrated = gwak_threshold(
+            self.config.gwak_revision, self.config.gwak_far_per_year
+        )
+        if calibrated is None:
+            warnings.append(
+                "No background calibration exists for the requested GWAK "
+                "revision and false-alarm rate; using the raw 0.0 cut, so "
+                "anomaly_found is not a significance statement."
+            )
+            return 0.0, None
+        return calibrated.threshold, calibrated.as_dict()
+
     def _composed_plan(
         self,
         *,
@@ -265,11 +285,33 @@ class BaselinePlanner:
                     depends_on=["inspect_data"],
                 )
             )
-            terminal_ids.append("check_deepclean")
+            tasks.append(
+                TaskSpec(
+                    id="clean_deepclean",
+                    skill="deepclean.clean",
+                    parameters={
+                        "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+                        "witness_artifact": (
+                            "${check_deepclean.outputs.witness_artifact}"
+                        ),
+                        "coupling_config": (
+                            "${check_deepclean.outputs.coupling_config}"
+                        ),
+                        "model_revision": "${check_deepclean.outputs.model_revision}",
+                        "ifo": "${check_deepclean.outputs.ifo}",
+                    },
+                    depends_on=["check_deepclean"],
+                    when=ConditionSpec(
+                        reference="${check_deepclean.outputs.applicable}",
+                        operator="truthy",
+                    ),
+                )
+            )
+            terminal_ids.append("clean_deepclean")
             warnings.append(
-                "DeepClean is applicability-check-only in v0.1. Cleaning is not "
-                "scheduled unless witness channels, coupling configuration, and "
-                "compatible immutable weights are all verified."
+                "DeepClean cleaning runs only if the applicability check verifies "
+                "witness channels, a reviewed coupling configuration, and "
+                "compatible immutable weights; otherwise the task is skipped."
             )
 
         if wants_aframe:
@@ -342,6 +384,7 @@ class BaselinePlanner:
 
         if wants_gwak:
             gwak_revision = self.config.gwak_revision or "UNPINNED"
+            gwak_cut, gwak_calibration = self._gwak_threshold(warnings)
             # GWAK models were trained at 4096 Hz; fetch a dedicated copy so the
             # Aframe/AMPLFI 2048 Hz path stays byte-for-byte what Buoy sees.
             tasks.append(
@@ -368,6 +411,8 @@ class BaselinePlanner:
                         "strain_artifact": "${fetch_data_4k.outputs.strain_artifact}",
                         "model_revision": gwak_revision,
                         "top_k": 10,
+                        "threshold": gwak_cut,
+                        "threshold_calibration": gwak_calibration,
                         "target_time": "${resolve_event.outputs.catalog_time}",
                         "device": self.config.device,
                         "seed": self.config.seed,

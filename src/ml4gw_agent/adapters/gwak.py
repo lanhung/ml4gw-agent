@@ -176,7 +176,11 @@ class GWAKAdapter(SkillAdapter):
                 f"models ({manifest['revision']!r})"
             )
         verify_models(model_dir, manifest)
-        warnings = [UNCALIBRATED_WARNING]
+        warnings = (
+            []
+            if context.parameters.get("threshold_calibration")
+            else [UNCALIBRATED_WARNING]
+        )
         if context.parameters.get("device", "cuda") == "cuda":
             import shutil
 
@@ -220,6 +224,12 @@ class GWAKAdapter(SkillAdapter):
         target_time = float(target_time) if target_time is not None else None
         window = float(params.get("candidate_window_seconds", 0.6))
         threshold = float(params.get("threshold", 0.0))
+        calibration = params.get("threshold_calibration") or None
+        if calibration and str(calibration.get("revision")) != revision:
+            raise AdapterError(
+                "threshold_calibration was derived for GWAK revision "
+                f"{calibration.get('revision')}, not {revision}"
+            )
         top_k = int(params.get("top_k", 10))
         device = str(params.get("device", "cuda"))
         seed = params.get("seed")
@@ -339,7 +349,7 @@ class GWAKAdapter(SkillAdapter):
             "max_score": max_score,
             "median_score": float(np.median(scores)),
             "threshold": threshold,
-            "threshold_calibrated": False,
+            "threshold_calibrated": bool(calibration),
             "n_kernels": int(scores.size),
             "analysis_start": float(analysis_t0),
             "analysis_end": float(times[-1] + kernel_s / 2),
@@ -373,5 +383,5 @@ class GWAKAdapter(SkillAdapter):
                 "packages": package_versions("torch", "ml4gw", "h5py"),
                 "model_dir": str(model_dir),
             },
-            warnings=[UNCALIBRATED_WARNING],
+            warnings=[] if calibration else [UNCALIBRATED_WARNING],
         )

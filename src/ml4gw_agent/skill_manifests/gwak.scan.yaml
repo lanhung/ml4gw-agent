@@ -19,6 +19,15 @@ input_schema:
     model_revision: {type: string, minLength: 1}
     top_k: {type: integer, minimum: 1, maximum: 1000, default: 10}
     threshold: {type: number, default: 0.0}
+    threshold_calibration:
+      description: Provenance of a FAR-calibrated threshold; null means the raw cut.
+      type: [object, "null"]
+      properties:
+        revision: {type: string}
+        far_per_year: {type: number, exclusiveMinimum: 0}
+        livetime_seconds: {type: number}
+        source: {type: string}
+      required: [revision, far_per_year]
     stride_seconds: {type: number, exclusiveMinimum: 0, maximum: 4, default: 0.0625}
     target_time:
       description: Requested or catalog time; the score, rank and z-score of the loudest kernel within candidate_window_seconds of it are reported.
@@ -68,6 +77,6 @@ resources:
 tags: [gwak, anomaly, unmodeled]
 source_repository: https://github.com/ML4GW/gwak
 notes:
-  - Real adapter runs the exported GWAK 2.0 TorchScript models in models/gwak (user-trained, pinned by SHA-256 in MANIFEST.json); model_revision must equal the manifest revision. The anomaly threshold is uncalibrated until a background study.
+  - Real adapter runs the exported GWAK 2.0 TorchScript models in models/gwak (user-trained, pinned by SHA-256 in MANIFEST.json); model_revision must equal the manifest revision. The anomaly threshold is the raw score cut unless threshold_calibration names a background-study FAR; the planner fills it from ml4gw_agent/calibration/gwak_thresholds.json (scripts/gwak_background.py) for the pinned revision.
   - Needs 4096 Hz H1+L1 strain; the planner schedules a dedicated data.fetch at 4096 Hz for GWAK.
 

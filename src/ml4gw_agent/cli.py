@@ -86,6 +86,19 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
         help="Target false-alarm rate per year for the calibrated threshold",
     )
     parser.add_argument(
+        "--gwak-threshold",
+        type=float,
+        default=None,
+        help="Explicit GWAK score cut; by default the calibrated one at --gwak-far",
+    )
+    parser.add_argument(
+        "--gwak-far",
+        type=float,
+        default=365.25,
+        dest="gwak_far_per_year",
+        help="Target false-alarm rate per year for the calibrated GWAK threshold",
+    )
+    parser.add_argument(
         "--candidate-window",
         type=float,
         default=2.0,
@@ -112,6 +125,8 @@ def _config_from_args(args: argparse.Namespace) -> PlannerConfig:
         sample_rate=args.sample_rate,
         aframe_threshold=args.aframe_threshold,
         aframe_far_per_year=args.aframe_far_per_year,
+        gwak_threshold=args.gwak_threshold,
+        gwak_far_per_year=args.gwak_far_per_year,
         candidate_window_seconds=args.candidate_window_seconds,
         data_source=args.data_source,
     )

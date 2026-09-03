@@ -2,13 +2,13 @@ schema_version: "1.0"
 name: deepclean.clean
 version: "0.1.0"
 description: Subtract modeled detector noise only when witness-channel coupling is valid.
-status: planned
+status: experimental
 risk: high
 requires_approval: true
 adapter:
-  kind: planned
-  entrypoint: deepclean_law
-  timeout_seconds: 86400
+  kind: python
+  entrypoint: deepclean_clean
+  timeout_seconds: 3600
 input_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
   type: object
@@ -56,6 +56,11 @@ resources:
 tags: [deepclean, denoising, witness-channels]
 source_repository: https://github.com/ML4GW/DeepClean
 notes:
-  - The agent must skip this skill when any scientific precondition is unverified.
-  - Real adapter is a Phase 3 deliverable; real mode fails closed until it exists.
+  - The agent must skip this skill when any scientific precondition is unverified;
+    the planner conditions this task on deepclean.check_applicability reporting
+    applicable=true, which also produces the witness artifact.
+  - The real adapter runs the autoencoder port in ml4gw_agent.adapters.deepclean_model
+    with weights pinned by SHA-256 in calibration/deepclean_support.json; the
+    subtraction is band-limited and witness-only, and the out-of-band ASD ratio
+    is checked to stay at unity.
 

@@ -39,7 +39,9 @@ def test_explicit_composition_builds_conditional_dag(registry):
     by_id = {task.id: task for task in plan.tasks}
     assert by_id["fetch_data"].skill == "data.fetch"
     assert by_id["check_deepclean"].skill == "deepclean.check_applicability"
-    assert "deepclean.clean" not in {task.skill for task in plan.tasks}
+    assert by_id["clean_deepclean"].skill == "deepclean.clean"
+    assert by_id["clean_deepclean"].when.reference.endswith("applicable}")
+    assert by_id["clean_deepclean"].depends_on == ["check_deepclean"]
     assert by_id["run_aframe"].when.reference.endswith("quality_passed}")
     assert by_id["run_amplfi"].depends_on == ["run_aframe"]
     assert by_id["run_amplfi"].when.reference.endswith("candidate_found}")

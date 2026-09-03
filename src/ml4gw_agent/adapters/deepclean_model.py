@@ -57,6 +57,22 @@ class DeepCleanConfig:
         return asdict(self)
 
 
+def resample(x: np.ndarray, rate_in: float, rate_out: float) -> np.ndarray:
+    """Polyphase resampling for integer ratios, Fourier resampling otherwise."""
+    if abs(rate_in - rate_out) < 1e-9:
+        return np.asarray(x, dtype="f8")
+    from scipy import signal
+
+    factor = rate_in / rate_out
+    if abs(factor - round(factor)) < 1e-9:
+        return signal.resample_poly(np.asarray(x, dtype="f8"), 1, int(round(factor)))
+    inverse = rate_out / rate_in
+    if abs(inverse - round(inverse)) < 1e-9:
+        return signal.resample_poly(np.asarray(x, dtype="f8"), int(round(inverse)), 1)
+    n_out = int(round(len(x) * rate_out / rate_in))
+    return signal.resample(np.asarray(x, dtype="f8"), n_out)
+
+
 def bandpass(x: np.ndarray, low: float, high: float, sample_rate: float, order: int):
     from scipy import signal
 
@@ -95,7 +111,9 @@ class Scaler:
         return scaler
 
 
-def build_autoencoder(num_witnesses: int, hidden_channels: list[int]):
+def build_autoencoder(  # pragma: no cover - torch path, tested on the GPU node
+    num_witnesses: int, hidden_channels: list[int]
+):
     import torch.nn as nn
 
     class ConvBlock(nn.Module):
@@ -140,7 +158,9 @@ def build_autoencoder(num_witnesses: int, hidden_channels: list[int]):
     return Autoencoder()
 
 
-def psd_ratio_loss(pred, strain, spectral, mask, asd=True):
+def psd_ratio_loss(  # pragma: no cover - torch path, tested on the GPU node
+    pred, strain, spectral, mask, asd=True
+):
     residual = spectral((strain - pred).double())
     target = spectral(strain.double())
     ratio = (residual / target)[:, mask]
@@ -149,7 +169,9 @@ def psd_ratio_loss(pred, strain, spectral, mask, asd=True):
     return ratio.mean(dim=-1)
 
 
-def _band_mask(sample_rate: float, fftlength: float, low: float, high: float):
+def _band_mask(  # pragma: no cover - torch path, tested on the GPU node
+    sample_rate: float, fftlength: float, low: float, high: float
+):
     import torch
 
     n = int(fftlength * sample_rate / 2) + 1
@@ -158,7 +180,7 @@ def _band_mask(sample_rate: float, fftlength: float, low: float, high: float):
     return mask
 
 
-def train_deepclean(
+def train_deepclean(  # pragma: no cover - torch path, tested on the GPU node
     strain: np.ndarray,
     witnesses: np.ndarray,
     config: DeepCleanConfig,
@@ -262,7 +284,9 @@ def train_deepclean(
     }
 
 
-def evaluate_ratio(model, x, y, config, spectral, mask, device) -> float:
+def evaluate_ratio(  # pragma: no cover - torch path, tested on the GPU node
+    model, x, y, config, spectral, mask, device
+) -> float:
     """In-band ASD ratio on a held-out stretch using the cleaning procedure."""
     import torch
 
@@ -274,7 +298,7 @@ def evaluate_ratio(model, x, y, config, spectral, mask, device) -> float:
         return float(psd_ratio_loss(p, t, spectral, mask).mean())
 
 
-def predict_noise(
+def predict_noise(  # pragma: no cover - torch path, tested on the GPU node
     model, x: np.ndarray, config: DeepCleanConfig, device: str
 ) -> np.ndarray:
     """Noise prediction for scaled witnesses x[k, n] via overlapping kernels.
@@ -318,7 +342,7 @@ def predict_noise(
     return out
 
 
-def clean_strain(
+def clean_strain(  # pragma: no cover - torch path, tested on the GPU node
     strain: np.ndarray,
     witnesses: np.ndarray,
     weights: dict[str, Any],
@@ -364,7 +388,9 @@ def clean_strain(
     }
 
 
-def save_weights(weights: dict[str, Any], path: Path) -> str:
+def save_weights(  # pragma: no cover - torch path, tested on the GPU node
+    weights: dict[str, Any], path: Path
+) -> str:
     import hashlib
 
     import torch
@@ -375,7 +401,9 @@ def save_weights(weights: dict[str, Any], path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def load_weights(path: Path) -> dict[str, Any]:
+def load_weights(  # pragma: no cover - torch path, tested on the GPU node
+    path: Path,
+) -> dict[str, Any]:
     import torch
 
     return torch.load(path, map_location="cpu", weights_only=False)
