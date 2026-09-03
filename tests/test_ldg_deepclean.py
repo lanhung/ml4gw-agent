@@ -303,3 +303,31 @@ def test_ldg_uses_local_frames_when_datafind_returns_files(tmp_path, monkeypatch
     assert calls == ["file"]
     assert series == ([str(frame)], "H1:DCS-CALIB_STRAIN_C02")
     assert prov["files"] == [str(frame)]
+
+
+def test_nds2_transport_via_helper_interpreter(tmp_path, monkeypatch):
+    pytest.importorskip("gwpy")
+    import sys
+
+    from ml4gw_agent.adapters.ldg import fetch_nds2_strain
+
+    # A fake "interpreter": a script that ignores the helper code and writes
+    # a known buffer, standing in for the conda-only nds2 bindings.
+    fake = tmp_path / "fake_nds2.py"
+    fake.write_text(
+        "import sys, json, numpy as np\n"
+        "args = sys.argv[3:]  # host port channel start end out (after '-c code')\n"
+        "host, port, channel, start, end, out = args\n"
+        "np.save(out, np.arange(16.0))\n"
+        "print(json.dumps({'t0': float(start), 'sample_rate': 4.0, 'n': 16}))\n"
+    )
+    wrapper = tmp_path / "python"
+    wrapper.write_text(f'#!/bin/sh\nexec {sys.executable} {fake} "$@"\n')
+    wrapper.chmod(0o755)
+    monkeypatch.setenv("ML4GW_NDS2_PYTHON", str(wrapper))
+    monkeypatch.setitem(sys.modules, "nds2", None)  # force the subprocess path
+    series, prov = fetch_nds2_strain("H1", 1421348500.0, 1421348502.0)
+    assert (
+        prov["transport"] == "nds2" and prov["channel"] == "H1:GDS-CALIB_STRAIN_CLEAN"
+    )
+    assert float(series.t0.value) == 1421348500.0 and series.shape == (8,)

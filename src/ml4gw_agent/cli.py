@@ -65,7 +65,7 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--data-source",
-        choices=["gwosc", "ldg"],
+        choices=["gwosc", "ldg", "nds2"],
         default="gwosc",
         help="gwosc: public strain; ldg: authenticated frames (needs IGWN credentials)",
     )

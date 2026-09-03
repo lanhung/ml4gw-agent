@@ -295,12 +295,20 @@ def skills() -> list[dict[str, Any]]:
     return rows
 
 
-@app.post("/api/plan")
-def make_plan(req: PlanRequest) -> dict[str, Any]:
+def _plan_or_http(req: PlanRequest) -> PlanSpec:
     try:
-        plan = _planner(req).plan(req.prompt)
+        return _planner(req).plan(req.prompt)
     except PlanningError as exc:
         raise HTTPException(422, str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001 - e.g. Anthropic API/billing errors
+        if req.planner == "llm":
+            raise HTTPException(502, f"LLM planner error: {exc}") from exc
+        raise
+
+
+@app.post("/api/plan")
+def make_plan(req: PlanRequest) -> dict[str, Any]:
+    plan = _plan_or_http(req)
     registry = load_default_registry()
     estimate = estimate_plan(plan, registry)
     decision = BudgetPolicy().check(estimate)
@@ -318,10 +326,7 @@ def start_run(req: PlanRequest) -> dict[str, Any]:
             raise HTTPException(400, "real runs are not configured on this server")
         if PASSCODE and req.passcode != PASSCODE:
             raise HTTPException(403, "passcode required for real runs")
-    try:
-        plan = _planner(req).plan(req.prompt)
-    except PlanningError as exc:
-        raise HTTPException(422, str(exc)) from exc
+    plan = _plan_or_http(req)
     job = Job(
         id=f"job_{uuid.uuid4().hex[:10]}", request=req.model_dump(exclude={"passcode"})
     )

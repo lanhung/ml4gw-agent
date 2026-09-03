@@ -28,7 +28,13 @@ from .base import (
     artifact_directory,
     relative_to_run,
 )
-from .ldg import STRAIN_CHANNELS, fetch_ldg_strain, ldg_preflight, load_ldg_backend
+from .ldg import (
+    STRAIN_CHANNELS,
+    fetch_ldg_strain,
+    fetch_nds2_strain,
+    ldg_preflight,
+    load_ldg_backend,
+)
 from .strain_io import StrainData, package_versions, write_strain
 
 REQUIRED_MODULES = ("gwosc", "gwpy", "h5py", "numpy")
@@ -88,6 +94,17 @@ class GWOSCFetchAdapter(SkillAdapter):
         if not EVENT_PATTERN.fullmatch(event):
             raise AdapterError(f"unsupported event identifier: {event}")
         source = str(context.parameters.get("source", "gwosc"))
+        if source == "nds2":
+            unknown = [
+                str(ifo)
+                for ifo in context.parameters.get("ifos", [])
+                if str(ifo) not in STRAIN_CHANNELS
+            ]
+            if unknown:
+                raise AdapterUnavailableError(
+                    f"no reviewed strain channel for detectors {unknown}"
+                )
+            return ["NDS2 access relies on a valid Kerberos ticket or SciToken"]
         if source == "ldg":
             ldg_preflight([str(ifo) for ifo in context.parameters.get("ifos", [])])
             if event[:1] in {"G", "S"} and not event.startswith("GW"):
@@ -113,6 +130,12 @@ class GWOSCFetchAdapter(SkillAdapter):
     def describe_invocation(
         self, context: ExecutionContext
     ) -> tuple[list[str] | None, dict[str, Any]]:
+        if str(context.parameters.get("source", "gwosc")) == "nds2":
+            return None, {
+                "adapter": self.name,
+                "python_call": "nds2.connection.fetch",
+                "data_source": "NDS2 calibrated strain (non-public)",
+            }
         if str(context.parameters.get("source", "gwosc")) == "ldg":
             return None, {
                 "adapter": self.name,
@@ -146,6 +169,19 @@ class GWOSCFetchAdapter(SkillAdapter):
         source = str(params.get("source", "gwosc"))
         backend = load_gwosc_backend()
         ldg_provenance: dict[str, Any] = {}
+        if source == "nds2":
+
+            def fetch_nds(ifo: str, start: float, end: float):
+                series_, provenance = fetch_nds2_strain(ifo, start, end)
+                ldg_provenance[ifo] = provenance
+                return series_
+
+            backend = GWOSCBackend(
+                event_gps=backend.event_gps,
+                event_detectors=backend.event_detectors,
+                fetch_open_data=fetch_nds,
+                get_segments=backend.get_segments,
+            )
         if source == "ldg":
             ldg = load_ldg_backend()
 

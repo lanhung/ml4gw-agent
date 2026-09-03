@@ -22,10 +22,13 @@ O4 ``HOFT_C00`` frames were readable with the token and refused without it.
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+import numpy as np
 
 from ..errors import AdapterError, AdapterUnavailableError
 
@@ -267,6 +270,92 @@ def fetch_ldg_strain(
         "datafind_server": os.environ.get("GWDATAFIND_SERVER", DEFAULT_DATAFIND_SERVER),
     }
     return series, provenance
+
+
+NDS2_HOST = os.environ.get("ML4GW_NDS2_HOST", "nds.ligo.caltech.edu")
+NDS2_PORT = int(os.environ.get("ML4GW_NDS2_PORT", "31200"))
+
+_NDS2_HELPER = """
+import sys, json, numpy as np, nds2
+host, port, channel, start, end, out = sys.argv[1:7]
+conn = nds2.connection(host, int(port))
+bufs = conn.fetch(int(float(start)), int(float(end)), [channel])
+b = bufs[0]
+np.save(out, np.asarray(b.data, dtype="f8"))
+print(json.dumps({"t0": float(b.gps_seconds) + float(b.gps_nanoseconds) * 1e-9,
+                  "sample_rate": float(b.channel.sample_rate), "n": int(len(b.data))}))
+"""
+
+
+def fetch_nds2_strain(
+    ifo: str, start: float, end: float, *, channel: str | None = None
+):
+    """Stream ``channel`` for ``[start, end)`` from an NDS2 server.
+
+    Uses the ``nds2`` Python bindings in-process when importable; otherwise
+    runs the same fetch in the interpreter named by ``ML4GW_NDS2_PYTHON``
+    (the bindings are conda-only). Authentication is the caller's Kerberos
+    ticket or SciToken, as for any NDS2 client.
+    """
+    import importlib.util
+    import subprocess
+    import tempfile
+
+    from gwpy.timeseries import TimeSeries
+
+    _, default_channel = epoch_for(ifo, start)
+    channel = channel or default_channel
+    gps_start, gps_end = int(np.floor(start)), int(np.ceil(end))
+    if importlib.util.find_spec("nds2") is not None:
+        import nds2
+
+        conn = nds2.connection(NDS2_HOST, NDS2_PORT)
+        buffer = conn.fetch(gps_start, gps_end, [channel])[0]
+        data = np.asarray(buffer.data, dtype="f8")
+        t0 = float(buffer.gps_seconds) + float(buffer.gps_nanoseconds) * 1e-9
+        rate = float(buffer.channel.sample_rate)
+    else:
+        python = os.environ.get("ML4GW_NDS2_PYTHON")
+        if not python:
+            raise AdapterUnavailableError(
+                "the nds2 Python bindings are not installed here; set "
+                "ML4GW_NDS2_PYTHON to an interpreter that has them (conda-forge "
+                "python-nds2-client)"
+            )
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "nds2.npy"
+            result = subprocess.run(
+                [
+                    python,
+                    "-c",
+                    _NDS2_HELPER,
+                    NDS2_HOST,
+                    str(NDS2_PORT),
+                    channel,
+                    str(gps_start),
+                    str(gps_end),
+                    str(out),
+                ],
+                capture_output=True,
+                text=True,
+                timeout=900,
+                check=False,
+            )
+            if result.returncode != 0:
+                raise AdapterError(
+                    f"NDS2 fetch of {channel} failed: {result.stderr.strip()[-400:]}"
+                )
+            meta = json.loads(result.stdout.strip().splitlines()[-1])
+            data = np.load(out)
+            t0, rate = float(meta["t0"]), float(meta["sample_rate"])
+    series = TimeSeries(data, t0=t0, sample_rate=rate, channel=channel, name=channel)
+    provenance = {
+        "transport": "nds2",
+        "host": f"{NDS2_HOST}:{NDS2_PORT}",
+        "channel": channel,
+        "requested": [gps_start, gps_end],
+    }
+    return series.crop(start, end), provenance
 
 
 def ldg_preflight(ifos: list[str]) -> None:
