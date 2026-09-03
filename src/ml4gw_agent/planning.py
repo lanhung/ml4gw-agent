@@ -342,16 +342,36 @@ class BaselinePlanner:
 
         if wants_gwak:
             gwak_revision = self.config.gwak_revision or "UNPINNED"
+            # GWAK models were trained at 4096 Hz; fetch a dedicated copy so the
+            # Aframe/AMPLFI 2048 Hz path stays byte-for-byte what Buoy sees.
+            tasks.append(
+                TaskSpec(
+                    id="fetch_data_4k",
+                    skill="data.fetch",
+                    parameters={
+                        "event": event,
+                        "source": self.config.data_source,
+                        "gps_time": "${resolve_event.outputs.catalog_time}",
+                        "ifos": list(AFRAME_IFOS),
+                        "window_seconds": self.config.window_seconds,
+                        "event_offset_fraction": self.config.event_offset_fraction,
+                        "sample_rate": 4096,
+                    },
+                    depends_on=["resolve_event"],
+                )
+            )
             tasks.append(
                 TaskSpec(
                     id="run_gwak",
                     skill="gwak.scan",
                     parameters={
-                        "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+                        "strain_artifact": "${fetch_data_4k.outputs.strain_artifact}",
                         "model_revision": gwak_revision,
                         "top_k": 10,
+                        "device": self.config.device,
+                        "seed": self.config.seed,
                     },
-                    depends_on=["inspect_data"],
+                    depends_on=["inspect_data", "fetch_data_4k"],
                     when=ConditionSpec(
                         reference="${inspect_data.outputs.quality_passed}",
                         operator="truthy",

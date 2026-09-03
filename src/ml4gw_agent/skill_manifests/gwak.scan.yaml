@@ -18,6 +18,13 @@ input_schema:
     strain_artifact: {type: string, minLength: 1}
     model_revision: {type: string, minLength: 1}
     top_k: {type: integer, minimum: 1, maximum: 1000, default: 10}
+    threshold: {type: number, default: 0.0}
+    stride_seconds: {type: number, exclusiveMinimum: 0, maximum: 4, default: 0.25}
+    highpass_hz: {type: [number, "null"], minimum: 0}
+    psd_length_seconds: {type: number, minimum: 4, maximum: 512, default: 64}
+    model_dir: {type: [string, "null"]}
+    device: {enum: [cpu, cuda], default: cuda}
+    seed: {type: [integer, "null"], minimum: 0}
 output_schema:
   $schema: https://json-schema.org/draft/2020-12/schema
   type: object
@@ -27,6 +34,14 @@ output_schema:
     anomaly_found: {type: boolean}
     top_segments: {type: array, items: {type: object}}
     anomaly_artifact: {type: string}
+    max_score: {type: number}
+    median_score: {type: number}
+    threshold: {type: number}
+    threshold_calibrated: {type: boolean}
+    n_kernels: {type: integer}
+    analysis_start: {type: number}
+    analysis_end: {type: number}
+    model: {type: object}
     simulated: {type: boolean}
 preconditions:
   - name: compatible_preprocessing
@@ -45,5 +60,6 @@ resources:
 tags: [gwak, anomaly, unmodeled]
 source_repository: https://github.com/ML4GW/gwak
 notes:
-  - Real mode fails closed with the upstream blocker (no packaged inference entry point or published weights, reviewed 2026-09-03); mock mode exercises the planner's Aframe/GWAK routing.
+  - Real adapter runs the exported GWAK 2.0 TorchScript models in models/gwak (user-trained, pinned by SHA-256 in MANIFEST.json); model_revision must equal the manifest revision. The anomaly threshold is uncalibrated until a background study.
+  - Needs 4096 Hz H1+L1 strain; the planner schedules a dedicated data.fetch at 4096 Hz for GWAK.
 

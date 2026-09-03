@@ -1,0 +1,33 @@
+{
+  "revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+  "description": "GWAK 2.0 embedder (SimCLR, S4 backbone, multi-signal + background training) and background-only normalizing flow, exported as TorchScript. Anomaly score = -log_prob(embedding).",
+  "source_repository": "https://github.com/ML4GW/gwak",
+  "source_commit": "7b9f58a",
+  "trained_by": "fan.zhang on the CIT LDG cluster (home directory checkout, 2026)",
+  "files": {
+    "embedder": {
+      "path": "embedder_S4_SimCLR_multiSignalAndBkg.pt",
+      "sha256": "f775aed557370a77b1fb0568b1e45015a6482bb7213832782d54e05979620c6f",
+      "input": "(batch, 2, 2048) whitened H1+L1 kernels at 4096 Hz",
+      "output": "(batch, 8) embedding"
+    },
+    "metric": {
+      "path": "metric_NF_onlyBkg.pt",
+      "sha256": "a0c755adebfadb678dd4bcd7c190c57007d089ac4281f989e0a0ebef62bb3812",
+      "input": "(batch, 8) embedding",
+      "output": "(batch,) log probability under the background flow"
+    }
+  },
+  "preprocessing": {
+    "sample_rate": 4096,
+    "ifos": ["H1", "L1"],
+    "kernel_length_seconds": 0.5,
+    "psd_length_seconds": 64,
+    "fduration_seconds": 1,
+    "fftlength_seconds": 2,
+    "highpass_hz": 30,
+    "stride_seconds": 0.25,
+    "note": "sample_rate, kernel_length, psd_length, fduration and fftlength come from the training config (train_config_S4_SimCLR_multiSignalAndBkg.yaml). highpass and stride are not in the exported config; 30 Hz matches the GWAK 1 bandpass and 0.25 s is the adapter default, both recorded in every manifest."
+  },
+  "review_status": "user-trained checkpoints, not a published ML4GW release; anomaly threshold uncalibrated until a background study"
+}

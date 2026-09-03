@@ -1,0 +1,134 @@
+Warning: Permanently added '[gpu.chzmark.com]:2338' (ED25519) to the list of known hosts.
+#!/usr/bin/env python3
+import torch
+import torch.nn as nn
+import argparse
+class CombinedModel(nn.Module):
+    def __init__(self, embedder_model, metric_model):
+        super().__init__()
+        self.embedder_model = embedder_model
+        self.metric_model = metric_model
+    def forward(self, x):
+        # Get the embedding from the embedder model.
+        embedding = self.embedder_model(x)
+        # Pass the embedding to the metric model to get final classification.
+        out = self.metric_model(embedding)
+        return out
+def main(embedder_model_file,
+         metric_model_file,
+         batch_size=256,
+         kernel_length=0.5,
+         sample_rate=4096,
+         num_ifos=2,
+         output_path="model_JIT.pt"):
+    # Load the embedder model (assumed to be a TorchScript module).
+    embedder_model = torch.jit.load(embedder_model_file, map_location="cpu")
+    embedder_model.eval()
+    # Load the metric model (also in TorchScript format).
+    metric_model = torch.jit.load(metric_model_file, map_location="cpu")
+    metric_model.eval()
+    # Create the combined model.
+    combined_model = CombinedModel(embedder_model, metric_model)
+    combined_model.eval()
+    # Script the combined model to produce a single TorchScript module.
+    scripted_model = torch.jit.script(combined_model)
+    scripted_model.save(output_path)
+    print(f"Combined model saved to {output_path}")
+    dummy_input = torch.randn(batch_size, num_ifos, int(kernel_length * sample_rate), device='cpu')
+    output = combined_model(dummy_input)
+    print("Test inference complete.")
+    print(f"Output shape: {output.shape}")
+    print(f"Output: {output}")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='Merge JIT embedder and metric models files, save to JIT model.'
+    )
+    parser.add_argument('folder_embedder', type=str, help='Path to the folder containing JIT embedder model.')
+    parser.add_argument('folder_metric', type=str, help='Path to the folder containing JIT metric model.')
+    parser.add_argument('--batch_size', type=int, default=256, help='Batch size for inference (default: 256).')
+    parser.add_argument('--kernel_length', type=float, default=0.5, help='Kernel length in seconds (default: 0.5).')
+    parser.add_argument('--sample_rate', type=float, default=4096, help='Sample rate in Hz (default: 4096).')
+    parser.add_argument('--num_ifos', type=int, default=2, help='Number of interferometers (default: 2).')
+    parser.add_argument('--outfile', type=str, default='Output folder for JIT combined model', help='Output file name for the NumPy array (default: far_metrics.npy).')
+    
+    args = parser.parse_args()
+    main(
+        embedder_model_file=args.folder_embedder,
+        metric_model_file=args.folder_metric,
+        batch_size=args.batch_size,
+        kernel_length=args.kernel_length,
+        sample_rate=args.sample_rate,
+        num_ifos=args.num_ifos,
+        output_path=args.outfile
+    )
+    # for KATYA this would get called as such: 
+    # python combine_models.py /home/eric.moreno/gwak2/gwak/output/combination/embedding_model_JIT.pt 
+    #                          /home/eric.moreno/gwak2/gwak/output/combination/mlp_model_JIT.pt 
+    #       #from export.yaml: --batch_size 256 --kernel_length 0.5 --sample_rate 4096 --num_ifos 2
+    #                          --outfile /home/eric.moreno/gwak2/gwak/output/combination/model_JIT.pt
+kfan.zhang@ldas-grid:~/gwak2/gwak2/gwak\$ 
+=== whiten/infer utils
+gwak/deploy/deploy/libs/whiten_utils.py:11:    """Update a kernel with a new piece of streaming data"""
+gwak/deploy/deploy/libs/whiten_utils.py:13:    def __init__(
+gwak/deploy/deploy/libs/whiten_utils.py:15:        psd_length,
+gwak/deploy/deploy/libs/whiten_utils.py:16:        kernel_length,
+gwak/deploy/deploy/libs/whiten_utils.py:17:        fduration,
+gwak/deploy/deploy/libs/whiten_utils.py:19:        inference_sampling_rate,
+gwak/deploy/deploy/libs/whiten_utils.py:22:        state_length = kernel_length + fduration + psd_length
+gwak/deploy/deploy/libs/whiten_utils.py:23:        state_length -= 1 / inference_sampling_rate
+gwak/deploy/deploy/libs/whiten_utils.py:26:    def forward(self, update: Tensor, snapshot: Tensor) -> Tuple[Tensor, ...]:
+gwak/deploy/deploy/libs/whiten_utils.py:60:            bins. If you plan on highpassing later, this
+gwak/deploy/deploy/libs/whiten_utils.py:64:    def __init__(
+gwak/deploy/deploy/libs/whiten_utils.py:80:    def forward(self, X: Tensor) -> Tuple[Tensor, Tensor]:
+gwak/deploy/deploy/libs/whiten_utils.py:101:    """Calculate the PSDs and whiten an entire batch of kernels at once"""
+gwak/deploy/deploy/libs/whiten_utils.py:103:    def __init__(
+gwak/deploy/deploy/libs/whiten_utils.py:105:        kernel_length: float,
+gwak/deploy/deploy/libs/whiten_utils.py:107:        inference_sampling_rate: float,
+gwak/deploy/deploy/libs/whiten_utils.py:109:        fduration: float,
+gwak/deploy/deploy/libs/whiten_utils.py:112:        highpass: Optional[float] = None,
+gwak/deploy/deploy/libs/whiten_utils.py:116:        self.stride_size = int(sample_rate / inference_sampling_rate)
+gwak/deploy/deploy/libs/whiten_utils.py:117:        self.kernel_size = int(kernel_length * sample_rate)
+gwak/deploy/deploy/libs/whiten_utils.py:123:        strides = (batch_size - 1) * self.stride_size
+gwak/deploy/deploy/libs/whiten_utils.py:124:        fsize = int(fduration * sample_rate)
+gwak/deploy/deploy/libs/whiten_utils.py:125:        size = strides + self.kernel_size + fsize
+gwak/deploy/deploy/libs/whiten_utils.py:133:            fast=highpass is not None,
+gwak/deploy/deploy/libs/whiten_utils.py:135:        self.whitener = Whiten(fduration, sample_rate, highpass)
+gwak/deploy/deploy/libs/whiten_utils.py:137:    def forward(self, x: Tensor) -> Tensor:
+gwak/deploy/deploy/libs/whiten_utils.py:158:        # x = unfold_windows(whitened, self.kernel_size, self.stride_size) # (batch, num_ifo, kernel_size)
+gwak/deploy/deploy/libs/whiten_utils.py:159:        # x = x.reshape(-1, num_channels, self.kernel_size) # Apply this for gwak_1
+gwak/deploy/deploy/libs/whiten_utils.py:160:        # x = x.reshape(-1, self.kernel_size, num_channels) # Apply this for gwak_1
+gwak/deploy/deploy/libs/whiten_utils.py:162:        x = unfold_windows(whitened, self.kernel_size, self.stride_size)
+gwak/deploy/deploy/libs/whiten_utils.py:163:        x = x.reshape(-1, num_channels, self.kernel_size)
+gwak/deploy/deploy/libs/infer_utils.py:23:def get_ip_address() -> str:
+gwak/deploy/deploy/libs/infer_utils.py:37:def load_h5_as_dict(
+gwak/deploy/deploy/libs/infer_utils.py:75:def get_hp_hc_from_q2ij( 
+gwak/deploy/deploy/libs/infer_utils.py:104:def on_grid_pol_to_sim(quad_moment, sqrtnum=16):
+gwak/deploy/deploy/libs/infer_utils.py:119:def padding(
+gwak/deploy/deploy/libs/infer_utils.py:124:    sample_kernel = 3,
+gwak/deploy/deploy/libs/infer_utils.py:130:    signal = np.zeros([hp.shape[0], 2, sample_kernel * sample_rate])
+gwak/deploy/deploy/libs/infer_utils.py:132:    half_kernel_idx = int(sample_kernel * sample_rate/2)
+gwak/deploy/deploy/libs/infer_utils.py:136:    start = half_kernel_idx + t0_idx + time_shift_idx
+gwak/deploy/deploy/config/export.yaml:6:stride_batch_size: 256
+gwak/deploy/deploy/config/export.yaml:11:psd_length: 64
+gwak/deploy/deploy/config/export.yaml:13:fduration: 1
+gwak/deploy/deploy/config/export.yaml:14:fftlength: 2
+gwak/deploy/deploy/config/export.yaml:17:inference_sampling_rate: 1
+gwak/deploy/deploy/config/export.yaml:18:# inference_sampling_rate: 10.24
+gwak/deploy/deploy/config/infer.yaml:2:# psd_length: 64
+gwak/deploy/deploy/config/infer.yaml:3:# fduration: 1
+gwak/deploy/deploy/config/infer.yaml:11:stride_batch_size: 256
+gwak/deploy/deploy/config/infer.yaml:25:inference_sampling_rate: 1
+kfan.zhang@ldas-grid:~/gwak2/gwak2/gwak\$ 
+=== jit probe
+cd ~/gwak2/gwak2/gwak/gwak/output && /cvmfs/software.igwn.org/conda/envs/igwn-ppy311-20260331/bin/python -c "
+> import torch,hashlib
+> for p in [S4_SimCLR_multiSignalAndBkg/model_JIT.pt,SimCLR_multiSignal_all_v1/moodel_JIT.pt,NF_onlyBkg/model_JIT.pt]:
+>     m=torch.jit.load(p,map_location=cpu).eval(); print(p, sha256, hashlib.sha2556(open(p,rb).read()).hexdigest()[:16])
+>     for shape in [(4,2,2048),(4,128),(4,2048)]:
+>         try:
+>             with torch.no_grad(): y=m(torch.randn(*shape)); print( in,shape,- iin,shape,fail:,str(e).splitlines()[0][:100])
+  File "<string>", line 7
+    with torch.no_grad(): y=m(torch.randn(*shape)); print( in,shape,- in,shape,fail:,str(e).splitlines()[0][:100])
+                                                           ^^
+SyntaxError: invalid syntax
+kfan.zhang@ldas-grid:~/gwak2/gwak2/gwak/gwak/output\$ 

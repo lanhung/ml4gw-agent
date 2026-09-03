@@ -250,6 +250,7 @@ cases:
   - data.resolve_event
   - data.fetch
   - data.inspect
+  - data.fetch
   - gwak.scan
   - report.generate
   forbidden_skills:
@@ -263,6 +264,7 @@ cases:
   - data.fetch
   - data.inspect
   - aframe.detect
+  - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate
@@ -275,6 +277,7 @@ cases:
   - data.resolve_event
   - data.fetch
   - data.inspect
+  - data.fetch
   - gwak.scan
   - report.generate
   forbidden_skills:
@@ -288,6 +291,7 @@ cases:
   - data.fetch
   - data.inspect
   - aframe.detect
+  - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate
@@ -300,6 +304,7 @@ cases:
   - data.resolve_event
   - data.fetch
   - data.inspect
+  - data.fetch
   - gwak.scan
   - report.generate
   forbidden_skills:
@@ -313,6 +318,7 @@ cases:
   - data.fetch
   - data.inspect
   - aframe.detect
+  - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate
@@ -352,6 +358,7 @@ cases:
   - deepclean.check_applicability
   - aframe.detect
   - amplfi.pe
+  - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate
@@ -366,6 +373,7 @@ cases:
   - data.inspect
   - aframe.detect
   - amplfi.pe
+  - data.fetch
   - gwak.scan
   - analysis.reconcile
   - report.generate

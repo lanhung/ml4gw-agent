@@ -43,7 +43,7 @@ def test_explicit_composition_builds_conditional_dag(registry):
     assert by_id["run_aframe"].when.reference.endswith("quality_passed}")
     assert by_id["run_amplfi"].depends_on == ["run_aframe"]
     assert by_id["run_amplfi"].when.reference.endswith("candidate_found}")
-    assert by_id["run_gwak"].depends_on == ["inspect_data"]
+    assert by_id["run_gwak"].depends_on == ["inspect_data", "fetch_data_4k"]
     assert by_id["generate_report"].allow_failed_dependencies
 
 
