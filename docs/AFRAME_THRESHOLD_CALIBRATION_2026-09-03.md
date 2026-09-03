@@ -55,12 +55,15 @@ the same script; the table refuses to serve them rather than extrapolate.
 
 ## Verification on real data (same node, calibrated plan)
 
-`ml4gw-agent run ... --aframe-far 365.25` on the decomposed plan:
+`ml4gw-agent run ... --aframe-far 365.25` on the decomposed plan with the
+final table (threshold 2.701; the earlier interim runs with 3.468 gave the
+same decisions):
 
 | Case | statistic | threshold | `threshold_calibrated` | `candidate_found` | AMPLFI |
 |---|---:|---:|---|---|---|
-| GW150914 | 9.5059 | 3.468 | true (FAR 365.25/yr, livetime 105437 s recorded) | true (peak +0.014 s from target) | completed |
-| noise GPS 1126260200 | 0.5129 | 3.468 | true | **false** (peak 58.9 s from target, below threshold) | **skipped** |
+| GW150914 (H1 L1) | 9.5059 | 2.701 | true (FAR 365.25/yr, livetime 478 556 s recorded) | true (peak +0.014 s from target) | completed |
+| GW190521 (H1 L1 V1) | 8.7332 | 2.701 | true | true (peak +0.037 s from target) | completed (HLV) |
+| noise GPS 1126260200 | 0.5129 | 2.701 | true | **false** (peak 58.9 s from target, below threshold) | **skipped** |
 
 Both manifests record `threshold_calibration` (revision, FAR, livetime,
 source) on the Aframe task; the uncalibrated-threshold warning is no longer
