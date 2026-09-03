@@ -23,6 +23,11 @@ data = [
 llm = [
   "anthropic>=1.0",
 ]
+web = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.29",
+  "paramiko>=3",
+]
 ldg = [
   "ml4gw-agent[data]",
   "gwdatafind>=1.2",
@@ -58,6 +63,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 "ml4gw_agent.skill_manifests" = ["*.yaml"]
 "ml4gw_agent.calibration" = ["*.json"]
+"ml4gw_agent.web" = ["static/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

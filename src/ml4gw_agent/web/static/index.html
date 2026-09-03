@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML4GW Agent</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1a1d23;--muted:#5d6570;--line:#dde1e6;--accent:#1f5fbf;--ok:#1a7f4b;--bad:#b3261e;--warn:#9a6700;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e6e8ee;--muted:#9aa3b2;--line:#2a2f3a;--accent:#6ea3ff;--ok:#4cc38a;--bad:#ff7b72;--warn:#e3b341}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:18px 28px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px}header .sub{color:var(--muted)}
+main{max-width:1180px;margin:0 auto;padding:20px 28px;display:grid;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h2{margin:0 0 10px;font-size:16px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:64px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+button{padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:6px;font:inherit;cursor:pointer}
+button.secondary{background:transparent;color:var(--accent)}button:disabled{opacity:.5;cursor:default}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13px;cursor:pointer;background:var(--bg)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}
+code,pre{font-family:var(--mono);font-size:13px}pre{background:var(--bg);padding:10px;border-radius:6px;overflow:auto;max-height:420px}
+.task{display:grid;grid-template-columns:170px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}.task .id{font-family:var(--mono)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.tabs button{background:transparent;color:var(--muted);border:0;border-bottom:2px solid transparent;border-radius:0;padding:8px 12px}
+.tabs button.active{color:var(--ink);border-bottom-color:var(--accent)}
+.hidden{display:none}.small{font-size:13px}.md{line-height:1.5}.md table{margin:8px 0}
+.status{font-weight:600}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>ML4GW Agent</h1>
+  <span class="sub">a typed, policy-controlled orchestration layer over Buoy, Aframe, AMPLFI, DeepClean and GWAK. The model decides what to run; deterministic adapters decide how.</span>
+  <span id="health" class="sub small"></span>
+</header>
+<main>
+<div class="card">
+  <h2>Ask for an analysis</h2>
+  <label>Request (English or 中文; GWTC name or GPS time)</label>
+  <textarea id="prompt">Fetch strain data for GW150914, check data quality, run Aframe detection and AMPLFI parameter estimation.</textarea>
+  <div class="chips" id="examples"></div>
+  <div class="row">
+    <div><label>Mode</label><select id="mode"><option value="mock">mock (runs here, simulated values)</option><option value="real">real (GPU node, pinned models)</option></select></div>
+    <div><label>Planner</label><select id="planner"><option value="baseline">deterministic baseline</option><option value="llm">Claude (validated as PlanSpec)</option></select></div>
+    <div><label>Detectors</label><select id="ifos"><option value="H1 L1">H1 L1</option><option value="H1 L1 V1">H1 L1 V1</option></select></div>
+    <div><label>Aframe FAR target (per year)</label><input id="far" type="number" value="365.25" step="any"></div>
+    <div><label>Seed</label><input id="seed" type="number" value="0"></div>
+    <div id="passwrap" class="hidden"><label>Passcode for real runs</label><input id="passcode" type="password"></div>
+  </div>
+  <div class="actions">
+    <button id="planBtn">Plan and estimate</button>
+    <button id="runBtn" class="secondary">Run</button>
+    <span id="msg" class="small muted"></span>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card"><h2>Plan</h2><div id="plan" class="muted small">No plan yet.</div></div>
+  <div class="card"><h2>Estimate and budget</h2><div id="estimate" class="muted small">No estimate yet.</div></div>
+</div>
+
+<div class="card">
+  <h2>Run <span id="jobid" class="muted small"></span></h2>
+  <div class="tabs"><button class="active" data-tab="tasks">Tasks</button><button data-tab="report">Report</button><button data-tab="manifest">Manifest</button><button data-tab="log">Log</button></div>
+  <div id="tab-tasks" class="tab"><div id="run" class="muted small">No run yet.</div></div>
+  <div id="tab-report" class="tab hidden"><div id="report" class="md"></div></div>
+  <div id="tab-manifest" class="tab hidden"><pre id="manifest"></pre></div>
+  <div id="tab-log" class="tab hidden"><pre id="log"></pre></div>
+</div>
+
+<div class="card">
+  <h2>Verified real runs (GPU node, 2026-09-03)</h2>
+  <p class="small muted">Acceptance records shipped with the repository: agent runs compared against direct Buoy runs, the five-event suite, the time-shifted background calibration, and the non-public-data run. Every number here comes from a manifest with SHA-256 artifacts.</p>
+  <div id="records" class="small">Loading…</div>
+</div>
+
+<div class="card">
+  <h2>Skills</h2>
+  <div id="skills" class="small">Loading…</div>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const EXAMPLES=["Analyze GW150914","Fetch strain data for GW190521, check data quality, run Aframe detection and AMPLFI parameter estimation.","Analyze GPS 1126260200.","Run Aframe and GWAK on GW150914 and reconcile the two results.","Use DeepClean if appropriate for GW150914.","对 GW150914 做参数估计","Scan all of O3."];
+EXAMPLES.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;c.onclick=()=>{$('prompt').value=t};$('examples').appendChild(c)});
+function req(){return {prompt:$('prompt').value.trim(),mode:$('mode').value,planner:$('planner').value,ifos:$('ifos').value.split(' '),aframe_far_per_year:parseFloat($('far').value)||365.25,seed:parseInt($('seed').value)||0,passcode:$('passcode').value}}
+function esc(s){return String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function fmt(v){if(typeof v==='number')return Number.isInteger(v)?v:v.toPrecision(6);if(Array.isArray(v))return v.map(fmt).join(', ');if(v&&typeof v==='object')return '<code>'+esc(JSON.stringify(v)).slice(0,300)+'</code>';return esc(v)}
+async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}:undefined);const j=await r.json();if(!r.ok)throw new Error(j.detail||r.statusText);return j}
+function renderPlan(p){let h=`<div class="small muted">${esc(p.goal)} · planner <code>${esc(p.planner)}</code></div>`;
+ h+=p.tasks.map(t=>`<div class="task"><div><span class="id">${esc(t.id)}</span><br><span class="muted small">${esc(t.skill)}</span></div><div class="small">deps: ${t.depends_on.length?t.depends_on.map(esc).join(', '):'—'}${t.when?`<br>when: <code>${esc(t.when.reference)} ${esc(t.when.operator)}</code>`:''}<br><span class="muted">${esc(Object.entries(t.parameters).filter(([k])=>!['strain_artifact'].includes(k)).map(([k,v])=>k+'='+(typeof v==='object'?JSON.stringify(v):v)).join('  ')).slice(0,400)}</span></div></div>`).join('');
+ if(p.warnings.length)h+=`<div class="warn small" style="margin-top:8px">${p.warnings.map(esc).join('<br>')}</div>`;$('plan').innerHTML=h}
+function renderEstimate(e,b){const rows=[['GPU hours',e.gpu_hours],['CPU hours',e.cpu_hours],['memory (GB)',e.memory_gb],['transfer (GB)',e.transfer_gb],['expected latency (s)',e.expected_latency_seconds],['segments',e.n_segments]];
+ let h='<table>'+rows.map(([k,v])=>`<tr><th>${k}</th><td>${fmt(v)}</td></tr>`).join('')+'</table>';
+ h+=`<p class="small"><span class="${b.allowed?'ok':'bad'} status">${b.allowed?'within budget':'blocked by budget'}</span>${b.authorization_required?' · authorization required':''}${b.reasons.length?'<br>'+b.reasons.map(esc).join('<br>'):''}</p>`;
+ if(e.assumptions&&e.assumptions.length)h+=`<p class="muted small">${e.assumptions.map(esc).join(' ')}</p>`;$('estimate').innerHTML=h}
+$('planBtn').onclick=async()=>{$('msg').textContent='planning…';try{const r=await api('/api/plan',req());renderPlan(r.plan);renderEstimate(r.estimate,r.budget);$('msg').textContent=''}catch(e){$('msg').textContent=e.message;$('msg').className='small bad'}};
+let poll=null;
+$('runBtn').onclick=async()=>{$('msg').textContent='submitting…';$('msg').className='small muted';try{const r=await api('/api/run',req());$('jobid').textContent=r.job_id;$('run').innerHTML='<span class="muted">queued…</span>';clearInterval(poll);poll=setInterval(()=>refresh(r.job_id),1500);refresh(r.job_id);$('msg').textContent=''}catch(e){$('msg').textContent=e.message;$('msg').className='small bad'}};
+function cls(s){return s==='completed'?'ok':(s==='failed'||s==='blocked')?'bad':s==='skipped'?'warn':'muted'}
+async function refresh(id){const j=await api('/api/jobs/'+id);if(j.plan){renderPlan(j.plan)}
+ let h=`<p><span class="status ${cls(j.status)}">${j.status}</span> · ${esc(j.request.mode)} mode${j.summary?` · run <code>${esc(j.summary.run_id)}</code>`:''}${j.error?`<br><span class="bad">${esc(j.error)}</span>`:''}</p>`;
+ if(j.tasks){h+='<table><tr><th>task</th><th>skill</th><th>status</th><th>key outputs</th></tr>'+j.tasks.map(t=>`<tr><td class="id">${esc(t.id)}</td><td>${esc(t.skill)}</td><td class="${cls(t.status)}">${esc(t.status)}${t.error?'<br><span class="bad small">'+esc(t.error).slice(0,200)+'</span>':''}</td><td class="small">${Object.entries(t.outputs).filter(([k])=>k!=='credible_intervals').map(([k,v])=>`<b>${k}</b>: ${fmt(v)}`).join('<br>')}${t.outputs.credible_intervals?'<br><b>posterior medians</b>: '+Object.entries(t.outputs.credible_intervals).map(([k,v])=>k+'='+v.median.toPrecision(4)).join(', '):''}</td></tr>`).join('')+'</table>'}
+ if(j.warnings&&j.warnings.length)h+=`<p class="warn small">${j.warnings.map(esc).join('<br>')}</p>`;
+ if(j.execution&&j.execution.decision)h+=`<p class="muted small">executor budget: ${j.execution.decision.allowed?'allowed':'blocked'} · estimate ${fmt(j.execution.estimate?.gpu_hours)} GPU h</p>`;
+ $('run').innerHTML=h;$('report').innerHTML=j.report?marked.parse(j.report):'<span class="muted">no report yet</span>';$('manifest').textContent=j.manifest?JSON.stringify(j.manifest,null,2):'';$('log').textContent=j.log||'';
+ if(j.status==='completed'||j.status==='failed')clearInterval(poll)}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.add('hidden'));$('tab-'+b.dataset.tab).classList.remove('hidden')});
+$('mode').onchange=()=>{$('passwrap').classList.toggle('hidden',!(window._pass&&$('mode').value==='real'))};
+async function init(){try{const h=await api('/api/health');window._pass=h.passcode_required;$('health').textContent=`real runs: ${h.real_runs?'GPU node connected':'not configured'} · LLM planner: ${h.llm_planner?'available':'needs API key'}`}catch(e){}
+ try{const rs=await api('/api/records');$('records').innerHTML=rs.map(r=>{let h=`<h3 style="margin:10px 0 4px;font-size:14px"><code>${esc(r.name)}</code></h3>`;
+  if(r.background)h+=`<div>background study: ${fmt(r.background.livetime_days)} days livetime, ${r.background.n_peaks} peaks, 1/day threshold ${fmt(r.background.thresholds?.far_1_per_day)}, loudest ${fmt(r.background.loudest)}</div>`;
+  if(r.comparisons.length)h+='<table><tr><th>comparison</th><th>network</th><th>result</th><th>checks</th></tr>'+r.comparisons.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.agent_network||'')}/${esc(c.buoy_network||'')}</td><td class="${c.passed?'ok':'bad'}">${c.passed?'passed':'failed'}${c.note?' · '+esc(c.note):''}</td><td>${c.checks.map(k=>`${esc(k.quantity)} ${fmt(k.agent)} vs ${fmt(k.buoy)} (Δ ${Number(k.difference).toExponential(1)})`).join('<br>')}</td></tr>`).join('')+'</table>';
+  if(r.runs.length)h+='<table><tr><th>run</th><th>prompt</th><th>status</th><th>Aframe stat</th><th>tasks</th></tr>'+r.runs.map(x=>`<tr><td><code>${esc(x.run_id)}</code></td><td>${esc(x.prompt)}</td><td class="${cls(x.status)}">${esc(x.status)}</td><td>${fmt(x.aframe)}</td><td class="small">${Object.entries(x.tasks).map(([k,v])=>`<span class="${cls(v)}">${esc(k)}</span>`).join(', ')}</td></tr>`).join('')+'</table>';return h}).join('')}catch(e){$('records').textContent=e.message}
+ try{const s=await api('/api/skills');$('skills').innerHTML='<table><tr><th>skill</th><th>adapter</th><th>available here</th><th>description</th></tr>'+s.map(x=>`<tr><td><code>${esc(x.name)}</code> <span class="muted">${esc(x.version)}</span></td><td>${esc(x.adapter)}</td><td class="${x.availability_here==='available'?'ok':x.availability_here==='planned'?'muted':'warn'}">${esc(x.availability_here)}</td><td>${esc(x.description)}</td></tr>`).join('')+'</table>'}catch(e){}}
+init();
+</script>
+</body>
+</html>
