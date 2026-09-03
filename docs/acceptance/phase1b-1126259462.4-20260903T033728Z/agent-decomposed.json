@@ -1,0 +1,12 @@
+{
+  "run_id": "run_954ce0d0c568",
+  "status": "completed",
+  "run_directory": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1126259462.4-20260903T033728Z/agent-decomposed/run_954ce0d0c568",
+  "manifest": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1126259462.4-20260903T033728Z/agent-decomposed/run_954ce0d0c568/run_manifest.json",
+  "report": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1126259462.4-20260903T033728Z/agent-decomposed/run_954ce0d0c568/report.md",
+  "warnings": [
+    "aframe.detect threshold is a raw integrated network output, not a false-alarm-rate calibrated threshold; treat candidate_found as provisional until a background study fixes the threshold",
+    "H1 strain resampled from 4096 Hz to 2048 Hz",
+    "L1 strain resampled from 4096 Hz to 2048 Hz"
+  ]
+}

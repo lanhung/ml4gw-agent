@@ -1,0 +1,23 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]
+2026-09-03 11:38:42,803 - root - INFO - Setting up models
+2026-09-03 11:38:42,803 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:38:43,062 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:38:43,070 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:38:43,857 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:38:44,067 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:38:44,474 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:38:44,747 - 1126259462.4 - INFO - Fetching or loading data
+2026-09-03 11:38:44,747 - root - INFO - Fetching data from between GPS times 1126259366.0 and 1126259494.0 for ['H1', 'L1']
+2026-09-03 11:38:44,747 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:38:44,747 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:38:49,704 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:38:49,705 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:38:52,694 - root - INFO - Fetched data for detectors ['H1', 'L1']
+2026-09-03 11:38:52,738 - root - INFO - Saving data to file /root/autodl-tmp/ml4gw-agent-runs/phase1b-1126259462.4-20260903T033728Z/buoy-direct/1126259462.4/data/1126259462.4.hdf5
+2026-09-03 11:38:52,743 - 1126259462.4 - INFO - Running Aframe
+2026-09-03 11:38:58,707 - 1126259462.4 - INFO - Saving Aframe outputs
+2026-09-03 11:38:58,709 - 1126259462.4 - INFO - Running AMPLFI model
+2026-09-03 11:38:59,660 - 1126259462.4 - INFO - Creating Q-plots
+2026-09-03 11:39:02,152 - 1126259462.4 - INFO - Plotting Aframe response
+2026-09-03 11:39:03,756 - 1126259462.4 - INFO - Plotting AMPLFI result
+2026-09-03 11:39:07,918 - 1126259462.4 - INFO - Generating HTML page

@@ -1,0 +1,22 @@
+2026-09-03 11:37:43,272 - root - INFO - Setting up models
+2026-09-03 11:37:43,272 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:37:43,537 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:37:43,545 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:37:44,348 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:37:44,563 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:37:44,972 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:37:45,244 - 1126259462.4 - INFO - Fetching or loading data
+2026-09-03 11:37:45,244 - root - INFO - Fetching data from between GPS times 1126259366.0 and 1126259494.0 for ['H1', 'L1']
+2026-09-03 11:37:45,244 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:37:45,244 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:37:50,296 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:37:50,297 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:37:53,302 - root - INFO - Fetched data for detectors ['H1', 'L1']
+2026-09-03 11:37:53,345 - root - INFO - Saving data to file /root/autodl-tmp/ml4gw-agent-runs/phase1b-1126259462.4-20260903T033728Z/agent-buoy/run_0b1e4bd38bc0/artifacts/analyze_event/buoy-output/1126259462.4/data/1126259462.4.hdf5
+2026-09-03 11:37:53,356 - 1126259462.4 - INFO - Running Aframe
+2026-09-03 11:37:59,251 - 1126259462.4 - INFO - Saving Aframe outputs
+2026-09-03 11:37:59,253 - 1126259462.4 - INFO - Running AMPLFI model
+2026-09-03 11:38:00,198 - 1126259462.4 - INFO - Creating Q-plots
+2026-09-03 11:38:02,699 - 1126259462.4 - INFO - Plotting Aframe response
+2026-09-03 11:38:04,367 - 1126259462.4 - INFO - Plotting AMPLFI result
+2026-09-03 11:38:10,719 - 1126259462.4 - INFO - Generating HTML page

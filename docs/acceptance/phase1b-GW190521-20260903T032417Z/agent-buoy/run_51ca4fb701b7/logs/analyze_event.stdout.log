@@ -1,0 +1,24 @@
+2026-09-03 11:24:33,774 - root - INFO - Setting up models
+2026-09-03 11:24:33,774 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:24:34,039 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:24:34,047 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:24:34,845 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:24:35,057 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:24:35,465 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:24:35,743 - GW190521 - INFO - Fetching or loading data
+2026-09-03 11:24:36,743 - root - INFO - Fetching data from between GPS times 1242442871.0 and 1242442999.0 for ['H1', 'L1', 'V1']
+2026-09-03 11:24:36,744 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:24:36,745 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:24:39,694 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:24:39,695 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:24:41,617 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:24:41,617 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:24:43,592 - root - INFO - Fetched data for detectors ['H1', 'L1', 'V1']
+2026-09-03 11:24:43,646 - root - INFO - Saving data to file /root/autodl-tmp/ml4gw-agent-runs/phase1b-GW190521-20260903T032417Z/agent-buoy/run_51ca4fb701b7/artifacts/analyze_event/buoy-output/GW190521/data/GW190521.hdf5
+2026-09-03 11:24:43,652 - GW190521 - INFO - Running Aframe
+2026-09-03 11:24:49,687 - GW190521 - INFO - Saving Aframe outputs
+2026-09-03 11:24:49,689 - GW190521 - INFO - Running AMPLFI model
+2026-09-03 11:24:50,805 - GW190521 - INFO - Creating Q-plots
+2026-09-03 11:24:54,677 - GW190521 - INFO - Plotting Aframe response
+2026-09-03 11:24:56,480 - GW190521 - INFO - Plotting AMPLFI result
+2026-09-03 11:25:04,505 - GW190521 - INFO - Generating HTML page

@@ -27,13 +27,16 @@ import numpy as np
 PE_PARAMETERS = ("chirp_mass", "mass_ratio", "distance", "mass_1", "mass_2")
 
 
-def aframe_summary(path: Path) -> dict[str, float]:
+def aframe_summary(path: Path) -> dict[str, float | None]:
     with h5py.File(path, "r") as handle:
         signif = np.asarray(handle["signif_integrated"][:]).reshape(-1)
         timing = np.asarray(handle["timing_integrated"][:]).reshape(-1)
+        # The agent omits predicted_tc when the peak fell outside the strain
+        # window (no candidate); Buoy always writes it.
+        predicted = handle.attrs.get("predicted_tc")
         return {
             "detection_statistic": float(np.max(signif)),
-            "predicted_tc": float(handle.attrs["predicted_tc"]),
+            "predicted_tc": float(predicted) if predicted is not None else None,
             "n_steps": int(timing.size),
         }
 
@@ -126,13 +129,19 @@ def main(argv: list[str] | None = None) -> int:
             args.stat_tolerance,
             relative=True,
         )
-        check(
-            "predicted_tc",
-            a["predicted_tc"],
-            b["predicted_tc"],
-            args.tc_tolerance,
-            relative=False,
-        )
+        if a["predicted_tc"] is None or b["predicted_tc"] is None:
+            report["predicted_tc"] = (
+                f"not compared: agent={a['predicted_tc']}, buoy={b['predicted_tc']} "
+                "(a null value means the peak lay outside the strain window)"
+            )
+        else:
+            check(
+                "predicted_tc",
+                a["predicted_tc"],
+                b["predicted_tc"],
+                args.tc_tolerance,
+                relative=False,
+            )
     else:
         report["aframe"] = "not compared (missing file)"
 

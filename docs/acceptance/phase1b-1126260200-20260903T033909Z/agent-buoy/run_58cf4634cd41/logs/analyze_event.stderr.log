@@ -1,0 +1,1 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]

@@ -1,0 +1,71 @@
+{
+  "agent_run": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-1126260200-20260903T033909Z/agent-buoy/run_58cf4634cd41",
+  "agent_amplfi_network": "HL",
+  "buoy_amplfi_network": "HL",
+  "checks": [
+    {
+      "quantity": "detection_statistic",
+      "agent": 0.5130692209516252,
+      "buoy": 0.5130695445196968,
+      "difference": 6.306514877265559e-07,
+      "relative": true,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "quantity": "predicted_tc",
+      "agent": 1126260141.140625,
+      "buoy": 1126260141.140625,
+      "difference": 0.0,
+      "relative": false,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "quantity": "median_chirp_mass",
+      "agent": 36.9752575,
+      "buoy": 36.9752575,
+      "difference": 0.0,
+      "relative": true,
+      "tolerance": 0.05,
+      "passed": true
+    },
+    {
+      "quantity": "median_distance",
+      "agent": 2226.32165,
+      "buoy": 2226.32165,
+      "difference": 0.0,
+      "relative": true,
+      "tolerance": 0.05,
+      "passed": true
+    },
+    {
+      "quantity": "median_mass_1",
+      "agent": 70.274565,
+      "buoy": 70.274565,
+      "difference": 0.0,
+      "relative": true,
+      "tolerance": 0.05,
+      "passed": true
+    },
+    {
+      "quantity": "median_mass_2",
+      "agent": 27.1306985,
+      "buoy": 27.1306985,
+      "difference": 0.0,
+      "relative": true,
+      "tolerance": 0.05,
+      "passed": true
+    },
+    {
+      "quantity": "median_mass_ratio",
+      "agent": 0.435002435,
+      "buoy": 0.435002435,
+      "difference": 0.0,
+      "relative": true,
+      "tolerance": 0.05,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

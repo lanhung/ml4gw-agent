@@ -1,0 +1,29 @@
+{
+  "strain_artifact": "artifacts/fetch_data/strain_1126259462.4.hdf5",
+  "ifos": [
+    "H1",
+    "L1"
+  ],
+  "gps_start": 1126259366.0,
+  "gps_end": 1126259494.0,
+  "duration_seconds": 128.0,
+  "sample_rate": 2048.0,
+  "event_time": 1126259462.4,
+  "source": "gwosc",
+  "per_ifo": {
+    "H1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 2.1864929459310714e-19,
+      "max_abs": 1.1745676115705455e-18
+    },
+    "L1": {
+      "samples": 262144,
+      "finite_fraction": 1.0,
+      "std": 2.3205540626816403e-19,
+      "max_abs": 2.1437514638024755e-18
+    }
+  },
+  "issues": [],
+  "quality_passed": true
+}

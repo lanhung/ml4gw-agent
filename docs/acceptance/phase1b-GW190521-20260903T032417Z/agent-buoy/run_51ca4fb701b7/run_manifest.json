@@ -1,0 +1,385 @@
+{
+  "ended_at": "2026-09-03T03:25:05.644495Z",
+  "environment": {
+    "agent_version": "0.2.0",
+    "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+    "process_id": 2666713,
+    "python_executable": "/root/ml4gw-agent/.venv/bin/python3",
+    "python_version": "3.12.12"
+  },
+  "mode": "real",
+  "plan": {
+    "created_at": "2026-09-03T03:24:28.813018Z",
+    "goal": "Analyze GW190521 with the Buoy Aframe+AMPLFI vertical pipeline.",
+    "id": "plan_299ca66915bf",
+    "planner": "baseline-deterministic-v0.1",
+    "prompt": "Analyze GW190521",
+    "schema_version": "1.0",
+    "tasks": [
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [],
+        "id": "resolve_event",
+        "max_retries": 0,
+        "parameters": {
+          "event": "GW190521"
+        },
+        "skill": "data.resolve_event",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "resolve_event"
+        ],
+        "id": "analyze_event",
+        "max_retries": 0,
+        "parameters": {
+          "aframe_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+          "amplfi_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "device": "cuda",
+          "event": "GW190521",
+          "ifos": [
+            "H1",
+            "L1",
+            "V1"
+          ],
+          "min_samples_per_pix": 5,
+          "nside": 64,
+          "runner": "cli",
+          "samples_per_event": 20000,
+          "seed": 0,
+          "use_distance": true,
+          "use_true_tc_for_amplfi": false
+        },
+        "skill": "buoy.analyze",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": true,
+        "depends_on": [
+          "analyze_event"
+        ],
+        "id": "generate_report",
+        "max_retries": 0,
+        "parameters": {
+          "title": "ML4GW Agent report: GW190521"
+        },
+        "skill": "report.generate",
+        "when": null
+      }
+    ],
+    "warnings": []
+  },
+  "run_directory": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-GW190521-20260903T032417Z/agent-buoy/run_51ca4fb701b7",
+  "run_id": "run_51ca4fb701b7",
+  "schema_version": "1.0",
+  "started_at": "2026-09-03T03:24:28.910417Z",
+  "status": "completed",
+  "tasks": {
+    "analyze_event": {
+      "adapter_metadata": {
+        "adapter": "buoy-cli-v0.1",
+        "buoy_package_version": "0.6.1",
+        "return_code": 0
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/data/GW190521.hdf5",
+          "sha256": "c509c47cae1615a7307fb8766db6fe536f94d9146c10e5cd15baaf7fca1057a7",
+          "size_bytes": 6295552
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/data/aframe_outputs.hdf5",
+          "sha256": "dea51e920eac570d0cddc8cefb60de50822f80edad352454366489ee2c13eac4",
+          "size_bytes": 335224
+        },
+        {
+          "media_type": "image/fits",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/data/amplfi_HLV.fits",
+          "sha256": "9dcaf7ff54d21c5cb4c3c9c9d4dbdab9920d62da52c9f8ada00a8826513ad6cd",
+          "size_bytes": 77760
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/data/posterior_samples.dat",
+          "sha256": "a4d63d903a2b83f783ed5d82c3ea2b89286a3ea28e06a7352d7ce7453d6651f2",
+          "size_bytes": 1948442
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/data/whitened_data.npy",
+          "sha256": "8c1fc730e236c1cef5786a3f0ff9bb90537dcbcb196c4f2f65a387801331e041",
+          "size_bytes": 7602304
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/H1_qtransform.png",
+          "sha256": "377e302e0ced0f23cb8537a62f965a7b32d20fbafacdb030c3d73566e9cbb36d",
+          "size_bytes": 395957
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/L1_qtransform.png",
+          "sha256": "f8a6a5b205348a981a5e061a32abf79cba02d397f62d9606a3f39ef52fbaac1d",
+          "size_bytes": 241544
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/V1_qtransform.png",
+          "sha256": "05beddb6a36baf920a7fe451ca8e6b614733ca6956249ec374d867d9e4597739",
+          "size_bytes": 442090
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/aframe_response.png",
+          "sha256": "f4d5ae6b920c3f92c604563ea3d8cfeb30ae74edd8bb16d3572dc70928a1c0df",
+          "size_bytes": 400646
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/corner_plot_HLV.png",
+          "sha256": "1b61328057ed45212bf6846095fb2ad0e20ff34f19c537fdc4b2c1165c834b58",
+          "size_bytes": 725618
+        },
+        {
+          "media_type": "image/png",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/plots/skymap_HLV.png",
+          "sha256": "1af52fda3ca39eb0658117413d04579a9eff51249de0d549a674ae2d1bc4343f",
+          "size_bytes": 269933
+        },
+        {
+          "media_type": "text/html",
+          "relative_path": "artifacts/analyze_event/buoy-output/GW190521/summary.html",
+          "sha256": "d6172568060a843f70f5ddcb10aa32e63c42b4a1c61896d167ae3a8f02703796",
+          "size_bytes": 3303289
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "logs/analyze_event.stderr.log",
+          "sha256": "25cea4b114a700b74dc830c797ae6149e19f66e6ec713348b7f4ac6d25a1dd91",
+          "size_bytes": 226
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "logs/analyze_event.stdout.log",
+          "sha256": "625925c0c3a61616602128b5f9db52b3bad87a174f81a7a11e5552de04fd5df8",
+          "size_bytes": 2239
+        }
+      ],
+      "attempts": 1,
+      "command": [
+        "buoy",
+        "--events",
+        "GW190521",
+        "--outdir",
+        "/root/autodl-tmp/ml4gw-agent-runs/phase1b-GW190521-20260903T032417Z/agent-buoy/run_51ca4fb701b7/artifacts/analyze_event/buoy-output",
+        "--samples_per_event",
+        "20000",
+        "--nside",
+        "64",
+        "--min_samples_per_pix",
+        "5",
+        "--use_distance",
+        "true",
+        "--use_true_tc_for_amplfi",
+        "false",
+        "--device",
+        "cuda",
+        "--run_aframe",
+        "true",
+        "--run_amplfi",
+        "true",
+        "--generate_plots",
+        "true",
+        "--to_html",
+        "true",
+        "--ifos",
+        "[\"H1\", \"L1\", \"V1\"]",
+        "--seed",
+        "0",
+        "--aframe_revision",
+        "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "--amplfi_revision",
+        "8b97d2f8459d04924cb010dfee0262260bf3da80"
+      ],
+      "ended_at": "2026-09-03T03:25:05.641202Z",
+      "error": null,
+      "outputs": {
+        "aframe_output": "artifacts/analyze_event/buoy-output/GW190521/data/aframe_outputs.hdf5",
+        "amplfi_network": "HLV",
+        "detection_statistic": 8.7332799328225,
+        "detectors_used": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "event": "GW190521",
+        "output_directory": "artifacts/analyze_event/buoy-output/GW190521",
+        "plots": [
+          "artifacts/analyze_event/buoy-output/GW190521/plots/H1_qtransform.png",
+          "artifacts/analyze_event/buoy-output/GW190521/plots/L1_qtransform.png",
+          "artifacts/analyze_event/buoy-output/GW190521/plots/V1_qtransform.png",
+          "artifacts/analyze_event/buoy-output/GW190521/plots/aframe_response.png",
+          "artifacts/analyze_event/buoy-output/GW190521/plots/corner_plot_HLV.png",
+          "artifacts/analyze_event/buoy-output/GW190521/plots/skymap_HLV.png"
+        ],
+        "posterior_samples": "artifacts/analyze_event/buoy-output/GW190521/data/posterior_samples.dat",
+        "predicted_coalescence_time": 1242442967.4375,
+        "simulated": false,
+        "summary_html": "artifacts/analyze_event/buoy-output/GW190521/summary.html"
+      },
+      "parameters": {
+        "aframe_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "amplfi_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+        "device": "cuda",
+        "event": "GW190521",
+        "ifos": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "min_samples_per_pix": 5,
+        "nside": 64,
+        "runner": "cli",
+        "samples_per_event": 20000,
+        "seed": 0,
+        "use_distance": true,
+        "use_true_tc_for_amplfi": false
+      },
+      "skill": "buoy.analyze",
+      "started_at": "2026-09-03T03:24:28.915350Z",
+      "status": "completed",
+      "task_id": "analyze_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:aframe_output",
+          "message": "artifact 'aframe_output' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:aframe_output",
+          "message": "artifact 'aframe_output' is non-empty",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:posterior_samples",
+          "message": "artifact 'posterior_samples' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:posterior_samples",
+          "message": "artifact 'posterior_samples' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "generate_report": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "text/markdown",
+          "relative_path": "report.md",
+          "sha256": "9dcf0dbfe8186e8e185a2a30e25b231b6d32d0a102b9ad64c04ff40c4d416385",
+          "size_bytes": 1746
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T03:25:05.643963Z",
+      "error": null,
+      "outputs": {
+        "report_path": "report.md",
+        "simulated": false
+      },
+      "parameters": {
+        "title": "ML4GW Agent report: GW190521"
+      },
+      "skill": "report.generate",
+      "started_at": "2026-09-03T03:25:05.641929Z",
+      "status": "completed",
+      "task_id": "generate_report",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:report_path",
+          "message": "artifact 'report_path' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:report_path",
+          "message": "artifact 'report_path' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "resolve_event": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/resolve_event/event_info.json",
+          "sha256": "f09b2bc4a7e81101a05cdfd92a8c5054079f50de00f7b716c73e1ce89a2c1920",
+          "size_bytes": 137
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T03:24:28.914922Z",
+      "error": null,
+      "outputs": {
+        "catalog_time": 1242442967.4,
+        "delegated_resolution": false,
+        "event": "GW190521",
+        "event_kind": "gwtc",
+        "simulated": false
+      },
+      "parameters": {
+        "event": "GW190521"
+      },
+      "skill": "data.resolve_event",
+      "started_at": "2026-09-03T03:24:28.911334Z",
+      "status": "completed",
+      "task_id": "resolve_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:event",
+          "message": "output field 'event' is present",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "warnings": []
+}

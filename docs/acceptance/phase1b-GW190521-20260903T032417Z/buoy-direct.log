@@ -1,0 +1,25 @@
+WARNING: AstropyDeprecationWarning: reproject.healpix.utils is a private module and will be removed in a future version.  Please use the public API from reproject.healpix instead. [ligo.skymap.plot.reproject_from_healpix_moc]
+2026-09-03 11:25:37,713 - root - INFO - Setting up models
+2026-09-03 11:25:37,713 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 11:25:37,972 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 11:25:37,980 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:25:38,778 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:25:38,990 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 11:25:39,397 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 11:25:39,674 - GW190521 - INFO - Fetching or loading data
+2026-09-03 11:25:40,948 - root - INFO - Fetching data from between GPS times 1242442871.0 and 1242442999.0 for ['H1', 'L1', 'V1']
+2026-09-03 11:25:40,949 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:25:40,950 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:25:43,958 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:25:43,958 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:25:45,902 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 11:25:45,902 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 11:25:47,839 - root - INFO - Fetched data for detectors ['H1', 'L1', 'V1']
+2026-09-03 11:25:47,893 - root - INFO - Saving data to file /root/autodl-tmp/ml4gw-agent-runs/phase1b-GW190521-20260903T032417Z/buoy-direct/GW190521/data/GW190521.hdf5
+2026-09-03 11:25:47,899 - GW190521 - INFO - Running Aframe
+2026-09-03 11:25:53,915 - GW190521 - INFO - Saving Aframe outputs
+2026-09-03 11:25:53,917 - GW190521 - INFO - Running AMPLFI model
+2026-09-03 11:25:55,044 - GW190521 - INFO - Creating Q-plots
+2026-09-03 11:25:58,836 - GW190521 - INFO - Plotting Aframe response
+2026-09-03 11:26:00,670 - GW190521 - INFO - Plotting AMPLFI result
+2026-09-03 11:26:08,364 - GW190521 - INFO - Generating HTML page

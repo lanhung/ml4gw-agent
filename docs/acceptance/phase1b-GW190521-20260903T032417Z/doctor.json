@@ -1,0 +1,57 @@
+{
+  "mode": "real",
+  "v0_buoy_ready": true,
+  "phase1b_decomposed_ready": true,
+  "skills": [
+    {
+      "skill": "aframe.detect",
+      "adapter": "python",
+      "availability": "available"
+    },
+    {
+      "skill": "amplfi.pe",
+      "adapter": "python",
+      "availability": "available"
+    },
+    {
+      "skill": "buoy.analyze",
+      "adapter": "buoy_cli",
+      "availability": "available"
+    },
+    {
+      "skill": "data.fetch",
+      "adapter": "python",
+      "availability": "available"
+    },
+    {
+      "skill": "data.inspect",
+      "adapter": "python",
+      "availability": "available"
+    },
+    {
+      "skill": "data.resolve_event",
+      "adapter": "builtin",
+      "availability": "available"
+    },
+    {
+      "skill": "deepclean.check_applicability",
+      "adapter": "planned",
+      "availability": "planned"
+    },
+    {
+      "skill": "deepclean.clean",
+      "adapter": "planned",
+      "availability": "planned"
+    },
+    {
+      "skill": "gwak.scan",
+      "adapter": "planned",
+      "availability": "planned"
+    },
+    {
+      "skill": "report.generate",
+      "adapter": "builtin",
+      "availability": "available"
+    }
+  ]
+}
