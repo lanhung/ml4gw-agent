@@ -253,7 +253,9 @@ class GWAKAdapter(SkillAdapter):
 
         try:
             embedder = backend.load_jit(paths["embedder"], device)
-            metric = backend.load_jit(paths["metric"], device)
+            # The exported flow hard-codes CPU float64 inside its TorchScript
+            # graph, so it always runs on the CPU on the (tiny) embeddings.
+            metric = backend.load_jit(paths["metric"], "cpu")
         except Exception as exc:
             raise AdapterError(
                 f"could not load GWAK models: {type(exc).__name__}: {exc}"
@@ -270,7 +272,9 @@ class GWAKAdapter(SkillAdapter):
                 pass
             with no_grad:
                 embeddings = embedder(backend.to_tensor(kernels, device))
-                log_prob = metric(embeddings)
+                log_prob = metric(
+                    backend.to_tensor(backend.to_numpy(embeddings), "cpu")
+                )
             embeddings = np.asarray(backend.to_numpy(embeddings), dtype="f8")
             log_prob = np.asarray(backend.to_numpy(log_prob), dtype="f8").reshape(-1)
         except Exception as exc:
