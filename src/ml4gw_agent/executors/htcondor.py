@@ -60,7 +60,9 @@ def render_submit_description(
         f"request_memory = {int(round(memory_gb * 1024))}MB",
         f"request_gpus = {int(gpus)}",
         "should_transfer_files = NO",
-        "getenv = True",
+        # IGWN pools forbid getenv = True (SUBMIT_ALLOW_GETENV = false); pass
+        # an explicit, whitelisted environment instead.
+        "environment = " + _condor_environment(),
     ]
     merged = dict(accounting_from_environment())
     merged.update(extra or {})
@@ -68,6 +70,43 @@ def render_submit_description(
         lines.append(f"{key} = {value}")
     lines.append("queue 1")
     return "\n".join(lines) + "\n"
+
+
+ENVIRONMENT_PREFIXES = (
+    "ML4GW_",
+    "GWPY_",
+    "HF_",
+    "GWDATAFIND_",
+    "BEARER_TOKEN",
+    "SCITOKEN",
+    "X509_",
+    "ASTROPY",
+    "XDG_CACHE_HOME",
+    "PYTHONUNBUFFERED",
+    "CUDA_VISIBLE_DEVICES",
+)
+
+
+def job_environment(environ: dict[str, str] | None = None) -> dict[str, str]:
+    """Whitelisted variables forwarded to the worker (caches, tokens, knobs)."""
+    import os
+
+    env = os.environ if environ is None else environ
+    return {
+        key: value
+        for key, value in sorted(env.items())
+        if key.startswith(ENVIRONMENT_PREFIXES)
+        and key not in {"ML4GW_NODE_PASSWORD", "ML4GW_WEB_PASSCODE"}
+    }
+
+
+def _condor_environment(environ: dict[str, str] | None = None) -> str:
+    """HTCondor ``environment`` value: space-separated, single-quoted values."""
+    parts = []
+    for key, value in job_environment(environ).items():
+        escaped = value.replace("'", "''").replace('"', '""')
+        parts.append(f"{key}='{escaped}'")
+    return '"' + " ".join(parts) + '"'
 
 
 def accounting_from_environment() -> dict[str, str]:

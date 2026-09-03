@@ -487,6 +487,23 @@ def test_accounting_attributes_come_from_the_environment(monkeypatch, tmp_path):
     assert "accounting_group_user = fan.zhang" in text
     assert "+MaxHours = 2" in text
     assert text.strip().endswith("queue 1")
+    assert "getenv" not in text  # forbidden on IGWN pools
+    monkeypatch.setenv("GWPY_CACHE", "1")
+    monkeypatch.setenv("ML4GW_NODE_PASSWORD", "never")
+    monkeypatch.setenv("HOME", "/home/x")
+    text = render_submit_description(
+        executable="/bin/true",
+        arguments=["x"],
+        job_dir=tmp_path,
+        cpus=1,
+        memory_gb=1,
+        gpus=0,
+    )
+    line = next(line for line in text.splitlines() if line.startswith("environment = "))
+    assert (
+        "GWPY_CACHE='1'" in line and "ML4GW_CONDOR_ACCOUNTING_USER='fan.zhang'" in line
+    )
+    assert "never" not in line and "HOME=" not in line
 
 
 def test_submit_plan_round_trip_with_a_fake_batch_executor(tmp_path, registry):
