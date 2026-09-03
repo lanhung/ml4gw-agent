@@ -14,6 +14,7 @@ import io
 import json
 import os
 import shlex
+import shutil
 import threading
 import time
 import uuid
@@ -271,6 +272,12 @@ def skills() -> list[dict[str, Any]]:
         availability = "available"
         if skill.adapter.kind == AdapterKind.PLANNED:
             availability = "planned"
+        elif skill.adapter.kind == AdapterKind.BUOY_CLI:
+            availability = (
+                "available"
+                if shutil.which(skill.adapter.entrypoint)
+                else "missing: buoy executable (real runs go to the GPU node)"
+            )
         elif skill.adapter.kind == AdapterKind.PYTHON:
             cls = PYTHON_ADAPTERS.get(skill.adapter.entrypoint)
             availability = cls().probe() if cls else "broken"
