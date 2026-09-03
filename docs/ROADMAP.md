@@ -79,12 +79,15 @@ Work items:
       within tolerance; GW170817 is unsupported by Buoy 0.6.1 (GEO in the
       GWOSC detector list, start-up peak before the window) and the
       decomposed path reports no candidate without failing.
-- [ ] FAR-calibrated Aframe threshold from a background study. The noise
-      segment in the suite gives `candidate_found: true` at statistic 0.51
-      with the raw threshold, so this is a blocker for any detection claim.
-- [ ] Candidate-time window relative to the requested time, so a peak far
-      from the target (59 s in the noise case) is not reported as its
-      coalescence time.
+- [x] FAR-calibrated Aframe threshold from a background study
+      (`AFRAME_THRESHOLD_CALIBRATION_2026-09-03.md`): time-shifted GWOSC
+      background, 1/day threshold 3.47 shipped for the pinned revision and
+      selected with `--aframe-far`; the noise segment now yields
+      `candidate_found: false` and AMPLFI is skipped. Tighter rates need
+      more livetime and are refused rather than extrapolated.
+- [x] Candidate-time window relative to the requested time
+      (`candidate_window_seconds`, default 2 s): a peak far from the target
+      is kept as `raw_peak_time` but not reported as the target's candidate.
 
 Exit criteria:
 

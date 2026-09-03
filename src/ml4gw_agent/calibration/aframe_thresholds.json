@@ -1,5 +1,48 @@
 {
   "schema_version": "1.0",
   "statistic": "buoy signif_integrated (offline integrated Aframe output)",
-  "revisions": {}
+  "revisions": {
+    "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4": {
+      "source": "scripts/aframe_background.py, interim 28-lag result of 2026-09-03 (time-shifted GWOSC O1/O2/O3 stretches around GW150914, GW170817, GW190521)",
+      "generated_at": "2026-09-03T05:37:38Z",
+      "statistic": "buoy signif_integrated (offline integrated network output)",
+      "livetime_seconds": 109199.75,
+      "livetime_days": 1.2638859953703703,
+      "n_peaks": 10121,
+      "loudest_background_peaks": [
+        3.468301159994943,
+        2.725936710834503,
+        2.619791107518332,
+        2.2840775182204585,
+        1.9984103952135357
+      ],
+      "stretches": [
+        {
+          "start": 1126256829.0048828,
+          "end": 1126260736.0,
+          "duration": 3906.9951171875
+        },
+        {
+          "start": 1187006835.0,
+          "end": 1187010931.0,
+          "duration": 4096.0
+        },
+        {
+          "start": 1242440920.0,
+          "end": 1242445016.0,
+          "duration": 4096.0
+        }
+      ],
+      "excluded_events": [
+        1126259462.4,
+        1187008882.4,
+        1242442967.4
+      ],
+      "shift_step_seconds": 8.0,
+      "n_lags": 29,
+      "thresholds_by_far_per_year": {
+        "365.25": 3.468302159994943
+      }
+    }
+  }
 }

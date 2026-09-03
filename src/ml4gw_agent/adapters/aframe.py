@@ -107,7 +107,11 @@ class AframeAdapter(SkillAdapter):
                 f"the Aframe adapter requires {missing}; install with "
                 "'uv sync --extra buoy'"
             )
-        warnings = [UNCALIBRATED_THRESHOLD_WARNING]
+        warnings = (
+            []
+            if context.parameters.get("threshold_calibration")
+            else [UNCALIBRATED_THRESHOLD_WARNING]
+        )
         device = context.parameters.get("device", "cuda")
         if device == "cuda" and shutil.which("nvidia-smi") is None:
             warnings.append(
