@@ -136,17 +136,22 @@ class AnthropicClient:
             raise PlanningError(
                 "the LLM planner needs the anthropic SDK: uv sync --extra llm"
             ) from exc
-        client = anthropic.Anthropic()
-        response = client.messages.create(
-            model=self.model,
-            max_tokens=self.max_tokens,
-            system=system,
-            messages=[{"role": "user", "content": user}],
-            output_config={
-                "effort": self.effort,
-                "format": {"type": "json_schema", "schema": schema},
-            },
-        )
+        client = anthropic.Anthropic(max_retries=8, timeout=300.0)
+        try:
+            response = client.messages.create(
+                model=self.model,
+                max_tokens=self.max_tokens,
+                system=system,
+                messages=[{"role": "user", "content": user}],
+                output_config={
+                    "effort": self.effort,
+                    "format": {"type": "json_schema", "schema": schema},
+                },
+            )
+        except (anthropic.APIStatusError, anthropic.APIConnectionError) as exc:
+            # Overload, rate limits, billing: recorded as a planning failure so
+            # the caller can repair or fall back to the deterministic plan.
+            raise PlanningError(f"Claude API request failed: {exc}") from exc
         if response.stop_reason == "refusal":
             raise PlanningError("the model declined to plan this request")
         self.last_usage = {
