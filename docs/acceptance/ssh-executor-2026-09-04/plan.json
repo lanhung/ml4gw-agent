@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "id": "plan_c8e0423fe14f",
+  "prompt": "Run Aframe detection on GW150914.",
+  "goal": "Compose a bounded ML4GW analysis for GW150914.",
+  "tasks": [
+    {
+      "id": "resolve_event",
+      "skill": "data.resolve_event",
+      "parameters": {
+        "event": "GW150914"
+      },
+      "depends_on": [],
+      "when": null,
+      "max_retries": 0,
+      "allow_failed_dependencies": false
+    },
+    {
+      "id": "fetch_data",
+      "skill": "data.fetch",
+      "parameters": {
+        "event": "GW150914",
+        "source": "gwosc",
+        "gps_time": "${resolve_event.outputs.catalog_time}",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "window_seconds": 128.0,
+        "event_offset_fraction": 0.75,
+        "sample_rate": 2048
+      },
+      "depends_on": [
+        "resolve_event"
+      ],
+      "when": null,
+      "max_retries": 0,
+      "allow_failed_dependencies": false
+    },
+    {
+      "id": "inspect_data",
+      "skill": "data.inspect",
+      "parameters": {
+        "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+        "expected_ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_duration_seconds": 128.0,
+        "require_science_mode": true
+      },
+      "depends_on": [
+        "fetch_data"
+      ],
+      "when": null,
+      "max_retries": 0,
+      "allow_failed_dependencies": false
+    },
+    {
+      "id": "run_aframe",
+      "skill": "aframe.detect",
+      "parameters": {
+        "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "model_revision": "UNPINNED",
+        "device": "cuda",
+        "threshold": 0.0,
+        "threshold_calibration": null,
+        "target_time": "${resolve_event.outputs.catalog_time}",
+        "candidate_window_seconds": 2.0,
+        "seed": 0
+      },
+      "depends_on": [
+        "inspect_data"
+      ],
+      "when": {
+        "reference": "${inspect_data.outputs.quality_passed}",
+        "operator": "truthy",
+        "value": null
+      },
+      "max_retries": 0,
+      "allow_failed_dependencies": false
+    },
+    {
+      "id": "generate_report",
+      "skill": "report.generate",
+      "parameters": {
+        "title": "ML4GW Agent composed analysis: GW150914"
+      },
+      "depends_on": [
+        "inspect_data",
+        "run_aframe"
+      ],
+      "when": null,
+      "max_retries": 0,
+      "allow_failed_dependencies": true
+    }
+  ],
+  "created_at": "2026-09-03T23:26:25.507941Z",
+  "planner": "baseline-deterministic-v0.1",
+  "warnings": [
+    "No background calibration exists for the requested Aframe revision and false-alarm rate; using the raw 0.0 cut, so candidate_found is not a significance statement.",
+    "Aframe model revision is not pinned."
+  ]
+}

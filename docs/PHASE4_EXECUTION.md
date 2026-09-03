@@ -217,3 +217,25 @@ ml4gw-agent run "..." --executor local|htcondor|ssh|kubernetes --max-gpu-hours H
   a recorded acceptance run. Kubernetes is deferred until a cluster exists;
   the `ssh` executor stands in and still needs its own recorded run on the
   GPU node.
+
+
+## SSH executor against a real host (2026-09-04)
+
+Run from the VPS to the AutoDL GPU node (`gpu.chzmark.com:2338`) with a
+mock-mode plan ("Run Aframe detection on GW150914."), evidence in
+`docs/acceptance/ssh-executor-2026-09-04/` (submission record and the
+worker's `run_manifest.json` copied back):
+
+| step | result |
+|---|---|
+| probe / submit | plan copied by SFTP to `ML4GW_SSH_RUNS/plan-<id>/plan.json`, worker started under `nohup`, handle `gpu.chzmark.com:<pid>` |
+| poll | pid watched, worker manifest read; status `completed` after one poll |
+| copy-back | worker `run_71484a371009` tree returned to `submission_<id>/worker/`, `manifest_path` set, `run_status: completed` |
+
+One configuration detail learned on the live host: `ML4GW_SSH_PYTHON` is
+a *command prefix in front of `ml4gw-agent`* (default `uv run`), so a
+venv without `uv` is addressed as
+`ML4GW_SSH_PYTHON="env PATH=/root/ml4gw-agent/.venv/bin:/usr/bin:/bin"`;
+`python -m ml4gw_agent` is not a valid prefix (the first attempt failed
+with "invalid choice: 'ml4gw-agent'", recorded in the worker's
+`stderr.log`, and the executor reported `worker wrote no manifest`).

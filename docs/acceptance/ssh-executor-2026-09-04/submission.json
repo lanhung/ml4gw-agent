@@ -1,0 +1,91 @@
+{
+  "submission_dir": "/tmp/claude-1004/-home-dev-work-ml4gw-agent/16ec8fea-c185-426b-8554-4ec0280f6401/scratchpad/ssh-runs/submission_plan_c8e0423fe14f",
+  "plan_file": "/tmp/claude-1004/-home-dev-work-ml4gw-agent/16ec8fea-c185-426b-8554-4ec0280f6401/scratchpad/ssh-runs/submission_plan_c8e0423fe14f/plan.json",
+  "executor": "ssh",
+  "job_id": "gpu.chzmark.com:2942277",
+  "description": {
+    "plan_file": "/tmp/claude-1004/-home-dev-work-ml4gw-agent/16ec8fea-c185-426b-8554-4ec0280f6401/scratchpad/ssh-runs/submission_plan_c8e0423fe14f/plan.json",
+    "mode": "mock",
+    "runs_dir": "/tmp/claude-1004/-home-dev-work-ml4gw-agent/16ec8fea-c185-426b-8554-4ec0280f6401/scratchpad/ssh-runs/submission_plan_c8e0423fe14f/worker",
+    "cpus": 4,
+    "memory_gb": 16.0,
+    "gpus": 1,
+    "budget": {
+      "allowed": true,
+      "reasons": [],
+      "authorization_required": false
+    },
+    "estimate": {
+      "cpu_hours": 0.0117,
+      "gpu_hours": 0.0014,
+      "memory_gb": 16.0,
+      "transfer_gb": 0.0,
+      "expected_latency_seconds": 22.0,
+      "n_segments": 1,
+      "per_task": [
+        {
+          "task": "resolve_event",
+          "skill": "data.resolve_event",
+          "seconds": 1.0,
+          "cpu_cores": 1,
+          "memory_gb": 0.1,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "catalog lookup"
+        },
+        {
+          "task": "fetch_data",
+          "skill": "data.fetch",
+          "seconds": 10.0,
+          "cpu_cores": 1,
+          "memory_gb": 2.0,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "cached astropy download cache, per detector"
+        },
+        {
+          "task": "inspect_data",
+          "skill": "data.inspect",
+          "seconds": 5.0,
+          "cpu_cores": 2,
+          "memory_gb": 4.0,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "segment query and finite checks"
+        },
+        {
+          "task": "run_aframe",
+          "skill": "aframe.detect",
+          "seconds": 5.0,
+          "cpu_cores": 4,
+          "memory_gb": 16.0,
+          "gpu": "yes",
+          "n_segments": 1,
+          "basis": "per 128 s window, RTX 5000 Ada"
+        },
+        {
+          "task": "generate_report",
+          "skill": "report.generate",
+          "seconds": 1.0,
+          "cpu_cores": 1,
+          "memory_gb": 0.2,
+          "gpu": "no",
+          "n_segments": 1,
+          "basis": "less than one second"
+        }
+      ],
+      "assumptions": [
+        "runtimes measured on an RTX 5000 Ada with cached GWOSC strain (2026-09-03 acceptance runs); CPU-only execution scaled by 20x"
+      ]
+    }
+  },
+  "status": "completed",
+  "polls": [
+    {
+      "at": 1788478019.6218977,
+      "status": "completed"
+    }
+  ],
+  "manifest_path": "/tmp/claude-1004/-home-dev-work-ml4gw-agent/16ec8fea-c185-426b-8554-4ec0280f6401/scratchpad/ssh-runs/submission_plan_c8e0423fe14f/worker/run_71484a371009/run_manifest.json",
+  "error": null
+}
