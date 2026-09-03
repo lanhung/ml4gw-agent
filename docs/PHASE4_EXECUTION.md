@@ -12,15 +12,17 @@ executor and with unit tests that fake the scheduler binaries. **No HTCondor
 pool and no Kubernetes cluster has run an agent job.** The HTCondor and
 Kubernetes executors generate submissions and drive `condor_*` / `kubectl`
 through fixed argument vectors, and the tests check those artifacts and
-argument vectors; they do not prove that a real pool accepts them. A run on
-a real scheduler, recorded like the Phase 1 acceptance runs, is the exit
-test that is still open.
+argument vectors; they do not prove that a real pool accepts them. The
+`ssh` executor below is likewise tested only against a fake transport: no
+job has yet been driven over a real SSH connection from the test suite. A
+run on a real scheduler or host, recorded like the Phase 1 acceptance runs,
+is the exit test that is still open.
 
 ## Contracts (`ml4gw_agent.executors`)
 
 | Piece | What it is |
 |---|---|
-| `ExecutorKind` | `local`, `htcondor`, `kubernetes` (implemented, argv-driven), `snakemake`, `law`, `triton` (planned; their probe states the upstream blocker). |
+| `ExecutorKind` | `local`, `htcondor`, `ssh` (implemented; argv-driven, fake-tested), `kubernetes` (implemented but deferred: no cluster), `snakemake`, `law`, `triton` (planned; their probe states the upstream blocker). |
 | `Executor` | `probe()`, `submit(job_id, work, run_dir, description)`, `poll(handle)`, `cancel(handle)`, `resume(handle)`; `require_available()` fails closed. |
 | `JobHandle` | id, executor, status, submission time, checkpoint path, result, error; serialised into the manifest. |
 | `RetryPolicy` | attempts and exponential backoff for submissions. |
@@ -52,6 +54,54 @@ pool executes the validated DAG, never prompt text.
 `backoffLimit: 0`), applies it with `kubectl apply -f`, polls `kubectl get
 job -o json` (`succeeded`/`failed`/`active`), and deletes the job to cancel.
 It refuses to run without `kubectl` on PATH and without a pinned image.
+
+**Deferred.** There is no cluster to run it on, so `executor_availability`
+reports it as `deferred (no cluster available; the ssh executor stands in)`
+followed by the probe result. The code stays in place for when a cluster
+exists; nothing selects it automatically.
+
+### SSH executor
+
+`SSHExecutor` (`executors/ssh.py`) replaces the Kubernetes path for now: it
+runs a saved plan on one remote host that already has the agent checked out
+and its environment installed, for example the GPU node. Configuration comes
+from the environment, never from the plan:
+
+| Variable | Meaning | Default |
+|---|---|---|
+| `ML4GW_SSH_HOST` | host to connect to; unset means the executor is unavailable | — |
+| `ML4GW_SSH_PORT` | SSH port | `22` |
+| `ML4GW_SSH_USER` | login user | `root` |
+| `ML4GW_SSH_PASSWORD` or `ML4GW_SSH_KEY` | password, or path to a private key; one is required | — |
+| `ML4GW_SSH_REPO` | agent checkout on the host (`cd` target) | `~/ml4gw-agent` |
+| `ML4GW_SSH_RUNS` | directory for job directories on the host | `~/ml4gw-runs` |
+| `ML4GW_SSH_ENV` | shell snippet prefixed to every command (exports, `source`) | empty |
+| `ML4GW_SSH_PYTHON` | command prefix for the agent CLI | `uv run` |
+
+`submit` needs the same description as HTCondor (`plan_file`, `mode`,
+`runs_dir`). It creates `<RUNS>/<job>/` on the host, copies the saved plan
+there with sftp, and starts
+`nohup <python> ml4gw-agent run-plan <plan> --mode <mode> --runs-dir <RUNS>/<job>/worker`
+detached, with `stdout.log`, `stderr.log` and a `pid` file next to the
+plan. The handle id is `<host>:<pid>`; the checkpoint `handle.json` records
+the remote job directory and the local worker directory. `poll` checks
+`kill -0 <pid>` and reads the status of the worker's `run_manifest.json`;
+once the process is gone it copies the whole remote worker directory back
+into the local run directory, so `submit_plan` finds `run_*/run_manifest.json`
+exactly as it does for HTCondor, and the handle is final (`completed` only
+when the worker manifest says so, otherwise `failed`). `cancel` sends
+`kill`, then `kill -9`, and marks the handle cancelled; `resume` re-polls
+from the checkpoint. Password and key never reach the manifest or the
+remote command line: they are used only to open the paramiko session.
+
+`SSHTransport` (paramiko: `run`, `put`, `get_tree`) is the one seam; the
+tests substitute a fake that records commands and simulates a process that
+is alive, then gone. **What is proven:** the command lines, the plan copy,
+the running → completed / failed / cancelled transitions, checkpoint reuse,
+and the copy-back that makes the worker manifest visible to `submit_plan`.
+**What is not:** any real connection, paramiko error handling against a
+live host, and the remote environment actually running the agent. Those
+need a recorded acceptance run on the GPU node.
 
 ## Estimate and budget flow
 
@@ -108,11 +158,48 @@ near-duplicates closer than `proximity_seconds` by keeping the louder one,
 and reports missing segments and the coverage fraction instead of silently
 returning a partial scan.
 
+### Segmented submission of long scans
+
+`submit_plan` splits a scan automatically when the plan's `data.fetch`
+window is longer than `ExecutionPolicy.max_data_window_seconds` (4096 s), or
+when the CLI is given `--segment-seconds`. Segmentation only applies to
+requests made by GPS time, because only then is the window's position known
+at submission time; a catalog or GraceDB name is resolved on the worker, and
+`--segment-seconds` on such a request is an `ExecutorError` rather than a
+silent single job. Everything else goes through the unchanged single-plan
+path.
+
+The split uses `partition_scan` with an 8 s overlap by default. For each
+segment `segment_plan` deep-copies the plan and rewrites `data.fetch` to the
+segment's padded data window (`gps_time` = data start, `window_seconds` =
+data length, `event_offset_fraction` = 0), drops the `target_time` of
+`aframe.detect` / `gwak.scan` so the scan covers the whole segment, and
+appends a warning naming the segment. The budget is checked once for the
+whole scan (per-segment estimate × number of segments); the segments are
+then submitted as separate jobs under `submission_<plan>/segment_<i>/` with
+plan ids `<plan>_s<i>`, waited for in order, and merged: `run_aframe`
+candidate times and `run_gwak` top segments are passed through
+`merge_segment_outputs`, so a candidate that falls inside an overlap is kept
+once, from the segment whose core contains it. `segments.json` in the
+submission directory records the segments, one submission per segment, the
+merged candidates with `coverage_fraction` and `missing_segments`, the
+failed segment indices, and the overall status: `completed` when every
+segment completed, `partial` otherwise. A failed segment is reported, never
+hidden behind a merged result.
+
+**Proven by tests** (`tests/test_ssh_executor.py`, with a fake batch
+executor that writes worker manifests): N segments submitted for a 1000 s
+window, abutting cores that cover exactly the requested interval, no
+duplicate candidates from the overlaps, one failed segment surfacing as
+`partial` with coverage ≈ 0.75, automatic splitting above the policy limit
+and none below it. **Not proven:** a real segmented scan on a scheduler or
+over SSH.
+
 ## CLI
 
 ```bash
 ml4gw-agent estimate "Analyze GW150914" [--no-cache] [--no-gpu] [--max-gpu-hours H]
-ml4gw-agent run "..." --executor local|htcondor|kubernetes --max-gpu-hours H [--authorize-budget]
+ml4gw-agent run "..." --executor local|htcondor|ssh|kubernetes --max-gpu-hours H [--authorize-budget] [--segment-seconds S]
 ```
 
 `estimate` exits 3 when the budget would refuse the plan.
@@ -127,4 +214,6 @@ ml4gw-agent run "..." --executor local|htcondor|kubernetes --max-gpu-hours H [--
 - Budget and authorization policies enforced before submission: **yes**, in
   the runtime and the CLI.
 - Real HTCondor / Kubernetes execution: **open**; needs a pool or cluster and
-  a recorded acceptance run.
+  a recorded acceptance run. Kubernetes is deferred until a cluster exists;
+  the `ssh` executor stands in and still needs its own recorded run on the
+  GPU node.

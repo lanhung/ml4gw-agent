@@ -32,6 +32,7 @@ class ExecutorKind(str, Enum):
     LOCAL = "local"
     HTCONDOR = "htcondor"
     KUBERNETES = "kubernetes"
+    SSH = "ssh"
     SNAKEMAKE = "snakemake"
     LAW = "law"
     TRITON = "triton"
