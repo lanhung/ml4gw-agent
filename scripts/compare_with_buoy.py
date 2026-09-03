@@ -52,10 +52,12 @@ def agent_files(run_dir: Path) -> tuple[Path | None, Path | None, str | None]:
     manifest = json.loads((run_dir / "run_manifest.json").read_text())
     tasks = manifest["tasks"]
     if "analyze_event" in tasks:
-        outputs = tasks["analyze_event"]["outputs"]
+        outputs = tasks["analyze_event"].get("outputs") or {}
+        aframe = outputs.get("aframe_output")
+        posterior = outputs.get("posterior_samples")
         return (
-            run_dir / outputs["aframe_output"],
-            run_dir / outputs["posterior_samples"],
+            run_dir / aframe if aframe else None,
+            run_dir / posterior if posterior else None,
             outputs.get("amplfi_network"),
         )
     aframe = tasks.get("run_aframe", {}).get("outputs", {}).get("output_artifact")
@@ -154,6 +156,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         report["amplfi"] = "not compared (missing file)"
 
+    if not report["checks"]:
+        # Nothing was compared (a failed run, missing files, or a skipped
+        # AMPLFI stage on both sides); that is not a pass.
+        failures += 1
+        report["reason"] = "no quantity could be compared"
     report["passed"] = failures == 0
     print(json.dumps(report, indent=2))
     return 0 if failures == 0 else 1

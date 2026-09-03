@@ -186,13 +186,25 @@ class AframeAdapter(SkillAdapter):
             raise AdapterError("Aframe produced empty outputs")
 
         peak_index = int(np.argmax(timing_integrated))
-        predicted_tc = float(times[peak_index] + float(model.time_offset))
+        raw_peak_time = float(times[peak_index] + float(model.time_offset))
         detection_statistic = float(np.max(signif_integrated))
-        candidate_found = detection_statistic >= threshold
-        if not (strain.t0 <= predicted_tc <= strain.gps_end):
-            raise AdapterError(
-                f"predicted coalescence time {predicted_tc} lies outside the "
-                f"strain interval [{strain.t0}, {strain.gps_end}]"
+        warnings = [UNCALIBRATED_THRESHOLD_WARNING]
+        peak_in_window = bool(strain.t0 <= raw_peak_time <= strain.gps_end)
+        if peak_in_window:
+            predicted_tc: float | None = raw_peak_time
+            candidate_found = detection_statistic >= threshold
+        else:
+            # Buoy maps the integrated-output peak to a merger time with a
+            # fixed negative offset, so a peak in the first samples (where the
+            # whitening state is still warming up) lands before the strain
+            # starts. That is a start-up artefact, not a candidate: report no
+            # candidate so AMPLFI is skipped, and keep the raw value for review.
+            predicted_tc = None
+            candidate_found = False
+            warnings.append(
+                f"Aframe's maximum integrated output maps to {raw_peak_time}, "
+                f"outside the strain interval [{strain.t0}, {strain.gps_end}]; "
+                "treated as a filter start-up artefact, no candidate reported"
             )
 
         artifact = artifact_directory(context) / "aframe_outputs.hdf5"
@@ -201,7 +213,10 @@ class AframeAdapter(SkillAdapter):
             handle.create_dataset("ys", data=np.asarray(ys, dtype="f8"))
             handle.create_dataset("timing_integrated", data=timing_integrated)
             handle.create_dataset("signif_integrated", data=signif_integrated)
-            handle.attrs["predicted_tc"] = predicted_tc
+            if predicted_tc is not None:
+                handle.attrs["predicted_tc"] = predicted_tc
+            handle.attrs["raw_peak_time"] = raw_peak_time
+            handle.attrs["peak_in_window"] = peak_in_window
             handle.attrs["detection_statistic"] = detection_statistic
             handle.attrs["threshold"] = threshold
             handle.attrs["model_revision"] = revision
@@ -211,6 +226,8 @@ class AframeAdapter(SkillAdapter):
             "candidate_found": candidate_found,
             "candidate_times": [predicted_tc] if candidate_found else [],
             "predicted_coalescence_time": predicted_tc,
+            "raw_peak_time": raw_peak_time,
+            "peak_in_window": peak_in_window,
             "detection_statistic": detection_statistic,
             "threshold": threshold,
             "threshold_calibrated": False,
@@ -227,5 +244,5 @@ class AframeAdapter(SkillAdapter):
             outputs=outputs,
             artifacts=[artifact],
             metadata=metadata,
-            warnings=[UNCALIBRATED_THRESHOLD_WARNING],
+            warnings=warnings,
         )

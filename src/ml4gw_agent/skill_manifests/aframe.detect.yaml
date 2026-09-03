@@ -39,6 +39,8 @@ output_schema:
     candidate_found: {type: boolean}
     candidate_times: {type: array, items: {type: number}}
     predicted_coalescence_time: {type: [number, "null"]}
+    raw_peak_time: {type: number}
+    peak_in_window: {type: boolean}
     detection_statistic: {type: number}
     threshold: {type: number}
     threshold_calibrated: {type: boolean}
@@ -66,3 +68,4 @@ notes:
   - Real adapter wraps buoy.models.Aframe (TorchScript weights and config from the ML4GW/aframe Hugging Face repository at the pinned revision).
   - Output file layout matches Buoy's aframe_outputs.hdf5 so direct and agent runs can be diffed.
   - threshold is an uncalibrated integrated-output cut; candidate_found is provisional until a background study supplies a FAR threshold.
+  - A peak that maps before the strain start (whitening start-up artefact, seen on GW170817 with the BBH-trained model) yields candidate_found false and a null predicted_coalescence_time; raw_peak_time and peak_in_window keep the evidence.

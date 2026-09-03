@@ -518,6 +518,49 @@ def test_aframe_adapter_threshold_and_guards(registry, tmp_path, monkeypatch):
         AframeAdapter().execute(context)
 
 
+def test_aframe_peak_before_strain_start_is_not_a_candidate(
+    registry, tmp_path, monkeypatch
+):
+    """A whitening start-up peak maps before t0; report no candidate, no error."""
+    path = _strain(tmp_path)
+    params = _aframe_params(path, tmp_path)
+    context = _context(registry, tmp_path, "aframe.detect", "run_aframe", params)
+
+    class EdgePeakAframe(FakeAframe):
+        def __call__(self, data, t0):
+            steps = 64
+            times = t0 + np.arange(steps) / self.inference_sampling_rate
+            ys = np.zeros(steps)
+            timing = np.zeros(steps)
+            timing[0] = 5.0  # peak in the very first inference step
+            signif = np.zeros(steps // 4)
+            signif[0] = 5.0
+            return times, ys, timing, signif
+
+    backend = TorchBackend(
+        aframe_class=lambda device=None, revision=None: EdgePeakAframe(
+            device=device, revision=revision
+        ),
+        to_tensor=np.asarray,
+        seed=lambda s: None,
+    )
+    monkeypatch.setattr(
+        "ml4gw_agent.adapters.aframe.load_aframe_backend", lambda: backend
+    )
+    outcome = AframeAdapter().execute(context)
+    assert outcome.outputs["candidate_found"] is False
+    assert outcome.outputs["candidate_times"] == []
+    assert outcome.outputs["predicted_coalescence_time"] is None
+    assert outcome.outputs["peak_in_window"] is False
+    # times[0] + time_offset (-0.5 s) lies before the strain start
+    assert outcome.outputs["raw_peak_time"] == pytest.approx(EVENT_TIME - 6.4 - 0.5)
+    assert outcome.outputs["detection_statistic"] == 5.0
+    assert any("start-up artefact" in warning for warning in outcome.warnings)
+    with h5py.File(tmp_path / outcome.outputs["output_artifact"], "r") as handle:
+        assert "predicted_tc" not in handle.attrs
+        assert bool(handle.attrs["peak_in_window"]) is False
+
+
 def test_aframe_preflight_and_probe(registry, tmp_path, monkeypatch):
     path = _strain(tmp_path)
     context = _context(
