@@ -112,7 +112,11 @@ def load_gwak_backend() -> GWAKBackend:
         return model
 
     def whiten(strain, sample_rate, psd_length, fduration, fftlength, highpass):
-        x = torch.as_tensor(np.asarray(strain, dtype="f8"), dtype=torch.float64)
+        # Strain is ~1e-21 and its PSD ~1e-42, below float32 range; whitening
+        # is scale-invariant, so normalise to unit scale first.
+        raw = np.asarray(strain, dtype="f8")
+        scale = float(np.std(raw)) or 1.0
+        x = torch.as_tensor(raw / scale, dtype=torch.float64)
         n_psd = int(psd_length * sample_rate)
         spectral = SpectralDensity(sample_rate, fftlength, average="median", fast=True)
         psd = spectral(x[:, :n_psd])
