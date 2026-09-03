@@ -143,6 +143,28 @@ def _download(url: str, token: str, target: Path) -> Path:
     return target
 
 
+def normalize_units(series: Any, channel: str) -> Any:
+    """Rebuild a series read from GWF with explicit time units.
+
+    Frame readers can return a ``TimeSeries`` whose ``dx`` carries no unit;
+    gwpy then refuses ``resample`` with a dimensionless/Hz conversion error.
+    Reconstructing the series with an explicit ``t0`` in seconds and a
+    sample rate in hertz keeps the samples untouched and makes the rest of
+    the adapter (span check, resampling) unit-safe.
+    """
+    from gwpy.timeseries import TimeSeries
+
+    t0 = float(getattr(series.t0, "value", series.t0))
+    dx = float(getattr(series.dx, "value", series.dx))
+    return TimeSeries(
+        series.value,
+        t0=t0,
+        sample_rate=1.0 / dx,
+        channel=channel,
+        name=channel,
+    )
+
+
 def load_ldg_backend() -> LDGBackend:
     missing = missing_modules()
     if missing:
@@ -154,7 +176,9 @@ def load_ldg_backend() -> LDGBackend:
     from gwpy.timeseries import TimeSeries
 
     def read(files: list[str], channel: str, start: float, end: float):
-        return TimeSeries.read(files, channel, start=start, end=end)
+        return normalize_units(
+            TimeSeries.read(files, channel, start=start, end=end), channel
+        )
 
     return LDGBackend(find_urls=find_urls, download=_download, read_timeseries=read)
 

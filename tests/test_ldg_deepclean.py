@@ -238,3 +238,20 @@ def test_shipped_support_table_is_empty_and_public_data_is_inapplicable(
     record = json.loads(outcome.artifacts[0].read_text())
     assert record["strain_source"] == "gwosc"
     assert outcome.metadata["configurations_reviewed"] == 0
+
+
+def test_normalize_units_restores_seconds_and_hertz():
+    pytest.importorskip("gwpy")
+    from astropy import units as u
+    from gwpy.timeseries import TimeSeries
+
+    from ml4gw_agent.adapters.ldg import normalize_units
+
+    raw = TimeSeries(np.arange(8.0), x0=100.0, dx=0.5)  # dimensionless axis
+    fixed = normalize_units(raw, "H1:TEST")
+    assert fixed.sample_rate == 2.0 * u.Hz
+    assert float(fixed.t0.value) == 100.0
+    assert fixed.channel.name == "H1:TEST"
+    assert np.array_equal(fixed.value, raw.value)
+    resampled = fixed.resample(1.0)
+    assert resampled.sample_rate == 1.0 * u.Hz
