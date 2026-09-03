@@ -467,3 +467,23 @@ def test_cli_estimate_and_run_flags(capsys, tmp_path):
     summary = json.loads(capsys.readouterr().out)
     saved = json.loads(Path(summary["manifest"]).read_text())
     assert saved["execution"]["budget"]["max_gpu_hours"] == 2.0
+
+
+def test_accounting_attributes_come_from_the_environment(monkeypatch, tmp_path):
+    from ml4gw_agent.executors.htcondor import render_submit_description
+
+    monkeypatch.setenv("ML4GW_CONDOR_ACCOUNTING_GROUP", "ligo.dev.o4.cbc.explore.test")
+    monkeypatch.setenv("ML4GW_CONDOR_ACCOUNTING_USER", "fan.zhang")
+    monkeypatch.setenv("ML4GW_CONDOR_EXTRA", '{"+MaxHours": "2"}')
+    text = render_submit_description(
+        executable="/bin/true",
+        arguments=["x"],
+        job_dir=tmp_path,
+        cpus=1,
+        memory_gb=1,
+        gpus=1,
+    )
+    assert "accounting_group = ligo.dev.o4.cbc.explore.test" in text
+    assert "accounting_group_user = fan.zhang" in text
+    assert "+MaxHours = 2" in text
+    assert text.strip().endswith("queue 1")

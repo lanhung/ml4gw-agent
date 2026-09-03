@@ -368,6 +368,7 @@ class BaselinePlanner:
                         "strain_artifact": "${fetch_data_4k.outputs.strain_artifact}",
                         "model_revision": gwak_revision,
                         "top_k": 10,
+                        "target_time": "${resolve_event.outputs.catalog_time}",
                         "device": self.config.device,
                         "seed": self.config.seed,
                     },

@@ -229,6 +229,23 @@ def fetch_ldg_strain(
     if token is None:
         raise AdapterUnavailableError(credential_status()[1])
     urls = list(
+        backend.find_urls(ifo[0], frametype, int(start), int(end) + 1, urltype="file")
+    )
+    local = [u for u in urls if u.startswith("file://") and Path(u[7:]).is_file()]
+    if local:
+        # On an LDG node the frames are on a shared filesystem: no download.
+        files = sorted(u[7:] for u in local)
+        series = backend.read_timeseries(files, channel, start, end)
+        return series, {
+            "frametype": frametype,
+            "channel": channel,
+            "urls": local,
+            "files": files,
+            "datafind_server": os.environ.get(
+                "GWDATAFIND_SERVER", DEFAULT_DATAFIND_SERVER
+            ),
+        }
+    urls = list(
         backend.find_urls(ifo[0], frametype, int(start), int(end) + 1, urltype="https")
     )
     if not urls:

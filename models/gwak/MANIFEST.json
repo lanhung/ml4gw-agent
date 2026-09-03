@@ -20,14 +20,17 @@
   },
   "preprocessing": {
     "sample_rate": 4096,
-    "ifos": ["H1", "L1"],
+    "ifos": [
+      "H1",
+      "L1"
+    ],
     "kernel_length_seconds": 0.5,
     "psd_length_seconds": 64,
     "fduration_seconds": 1,
     "fftlength_seconds": 2,
     "highpass_hz": 30,
-    "stride_seconds": 0.25,
-    "note": "sample_rate, kernel_length, psd_length, fduration and fftlength come from the training config (train_config_S4_SimCLR_multiSignalAndBkg.yaml). highpass and stride are not in the exported config; 30 Hz matches the GWAK 1 bandpass and 0.25 s is the adapter default, both recorded in every manifest."
+    "stride_seconds": 0.0625,
+    "note": "sample_rate, kernel_length, psd_length, fduration and fftlength come from the training config (train_config_S4_SimCLR_multiSignalAndBkg.yaml). highpass and stride are not in the exported config; 30 Hz matches the GWAK 1 bandpass and 1/16 s is the adapter default (a 0.25 s stride missed the 0.2 s chirp alignment on GW150914), both recorded in every manifest."
   },
   "review_status": "user-trained checkpoints, not a published ML4GW release; anomaly threshold uncalibrated until a background study"
 }

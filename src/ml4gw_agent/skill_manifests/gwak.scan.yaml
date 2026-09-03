@@ -19,7 +19,11 @@ input_schema:
     model_revision: {type: string, minLength: 1}
     top_k: {type: integer, minimum: 1, maximum: 1000, default: 10}
     threshold: {type: number, default: 0.0}
-    stride_seconds: {type: number, exclusiveMinimum: 0, maximum: 4, default: 0.25}
+    stride_seconds: {type: number, exclusiveMinimum: 0, maximum: 4, default: 0.0625}
+    target_time:
+      description: Requested or catalog time; the score, rank and z-score of the loudest kernel within candidate_window_seconds of it are reported.
+      type: [number, "null"]
+    candidate_window_seconds: {type: number, exclusiveMinimum: 0, default: 0.6}
     highpass_hz: {type: [number, "null"], minimum: 0}
     psd_length_seconds: {type: number, minimum: 4, maximum: 512, default: 64}
     model_dir: {type: [string, "null"]}
@@ -41,6 +45,10 @@ output_schema:
     n_kernels: {type: integer}
     analysis_start: {type: number}
     analysis_end: {type: number}
+    target_time: {type: [number, "null"]}
+    target_score: {type: [number, "null"]}
+    target_zscore: {type: [number, "null"]}
+    target_rank: {type: [integer, "null"]}
     model: {type: object}
     simulated: {type: boolean}
 preconditions:

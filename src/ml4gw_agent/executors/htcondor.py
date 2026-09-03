@@ -62,10 +62,40 @@ def render_submit_description(
         "should_transfer_files = NO",
         "getenv = True",
     ]
-    for key, value in (extra or {}).items():
+    merged = dict(accounting_from_environment())
+    merged.update(extra or {})
+    for key, value in merged.items():
         lines.append(f"{key} = {value}")
     lines.append("queue 1")
     return "\n".join(lines) + "\n"
+
+
+def accounting_from_environment() -> dict[str, str]:
+    """IGWN pools reject jobs without an accounting tag; read it from the
+    environment so the submit file carries it without code changes.
+
+    ``ML4GW_CONDOR_ACCOUNTING_GROUP`` maps to ``accounting_group`` and
+    ``ML4GW_CONDOR_ACCOUNTING_USER`` to ``accounting_group_user``;
+    ``ML4GW_CONDOR_EXTRA`` may hold a JSON object of further attributes.
+    """
+    import os
+
+    lines: dict[str, str] = {}
+    group = os.environ.get("ML4GW_CONDOR_ACCOUNTING_GROUP")
+    if group:
+        lines["accounting_group"] = group
+    user = os.environ.get("ML4GW_CONDOR_ACCOUNTING_USER")
+    if user:
+        lines["accounting_group_user"] = user
+    extra = os.environ.get("ML4GW_CONDOR_EXTRA")
+    if extra:
+        try:
+            lines.update({str(k): str(v) for k, v in json.loads(extra).items()})
+        except (json.JSONDecodeError, AttributeError) as exc:
+            raise ExecutorError(
+                f"ML4GW_CONDOR_EXTRA is not a JSON object: {exc}"
+            ) from exc
+    return lines
 
 
 def _quote(part: str) -> str:

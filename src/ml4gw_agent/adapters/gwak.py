@@ -213,7 +213,12 @@ class GWAKAdapter(SkillAdapter):
         fftlength = float(pre["fftlength_seconds"])
         highpass = params.get("highpass_hz", pre.get("highpass_hz"))
         highpass = float(highpass) if highpass is not None else None
-        stride_s = float(params.get("stride_seconds", pre.get("stride_seconds", 0.25)))
+        stride_s = float(
+            params.get("stride_seconds", pre.get("stride_seconds", 0.0625))
+        )
+        target_time = params.get("target_time")
+        target_time = float(target_time) if target_time is not None else None
+        window = float(params.get("candidate_window_seconds", 0.6))
         threshold = float(params.get("threshold", 0.0))
         top_k = int(params.get("top_k", 10))
         device = str(params.get("device", "cuda"))
@@ -299,6 +304,21 @@ class GWAKAdapter(SkillAdapter):
         ]
         max_score = float(scores.max())
         anomaly_found = bool(max_score >= threshold)
+        target_score = target_zscore = None
+        target_rank = None
+        if target_time is not None:
+            near = np.abs(times - target_time) <= window
+            if near.any():
+                target_score = float(scores[near].max())
+                spread = (
+                    float(np.percentile(scores, 84) - np.percentile(scores, 16)) / 2
+                )
+                target_zscore = (
+                    float((target_score - np.median(scores)) / spread)
+                    if spread
+                    else None
+                )
+                target_rank = int((scores > target_score).sum())
 
         artifact = artifact_directory(context) / "gwak_scores.hdf5"
         artifact.parent.mkdir(parents=True, exist_ok=True)
@@ -323,6 +343,10 @@ class GWAKAdapter(SkillAdapter):
             "n_kernels": int(scores.size),
             "analysis_start": float(analysis_t0),
             "analysis_end": float(times[-1] + kernel_s / 2),
+            "target_time": target_time,
+            "target_score": target_score,
+            "target_zscore": target_zscore,
+            "target_rank": target_rank,
             "model": {
                 "revision": revision,
                 "source_commit": manifest.get("source_commit"),

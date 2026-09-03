@@ -174,6 +174,7 @@ def test_gwak_adapter_scores_kernels_and_maps_times(registry, tmp_path, monkeypa
         "top_k": 3,
         "threshold": 20.0,
         "device": "cpu",
+        "stride_seconds": 0.25,
     }
     context = ExecutionContext(
         skill=registry.get("gwak.scan"),
@@ -195,11 +196,25 @@ def test_gwak_adapter_scores_kernels_and_maps_times(registry, tmp_path, monkeypa
     # analysis starts after the 4 s PSD and the 0.5 s filter crop; kernel 7 at
     # stride 0.25 s has its centre at 4.5 + 7*0.25 + 0.25 s after t0
     assert out["top_segments"][0]["time"] == 1000.0 + 4.5 + 7 * 0.25 + 0.25
+    assert out["target_time"] is None and out["target_rank"] is None
     assert out["top_segments"][0]["score"] == 40.0
     assert len(out["top_segments"]) == 3
     assert out["n_kernels"] == int((12 - 4 - 1 - 0.5) / 0.25) + 1
     assert (tmp_path / out["anomaly_artifact"]).exists()
     _json.dumps(out)  # JSON-serialisable outputs
+
+    aimed = dict(params, target_time=1000.0 + 4.5 + 7 * 0.25 + 0.25)
+    context3 = ExecutionContext(
+        skill=registry.get("gwak.scan"),
+        task=TaskSpec(id="run_gwak", skill="gwak.scan", parameters=aimed),
+        parameters=aimed,
+        run_dir=tmp_path,
+        mode="real",
+        records={},
+        prompt="test",
+    )
+    aimed_out = adapter.execute(context3).outputs
+    assert aimed_out["target_score"] == 40.0 and aimed_out["target_rank"] == 0
 
     below = dict(params, threshold=100.0)
     context2 = ExecutionContext(

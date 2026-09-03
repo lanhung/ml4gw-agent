@@ -87,6 +87,8 @@ def test_data_fetch_ldg_source_downloads_frames_with_token(
     calls = {"find": [], "download": [], "read": []}
 
     def find_urls(site, frametype, start, end, urltype="https"):
+        if urltype == "file":
+            return []  # not on an LDG node
         calls["find"].append((site, frametype, start, end, urltype))
         return [f"https://osdf-director.osg-htc.org/igwn/{frametype}-{start}.gwf"]
 
@@ -280,3 +282,24 @@ def test_read_gwf_channel_prefers_framel(monkeypatch):
     assert series.channel.name == "H1:TEST"
     cropped = series.crop(1126259368.0, 1126259370.0)
     assert cropped.shape == (4,)
+
+
+def test_ldg_uses_local_frames_when_datafind_returns_files(tmp_path, monkeypatch):
+    frame = tmp_path / "H-H1_HOFT_C02-1126256640-4096.gwf"
+    frame.write_bytes(b"IGWD")
+    monkeypatch.setenv("BEARER_TOKEN", "abc")
+    calls = []
+
+    def find_urls(site, frametype, start, end, urltype="https"):
+        calls.append(urltype)
+        return [f"file://{frame}"] if urltype == "file" else ["https://x/y.gwf"]
+
+    backend = LDGBackend(
+        find_urls=find_urls,
+        download=lambda *a: pytest.fail("must not download"),
+        read_timeseries=lambda files, channel, start, end: (files, channel),
+    )
+    series, prov = fetch_ldg_strain(backend, "H1", 1126259366.0, 1126259494.0)
+    assert calls == ["file"]
+    assert series == ([str(frame)], "H1:DCS-CALIB_STRAIN_C02")
+    assert prov["files"] == [str(frame)]
