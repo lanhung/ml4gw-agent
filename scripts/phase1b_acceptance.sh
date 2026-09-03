@@ -7,20 +7,29 @@
 #
 #   AFRAME_REVISION=<sha> AMPLFI_REVISION=<sha> bash scripts/phase1b_acceptance.sh
 #
-# Optional: DEVICE=cpu (slow), RUNS_DIR=./runs, SEED=0, EVENT=GW150914.
+# Optional: DEVICE=cpu (slow), RUNS_DIR=./runs, SEED=0, EVENT=GW150914,
+# IFOS="H1 L1" (the detector set given to the agent *and* to the direct Buoy
+# run; without it Buoy would pick every detector GWOSC lists for the event,
+# which for three-detector events selects a different AMPLFI model than the
+# agent and makes the comparison meaningless).
 set -euo pipefail
 
 EVENT="${EVENT:-GW150914}"
 DEVICE="${DEVICE:-cuda}"
 SEED="${SEED:-0}"
 RUNS_DIR="${RUNS_DIR:-./runs}"
+IFOS="${IFOS:-H1 L1}"
+# shellcheck disable=SC2206
+IFO_ARRAY=(${IFOS})
+IFOS_JSON="$(printf '"%s",' "${IFO_ARRAY[@]}")"
+IFOS_JSON="[${IFOS_JSON%,}]"
 : "${AFRAME_REVISION:?set AFRAME_REVISION to an immutable ML4GW/aframe commit}"
 : "${AMPLFI_REVISION:?set AMPLFI_REVISION to an immutable ML4GW/amplfi commit}"
 
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 OUT="${RUNS_DIR}/phase1b-${EVENT}-${STAMP}"
 mkdir -p "${OUT}"
-echo "acceptance output: ${OUT}"
+echo "acceptance output: ${OUT} (event ${EVENT}, detectors ${IFOS})"
 
 echo "== 0. environment"
 uv sync --extra buoy --group dev
@@ -31,7 +40,7 @@ uv run ml4gw-agent doctor --mode real | tee "${OUT}/doctor.json"
 echo "== 1. Buoy vertical slice through the agent"
 uv run ml4gw-agent run "Analyze ${EVENT}" \
   --mode real --runs-dir "${OUT}/agent-buoy" \
-  --device "${DEVICE}" --seed "${SEED}" \
+  --device "${DEVICE}" --seed "${SEED}" --ifos "${IFO_ARRAY[@]}" \
   --aframe-revision "${AFRAME_REVISION}" \
   --amplfi-revision "${AMPLFI_REVISION}" | tee "${OUT}/agent-buoy.json"
 
@@ -39,13 +48,13 @@ echo "== 2. Decomposed plan: data.fetch -> data.inspect -> aframe.detect -> ampl
 uv run ml4gw-agent run \
   "Fetch strain data for ${EVENT}, check data quality, run Aframe detection and AMPLFI parameter estimation." \
   --mode real --runs-dir "${OUT}/agent-decomposed" \
-  --device "${DEVICE}" --seed "${SEED}" \
+  --device "${DEVICE}" --seed "${SEED}" --ifos "${IFO_ARRAY[@]}" \
   --aframe-revision "${AFRAME_REVISION}" \
   --amplfi-revision "${AMPLFI_REVISION}" | tee "${OUT}/agent-decomposed.json"
 
 echo "== 3. Direct Buoy reference run with the same seed and revisions"
 uv run buoy --events "${EVENT}" --outdir "${OUT}/buoy-direct" \
-  --device "${DEVICE}" --seed "${SEED}" \
+  --device "${DEVICE}" --seed "${SEED}" --ifos "${IFOS_JSON}" \
   --aframe_revision "${AFRAME_REVISION}" --amplfi_revision "${AMPLFI_REVISION}" \
   --to_html true 2>&1 | tee "${OUT}/buoy-direct.log"
 

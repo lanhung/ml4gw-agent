@@ -279,6 +279,18 @@ class BuoyCLIAdapter(SkillAdapter):
         plots = sorted((event_dir / "plots").glob("*"))
 
         detection_statistic, predicted_tc = self._read_aframe_summary(aframe_output)
+        detectors_used = self._read_detectors_used(data_dir / f"{event}.hdf5")
+        amplfi_network = self._read_amplfi_network(data_dir)
+        warnings: list[str] = []
+        requested = [str(ifo) for ifo in context.parameters.get("ifos") or []]
+        if requested and detectors_used is not None and detectors_used != requested:
+            warnings.append(
+                f"Buoy analysed detectors {detectors_used} although {requested} "
+                "were requested: for catalog (GW*) events Buoy fetches every "
+                "detector GWOSC lists and selects the AMPLFI network from that, "
+                "ignoring --ifos. The manifest records the detectors actually "
+                "used; compare only against runs with the same network."
+            )
         artifacts = [
             path
             for path in event_dir.rglob("*")
@@ -302,6 +314,8 @@ class BuoyCLIAdapter(SkillAdapter):
             ),
             "detection_statistic": detection_statistic,
             "predicted_coalescence_time": predicted_tc,
+            "detectors_used": detectors_used,
+            "amplfi_network": amplfi_network,
             "simulated": False,
         }
         metadata["buoy_package_version"] = package_version
@@ -310,7 +324,29 @@ class BuoyCLIAdapter(SkillAdapter):
             artifacts=artifacts,
             command=command,
             metadata=metadata,
+            warnings=warnings,
         )
+
+    @staticmethod
+    def _read_detectors_used(path: Path) -> list[str] | None:
+        """Detectors in Buoy's cached strain file, in Buoy's (sorted) order."""
+        if not path.exists():
+            return None
+        try:
+            import h5py
+
+            with h5py.File(path, "r") as handle:
+                return sorted(str(key) for key in handle.keys())
+        except (ImportError, OSError, TypeError, ValueError):
+            return None
+
+    @staticmethod
+    def _read_amplfi_network(data_dir: Path) -> str | None:
+        """Network suffix of Buoy's AMPLFI sky map (``HL`` or ``HLV``)."""
+        candidates = sorted(data_dir.glob("amplfi_*.fits"))
+        if not candidates:
+            return None
+        return candidates[0].stem.split("_", 1)[1]
 
     @staticmethod
     def _read_aframe_summary(path: Path) -> tuple[float | None, float | None]:

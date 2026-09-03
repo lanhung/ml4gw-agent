@@ -36,6 +36,17 @@ The adapter does not import private Buoy internals or reproduce its data/model
 logic. Interface changes should therefore be handled by updating the adapter
 and its contract tests against a pinned upstream release.
 
+Behaviour confirmed on the GPU node on 2026-09-03 (Buoy 0.6.1,
+`buoy/utils/data.py::get_data`): for catalog event names (`GW...`) Buoy takes
+the detector list from `gwosc.datasets.event_detectors` and **ignores
+`--ifos`**; the option is only honoured for bare GPS times. It then picks the
+HL or HLV AMPLFI checkpoint from the number of detectors it fetched. GW190521
+therefore ran with H1+L1+V1 (`amplfi_HLV.fits`) although the agent asked for
+H1+L1. The adapter now records `detectors_used` and `amplfi_network` from
+Buoy's output files and attaches a warning when they differ from the request.
+Events whose GWOSC detector list includes GEO (`G1`, for example GW170817)
+make Buoy raise "does not have the required detectors".
+
 Model registry HEAD revisions observed on 2026-09-02:
 
 - ML4GW/Aframe: `3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4`

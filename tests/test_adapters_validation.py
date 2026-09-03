@@ -192,3 +192,52 @@ def test_output_validation_rejects_path_escape(registry, tmp_path):
         tmp_path,
     )
     assert any(not check.passed for check in checks)
+
+
+def test_buoy_execute_records_detectors_actually_used(registry, tmp_path, monkeypatch):
+    """Buoy ignores --ifos for catalog events; the manifest must say what ran."""
+    import h5py
+
+    context = _buoy_context(registry, tmp_path)
+
+    def fake_run(command, **kwargs):
+        assert command[command.index("--ifos") + 1] == '["H1", "L1"]'
+        kwargs["stdout"].write("ok\n")
+        output_root = command[command.index("--outdir") + 1]
+        data_dir = tmp_path / output_root / "GW150914" / "data"
+        data_dir.mkdir(parents=True)
+        with h5py.File(data_dir / "GW150914.hdf5", "w") as handle:
+            for ifo in ("V1", "H1", "L1"):
+                handle.create_dataset(ifo, data=[0.0, 1.0])
+        (data_dir / "aframe_outputs.hdf5").write_bytes(b"not-real-hdf5")
+        (data_dir / "posterior_samples.dat").write_text("sample\n")
+        (data_dir / "amplfi_HLV.fits").write_bytes(b"fits")
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr("ml4gw_agent.adapters.buoy.subprocess.run", fake_run)
+    outcome = BuoyCLIAdapter().execute(context)
+    assert outcome.outputs["detectors_used"] == ["H1", "L1", "V1"]
+    assert outcome.outputs["amplfi_network"] == "HLV"
+    assert len(outcome.warnings) == 1
+    assert "ignoring --ifos" in outcome.warnings[0]
+
+
+def test_buoy_execute_without_strain_cache_reports_unknown_detectors(
+    registry, tmp_path, monkeypatch
+):
+    context = _buoy_context(registry, tmp_path)
+
+    def fake_run(command, **kwargs):
+        kwargs["stdout"].write("ok\n")
+        output_root = command[command.index("--outdir") + 1]
+        data_dir = tmp_path / output_root / "GW150914" / "data"
+        data_dir.mkdir(parents=True)
+        (data_dir / "aframe_outputs.hdf5").write_bytes(b"not-real-hdf5")
+        (data_dir / "posterior_samples.dat").write_text("sample\n")
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr("ml4gw_agent.adapters.buoy.subprocess.run", fake_run)
+    outcome = BuoyCLIAdapter().execute(context)
+    assert outcome.outputs["detectors_used"] is None
+    assert outcome.outputs["amplfi_network"] is None
+    assert outcome.warnings == []

@@ -55,6 +55,10 @@ output_schema:
     summary_html: {type: [string, "null"]}
     detection_statistic: {type: [number, "null"]}
     predicted_coalescence_time: {type: [number, "null"]}
+    detectors_used:
+      type: [array, "null"]
+      items: {type: string}
+    amplfi_network: {type: [string, "null"]}
     simulated: {type: boolean}
 preconditions:
   - name: buoy_executable
@@ -80,4 +84,8 @@ tags: [buoy, aframe, amplfi, vertical-slice]
 source_repository: https://github.com/ML4GW/buoy
 notes:
   - Pin aframe_revision and amplfi_revision for reproducible scientific runs.
+  - For catalog (GW*) events Buoy 0.6.1 ignores ifos and analyses every
+    detector GWOSC lists for the event (HLV for most O3 events). The adapter
+    records detectors_used and amplfi_network from Buoy's outputs and warns
+    when they differ from the request.
   - Buoy currently downloads roughly 320 MB of model weights on first use.

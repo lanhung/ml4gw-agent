@@ -78,3 +78,27 @@ def test_v0_prompt_benchmark(registry):
         assert actual == case["expected_skills"], case["id"]
         for forbidden in case.get("forbidden_skills", []):
             assert forbidden not in actual, case["id"]
+
+
+def test_three_detector_request_keeps_aframe_on_h1_l1(registry):
+    planner = BaselinePlanner(
+        registry,
+        PlannerConfig(
+            ifos=("H1", "L1", "V1"),
+            aframe_revision="aframe-sha",
+            amplfi_revision="amplfi-sha",
+        ),
+    )
+    plan = planner.plan(
+        "Fetch strain data for GW190521, check data quality, run Aframe detection "
+        "and AMPLFI parameter estimation."
+    )
+    by_id = {task.id: task for task in plan.tasks}
+    assert by_id["fetch_data"].parameters["ifos"] == ["H1", "L1", "V1"]
+    assert by_id["inspect_data"].parameters["expected_ifos"] == ["H1", "L1", "V1"]
+    assert by_id["run_aframe"].parameters["ifos"] == ["H1", "L1"]
+    assert by_id["run_amplfi"].parameters["ifos"] == ["H1", "L1", "V1"]
+    assert any("Aframe runs on ['H1', 'L1'] only" in w for w in plan.warnings)
+
+    default_plan = BaselinePlanner(registry).plan("Run Aframe detection on GW150914.")
+    assert not any("Aframe runs on" in w for w in default_plan.warnings)

@@ -61,6 +61,15 @@ The script:
 
 Everything lands under `runs/phase1b-GW150914-<timestamp>/`.
 
+`IFOS` (default `H1 L1`) sets the detector set for the agent runs and is also
+passed to the direct Buoy run. Buoy ignores it for catalog event names and
+uses every detector GWOSC lists (`UPSTREAM_REVIEW.md`), so for three-detector
+events run with `IFOS="H1 L1 V1"`; the decomposed planner then fetches and
+inspects H1+L1+V1, runs Aframe on H1+L1 (the published model's detector
+set), and runs AMPLFI with the HLV checkpoint, which is what Buoy does
+internally. `compare_with_buoy.py` refuses to compare posteriors from
+different AMPLFI networks.
+
 ## Acceptance criteria
 
 Result of run `phase1b-GW150914-20260903T025339Z` (2026-09-03); see

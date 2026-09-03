@@ -34,6 +34,9 @@ class PlannerConfig:
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
+AFRAME_IFOS: tuple[str, ...] = ("H1", "L1")
+
+
 class BaselinePlanner:
     """Deterministic baseline router used before an LLM planner is introduced.
 
@@ -248,13 +251,19 @@ class BaselinePlanner:
 
         if wants_aframe:
             aframe_revision = self.config.aframe_revision or "UNPINNED"
+            if tuple(self.config.ifos) != AFRAME_IFOS:
+                warnings.append(
+                    f"Aframe runs on {list(AFRAME_IFOS)} only (the published model's "
+                    f"detector set); the requested {list(self.config.ifos)} are "
+                    "used for data fetching, quality checks, and AMPLFI."
+                )
             tasks.append(
                 TaskSpec(
                     id="run_aframe",
                     skill="aframe.detect",
                     parameters={
                         "strain_artifact": "${fetch_data.outputs.strain_artifact}",
-                        "ifos": list(self.config.ifos),
+                        "ifos": list(AFRAME_IFOS),
                         "model_revision": aframe_revision,
                         "device": self.config.device,
                         "threshold": self.config.aframe_threshold,
