@@ -176,9 +176,16 @@ def load_ldg_backend() -> LDGBackend:
     from gwpy.timeseries import TimeSeries
 
     def read(files: list[str], channel: str, start: float, end: float):
-        return normalize_units(
-            TimeSeries.read(files, channel, start=start, end=end), channel
-        )
+        # gwpy 4 + frameCPP loses the time unit when it pads a start/end
+        # selection during the multi-file merge; reading whole files and
+        # cropping after normalisation avoids that path.
+        pieces = [
+            normalize_units(TimeSeries.read(path, channel), channel) for path in files
+        ]
+        series = pieces[0]
+        for piece in pieces[1:]:
+            series = series.append(piece, inplace=False)
+        return series.crop(start, end)
 
     return LDGBackend(find_urls=find_urls, download=_download, read_timeseries=read)
 
