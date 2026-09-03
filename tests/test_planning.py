@@ -102,3 +102,76 @@ def test_three_detector_request_keeps_aframe_on_h1_l1(registry):
 
     default_plan = BaselinePlanner(registry).plan("Run Aframe detection on GW150914.")
     assert not any("Aframe runs on" in w for w in default_plan.warnings)
+
+
+def test_aframe_threshold_comes_from_calibration_when_available(registry, monkeypatch):
+    from ml4gw_agent import calibration
+
+    table = {
+        "revisions": {
+            "aframe-sha": {
+                "livetime_seconds": 10 * 365.25 * 86400,
+                "source": "unit-test",
+                "thresholds_by_far_per_year": {"12": 3.0, "1": 4.5, "0.1": 6.0},
+            }
+        }
+    }
+    monkeypatch.setattr(calibration, "load_aframe_table", lambda: table)
+
+    calibrated = BaselinePlanner(
+        registry,
+        PlannerConfig(aframe_revision="aframe-sha", amplfi_revision="amplfi-sha"),
+    ).plan("Run Aframe detection on GW150914.")
+    task = {t.id: t for t in calibrated.tasks}["run_aframe"]
+    assert task.parameters["threshold"] == 4.5
+    assert task.parameters["threshold_calibration"]["far_per_year"] == 1.0
+    assert task.parameters["target_time"] == "${resolve_event.outputs.catalog_time}"
+    assert task.parameters["candidate_window_seconds"] == 2.0
+    assert not any("raw 0.0 cut" in w for w in calibrated.warnings)
+
+    monthly = BaselinePlanner(
+        registry,
+        PlannerConfig(
+            aframe_revision="aframe-sha",
+            amplfi_revision="amplfi-sha",
+            aframe_far_per_year=12.0,
+        ),
+    ).plan("Run Aframe detection on GW150914.")
+    assert {t.id: t for t in monthly.tasks}["run_aframe"].parameters["threshold"] == 3.0
+
+    # a rate the livetime cannot measure is refused, not extrapolated
+    unmeasured = BaselinePlanner(
+        registry,
+        PlannerConfig(
+            aframe_revision="aframe-sha",
+            amplfi_revision="amplfi-sha",
+            aframe_far_per_year=0.01,
+        ),
+    ).plan("Run Aframe detection on GW150914.")
+    assert {t.id: t for t in unmeasured.tasks}["run_aframe"].parameters[
+        "threshold"
+    ] == 0.0
+    assert any("raw 0.0 cut" in w for w in unmeasured.warnings)
+
+    explicit = BaselinePlanner(
+        registry,
+        PlannerConfig(
+            aframe_revision="aframe-sha",
+            amplfi_revision="amplfi-sha",
+            aframe_threshold=7.0,
+        ),
+    ).plan("Run Aframe detection on GW150914.")
+    task = {t.id: t for t in explicit.tasks}["run_aframe"]
+    assert task.parameters["threshold"] == 7.0
+    assert task.parameters["threshold_calibration"] is None
+
+
+def test_unknown_revision_falls_back_to_raw_cut_with_warning(registry):
+    plan = BaselinePlanner(
+        registry,
+        PlannerConfig(aframe_revision="no-such-sha", amplfi_revision="amplfi-sha"),
+    ).plan("Run Aframe detection on GW150914.")
+    task = {t.id: t for t in plan.tasks}["run_aframe"]
+    assert task.parameters["threshold"] == 0.0
+    assert task.parameters["threshold_calibration"] is None
+    assert any("raw 0.0 cut" in w for w in plan.warnings)

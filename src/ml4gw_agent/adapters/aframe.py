@@ -142,6 +142,15 @@ class AframeAdapter(SkillAdapter):
         revision = str(params["model_revision"])
         device = str(params.get("device", "cuda"))
         threshold = float(params.get("threshold", DEFAULT_THRESHOLD))
+        calibration = params.get("threshold_calibration") or None
+        if calibration and str(calibration.get("revision")) != revision:
+            raise AdapterError(
+                "threshold_calibration was derived for Aframe revision "
+                f"{calibration.get('revision')}, not {revision}"
+            )
+        target_time = params.get("target_time")
+        target_time = float(target_time) if target_time is not None else None
+        window = float(params.get("candidate_window_seconds", 2.0))
         seed = params.get("seed")
         if seed is not None:
             backend.seed(int(seed))
@@ -188,11 +197,24 @@ class AframeAdapter(SkillAdapter):
         peak_index = int(np.argmax(timing_integrated))
         raw_peak_time = float(times[peak_index] + float(model.time_offset))
         detection_statistic = float(np.max(signif_integrated))
-        warnings = [UNCALIBRATED_THRESHOLD_WARNING]
+        warnings = [] if calibration else [UNCALIBRATED_THRESHOLD_WARNING]
         peak_in_window = bool(strain.t0 <= raw_peak_time <= strain.gps_end)
+        target_offset: float | None = None
+        peak_near_target: bool | None = None
+        if target_time is not None:
+            target_offset = raw_peak_time - target_time
+            peak_near_target = abs(target_offset) <= window
         if peak_in_window:
             predicted_tc: float | None = raw_peak_time
             candidate_found = detection_statistic >= threshold
+            if candidate_found and peak_near_target is False:
+                candidate_found = False
+                warnings.append(
+                    f"Aframe's loudest peak ({detection_statistic:.3f}) lies "
+                    f"{target_offset:+.3f} s from the requested time {target_time}, "
+                    f"outside the {window:g} s candidate window; it is not "
+                    "reported as this target's candidate"
+                )
         else:
             # Buoy maps the integrated-output peak to a merger time with a
             # fixed negative offset, so a peak in the first samples (where the
@@ -230,7 +252,13 @@ class AframeAdapter(SkillAdapter):
             "peak_in_window": peak_in_window,
             "detection_statistic": detection_statistic,
             "threshold": threshold,
-            "threshold_calibrated": False,
+            "threshold_calibrated": bool(calibration),
+            "threshold_far_per_year": (
+                float(calibration["far_per_year"]) if calibration else None
+            ),
+            "target_time": target_time,
+            "target_offset_seconds": target_offset,
+            "peak_near_target": peak_near_target,
             "output_artifact": relative_to_run(artifact, context.run_dir),
             "model": model_metadata(model, revision, device),
             "simulated": False,

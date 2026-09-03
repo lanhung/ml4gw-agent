@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
+from .calibration import aframe_threshold
 from .errors import PlanningError
 from .models import ConditionSpec, PlanSpec, TaskSpec
 from .registry import SkillRegistry
@@ -30,7 +31,9 @@ class PlannerConfig:
     window_seconds: float = 128.0
     event_offset_fraction: float = 0.75
     sample_rate: int = 2048
-    aframe_threshold: float = 0.0
+    aframe_threshold: float | None = None
+    aframe_far_per_year: float = 1.0
+    candidate_window_seconds: float = 2.0
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
@@ -182,6 +185,24 @@ class BaselinePlanner:
             ],
         )
 
+    def _aframe_threshold(
+        self, warnings: list[str]
+    ) -> tuple[float, dict[str, object] | None]:
+        """Explicit threshold, else the calibrated one for the pinned revision."""
+        if self.config.aframe_threshold is not None:
+            return float(self.config.aframe_threshold), None
+        calibrated = aframe_threshold(
+            self.config.aframe_revision, self.config.aframe_far_per_year
+        )
+        if calibrated is None:
+            warnings.append(
+                "No background calibration exists for the requested Aframe "
+                "revision and false-alarm rate; using the raw 0.0 cut, so "
+                "candidate_found is not a significance statement."
+            )
+            return 0.0, None
+        return calibrated.threshold, calibrated.as_dict()
+
     def _composed_plan(
         self,
         *,
@@ -251,6 +272,7 @@ class BaselinePlanner:
 
         if wants_aframe:
             aframe_revision = self.config.aframe_revision or "UNPINNED"
+            threshold, calibration = self._aframe_threshold(warnings)
             if tuple(self.config.ifos) != AFRAME_IFOS:
                 warnings.append(
                     f"Aframe runs on {list(AFRAME_IFOS)} only (the published model's "
@@ -266,7 +288,12 @@ class BaselinePlanner:
                         "ifos": list(AFRAME_IFOS),
                         "model_revision": aframe_revision,
                         "device": self.config.device,
-                        "threshold": self.config.aframe_threshold,
+                        "threshold": threshold,
+                        "threshold_calibration": calibration,
+                        "target_time": "${resolve_event.outputs.catalog_time}",
+                        "candidate_window_seconds": (
+                            self.config.candidate_window_seconds
+                        ),
                         "seed": self.config.seed,
                     },
                     depends_on=["inspect_data"],

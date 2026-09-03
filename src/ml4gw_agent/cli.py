@@ -42,8 +42,25 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--aframe-threshold",
         type=float,
-        default=0.0,
-        help="Uncalibrated integrated-output threshold for candidate_found",
+        default=None,
+        help=(
+            "Explicit integrated-output threshold for candidate_found; by default "
+            "the calibrated threshold for --aframe-revision at --aframe-far is used"
+        ),
+    )
+    parser.add_argument(
+        "--aframe-far",
+        type=float,
+        default=1.0,
+        dest="aframe_far_per_year",
+        help="Target false-alarm rate per year for the calibrated threshold",
+    )
+    parser.add_argument(
+        "--candidate-window",
+        type=float,
+        default=2.0,
+        dest="candidate_window_seconds",
+        help="Seconds around the requested time within which a peak counts",
     )
 
 
@@ -65,6 +82,8 @@ def _planner_from_args(args: argparse.Namespace) -> BaselinePlanner:
         window_seconds=args.window_seconds,
         sample_rate=args.sample_rate,
         aframe_threshold=args.aframe_threshold,
+        aframe_far_per_year=args.aframe_far_per_year,
+        candidate_window_seconds=args.candidate_window_seconds,
     )
     return BaselinePlanner(registry, config)
 

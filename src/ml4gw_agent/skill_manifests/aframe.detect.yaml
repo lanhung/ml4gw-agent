@@ -22,6 +22,19 @@ input_schema:
       items: {enum: [H1, L1]}
     model_revision: {type: string, minLength: 1}
     threshold: {type: number, default: 0.0}
+    threshold_calibration:
+      description: Provenance of a FAR-calibrated threshold; null means the raw cut.
+      type: [object, "null"]
+      properties:
+        revision: {type: string}
+        far_per_year: {type: number, exclusiveMinimum: 0}
+        livetime_seconds: {type: number}
+        source: {type: string}
+      required: [revision, far_per_year]
+    target_time:
+      description: Requested or catalog merger time; candidates must lie near it.
+      type: [number, "null"]
+    candidate_window_seconds: {type: number, exclusiveMinimum: 0, default: 2.0}
     device: {enum: [cpu, cuda], default: cuda}
     seed: {type: [integer, "null"], minimum: 0}
 output_schema:
@@ -44,6 +57,10 @@ output_schema:
     detection_statistic: {type: number}
     threshold: {type: number}
     threshold_calibrated: {type: boolean}
+    threshold_far_per_year: {type: [number, "null"]}
+    target_time: {type: [number, "null"]}
+    target_offset_seconds: {type: [number, "null"]}
+    peak_near_target: {type: [boolean, "null"]}
     output_artifact: {type: string}
     model: {type: object}
     simulated: {type: boolean}
@@ -67,5 +84,6 @@ source_repository: https://github.com/ML4GW/aframe
 notes:
   - Real adapter wraps buoy.models.Aframe (TorchScript weights and config from the ML4GW/aframe Hugging Face repository at the pinned revision).
   - Output file layout matches Buoy's aframe_outputs.hdf5 so direct and agent runs can be diffed.
-  - threshold is an uncalibrated integrated-output cut; candidate_found is provisional until a background study supplies a FAR threshold.
+  - threshold is the raw integrated-output cut unless threshold_calibration names a background-study FAR; the planner fills it from ml4gw_agent/calibration/aframe_thresholds.json for the pinned revision.
+  - candidate_found also requires the peak to lie within candidate_window_seconds of target_time when a target is given; a louder peak elsewhere in the window is reported through raw_peak_time and a warning, not as the target's candidate.
   - A peak that maps before the strain start (whitening start-up artefact, seen on GW170817 with the BBH-trained model) yields candidate_found false and a null predicted_coalescence_time; raw_peak_time and peak_in_window keep the evidence.

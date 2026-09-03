@@ -49,6 +49,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "ml4gw_agent.skill_manifests" = ["*.yaml"]
+"ml4gw_agent.calibration" = ["*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

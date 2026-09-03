@@ -843,6 +843,9 @@ def test_decomposed_plan_runs_end_to_end_in_real_mode(registry, tmp_path, monkey
             amplfi_revision="amplfi-sha",
             device="cpu",
             window_seconds=16,
+            # the fake model peaks 3.4 s after the 16 s window's start, which is
+            # 8.6 s before the event time
+            candidate_window_seconds=10.0,
             samples_per_event=200,
         ),
     )
@@ -921,3 +924,100 @@ def test_doctor_reports_python_adapter_probes(capsys, monkeypatch):
     assert rows["data.fetch"]["adapter"] == "python"
     assert rows["aframe.detect"]["availability"].startswith("missing")
     assert payload["phase1b_decomposed_ready"] is False
+
+
+def test_aframe_peak_far_from_target_is_not_the_targets_candidate(
+    registry, tmp_path, monkeypatch
+):
+    path = _strain(tmp_path)
+    backend, _ = _torch_backend(statistic=6.0)
+    monkeypatch.setattr(
+        "ml4gw_agent.adapters.aframe.load_aframe_backend", lambda: backend
+    )
+    # FakeAframe peaks at t0 + 63/16 - 0.5 = EVENT_TIME - 2.9625 s
+    near = _context(
+        registry,
+        tmp_path,
+        "aframe.detect",
+        "run_aframe",
+        _aframe_params(
+            path, tmp_path, target_time=EVENT_TIME, candidate_window_seconds=4.0
+        ),
+    )
+    outcome = AframeAdapter().execute(near)
+    assert outcome.outputs["candidate_found"] is True
+    assert outcome.outputs["peak_near_target"] is True
+    assert outcome.outputs["target_offset_seconds"] == pytest.approx(-2.9625)
+
+    far = _context(
+        registry,
+        tmp_path,
+        "aframe.detect",
+        "run_aframe",
+        _aframe_params(
+            path, tmp_path, target_time=EVENT_TIME, candidate_window_seconds=1.0
+        ),
+    )
+    outcome = AframeAdapter().execute(far)
+    assert outcome.outputs["candidate_found"] is False
+    assert outcome.outputs["candidate_times"] == []
+    assert outcome.outputs["peak_near_target"] is False
+    # the loudest peak is still reported for comparison with Buoy
+    assert outcome.outputs["predicted_coalescence_time"] is not None
+    assert outcome.outputs["detection_statistic"] == 6.0
+    assert any("candidate window" in warning for warning in outcome.warnings)
+
+    no_target = _context(
+        registry,
+        tmp_path,
+        "aframe.detect",
+        "run_aframe",
+        _aframe_params(path, tmp_path, target_time=None),
+    )
+    outcome = AframeAdapter().execute(no_target)
+    assert outcome.outputs["candidate_found"] is True
+    assert outcome.outputs["peak_near_target"] is None
+
+
+def test_aframe_threshold_calibration_is_recorded_and_checked(
+    registry, tmp_path, monkeypatch
+):
+    path = _strain(tmp_path)
+    backend, _ = _torch_backend(statistic=6.0)
+    monkeypatch.setattr(
+        "ml4gw_agent.adapters.aframe.load_aframe_backend", lambda: backend
+    )
+    calibration = {
+        "revision": "aframe-sha",
+        "far_per_year": 1.0,
+        "livetime_seconds": 1.0e6,
+        "source": "test",
+    }
+    context = _context(
+        registry,
+        tmp_path,
+        "aframe.detect",
+        "run_aframe",
+        _aframe_params(
+            path, tmp_path, threshold=5.5, threshold_calibration=calibration
+        ),
+    )
+    outcome = AframeAdapter().execute(context)
+    assert outcome.outputs["threshold_calibrated"] is True
+    assert outcome.outputs["threshold_far_per_year"] == 1.0
+    assert outcome.outputs["candidate_found"] is True
+    assert not any("not a" in warning for warning in outcome.warnings)
+
+    wrong = _context(
+        registry,
+        tmp_path,
+        "aframe.detect",
+        "run_aframe",
+        _aframe_params(
+            path,
+            tmp_path,
+            threshold_calibration={**calibration, "revision": "other-sha"},
+        ),
+    )
+    with pytest.raises(AdapterError, match="derived for Aframe revision"):
+        AframeAdapter().execute(wrong)
