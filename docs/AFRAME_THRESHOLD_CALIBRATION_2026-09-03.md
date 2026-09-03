@@ -1,11 +1,13 @@
-# Aframe threshold calibration — interim background study — 2026-09-03
+# Aframe threshold calibration — time-shifted background study — 2026-09-03
 
 Closes the Phase 1b item "FAR-calibrated Aframe threshold from a background
-study" for the one false-alarm rate the study livetime can measure so far.
+study" for the false-alarm rate the study livetime can measure (1 per day).
 Script: `scripts/aframe_background.py`; table update:
 `scripts/update_aframe_calibration.py`; shipped table:
-`src/ml4gw_agent/calibration/aframe_thresholds.json`; raw result:
-`docs/acceptance/aframe-background-2026-09-03/aframe_background_interim_28lags.json`.
+`src/ml4gw_agent/calibration/aframe_thresholds.json`; raw results:
+`docs/acceptance/aframe-background-2026-09-03/aframe_background_final_123lags.json`
+(final) and `aframe_background_interim_28lags.json` (the interim state the
+first verification runs used).
 
 ## Method
 
@@ -22,29 +24,34 @@ Script: `scripts/aframe_background.py`; table update:
 - Background: zero lag plus circular time shifts of L1 against H1 in 8 s
   steps; peaks clustered with an 8 s minimum separation; FAR(x) = number of
   peaks ≥ x divided by the summed livetime.
-- Interim state used here: 29 lags, 1.26 days of livetime, 10121 clustered
-  peaks. The study continues to 41 lags per stretch (about 5.4 days); the
-  table is refreshed from the final file with the same script.
+- Final state: 41 lags per stretch (zero lag plus 40 shifts), 123 analyses,
+  5.54 days of livetime, 44137 clustered peaks, about 100–112 s of GPU time
+  per analysis on the RTX 5000 Ada (3.6 h in total).
 
 ## Result
 
 | Quantity | Value |
 |---|---|
-| peak-statistic median / 99 % / 99.9 % / 99.99 % | −0.58 / 0.76 / 1.75 / 2.73 |
-| loudest background peaks | 3.47, 2.73, 2.62, 2.28, 2.00 |
-| FAR at 1.0 / 2.0 / 3.0 | 18784 / 1156 / 289 per year |
-| **threshold for FAR 1 per day** (365.25 / yr) | **3.468** (just above the loudest peak; upper-bounded by the livetime) |
-| 1 per month, 1 per year | not measurable with 1.26 d; left out of the table on purpose |
+| peak-statistic median / 99 % / 99.9 % / 99.99 % | −0.70 / 0.81 / 1.87 / 2.67 |
+| loudest background peaks | 3.47, 3.33, 2.84, 2.73, 2.70, 2.62, 2.57 |
+| FAR at 1.0 / 2.0 / 2.5 / 3.0 | 18992 / 1912 / 462 / 132 per year |
+| **threshold for FAR 1 per day** (365.25 / yr) | **2.701** (five background peaks above it in 5.54 days) |
+| 1 per month, 1 per year | not measurable with 5.54 d (would need 30 d / 365 d); left out of the table on purpose |
+
+Interim table (29 lags, 1.26 d) had put the 1/day threshold at 3.468, set by
+the single loudest peak; the final value 2.701 is set by the fifth loudest
+peak and is the one shipped.
 
 Reference values from the acceptance runs (same statistic): GW150914 9.51,
 GW190521 8.73, GW170817 −0.13, noise segment 1126260200 0.51.
 
-The 3.47 threshold is a one-sided bound set by the single loudest
-background peak in 1.26 days; its statistical uncertainty is therefore
-large and it should be read as "a peak louder than any of ~10 000
-background peaks", not as a precise 1/day rate. Longer livetime will move
-it; tighter rates need days to years of background that this node cannot
-compute quickly (about 100 s of GPU time per 3900 s stretch).
+With five background peaks above 2.70 in 5.54 days the 1/day rate is
+measured, not bounded, but its Poisson uncertainty is still about 45 %.
+The separation from the real signals (GW150914 9.51, GW190521 8.73) is
+more than a factor of three in the statistic, while the loudest background
+peak in 5.5 days is 3.47. Tighter rates (1/month, 1/year) need 30 days to a
+year of background livetime, which is 6 to 70 GPU hours on this node with
+the same script; the table refuses to serve them rather than extrapolate.
 
 ## Verification on real data (same node, calibrated plan)
 
