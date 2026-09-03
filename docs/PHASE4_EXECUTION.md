@@ -38,7 +38,7 @@ a completed end-to-end run.
 `HTCondorExecutor.submit` writes `jobs/<job>/job.sub` in the run directory
 (one job per description: `executable = ml4gw-agent`, `arguments = run-plan
 <saved plan> --mode ... --runs-dir ...`, `request_cpus/memory/gpus`,
-`should_transfer_files = NO`, `getenv = True`, optional extra ClassAd lines),
+`should_transfer_files = NO`, an explicit whitelisted `environment` line (IGWN pools forbid `getenv`), `accounting_group` from `ML4GW_CONDOR_*`, optional extra ClassAd lines),
 submits with `condor_submit -terse`, parses the cluster id, polls with
 `condor_q -json <cluster>` (JobStatus 1–7 mapped to the agent's `JobStatus`;
 a non-zero `ExitCode` is a failure; an empty queue means done), and cancels
