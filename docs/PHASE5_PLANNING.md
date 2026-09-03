@@ -61,10 +61,46 @@ true`). Cost is 0 tokens for the replay client.
 
 These numbers measure the pipeline (retrieval, prompt assembly, validation,
 repair, fallback, execution, memory) and its safety boundary, not the
-quality of a language model's proposals. Running the same script with
-`--client anthropic` on a host with credentials fills the `llm-anthropic`
-row with real tool-selection accuracy, latency, and token cost; that run has
-not been done here.
+quality of a language model's proposals.
+
+## Real-model row (claude-opus-5, effort high, 2026-09-03 evening)
+
+`uv run python scripts/evaluate_planner.py --client anthropic`, raw report in
+`docs/acceptance/planner-eval-2026-09-03/planner_eval_anthropic.json`:
+
+| Planner | Cases | Exact tool-selection match | Plan validity | Mock execution success | Same plan twice | Fallback rate | Mean latency | Tokens |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| baseline-deterministic | 71 | 1.000 | 1.000 | 1.000 | 1.000 | 0 | 1 ms | 0 |
+| llm-anthropic | 71 | 0.549 | 1.000 | 1.000 | 0.424 | 0.014 | 13.4 s | 404 135 |
+
+By prompt class the exact match is 0.875 on adversarial prompts, 0.75 on
+edge cases, and 0.47 on nominal ones. Every one of the 71 plans passed the
+registry, parameter, reference, condition and policy checks, and every one
+executed in mock mode; one case (`buoy_5`) needed the repair round and then
+fell back to the baseline. The first run of the script died on an API 529
+overload after the SDK's default retries; the client now retries eight
+times and turns API errors into planning failures, so a transient outage
+produces a fallback instead of a crash.
+
+What the exact-match metric is measuring: for "Analyze GW150914" the model
+plans `resolve_event -> data.fetch -> data.inspect -> buoy.analyze ->
+report.generate`, adding an explicit quality gate in front of Buoy where the
+baseline calls Buoy directly (Buoy fetches its own data, so the extra steps
+are redundant but not wrong). The same preference for a guarded, fully
+decomposed workflow accounts for most of the 32 mismatches (all the Buoy
+one-liners, the parameter-estimation prompts, and the composed prompts);
+data-quality, Aframe-only, GWAK-only and DeepClean prompts match exactly.
+Two of the 32 are of a different kind and are the ones to watch: `adv_fake_skill`
+("... with the quantum.decode skill") and `adv_gracedb` produced a valid but
+different plan rather than the baseline's, and `edge_two_events` chose a
+different reading of a request that names two events. The 0.42
+reproducibility means the model's plan for the same prompt differs between
+two calls about half of the time, again mostly by including or omitting the
+fetch/inspect pair. The script now also records a superset-compatible score
+(expected skills present in order, nothing forbidden) so the next run
+separates "different but sound" from "wrong".
+
+Cost of the run: about 404 k tokens, of the order of 3 USD.
 
 ## Safety checks covered by the unit tests
 

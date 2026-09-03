@@ -226,7 +226,10 @@ Exit criteria:
       (replay client: all 1.000, recovery true). Scientific correctness is
       carried by the Phase 1 acceptance records, which the planner reuses
       unchanged.
-- [ ] The same report with `--client anthropic` on a credentialed host.
+- [x] The same report with `--client anthropic` (2026-09-03: validity 1.0,
+      mock execution 1.0, exact tool-selection match 0.55 because the model
+      prefers a guarded decomposed workflow over the baseline's Buoy
+      one-liner; details in `PHASE5_PLANNING.md`).
 - [x] No prompt bypasses registry, policy, adapter, validation, or provenance
       controls (unit tests over injected invalid plans and adversarial
       prompts).

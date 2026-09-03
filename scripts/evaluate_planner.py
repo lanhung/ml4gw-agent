@@ -75,11 +75,21 @@ def evaluate(name, make_planner, cases, registry, execute):
             row["selection_correct"] = (
                 error is not None and case["expected_error"] in error
             )
+            row["selection_compatible"] = row["selection_correct"]
             row["valid"] = row["selection_correct"]
         else:
             skills = [t.skill for t in plan.tasks] if plan else []
-            row["selection_correct"] = skills == case["expected_skills"] and not any(
-                f in skills for f in case.get("forbidden_skills", [])
+            forbidden = [f for f in case.get("forbidden_skills", []) if f in skills]
+            row["skills"] = skills
+            row["selection_correct"] = (
+                skills == case["expected_skills"] and not forbidden
+            )
+            # superset-compatible: every expected skill is present, in order,
+            # nothing forbidden; extra guard tasks (fetch/inspect) are allowed
+            expected = list(case["expected_skills"])
+            it = iter(skills)
+            row["selection_compatible"] = (
+                all(any(s == e for s in it) for e in expected) and not forbidden
             )
             row["valid"] = plan is not None
         if plan is not None:
@@ -102,6 +112,9 @@ def evaluate(name, make_planner, cases, registry, execute):
         "cases": len(rows),
         "tool_selection_accuracy": (
             sum(r["selection_correct"] for r in rows) / len(rows)
+        ),
+        "tool_selection_compatible": (
+            sum(r["selection_compatible"] for r in rows) / len(rows)
         ),
         "plan_validity": sum(r["valid"] for r in rows) / len(rows),
         "execution_success": (
@@ -205,6 +218,7 @@ def main(argv=None):
         print(
             f"{planner['planner']:24s} cases={planner['cases']:3d} "
             f"selection={planner['tool_selection_accuracy']:.3f} "
+            f"compatible={planner['tool_selection_compatible']:.3f} "
             f"valid={planner['plan_validity']:.3f} "
             f"executed={planner['execution_success']:.3f} "
             f"reproducible={planner['reproducibility']:.3f} "
