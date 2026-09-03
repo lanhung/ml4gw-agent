@@ -25,8 +25,12 @@ from .registry import (
     executor_availability,
     select_executor,
 )
+from .submit import Submission, resume_submission, submit_plan
 
 __all__ = [
+    "Submission",
+    "resume_submission",
+    "submit_plan",
     "BudgetDecision",
     "BudgetPolicy",
     "CommandResult",

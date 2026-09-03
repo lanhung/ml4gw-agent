@@ -16,6 +16,7 @@ from .errors import ML4GWAgentError
 from .executors import (
     BudgetPolicy,
     EstimateConfig,
+    ExecutorKind,
     build_executors,
     estimate_plan,
     executor_availability,
@@ -167,6 +168,18 @@ def build_parser() -> argparse.ArgumentParser:
     # pre-submission estimate.
     for executing in (run, run_plan):
         executing.add_argument(
+            "--poll-interval",
+            type=float,
+            default=15.0,
+            help="seconds between batch-executor status polls",
+        )
+        executing.add_argument(
+            "--wait-timeout",
+            type=float,
+            default=7200.0,
+            help="seconds to wait for a batch job before giving up",
+        )
+        executing.add_argument(
             "--executor",
             choices=["local", "htcondor", "kubernetes"],
             default="local",
@@ -226,6 +239,26 @@ def _run_plan(plan: PlanSpec, args: argparse.Namespace) -> int:
         max_gpu_hours=getattr(args, "max_gpu_hours", BudgetPolicy().max_gpu_hours),
         authorized=getattr(args, "authorize_budget", False),
     )
+    if executor.kind != ExecutorKind.LOCAL:
+        # Batch executors run the saved plan on a worker; submit and wait here.
+        from .executors import submit_plan
+
+        submission = submit_plan(
+            plan,
+            executor,
+            registry,
+            runs_dir=args.runs_dir,
+            mode=args.mode,
+            budget=budget,
+            poll_interval=getattr(args, "poll_interval", 15.0),
+            wait_timeout=getattr(args, "wait_timeout", 7200.0),
+        )
+        summary = submission.as_dict()
+        summary["run_status"] = (
+            submission.manifest.get("status") if submission.manifest else None
+        )
+        print(json.dumps(summary, indent=2, default=str))
+        return 0 if summary["run_status"] == "completed" else 2
     # Third-party libraries (bilby, astropy) print to stdout during real runs;
     # keep stdout for the JSON summary only.
     with contextlib.redirect_stdout(sys.stderr):

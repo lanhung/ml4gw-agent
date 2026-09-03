@@ -487,3 +487,62 @@ def test_accounting_attributes_come_from_the_environment(monkeypatch, tmp_path):
     assert "accounting_group_user = fan.zhang" in text
     assert "+MaxHours = 2" in text
     assert text.strip().endswith("queue 1")
+
+
+def test_submit_plan_round_trip_with_a_fake_batch_executor(tmp_path, registry):
+    import json
+
+    from ml4gw_agent.executors import ExecutorKind, JobHandle, JobStatus, submit_plan
+    from ml4gw_agent.executors.base import Executor
+    from ml4gw_agent.planning import BaselinePlanner, PlannerConfig
+
+    class FakeBatch(Executor):
+        kind = ExecutorKind.HTCONDOR
+
+        def __init__(self):
+            self.descriptions = []
+            self.polls = 0
+
+        def probe(self):
+            return "available"
+
+        def submit(self, job_id, work, *, run_dir, description=None):
+            self.descriptions.append(description)
+            return JobHandle(id="4242", executor=self.kind, owner=self)
+
+        def poll(self, handle):
+            self.polls += 1
+            if self.polls < 3:
+                return JobStatus.RUNNING
+            # the "worker" writes a manifest into the requested runs dir
+            worker = Path(self.descriptions[0]["runs_dir"]) / "run_fake"
+            worker.mkdir(parents=True, exist_ok=True)
+            (worker / "run_manifest.json").write_text(
+                json.dumps({"run_id": "run_fake", "status": "completed", "tasks": {}})
+            )
+            return JobStatus.COMPLETED
+
+        def cancel(self, handle):
+            return JobStatus.CANCELLED
+
+    plan = BaselinePlanner(
+        registry, PlannerConfig(aframe_revision="a", amplfi_revision="b")
+    ).plan("Run Aframe detection and AMPLFI parameter estimation on GW150914.")
+    executor = FakeBatch()
+    submission = submit_plan(
+        plan,
+        executor,
+        registry,
+        runs_dir=tmp_path,
+        mode="real",
+        poll_interval=0,
+        sleep=lambda s: None,
+    )
+    desc = executor.descriptions[0]
+    assert Path(desc["plan_file"]).exists() and desc["gpus"] == 1
+    assert desc["mode"] == "real" and desc["runs_dir"].endswith("worker")
+    assert submission.status == "completed" and submission.job_id == "4242"
+    assert submission.manifest["run_id"] == "run_fake"
+    saved = json.loads((submission.submission_dir / "submission.json").read_text())
+    assert saved["job_id"] == "4242" and len(saved["polls"]) == 3
+    assert saved["description"]["budget"]["allowed"] is True
