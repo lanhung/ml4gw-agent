@@ -54,22 +54,31 @@ PLAN_JSON_SCHEMA: dict[str, Any] = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["id", "skill", "parameters", "depends_on"],
+                "required": [
+                    "id",
+                    "skill",
+                    "parameters_json",
+                    "depends_on",
+                    "when",
+                    "allow_failed_dependencies",
+                ],
                 "properties": {
                     "id": {"type": "string"},
                     "skill": {"type": "string"},
-                    "parameters": {"type": "object"},
+                    # Structured outputs forbid free-form objects, so the
+                    # parameter dictionary travels as a JSON string.
+                    "parameters_json": {"type": "string"},
                     "depends_on": {"type": "array", "items": {"type": "string"}},
                     "when": {
                         "type": ["object", "null"],
                         "additionalProperties": False,
-                        "required": ["reference", "operator"],
+                        "required": ["reference", "operator", "value_json"],
                         "properties": {
                             "reference": {"type": "string"},
                             "operator": {
                                 "enum": ["truthy", "falsy", "equals", "not_equals"]
                             },
-                            "value": {},
+                            "value_json": {"type": "string"},
                         },
                     },
                     "allow_failed_dependencies": {"type": "boolean"},
@@ -100,7 +109,9 @@ You decide WHAT to run; deterministic adapters decide HOW. Rules:
   as pinned yourself.
 - Refuse unbounded requests (whole observing runs, "everything") by returning
   a single report.generate task with a warning explaining the bound.
-Answer with JSON only, matching the provided schema."""
+Task parameters go in parameters_json as a JSON object string (for example
+"{\"event\": \"GW150914\"}"); condition values go in value_json (use "null"
+for truthy/falsy conditions). Answer with JSON only, matching the schema."""
 
 
 class LLMClient(Protocol):
@@ -429,9 +440,25 @@ class LLMPlanner:
         for task in data["tasks"]:
             if not isinstance(task, dict):
                 raise PlanningError("every task must be an object")
+            if "parameters_json" in task:
+                try:
+                    task["parameters"] = json.loads(task.pop("parameters_json") or "{}")
+                except json.JSONDecodeError as exc:
+                    raise PlanningError(
+                        f"task {task.get('id')} parameters_json is not JSON: {exc}"
+                    ) from exc
             task.setdefault("parameters", {})
             task.setdefault("depends_on", [])
             task.pop("max_retries", None)
+            when = task.get("when")
+            if isinstance(when, dict) and "value_json" in when:
+                raw = when.pop("value_json")
+                try:
+                    when["value"] = json.loads(raw) if raw not in ("", None) else None
+                except json.JSONDecodeError as exc:
+                    raise PlanningError(
+                        f"task {task.get('id')} condition value is not JSON: {exc}"
+                    ) from exc
         try:
             plan = PlanSpec(
                 prompt=prompt,
@@ -629,9 +656,17 @@ def baseline_responder(registry: SkillRegistry, config: PlannerConfig):
                     {
                         "id": t.id,
                         "skill": t.skill,
-                        "parameters": t.parameters,
+                        "parameters_json": json.dumps(t.parameters),
                         "depends_on": t.depends_on,
-                        "when": t.when.model_dump() if t.when else None,
+                        "when": (
+                            {
+                                "reference": t.when.reference,
+                                "operator": t.when.operator,
+                                "value_json": json.dumps(t.when.value),
+                            }
+                            if t.when
+                            else None
+                        ),
                         "allow_failed_dependencies": t.allow_failed_dependencies,
                     }
                     for t in plan.tasks

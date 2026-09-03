@@ -264,14 +264,28 @@ def test_retrieval_ranks_relevant_skills_and_keeps_the_core(registry):
 
 def test_plan_schema_matches_planspec_fields():
     task_props = PLAN_JSON_SCHEMA["properties"]["tasks"]["items"]["properties"]
-    assert set(task_props) <= {
+    assert set(task_props) == {
         "id",
         "skill",
-        "parameters",
+        "parameters_json",
         "depends_on",
         "when",
         "allow_failed_dependencies",
     }
+
+    def no_free_objects(schema):
+        if isinstance(schema, dict):
+            if schema.get("type") == "object" or (
+                isinstance(schema.get("type"), list) and "object" in schema["type"]
+            ):
+                assert schema.get("additionalProperties") is False, schema
+            for value in schema.values():
+                no_free_objects(value)
+        elif isinstance(schema, list):
+            for value in schema:
+                no_free_objects(value)
+
+    no_free_objects(PLAN_JSON_SCHEMA)  # Anthropic structured-output rule
 
 
 def test_v1_benchmark_against_baseline(registry):
