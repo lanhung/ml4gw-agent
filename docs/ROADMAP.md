@@ -104,18 +104,21 @@ Exit criteria:
 
 Target: parallel CBC and unmodeled analysis paths.
 
-Status: **routing implemented and benchmarked; the GWAK adapter is
-fail-closed because upstream publishes no inference interface or weights
-(`UPSTREAM_REVIEW.md`, 2026-09-03).**
+Status: **real GWAK route running on the user's own exported GWAK 2.0
+models; GW150914 and GW190521 are the loudest kernel at the catalog time,
+the noise segment is not (`PHASE2_GWAK_RUN_2026-09-03.md`); threshold
+calibration and author confirmation of the model pairing remain.**
 
 Work items:
 
-- [ ] Freeze the supported GWAK workflow and model revisions. Blocked
-      upstream: no packaged release, scan entry point, or pretrained weights
-      at an immutable revision exist.
-- [ ] Map its Snakemake inputs/outputs to the skill contract (blocked by the
-      same item).
-- [ ] Define anomaly-score calibration and top-segment validation (blocked).
+- [x] Freeze the supported GWAK workflow and model revisions: TorchScript
+      embedder + background flow pinned by SHA-256 in `models/gwak/MANIFEST.json`
+      (ML4GW/gwak `7b9f58a`, user-trained; not an upstream release).
+- [x] Map inputs/outputs to the skill contract (`gwak.scan`: 4096 Hz H1+L1
+      via a dedicated fetch, whitening per the training config, per-kernel
+      scores, top segments, target-time score/rank).
+- [ ] Anomaly-score calibration (time-shifted background) and top-segment
+      validation on injections and glitches.
 - [x] Discrepancy logic: `analysis.reconcile` runs after both detection
       tasks; Aframe negative/GWAK positive routes to morphology diagnostics
       and never to AMPLFI, which stays conditioned on the Aframe candidate.
@@ -123,7 +126,8 @@ Work items:
 Exit criteria:
 
 - [ ] Known injections, known glitches, and background segments in the
-      acceptance suite (needs a runnable GWAK).
+      acceptance suite (two catalog events, one noise segment, one BNS run so
+      far).
 - [x] The planner chooses Aframe, GWAK, or both correctly on the benchmark
       (`benchmarks/v0_prompts.yaml`: `route_aframe_only`, `route_gwak_only`,
       `route_both_reconciled`, `composed_analysis`).
