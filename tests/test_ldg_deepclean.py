@@ -16,13 +16,14 @@ from ml4gw_agent.adapters.deepclean import (
 )
 from ml4gw_agent.adapters.gwosc import GWOSCBackend, GWOSCFetchAdapter
 from ml4gw_agent.adapters.ldg import (
-    STRAIN_CHANNELS,
     LDGBackend,
     credential_status,
+    epoch_for,
+    fetch_ldg_strain,
     ldg_preflight,
 )
 from ml4gw_agent.adapters.strain_io import StrainData, write_strain
-from ml4gw_agent.errors import AdapterUnavailableError
+from ml4gw_agent.errors import AdapterError, AdapterUnavailableError
 from ml4gw_agent.models import TaskSpec
 from ml4gw_agent.planning import BaselinePlanner, PlannerConfig
 
@@ -77,17 +78,36 @@ def test_ldg_preflight_fails_closed_without_credentials(monkeypatch):
         ldg_preflight(["H1"])
 
 
-def test_data_fetch_ldg_source_uses_strain_channels(registry, tmp_path, monkeypatch):
-    calls = []
+def test_data_fetch_ldg_source_downloads_frames_with_token(
+    registry, tmp_path, monkeypatch
+):
+    token = tmp_path / "token"
+    token.write_text("eyJ.fake.token")
+    monkeypatch.setenv("BEARER_TOKEN_FILE", str(token))
+    calls = {"find": [], "download": [], "read": []}
 
-    def get_timeseries(channel, start, end):
-        calls.append((channel, start, end))
+    def find_urls(site, frametype, start, end, urltype="https"):
+        calls["find"].append((site, frametype, start, end, urltype))
+        return [f"https://osdf-director.osg-htc.org/igwn/{frametype}-{start}.gwf"]
+
+    def download(url, tok, target):
+        assert tok == "eyJ.fake.token"
+        calls["download"].append(url)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"IGWD")
+        return target
+
+    def read(files, channel, start, end):
+        calls["read"].append((tuple(files), channel))
         return _Series(start, end)
 
     monkeypatch.setattr(
         "ml4gw_agent.adapters.gwosc.load_ldg_backend",
-        lambda: LDGBackend(get_timeseries=get_timeseries),
+        lambda: LDGBackend(
+            find_urls=find_urls, download=download, read_timeseries=read
+        ),
     )
+    monkeypatch.setattr("ml4gw_agent.adapters.ldg.DEFAULT_CACHE", tmp_path / "cache")
     monkeypatch.setattr(
         "ml4gw_agent.adapters.gwosc.load_gwosc_backend",
         lambda: GWOSCBackend(
@@ -109,11 +129,36 @@ def test_data_fetch_ldg_source_uses_strain_channels(registry, tmp_path, monkeypa
     context = _context(registry, tmp_path, "data.fetch", "fetch_data", params)
     assert GWOSCFetchAdapter().preflight(context) == []
     _, metadata = GWOSCFetchAdapter().describe_invocation(context)
-    assert metadata["python_call"] == "gwpy.timeseries.TimeSeries.get"
+    assert "OSDF" in metadata["data_source"]
     outcome = GWOSCFetchAdapter().execute(context)
     assert outcome.outputs["source"] == "ldg"
-    assert [c[0] for c in calls] == [STRAIN_CHANNELS["H1"], STRAIN_CHANNELS["L1"]]
-    assert outcome.metadata["channels"]["H1"] == "H1:GDS-CALIB_STRAIN_CLEAN"
+    # O1 epoch: HOFT_C02 frames and the DCS C02 channel
+    assert [c[1] for c in calls["find"]] == ["H1_HOFT_C02", "L1_HOFT_C02"]
+    assert [c[1] for c in calls["read"]] == [
+        "H1:DCS-CALIB_STRAIN_C02",
+        "L1:DCS-CALIB_STRAIN_C02",
+    ]
+    assert len(calls["download"]) == 2
+    prov = outcome.metadata["ldg"]["H1"]
+    assert prov["frametype"] == "H1_HOFT_C02" and prov["urls"][0].startswith("https")
+
+
+def test_epoch_map_and_missing_token(monkeypatch):
+    assert epoch_for("H1", 1126259462.4) == ("H1_HOFT_C02", "H1:DCS-CALIB_STRAIN_C02")
+    assert epoch_for("L1", 1242442967.4) == ("L1_HOFT_C01", "L1:DCS-CALIB_STRAIN_C01")
+    assert epoch_for("H1", 1400000000.0) == ("H1_HOFT_C00", "H1:GDS-CALIB_STRAIN_CLEAN")
+    with pytest.raises(AdapterError, match="no reviewed frame type"):
+        epoch_for("H1", 1150000000.0)
+    for key in ("BEARER_TOKEN_FILE", "SCITOKEN_FILE", "BEARER_TOKEN", "SCITOKEN"):
+        monkeypatch.delenv(key, raising=False)
+    backend = LDGBackend(
+        find_urls=lambda *a, **k: [], download=None, read_timeseries=None
+    )
+    with pytest.raises(AdapterUnavailableError, match="IGWN credential"):
+        fetch_ldg_strain(backend, "H1", 1126259366.0, 1126259494.0)
+    monkeypatch.setenv("BEARER_TOKEN", "abc")
+    with pytest.raises(AdapterError, match="no H1_HOFT_C02 frames"):
+        fetch_ldg_strain(backend, "H1", 1126259366.0, 1126259494.0)
 
 
 def test_planner_passes_data_source(registry):

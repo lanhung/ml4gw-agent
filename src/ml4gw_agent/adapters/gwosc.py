@@ -28,7 +28,7 @@ from .base import (
     artifact_directory,
     relative_to_run,
 )
-from .ldg import STRAIN_CHANNELS, ldg_preflight, load_ldg_backend
+from .ldg import STRAIN_CHANNELS, fetch_ldg_strain, ldg_preflight, load_ldg_backend
 from .strain_io import StrainData, package_versions, write_strain
 
 REQUIRED_MODULES = ("gwosc", "gwpy", "h5py", "numpy")
@@ -116,8 +116,8 @@ class GWOSCFetchAdapter(SkillAdapter):
         if str(context.parameters.get("source", "gwosc")) == "ldg":
             return None, {
                 "adapter": self.name,
-                "python_call": "gwpy.timeseries.TimeSeries.get",
-                "data_source": "LIGO Data Grid frames via gwdatafind",
+                "python_call": "gwdatafind.find_urls + OSDF download + TimeSeries.read",
+                "data_source": "IGWN non-public frames via datafind.igwn.org / OSDF",
                 "channels": STRAIN_CHANNELS,
             }
         return None, {
@@ -145,11 +145,14 @@ class GWOSCFetchAdapter(SkillAdapter):
         params = context.parameters
         source = str(params.get("source", "gwosc"))
         backend = load_gwosc_backend()
+        ldg_provenance: dict[str, Any] = {}
         if source == "ldg":
             ldg = load_ldg_backend()
 
             def fetch(ifo: str, start: float, end: float):
-                return ldg.get_timeseries(STRAIN_CHANNELS[ifo], start, end)
+                series_, provenance = fetch_ldg_strain(ldg, ifo, start, end)
+                ldg_provenance[ifo] = provenance
+                return series_
 
             backend = GWOSCBackend(
                 event_gps=backend.event_gps,
@@ -230,9 +233,7 @@ class GWOSCFetchAdapter(SkillAdapter):
             "packages": package_versions(
                 "gwpy", "gwosc", "gwdatafind", "igwn-auth-utils", "h5py", "numpy"
             ),
-            "channels": (
-                {ifo: STRAIN_CHANNELS[ifo] for ifo in ifos} if source == "ldg" else None
-            ),
+            "ldg": ldg_provenance or None,
         }
         return AdapterOutcome(
             outputs=outputs, artifacts=[artifact], metadata=metadata, warnings=warnings
