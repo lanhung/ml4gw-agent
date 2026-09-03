@@ -9,7 +9,7 @@ wraps tools such as Buoy, Aframe, AMPLFI, GWAK, DeepClean, and data services as
 versioned scientific skills with explicit inputs, outputs, preconditions,
 resource needs, validation, and provenance.
 
-## Current status: v0.2 (Phase 1b code complete, acceptance run pending)
+## Current status: v0.2 (Phase 1b code complete; GW150914 acceptance run passed on 2026-09-03)
 
 Implemented now:
 
@@ -33,9 +33,11 @@ Not yet claimed as complete:
 
 - Real GWAK, DeepClean, mldatafind, HTCondor, Kubernetes, or Triton adapters.
 - LLM-based planning and reflection.
-- A scientifically validated run over GW150914. The adapters are ready; the
-  run needs GWOSC access, model downloads, and preferably a GPU. See
-  `docs/PHASE1B_ACCEPTANCE.md` and `scripts/phase1b_acceptance.sh`.
+- Domain-reviewer sign-off on the GW150914 run. The run itself completed on
+  a GPU node with both agent paths matching a direct Buoy run within
+  tolerance (`docs/PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`); the remaining
+  Phase 1b events, a calibrated Aframe threshold, and the expert review are
+  still open.
 
 ## Quick start
 

@@ -1,0 +1,692 @@
+{
+  "ended_at": "2026-09-03T02:54:53.777652Z",
+  "environment": {
+    "agent_version": "0.2.0",
+    "platform": "Linux-6.8.0-90-generic-x86_64-with-glibc2.35",
+    "process_id": 2657035,
+    "python_executable": "/root/ml4gw-agent/.venv/bin/python3",
+    "python_version": "3.12.12"
+  },
+  "mode": "real",
+  "plan": {
+    "created_at": "2026-09-03T02:54:29.767125Z",
+    "goal": "Compose a bounded ML4GW analysis for GW150914.",
+    "id": "plan_4bfb6a3ec8a2",
+    "planner": "baseline-deterministic-v0.1",
+    "prompt": "Fetch strain data for GW150914, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+    "schema_version": "1.0",
+    "tasks": [
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [],
+        "id": "resolve_event",
+        "max_retries": 0,
+        "parameters": {
+          "event": "GW150914"
+        },
+        "skill": "data.resolve_event",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "resolve_event"
+        ],
+        "id": "fetch_data",
+        "max_retries": 0,
+        "parameters": {
+          "event": "GW150914",
+          "event_offset_fraction": 0.75,
+          "gps_time": "${resolve_event.outputs.catalog_time}",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "sample_rate": 2048,
+          "window_seconds": 128.0
+        },
+        "skill": "data.fetch",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "fetch_data"
+        ],
+        "id": "inspect_data",
+        "max_retries": 0,
+        "parameters": {
+          "expected_ifos": [
+            "H1",
+            "L1"
+          ],
+          "min_duration_seconds": 128.0,
+          "require_science_mode": true,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}"
+        },
+        "skill": "data.inspect",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "inspect_data"
+        ],
+        "id": "run_aframe",
+        "max_retries": 0,
+        "parameters": {
+          "device": "cuda",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "model_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+          "seed": 0,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+          "threshold": 0.0
+        },
+        "skill": "aframe.detect",
+        "when": {
+          "operator": "truthy",
+          "reference": "${inspect_data.outputs.quality_passed}",
+          "value": null
+        }
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "run_aframe"
+        ],
+        "id": "run_amplfi",
+        "max_retries": 0,
+        "parameters": {
+          "coalescence_time": "${run_aframe.outputs.predicted_coalescence_time}",
+          "device": "cuda",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "min_samples_per_pix": 5,
+          "model_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "nside": 64,
+          "samples": 20000,
+          "seed": 0,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+          "use_distance": true
+        },
+        "skill": "amplfi.pe",
+        "when": {
+          "operator": "truthy",
+          "reference": "${run_aframe.outputs.candidate_found}",
+          "value": null
+        }
+      },
+      {
+        "allow_failed_dependencies": true,
+        "depends_on": [
+          "inspect_data",
+          "run_aframe",
+          "run_amplfi"
+        ],
+        "id": "generate_report",
+        "max_retries": 0,
+        "parameters": {
+          "title": "ML4GW Agent composed analysis: GW150914"
+        },
+        "skill": "report.generate",
+        "when": null
+      }
+    ],
+    "warnings": []
+  },
+  "run_directory": "/root/autodl-tmp/ml4gw-agent-runs/phase1b-GW150914-20260903T025339Z/agent-decomposed/run_6202b5282c2a",
+  "run_id": "run_6202b5282c2a",
+  "schema_version": "1.0",
+  "started_at": "2026-09-03T02:54:29.863795Z",
+  "status": "completed",
+  "tasks": {
+    "fetch_data": {
+      "adapter_metadata": {
+        "adapter": "gwosc-fetch-v0.2",
+        "data_source": "GWOSC public strain",
+        "event_time_source": "parameter",
+        "native_sample_rates_hz": {
+          "H1": 4096.0,
+          "L1": 4096.0
+        },
+        "packages": {
+          "gwosc": "0.8.3",
+          "gwpy": "4.0.2",
+          "h5py": "3.16.0",
+          "numpy": "1.26.4"
+        },
+        "python_call": "gwpy.timeseries.TimeSeries.fetch_open_data"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/fetch_data/strain_GW150914.hdf5",
+          "sha256": "8558f190189c92f5308197ab33c92d2855f58992d6affae63a52f42f7fa798be",
+          "size_bytes": 4202496
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:39.323695Z",
+      "error": null,
+      "outputs": {
+        "event_time": 1126259462.4,
+        "gps_end": 1126259494.0,
+        "gps_start": 1126259366.0,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 2048,
+        "simulated": false,
+        "source": "gwosc",
+        "strain_artifact": "artifacts/fetch_data/strain_GW150914.hdf5"
+      },
+      "parameters": {
+        "event": "GW150914",
+        "event_offset_fraction": 0.75,
+        "gps_time": 1126259462.4,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 2048,
+        "window_seconds": 128.0
+      },
+      "skill": "data.fetch",
+      "started_at": "2026-09-03T02:54:29.870189Z",
+      "status": "completed",
+      "task_id": "fetch_data",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:strain_artifact",
+          "message": "artifact 'strain_artifact' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:strain_artifact",
+          "message": "artifact 'strain_artifact' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "generate_report": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "text/markdown",
+          "relative_path": "report.md",
+          "sha256": "e707becb99a9642be9a5804e4394c7ff51e674e6906808458b0a12bdc5c88c48",
+          "size_bytes": 4859
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:53.776682Z",
+      "error": null,
+      "outputs": {
+        "report_path": "report.md",
+        "simulated": false
+      },
+      "parameters": {
+        "title": "ML4GW Agent composed analysis: GW150914"
+      },
+      "skill": "report.generate",
+      "started_at": "2026-09-03T02:54:53.773836Z",
+      "status": "completed",
+      "task_id": "generate_report",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:report_path",
+          "message": "artifact 'report_path' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:report_path",
+          "message": "artifact 'report_path' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "inspect_data": {
+      "adapter_metadata": {
+        "adapter": "strain-inspect-v0.2",
+        "checks": [
+          "readable_hdf5",
+          "expected_detectors",
+          "equal_lengths",
+          "finite_values",
+          "non_constant",
+          "minimum_duration",
+          "science_segments"
+        ],
+        "packages": {
+          "gwosc": "0.8.3",
+          "h5py": "3.16.0",
+          "numpy": "1.26.4"
+        }
+      },
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/inspect_data/quality_diagnostics.json",
+          "sha256": "31aaee0010bb90a7afa15c7e723b4b532179ef5116bdb50013e89c67c95800a5",
+          "size_bytes": 629
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:41.983586Z",
+      "error": null,
+      "outputs": {
+        "available_ifos": [
+          "H1",
+          "L1"
+        ],
+        "diagnostics_artifact": "artifacts/inspect_data/quality_diagnostics.json",
+        "duration_seconds": 128.0,
+        "issues": [],
+        "quality_passed": true,
+        "sample_rate": 2048.0,
+        "simulated": false
+      },
+      "parameters": {
+        "expected_ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_duration_seconds": 128.0,
+        "require_science_mode": true,
+        "strain_artifact": "artifacts/fetch_data/strain_GW150914.hdf5"
+      },
+      "skill": "data.inspect",
+      "started_at": "2026-09-03T02:54:39.324497Z",
+      "status": "completed",
+      "task_id": "inspect_data",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:quality_passed",
+          "message": "output field 'quality_passed' is present",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:diagnostics_artifact",
+          "message": "artifact 'diagnostics_artifact' exists",
+          "passed": true
+        }
+      ]
+    },
+    "resolve_event": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/resolve_event/event_info.json",
+          "sha256": "d0909ba5d2fb40b6405fbb52ea554250f6a7aa28518f1acb83ecf6e415dcc1ca",
+          "size_bytes": 137
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:29.869656Z",
+      "error": null,
+      "outputs": {
+        "catalog_time": 1126259462.4,
+        "delegated_resolution": false,
+        "event": "GW150914",
+        "event_kind": "gwtc",
+        "simulated": false
+      },
+      "parameters": {
+        "event": "GW150914"
+      },
+      "skill": "data.resolve_event",
+      "started_at": "2026-09-03T02:54:29.865563Z",
+      "status": "completed",
+      "task_id": "resolve_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:event",
+          "message": "output field 'event' is present",
+          "passed": true
+        }
+      ]
+    },
+    "run_aframe": {
+      "adapter_metadata": {
+        "adapter": "aframe-buoy-v0.2",
+        "device": "cuda",
+        "n_inference_steps": 16352,
+        "packages": {
+          "h5py": "3.16.0",
+          "ml4gw": "0.8.3",
+          "ml4gw-buoy": "0.6.1",
+          "torch": "2.10.0"
+        },
+        "python_call": "buoy.models.Aframe.__call__",
+        "repo_id": "ML4GW/aframe",
+        "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/run_aframe/aframe_outputs.hdf5",
+          "sha256": "60ed66b257ac488b779159f6bfb52f6346ef5721723766e83a0bc1a57df1b241",
+          "size_bytes": 404728
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:51.037859Z",
+      "error": null,
+      "outputs": {
+        "candidate_found": true,
+        "candidate_times": [
+          1126259462.4140625
+        ],
+        "detection_statistic": 9.505905176912034,
+        "model": {
+          "config": {
+            "aframe_right_pad": 0.0,
+            "batch_size": 32,
+            "fduration": 1.0,
+            "fftlength": 2.5,
+            "highpass": 32.0,
+            "inference_sampling_rate": 128.0,
+            "integration_window_length": 1.5,
+            "kernel_length": 1.5,
+            "lowpass": null,
+            "offline_sampling_rate": 4.0,
+            "psd_length": 64.0,
+            "sample_rate": 2048.0
+          },
+          "device": "cuda",
+          "repo_id": "ML4GW/aframe",
+          "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4"
+        },
+        "output_artifact": "artifacts/run_aframe/aframe_outputs.hdf5",
+        "predicted_coalescence_time": 1126259462.4140625,
+        "simulated": false,
+        "threshold": 0.0,
+        "threshold_calibrated": false
+      },
+      "parameters": {
+        "device": "cuda",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "model_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "seed": 0,
+        "strain_artifact": "artifacts/fetch_data/strain_GW150914.hdf5",
+        "threshold": 0.0
+      },
+      "skill": "aframe.detect",
+      "started_at": "2026-09-03T02:54:41.985211Z",
+      "status": "completed",
+      "task_id": "run_aframe",
+      "validations": [
+        {
+          "check": "task_condition",
+          "message": "condition evaluated true",
+          "passed": true
+        },
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:detection_statistic",
+          "message": "output field 'detection_statistic' is present",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:output_artifact",
+          "message": "artifact 'output_artifact' exists",
+          "passed": true
+        }
+      ]
+    },
+    "run_amplfi": {
+      "adapter_metadata": {
+        "adapter": "amplfi-buoy-v0.2",
+        "device": "cuda",
+        "model_config": "amplfi-hl-config.yaml",
+        "model_weights": "amplfi-hl.ckpt",
+        "packages": {
+          "amplfi": "0.6.0",
+          "ligo.skymap": "2.4.0",
+          "ml4gw": "0.8.3",
+          "ml4gw-buoy": "0.6.1",
+          "torch": "2.10.0"
+        },
+        "python_call": "buoy.models.Amplfi.__call__",
+        "repo_id": "ML4GW/amplfi",
+        "revision": "8b97d2f8459d04924cb010dfee0262260bf3da80"
+      },
+      "artifacts": [
+        {
+          "media_type": "image/fits",
+          "relative_path": "artifacts/run_amplfi/amplfi_HL.fits",
+          "sha256": "1504a9943cfd424572b4a51ba0d177878f72f397b4f1ace8b6420a0c28c0d352",
+          "size_bytes": 54720
+        },
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/run_amplfi/credible_intervals.json",
+          "sha256": "bd5ad837f103eb2c3ea369bd658838fd8b992b1a55c5797b7b918e18aadf67e4",
+          "size_bytes": 1889
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/run_amplfi/posterior_samples.dat",
+          "sha256": "44ef3835fc15e310cdd0878b16dcfa38f5fe9bc7e4d7d4e9da19f27002562edd",
+          "size_bytes": 1963696
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-03T02:54:53.772741Z",
+      "error": null,
+      "outputs": {
+        "coalescence_time": 1126259462.4140625,
+        "credible_intervals": {
+          "chirp_mass": {
+            "mean": 29.454236098595853,
+            "median": 29.482913970947266,
+            "p5": 27.2085018157959,
+            "p95": 31.587624549865723,
+            "std": 1.3582406133204574
+          },
+          "chirp_mass_source": {
+            "mean": 26.91003058925336,
+            "median": 26.89158811560901,
+            "p5": 24.935178881241278,
+            "p95": 28.95830773628937,
+            "std": 1.2352923659101454
+          },
+          "dec": {
+            "mean": -1.0695491209009895,
+            "median": -1.1524468660354614,
+            "p5": -1.3084561824798584,
+            "p95": -0.42563314735889435,
+            "std": 0.26379482415075534
+          },
+          "distance": {
+            "mean": 451.2705642530534,
+            "median": 461.0126953125,
+            "p5": 246.78656005859375,
+            "p95": 637.7847290039062,
+            "std": 121.52453887591274
+          },
+          "inclination": {
+            "mean": 2.176898594184043,
+            "median": 2.365996241569519,
+            "p5": 0.5716603398323059,
+            "p95": 2.940663456916809,
+            "std": 0.681905407433536
+          },
+          "mass_1": {
+            "mean": 37.9580359459401,
+            "median": 37.523643493652344,
+            "p5": 33.63354206085205,
+            "p95": 43.67301940917969,
+            "std": 3.1093033830525725
+          },
+          "mass_2": {
+            "mean": 30.480845553906256,
+            "median": 30.925559997558594,
+            "p5": 24.64669942855835,
+            "p95": 34.81468105316162,
+            "std": 3.1405097800889528
+          },
+          "mass_ratio": {
+            "mean": 0.8118585002281427,
+            "median": 0.8285669684410095,
+            "p5": 0.5817181617021561,
+            "p95": 0.9825723767280579,
+            "std": 0.12638126269337213
+          },
+          "ra": {
+            "mean": 2.205339880203611,
+            "median": 2.406169891357422,
+            "p5": 1.1288261413574219,
+            "p95": 2.7323241233825684,
+            "std": 0.518215786388737
+          }
+        },
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "model": {
+          "config": "amplfi-hl-config.yaml",
+          "device": "cuda",
+          "inference_params": [
+            "chirp_mass",
+            "mass_ratio",
+            "distance",
+            "phic",
+            "inclination",
+            "dec",
+            "psi",
+            "phi"
+          ],
+          "kernel_length": 3.0,
+          "psd_length": 10.0,
+          "repo_id": "ML4GW/amplfi",
+          "revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "sample_rate": 2048.0,
+          "weights": "amplfi-hl.ckpt"
+        },
+        "n_samples": 19966,
+        "posterior_artifact": "artifacts/run_amplfi/posterior_samples.dat",
+        "simulated": false,
+        "skymap_artifact": "artifacts/run_amplfi/amplfi_HL.fits",
+        "summary_artifact": "artifacts/run_amplfi/credible_intervals.json"
+      },
+      "parameters": {
+        "coalescence_time": 1126259462.4140625,
+        "device": "cuda",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_samples_per_pix": 5,
+        "model_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+        "nside": 64,
+        "samples": 20000,
+        "seed": 0,
+        "strain_artifact": "artifacts/fetch_data/strain_GW150914.hdf5",
+        "use_distance": true
+      },
+      "skill": "amplfi.pe",
+      "started_at": "2026-09-03T02:54:51.038917Z",
+      "status": "completed",
+      "task_id": "run_amplfi",
+      "validations": [
+        {
+          "check": "task_condition",
+          "message": "condition evaluated true",
+          "passed": true
+        },
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:posterior_artifact",
+          "message": "artifact 'posterior_artifact' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:posterior_artifact",
+          "message": "artifact 'posterior_artifact' is non-empty",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "warnings": [
+    "aframe.detect threshold is a raw integrated network output, not a false-alarm-rate calibrated threshold; treat candidate_found as provisional until a background study fixes the threshold",
+    "H1 strain resampled from 4096 Hz to 2048 Hz",
+    "L1 strain resampled from 4096 Hz to 2048 Hz"
+  ]
+}

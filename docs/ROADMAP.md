@@ -27,7 +27,9 @@ Exit evidence:
 
 ## V0 / Phase 1a — real Buoy vertical slice
 
-Status: **adapter implemented; external scientific run pending**.
+Status: **real GW150914 run completed and cross-checked against direct Buoy on
+2026-09-03 (`PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`); domain reviewer sign-off
+pending**.
 
 Deliverables already in code:
 
@@ -37,21 +39,22 @@ Deliverables already in code:
 - Log collection, documented output discovery, optional HDF5 summary extraction,
   schema checks, artifact hashes, and a report.
 
-Remaining exit test:
+Exit test:
 
-1. Provision a Python 3.10–3.12 environment with `ml4gw-buoy` and a CUDA GPU.
-2. Pin the Aframe and AMPLFI Hugging Face revisions.
-3. Run `Analyze GW150914` against public data.
-4. Confirm Buoy outputs, finite Aframe response, posterior sample shape, plots,
+1. [x] Provision a Python 3.10–3.12 environment with `ml4gw-buoy` and a CUDA GPU.
+2. [x] Pin the Aframe and AMPLFI Hugging Face revisions.
+3. [x] Run `Analyze GW150914` against public data.
+4. [x] Confirm Buoy outputs, finite Aframe response, posterior sample shape, plots,
    and HTML report.
-5. Compare key outputs with a direct Buoy run and have an ML4GW domain reviewer
-   sign off on the manifest and report.
+5. [x] Compare key outputs with a direct Buoy run (7/7 checks within tolerance);
+   [ ] ML4GW domain reviewer sign-off on the manifest and report.
 
 ## Phase 1b — data + Aframe + AMPLFI composition
 
-Status: **adapters implemented and unit-tested with fake backends (v0.2);
-GW150914 acceptance run pending on a GWOSC-connected GPU node.** Runbook:
-`PHASE1B_ACCEPTANCE.md`.
+Status: **adapters implemented, unit-tested with fake backends (v0.2), and
+passed the GW150914 acceptance run on a GPU node on 2026-09-03; the
+five-event suite and the calibrated threshold remain.** Runbook:
+`PHASE1B_ACCEPTANCE.md`; record: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`.
 
 Work items:
 
@@ -65,8 +68,9 @@ Work items:
       coalescence-time bounds check (`amplfi.pe`).
 - [x] AMPLFI branches only on `candidate_found`; coalescence time arrives by
       typed reference.
-- [ ] Cross-check decomposed outputs against Buoy on GW150914, then the
-      five-event suite (`scripts/compare_with_buoy.py`).
+- [x] Cross-check decomposed outputs against Buoy on GW150914
+      (`compare-decomposed.json`, 7/7 within tolerance, 2026-09-03).
+- [ ] Cross-check on the five-event suite (`scripts/compare_with_buoy.py`).
 - [ ] FAR-calibrated Aframe threshold from a background study.
 
 Exit criteria:

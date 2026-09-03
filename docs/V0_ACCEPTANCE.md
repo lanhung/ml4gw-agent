@@ -25,21 +25,36 @@ Date: 2026-09-02
 - [x] The wheel installs in a clean environment, loads all ten contracts, and
       completes the GW150914 mock CLI run.
 
-## Pending external/scientific acceptance
+## External/scientific acceptance
 
-- [ ] Install `ml4gw-buoy` in a GPU-capable Python 3.10–3.12 environment.
-- [ ] Select immutable Aframe and AMPLFI model revisions with ML4GW maintainers.
-- [ ] Run GW150914 from public data through the real adapter.
-- [ ] Compare with a direct Buoy invocation using the same versions and seed.
+Completed on 2026-09-03 in run `phase1b-GW150914-20260903T025339Z`
+(AutoDL node, NVIDIA RTX 5000 Ada, Python 3.12.12, `ml4gw-buoy` 0.6.1);
+full record in `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`, evidence in
+`acceptance/phase1b-GW150914-20260903T025339Z/`.
+
+- [x] Install `ml4gw-buoy` in a GPU-capable Python 3.10–3.12 environment
+      (`doctor.json`: `v0_buoy_ready: true`, torch 2.10.0+cu128, CUDA).
+- [x] Pin immutable Aframe and AMPLFI model revisions
+      (`3c947f6d…` and `8b97d2f8…`, the revisions recorded in
+      `UPSTREAM_REVIEW.md`). Maintainer confirmation that these are the
+      intended production revisions is still to be obtained.
+- [x] Run GW150914 from public data through the real adapter
+      (`run_9314eea2eaaa`, `status: completed`, peak Aframe statistic 9.5059,
+      predicted coalescence time 1126259462.414).
+- [x] Compare with a direct Buoy invocation using the same versions and seed
+      (`compare-buoy-slice.json`: 7/7 checks passed; posterior medians
+      identical, Aframe statistic within 4e-6 relative).
 - [ ] Review data, finite statistics, posterior dimensions, plots, model support,
       and the generated provenance manifest with an ML4GW domain expert.
+      Reviewer: not yet assigned. The side-by-side GWTC-1 table in the run
+      record is the material for this review.
 
-See `REAL_RUN_2026-09-02.md` for the attempted real acceptance run and its
-external GWOSC network blocker.
+`REAL_RUN_2026-09-02.md` records the earlier attempt that was stopped by a
+GWOSC network blocker; the 2026-09-03 run replaced that blocker with a
+verified pre-fetched strain cache (`scripts/prefetch_gwosc.py`).
 
-These pending items are intentionally not represented as completed. Passing the
-software mock and unit suite proves orchestration behavior, not scientific
-validity.
+Passing the software mock and unit suite proves orchestration behavior, not
+scientific validity; the domain review item above is intentionally left open.
 
 ## Reproduce local verification
 

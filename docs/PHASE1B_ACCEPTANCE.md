@@ -44,6 +44,10 @@ bash scripts/phase1b_acceptance.sh
 
 The script:
 
+0. (Optional, for nodes with slow or flaky GWOSC access.) Pre-populate the
+   strain cache with `uv run python scripts/prefetch_gwosc.py GW150914` and
+   export `GWPY_CACHE=1`; the 2026-09-03 run needed this because the in-run
+   download from `gwosc.org` truncated at 70 kB/s.
 1. Syncs the pinned environment, prints the torch and CUDA state, confirms
    GWOSC resolves GW150914, and records `ml4gw-agent doctor --mode real`.
    Both `v0_buoy_ready` and `phase1b_decomposed_ready` must be `true`.
@@ -59,44 +63,48 @@ Everything lands under `runs/phase1b-GW150914-<timestamp>/`.
 
 ## Acceptance criteria
 
+Result of run `phase1b-GW150914-20260903T025339Z` (2026-09-03); see
+`PHASE1B_ACCEPTANCE_RUN_2026-09-03.md` for the numbers behind each tick.
+
 Software:
 
-- [ ] `doctor` reports every adapter `available`.
-- [ ] Both agent runs end with `status: completed`; every task `completed`
+- [x] `doctor` reports every adapter `available`.
+- [x] Both agent runs end with `status: completed`; every task `completed`
       (`run_amplfi` may be `skipped` only if `candidate_found` is false, which
       for GW150914 would itself be a finding to investigate).
-- [ ] No `simulated: true` anywhere in either manifest.
-- [ ] Every artifact in the manifests has a SHA-256 and lives inside its run
+- [x] No `simulated: true` anywhere in either manifest.
+- [x] Every artifact in the manifests has a SHA-256 and lives inside its run
       directory.
 
 Science (to be reviewed by an ML4GW domain expert):
 
-- [ ] `data.inspect` reports `quality_passed: true`, both `H1_DATA` and
+- [x] `data.inspect` reports `quality_passed: true`, both `H1_DATA` and
       `L1_DATA` cover the window, no non-finite samples.
-- [ ] `aframe.detect` peak `detection_statistic` is finite and its
-      `predicted_coalescence_time` lies within 0.1 s of 1126259462.4.
-- [ ] `compare_with_buoy.py` passes for the vertical slice with default
-      tolerances (same seed, same revisions; the runs should be numerically
-      identical).
-- [ ] `compare_with_buoy.py` passes for the decomposed run. The strain
-      window is built the same way Buoy builds it, so the Aframe outputs
-      should match to floating-point precision. Posterior medians should
-      agree within the sample-size scatter.
-- [ ] AMPLFI credible intervals (`artifacts/run_amplfi/credible_intervals.json`)
-      are consistent with GWTC-1 for GW150914: chirp mass about 30 solar
-      masses in the detector frame, mass ratio near 0.8, luminosity distance
-      of a few hundred megaparsecs. Record the actual intervals and the GWTC
-      reference values side by side in `V0_ACCEPTANCE.md`.
-- [ ] The sky map FITS file opens with `ligo.skymap` and its 90% area is
-      recorded.
+- [x] `aframe.detect` peak `detection_statistic` is finite (9.5059) and its
+      `predicted_coalescence_time` lies within 0.1 s of 1126259462.4
+      (offset +0.014 s).
+- [x] `compare_with_buoy.py` passes for the vertical slice with default
+      tolerances. Note: the runs are *not* bit-identical; the Aframe peak
+      differs by 4e-6 relative between two Buoy invocations on the same GPU
+      (CUDA non-determinism), posterior medians are identical.
+- [x] `compare_with_buoy.py` passes for the decomposed run (Aframe peak
+      within 4e-6 relative, posterior medians within 6e-5 relative).
+- [x] AMPLFI credible intervals are recorded side by side with GWTC-1 in
+      `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md` (detector-frame chirp mass
+      29.5 M☉, mass ratio 0.83, distance 461 Mpc). Whether the low
+      source-frame chirp mass edge and the 610 deg² HL-only sky area are
+      acceptable is a reviewer judgement, not ticked here.
+- [ ] Domain reviewer sign-off.
+- [x] The sky map FITS file opens with `ligo.skymap` and its 90% area is
+      recorded (610 deg²).
 
 Provenance:
 
-- [ ] Both manifests, both reports, `doctor.json`, `env.txt`, the direct
+- [x] Both manifests, both reports, `doctor.json`, `env.txt`, the direct
       Buoy log, and both comparison JSON files are attached to the acceptance
-      record.
-- [ ] `V0_ACCEPTANCE.md` pending items are ticked with the run identifier,
-      date, hardware, and reviewer.
+      record (`acceptance/phase1b-GW150914-20260903T025339Z/`).
+- [x] `V0_ACCEPTANCE.md` items are ticked with the run identifier, date, and
+      hardware; the reviewer line stays open.
 
 ## What the adapters guarantee before the run
 

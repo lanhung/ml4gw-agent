@@ -1,0 +1,22 @@
+2026-09-03 10:53:54,711 - root - INFO - Setting up models
+2026-09-03 10:53:54,711 - root - INFO - Downloading Aframe model weights from HuggingFace or loading from cache
+2026-09-03 10:53:55,009 - root - INFO - Downloading Aframe model config from HuggingFace or loading from cache
+2026-09-03 10:53:55,028 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 10:53:55,934 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 10:53:56,267 - root - INFO - Downloading AMPLFI model config from HuggingFace or loading from cache
+2026-09-03 10:53:56,680 - root - INFO - Downloading AMPLFI model weights from HuggingFace or loading from cache
+2026-09-03 10:53:57,252 - GW150914 - INFO - Fetching or loading data
+2026-09-03 10:53:58,289 - root - INFO - Fetching data from between GPS times 1126259366.0 and 1126259494.0 for ['H1', 'L1']
+2026-09-03 10:53:58,290 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 10:53:58,291 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 10:54:04,332 - gwpy.timeseries.timeseries - INFO - Found 1 possible sources
+2026-09-03 10:54:04,332 - gwpy.timeseries.timeseries - INFO - Attemping access with 'gwosc' [1/1]
+2026-09-03 10:54:07,297 - root - INFO - Fetched data for detectors ['H1', 'L1']
+2026-09-03 10:54:07,342 - root - INFO - Saving data to file /root/autodl-tmp/ml4gw-agent-runs/phase1b-GW150914-20260903T025339Z/agent-buoy/run_9314eea2eaaa/artifacts/analyze_event/buoy-output/GW150914/data/GW150914.hdf5
+2026-09-03 10:54:07,347 - GW150914 - INFO - Running Aframe
+2026-09-03 10:54:14,195 - GW150914 - INFO - Saving Aframe outputs
+2026-09-03 10:54:14,197 - GW150914 - INFO - Running AMPLFI model
+2026-09-03 10:54:15,695 - GW150914 - INFO - Creating Q-plots
+2026-09-03 10:54:18,447 - GW150914 - INFO - Plotting Aframe response
+2026-09-03 10:54:20,068 - GW150914 - INFO - Plotting AMPLFI result
+2026-09-03 10:54:27,706 - GW150914 - INFO - Generating HTML page
