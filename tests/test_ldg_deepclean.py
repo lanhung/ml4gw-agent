@@ -149,6 +149,7 @@ def test_epoch_map_and_missing_token(monkeypatch):
     assert epoch_for("H1", 1126259462.4) == ("H1_HOFT_C02", "H1:DCS-CALIB_STRAIN_C02")
     assert epoch_for("L1", 1242442967.4) == ("L1_HOFT_C01", "L1:DCS-CALIB_STRAIN_C01")
     assert epoch_for("H1", 1400000000.0) == ("H1_HOFT_C00", "H1:GDS-CALIB_STRAIN_CLEAN")
+    assert epoch_for("V1", 1400000000.0) == ("V1_HOFT_C00", "V1:Hrec_hoft_16384Hz")
     with pytest.raises(AdapterError, match="no reviewed frame type"):
         epoch_for("H1", 1150000000.0)
     for key in ("BEARER_TOKEN_FILE", "SCITOKEN_FILE", "BEARER_TOKEN", "SCITOKEN"):

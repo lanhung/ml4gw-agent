@@ -98,6 +98,9 @@ def epoch_for(ifo: str, start: float) -> tuple[str, str]:
     """Frame type and channel for ``ifo`` at GPS ``start`` from the map."""
     for gps_start, gps_end, frametype, channel in EPOCHS:
         if gps_start <= start < gps_end:
+            if ifo == "V1":
+                # Virgo publishes one calibrated channel name across runs.
+                return frametype.format(ifo=ifo), STRAIN_CHANNELS["V1"]
             return frametype.format(ifo=ifo), channel.format(ifo=ifo)
     raise AdapterError(
         f"no reviewed frame type for {ifo} at GPS {start}; add the observing "
