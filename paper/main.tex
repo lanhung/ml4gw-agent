@@ -320,11 +320,105 @@ SNR.}
 \section{Cost and scalability}
 \label{sec:cost}
 
+Every manifest records per-task wall-clock time, so cost is measured, not
+estimated (Table~\ref{tab:cost}). For a 128 s two-detector window on one
+GPU the science tasks are cheap: Aframe 11 s (median over 93 runs), AMPLFI
+3 s, GWAK 1 s at 1/16 s stride; the data fetch dominates when the GWOSC
+file is not cached (up to 140 s) and is negligible when it is. The whole
+population run consumed 0.35 GPU-hours of compute for 83 completed events
+(median 23 s wall-clock per event on the worker, maximum 57 s); the
+elapsed hours were queue time on a shared pool, not computation. The
+contract estimates that the budget policy uses before submission are
+conservative for the GPU steps (AMPLFI estimated at 15 s, GWAK at 30 s) and
+optimistic for Aframe (5 s), and are updated from these measurements.
+
+\begin{table}
+\centering
+\caption{Measured wall-clock per skill (seconds, real-mode runs in the
+public evidence directory) against the contract estimate used for
+budgeting.}
+\label{tab:cost}
+\begin{tabular}{lrrrrr}
+\toprule
+skill & $n$ & median & min & max & estimate \\
+\midrule
+\texttt{data.fetch} & 191 & 4.6 & 1.0 & 142.5 & 10 \\
+\texttt{data.inspect} & 100 & 0.2 & 0.1 & 4.5 & 5 \\
+\texttt{aframe.detect} & 93 & 10.9 & 8.8 & 104.2 & 5 \\
+\texttt{amplfi.pe} & 66 & 3.4 & 1.9 & 32.5 & 15 \\
+\texttt{gwak.scan} & 84 & 0.8 & 0.6 & 1.7 & 30 \\
+\texttt{deepclean.clean} & 1 & 0.1 & 0.1 & 0.1 & 600 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two operational lessons from the population run are recorded in the
+manifests rather than hidden. First, 517 of the pool's GPU slots run on
+x86-64-v1 CPUs without AVX, on which PyTorch dies with an illegal
+instruction; the first pass lost 36 workers this way and the executor now
+requires \texttt{Microarch $\geq$ x86-64-v2}. Second, the time-shift
+background shards for Aframe need 32 GB of memory, twice the contract
+default, which the cgroup limit exposed on the first shard. Both are the
+kind of fact a human operator learns once and forgets; here they are
+configuration checked into the repository.
+
+Long requests are split automatically: a GPS-time window above the policy
+limit becomes overlapping segment sub-plans (8 s overlap) submitted as
+separate jobs and merged without duplicate candidates; the budget is
+checked once for the whole scan.
+
 \section{Discussion}
 \label{sec:discussion}
 
+\paragraph{What the contracts buy.} The adversarial suite gives a
+quantitative answer to the concern raised by \citet{rawat2026} and
+\citet{islam2026}: with the same language models, taking the first
+proposal at face value would have executed a plausible but wrong analysis
+for a third of adversarial requests, whereas the contract path executed
+none for two of the three backbones and one in fifty for the third, and
+the suite itself found the two validator gaps that produced that one. The
+price is agreement with an expert route of about 70--77\% on ordinary
+requests, concentrated in ambiguous phrasing, and a 24\% fallback rate for
+the smallest backbone. Because the fallback is the deterministic planner,
+a weaker or cheaper model degrades the agent's helpfulness, not its
+correctness; this is the property that lets the layer expose free and
+open-weight models through the same interface.
+
+\paragraph{What the population run does and does not show.} The
+end-to-end run reproduces the published behaviour of the underlying
+models on public data with full provenance: the Aframe recovery pattern
+(training range and SNR), AMPLFI's nominal chirp-mass coverage and known
+distance bias, and GWAK's separation of signals from Gaussian background
+but not from glitches. It is not a search and makes no new astrophysical
+claim; its value is that every number is traceable to a manifest, a pinned
+revision and a calibration record, and that the 14 events the pipeline
+declined to analyse carry the reason.
+
+\paragraph{Limits.} Significance is only as good as the background
+livetime: one-per-day thresholds from days of time slides, one-per-month
+from the extended study, nothing tighter. GWAK's threshold is set by
+glitches, so an anomaly flag at astrophysically interesting rates needs a
+glitch veto or a glitch-aware metric that upstream has not yet released.
+DeepClean is a single, self-trained 60 Hz coupling and its preservation
+check is structural (witness-only prediction), not an injection study at
+reviewed tolerance. The LLM planner is non-deterministic across repeats
+(37\% identical plans for the strongest model), which is why the
+deterministic planner is the default for scientific runs.
+
 \section{Conclusions}
 \label{sec:conclusions}
+
+We have built and evaluated an orchestration layer that lets a language
+model, or a deterministic router, compose production machine-learning
+pipelines for gravitational-wave analysis without being trusted with the
+validity of any result. Typed skill contracts, fail-closed adapters,
+pinned model revisions, calibration tables keyed by revision and hashed
+manifests make the agent's science auditable; a benchmark of 317 requests
+and an adversarial suite measure the cost and the benefit; and a
+population run over 90 catalog events on the LIGO Data Grid shows the
+layer reproducing published model behaviour end to end at 0.35
+GPU-hours. The code, contracts, benchmarks, calibration tables and every
+run manifest are public.
 
 \begin{acknowledgments}
 TBD. This research has made use of data or software obtained from the Gravitational Wave Open Science Center (gwosc.org), a service of the LIGO Scientific Collaboration, the Virgo Collaboration, and KAGRA.
