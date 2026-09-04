@@ -337,3 +337,15 @@ def test_nds2_transport_via_helper_interpreter(tmp_path, monkeypatch):
         prov["transport"] == "nds2" and prov["channel"] == "H1:GDS-CALIB_STRAIN_CLEAN"
     )
     assert float(series.t0.value) == 1421348500.0 and series.shape == (8,)
+
+
+def test_local_datafind_server_needs_no_credential():
+    from ml4gw_agent.adapters.ldg import credential_status, local_datafind
+
+    env = {"GWDATAFIND_SERVER": "datafind.ldas.cit:80", "X509_USER_PROXY": "/nope"}
+    assert local_datafind(env) == "datafind.ldas.cit:80"
+    ok, why = credential_status(env)
+    assert ok and "cluster-local" in why
+    public = {"GWDATAFIND_SERVER": "datafind.igwn.org", "X509_USER_PROXY": "/nope"}
+    assert local_datafind(public) is None
+    assert credential_status(public)[0] is False

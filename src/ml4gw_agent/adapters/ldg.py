@@ -65,9 +65,27 @@ def missing_modules() -> list[str]:
     return [name for name in REQUIRED_MODULES if importlib.util.find_spec(name) is None]
 
 
+def local_datafind(environ: dict[str, str] | None = None) -> str | None:
+    """Name of a cluster-local datafind server (frames readable as files), if any.
+
+    On LDG clusters ``GWDATAFIND_SERVER`` points at the site server (for
+    example ``datafind.ldas.cit:80``) whose answers are ``file://`` URLs on
+    the local filesystem; no SciToken or X.509 credential is needed there.
+    The public ``datafind.igwn.org`` front end always needs a token.
+    """
+    env = os.environ if environ is None else environ
+    server = env.get("GWDATAFIND_SERVER", "")
+    if server and DEFAULT_DATAFIND_SERVER not in server:
+        return server
+    return None
+
+
 def credential_status(environ: dict[str, str] | None = None) -> tuple[bool, str]:
     """Return (available, description) for IGWN data-access credentials."""
     env = os.environ if environ is None else environ
+    local = local_datafind(env)
+    if local:
+        return True, f"cluster-local datafind server {local} (no credential needed)"
     token = env.get("BEARER_TOKEN_FILE") or env.get("SCITOKEN_FILE")
     if token and Path(token).is_file():
         return True, f"SciToken file {token}"
