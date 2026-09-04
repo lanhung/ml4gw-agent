@@ -138,6 +138,12 @@ def main(argv: list[str] | None = None) -> int:
         help="shortest gap-free segment (seconds) worth analysing",
     )
     parser.add_argument("--output", type=Path, default=Path("aframe_background.json"))
+    parser.add_argument(
+        "--peaks-output",
+        type=Path,
+        default=None,
+        help="also save every clustered background peak (npy) for merging shards",
+    )
     args = parser.parse_args(argv)
 
     import torch
@@ -199,6 +205,8 @@ def main(argv: list[str] | None = None) -> int:
         result["livetime_days"] = livetime / SECONDS_PER_DAY
         result["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         args.output.write_text(json.dumps(result, indent=2) + "\n")
+        if args.peaks_output is not None:
+            np.save(args.peaks_output, peaks)
 
     segments: list[tuple[float, np.ndarray, np.ndarray]] = []
     for start, end in args.stretch:

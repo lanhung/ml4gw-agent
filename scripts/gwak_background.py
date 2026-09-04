@@ -53,6 +53,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--min-segment", type=float, default=512.0)
     parser.add_argument("--batch", type=int, default=2048)
     parser.add_argument("--output", type=Path, default=Path("gwak_background.json"))
+    parser.add_argument(
+        "--peaks-output",
+        type=Path,
+        default=None,
+        help="also save every clustered background peak (npy) for merging shards",
+    )
     args = parser.parse_args(argv)
 
     import torch
@@ -120,6 +126,8 @@ def main(argv: list[str] | None = None) -> int:
         result["livetime_days"] = livetime / SECONDS_PER_DAY
         result["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         args.output.write_text(json.dumps(result, indent=2) + "\n")
+        if args.peaks_output is not None:
+            np.save(args.peaks_output, peaks)
 
     def score(h1: np.ndarray, l1: np.ndarray, start: float):
         whitened = backend.whiten(
