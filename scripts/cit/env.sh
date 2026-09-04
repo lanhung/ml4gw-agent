@@ -1,8 +1,8 @@
 # Shared environment for agent runs on the CIT LDG cluster (source me).
 cd "$HOME/ml4gw-agent" || exit 1
 export ML4GW_CONDOR_ACCOUNTING_GROUP=ligo.dev.o4.cbc.explore.test ML4GW_CONDOR_ACCOUNTING_USER=fan.zhang
-# torch 2.10 wheels need AVX2 (x86-64-v3); the pool's RTX PRO 4000 nodes are v2 and die with SIGILL
-export ML4GW_CONDOR_EXTRA='{"requirements": "(Microarch >= \"x86_64-v3\")"}'
+# The venv must use a uv-managed Python (uv venv --python 3.12 --python-preference only-managed): worker nodes lack /usr/bin/python3.12.
+# no Microarch requirement: the full Aframe+GWAK run was verified on an x86-64-v2 RTX PRO 4000 node (2026-09-04)
 export GWPY_CACHE=1 HF_HOME=$HOME/hf-cache HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1
 export PATH=$HOME/ml4gw-agent/.venv/bin:$HOME/.local/bin:$PATH
 export AFRAME_REVISION=3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4
