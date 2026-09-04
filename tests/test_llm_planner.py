@@ -314,3 +314,48 @@ def test_output_config_drops_effort_for_haiku():
     assert output_config_for("claude-opus-5", "", schema) == {
         "format": {"type": "json_schema", "schema": schema}
     }
+
+
+def test_llm_planner_requires_conditions_for_amplfi_and_deepclean(registry):
+    from ml4gw_agent.llm_planner import LLMPlanner, PlanningError
+    from ml4gw_agent.models import ConditionSpec, PlanSpec, TaskSpec
+    from ml4gw_agent.planning import PlannerConfig
+
+    planner = LLMPlanner(registry, None, PlannerConfig())
+    aframe = TaskSpec(
+        id="run_aframe",
+        skill="aframe.detect",
+        parameters={
+            "strain_artifact": "x",
+            "ifos": ["H1", "L1"],
+            "model_revision": "r",
+        },
+    )
+    good = TaskSpec(
+        id="run_amplfi",
+        skill="amplfi.pe",
+        parameters={"strain_artifact": "x", "model_revision": "r"},
+        depends_on=["run_aframe"],
+        when=ConditionSpec(
+            reference="${run_aframe.outputs.candidate_found}", operator="truthy"
+        ),
+    )
+    planner._check_conditionals(
+        PlanSpec(id="p", prompt="q", goal="g", tasks=[aframe, good])
+    )
+    bad = good.model_copy(update={"when": None})
+    with pytest.raises(PlanningError, match="without a condition"):
+        planner._check_conditionals(
+            PlanSpec(id="p", prompt="q", goal="g", tasks=[aframe, bad])
+        )
+    wrong = good.model_copy(
+        update={
+            "when": ConditionSpec(
+                reference="${run_aframe.outputs.simulated}", operator="truthy"
+            )
+        }
+    )
+    with pytest.raises(PlanningError, match="without a condition"):
+        planner._check_conditionals(
+            PlanSpec(id="p", prompt="q", goal="g", tasks=[aframe, wrong])
+        )

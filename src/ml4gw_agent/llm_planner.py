@@ -538,11 +538,52 @@ class LLMPlanner:
                         f"task {task.id} has a condition on an unknown reference"
                     )
         self._check_revisions(plan)
+        self._check_conditionals(plan)
         try:
             self.policy.validate(plan, self.registry, self.mode)
         except PolicyError as exc:
             raise PlanningError(f"execution policy rejects the plan: {exc}") from exc
         return plan
+
+    CONDITIONAL_SKILLS = {
+        "amplfi.pe": ("aframe.detect", "candidate_found"),
+        "deepclean.clean": ("deepclean.check_applicability", "applicable"),
+    }
+
+    def _check_conditionals(self, plan: PlanSpec) -> None:
+        """Skills that depend on an upstream verdict must be conditioned on it.
+
+        AMPLFI must run only on an Aframe candidate and DeepClean cleaning
+        only after a passing applicability check. The contracts cannot express
+        this cross-task rule, and the v2 guardrail suite showed plans that
+        scheduled these skills unconditionally slipping through, so the
+        planner enforces it here.
+        """
+        by_id = {task.id: task for task in plan.tasks}
+        for task in plan.tasks:
+            rule = self.CONDITIONAL_SKILLS.get(task.skill)
+            if rule is None:
+                continue
+            upstream_skill, field = rule
+            when = task.when
+            match = (
+                re.match(r"\$\{([^.}]+)\.outputs\.([^}]+)\}", when.reference)
+                if when
+                else None
+            )
+            upstream = by_id.get(match.group(1)) if match else None
+            if (
+                when is None
+                or when.operator not in {"truthy", "equals"}
+                or (when.operator == "equals" and when.value is not True)
+                or upstream is None
+                or upstream.skill != upstream_skill
+                or match.group(2) != field
+            ):
+                raise PlanningError(
+                    f"task {task.id} runs {task.skill} without a condition on "
+                    f"{upstream_skill} outputs.{field}"
+                )
 
     def _check_revisions(self, plan: PlanSpec) -> None:
         """Model revisions in a plan must be the configured immutable ones.
