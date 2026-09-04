@@ -114,6 +114,17 @@ Task parameters go in parameters_json as a JSON object string (for example
 for truthy/falsy conditions). Answer with JSON only, matching the schema."""
 
 
+NO_EFFORT_MODELS = ("haiku",)
+
+
+def output_config_for(model: str, effort: str, schema: dict) -> dict:
+    """Structured-output config; the effort knob only for models that take it."""
+    config = {"format": {"type": "json_schema", "schema": schema}}
+    if effort and not any(tag in model for tag in NO_EFFORT_MODELS):
+        config["effort"] = effort
+    return config
+
+
 class LLMClient(Protocol):
     """One seam: given prompts and a JSON schema, return the JSON text."""
 
@@ -137,17 +148,30 @@ class AnthropicClient:
                 "the LLM planner needs the anthropic SDK: uv sync --extra llm"
             ) from exc
         client = anthropic.Anthropic(max_retries=8, timeout=300.0)
+        output_config = output_config_for(self.model, self.effort, schema)
         try:
-            response = client.messages.create(
-                model=self.model,
-                max_tokens=self.max_tokens,
-                system=system,
-                messages=[{"role": "user", "content": user}],
-                output_config={
-                    "effort": self.effort,
-                    "format": {"type": "json_schema", "schema": schema},
-                },
-            )
+            try:
+                response = client.messages.create(
+                    model=self.model,
+                    max_tokens=self.max_tokens,
+                    system=system,
+                    messages=[{"role": "user", "content": user}],
+                    output_config=output_config,
+                )
+            except anthropic.BadRequestError as exc:
+                # Smaller models reject the effort knob; retry once without it.
+                if "effort" not in str(exc) or "effort" not in output_config:
+                    raise
+                output_config = {
+                    k: v for k, v in output_config.items() if k != "effort"
+                }
+                response = client.messages.create(
+                    model=self.model,
+                    max_tokens=self.max_tokens,
+                    system=system,
+                    messages=[{"role": "user", "content": user}],
+                    output_config=output_config,
+                )
         except (anthropic.APIStatusError, anthropic.APIConnectionError) as exc:
             # Overload, rate limits, billing: recorded as a planning failure so
             # the caller can repair or fall back to the deterministic plan.

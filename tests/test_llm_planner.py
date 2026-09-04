@@ -301,3 +301,16 @@ def test_v1_benchmark_against_baseline(registry):
         skills = [t.skill for t in planner.plan(case["prompt"]).tasks]
         assert skills == case["expected_skills"], case["id"]
         assert not set(skills) & set(case.get("forbidden_skills", [])), case["id"]
+
+
+def test_output_config_drops_effort_for_haiku():
+    from ml4gw_agent.llm_planner import output_config_for
+
+    schema = {"type": "object"}
+    assert "effort" in output_config_for("claude-opus-5", "high", schema)
+    assert "effort" not in output_config_for(
+        "claude-haiku-4-5-20251001", "high", schema
+    )
+    assert output_config_for("claude-opus-5", "", schema) == {
+        "format": {"type": "json_schema", "schema": schema}
+    }
