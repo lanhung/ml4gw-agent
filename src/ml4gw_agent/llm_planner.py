@@ -525,6 +525,8 @@ class LLMPlanner:
         # A request without a bounded event identifier has nothing the
         # contracts can execute; refuse before spending a model call, exactly
         # as the baseline does.
+        if not prompt.strip():
+            raise PlanningError("Prompt cannot be empty.")
         self.baseline.extract_event(prompt)
         extra = ""
         for attempt in range(self.max_repairs + 1):
