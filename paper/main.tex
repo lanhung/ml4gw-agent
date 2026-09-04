@@ -1,0 +1,67 @@
+\documentclass[twocolumn]{aastex631}
+\usepackage{amsmath,booktabs,graphicx,hyperref}
+\newcommand{\agent}{\textsc{ml4gw-agent}}
+\shorttitle{Agentic orchestration for ML4GW}
+\shortauthors{Zhang et al.}
+\begin{document}
+
+\title{An Agentic Orchestration Layer for Machine-Learning Gravitational-Wave Analysis: Typed Skill Contracts, Fail-Closed Execution and Calibrated Multi-Model Inference}
+
+\author[0000-0000-0000-0000]{Fan Zhang}
+\affiliation{TBD}
+
+\begin{abstract}
+Machine-learning pipelines now cover the full low-latency gravitational-wave workflow: detection (Aframe), parameter estimation (AMPLFI), unmodelled anomaly search (GWAK) and noise subtraction (DeepClean). Composing them for a given scientific request still requires expert judgement about data access, model applicability, significance calibration and compute. We present \agent, an orchestration layer in which a large language model or a deterministic planner turns a natural-language request into a directed acyclic graph of typed skills, each bound to a versioned contract (JSON-schema inputs and outputs, machine-checked preconditions, immutable model revisions) and executed by a fail-closed adapter that records every artifact by cryptographic hash. We evaluate the layer on three axes: planning quality on a benchmark of NNN prompts across three model backbones, including an adversarial suite that measures silent, plausible-but-wrong outcomes; scientific fidelity on the 90 events of GWTC-1, GWTC-2.1 and GWTC-3 processed end to end through Aframe, AMPLFI and GWAK on the LIGO Data Grid, compared with the catalog and with the published Aframe O3 search; and significance calibration from time-shifted backgrounds of NNN days (Aframe) and NNN days (GWAK) together with injection campaigns. TBD results. The code, contracts, calibration tables and run manifests are public.
+\end{abstract}
+
+\keywords{Gravitational waves --- Neural networks --- Astronomy software --- Astronomy data analysis}
+
+\section{Introduction}
+\label{sec:intro}
+TBD: ML4GW pipelines in production (Aframe live since 2025-08; AMPLFI; GWAK; DeepClean). Agentic AI for science: Coscientist, ChemCrow, Virtual Lab, Co-Scientist; in astronomy Mephisto (ApJS 2026), CMBAgent/Denario. The reliability problem: silent incorrect computation \citep{rawat2026} and fabricated results in gwBenchmarks \citep{islam2026}. Our thesis: contracts and fail-closed adapters make an agent's science auditable.
+
+\section{Design}
+\label{sec:design}
+\subsection{Skill contracts}
+\subsection{Planning: deterministic baseline and LLM planner}
+\subsection{Fail-closed adapters and provenance}
+\subsection{Calibration as a first-class object}
+\subsection{Executors and cost policy}
+
+\section{Evaluation of planning}
+\label{sec:planning}
+\subsection{Benchmark}
+\subsection{Backbones}
+\subsection{Silent-failure suite}
+
+\section{Scientific validation on GWTC events}
+\label{sec:population}
+\subsection{Setup on the LIGO Data Grid}
+\subsection{Detection: comparison with the catalog and with the Aframe O3 search}
+\subsection{Parameter estimation: AMPLFI versus GWTC posteriors}
+\subsection{Anomaly scores}
+
+\section{Significance calibration}
+\label{sec:calibration}
+\subsection{Time-shifted backgrounds}
+\subsection{Injections}
+\subsection{DeepClean applicability and signal preservation}
+
+\section{Cost and scalability}
+\label{sec:cost}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+\begin{acknowledgments}
+TBD. This research has made use of data or software obtained from the Gravitational Wave Open Science Center (gwosc.org), a service of the LIGO Scientific Collaboration, the Virgo Collaboration, and KAGRA.
+\end{acknowledgments}
+
+\software{ml4gw-agent, Buoy, Aframe, AMPLFI, GWAK, DeepClean, ml4gw, gwpy, astropy, PyTorch, HTCondor}
+
+\bibliographystyle{aasjournal}
+\bibliography{refs}
+\end{document}
