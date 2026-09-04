@@ -151,9 +151,85 @@ without duplicate candidates.
 
 \section{Evaluation of planning}
 \label{sec:planning}
+
 \subsection{Benchmark}
+The benchmark (\texttt{benchmarks/v2\_prompts.yaml}) holds 317 requests
+generated from templates crossed with the 90 GWTC events: 232 nominal
+routes (single skills, composed routes, GPS-time and named events), 15
+ambiguous requests, 19 edge cases (superevent identifiers, mixed-language
+phrasing, two events in one request, non-public identifiers) and 51
+adversarial requests in six guardrail families (refuse unbounded requests,
+registered skills only, DeepClean only after its applicability check,
+AMPLFI only on a candidate, policy limits on windows and sample counts,
+pinned model revisions). 173 prompts are English, 113 Chinese and 31
+mixed. The expected skill sequence of each case is the deterministic
+planner's answer, so the benchmark is satisfiable by construction.
+
 \subsection{Backbones}
+Table~\ref{tab:planner} summarises three Claude backbones. Opus was run on
+every case with three repeats; the two smaller models on a stratified
+62-case sample with one repeat, after the first full pass exhausted the
+project's API budget. All backbones produce only valid, executable plans
+through the contract path. Exact agreement with the deterministic route is
+0.68--0.77 and superset compatibility 0.74--0.77; the disagreement is
+concentrated in ambiguous prompts, where the LLM planners add analyses the
+baseline leaves out. Opus reproduces the same plan across three repeats in
+only 37\% of cases, which is why the deterministic planner remains the
+default for scientific runs and the LLM planner is an interface.
+
+\begin{table}
+\centering
+\caption{Planner benchmark v2 (contract path). Opus: 317 cases, three
+repeats; Sonnet and Haiku: 62-case stratified sample, one repeat.}
+\label{tab:planner}
+\begin{tabular}{lrrrrrr}
+\toprule
+backbone & cases & exact & compatible & valid & fallback & latency \\
+\midrule
+deterministic baseline & 317 & 1.000 & 1.000 & 1.000 & 0.000 & 0.0 s \\
+claude-opus-5 & 317 & 0.707 & 0.767 & 1.000 & 0.006 & 11.8 s \\
+claude-sonnet-5 & 62 & 0.677 & 0.742 & 1.000 & 0.000 & 12.6 s \\
+claude-haiku-4.5 & 62 & 0.774 & 0.774 & 1.000 & 0.242 & 6.1 s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Silent-failure suite}
+For every adversarial case we score two paths (Table~\ref{tab:guardrails}):
+the contract path used in production (schema validation, registered
+skills, declared references, execution policy, one repair round, then
+deterministic fallback with a recorded reason) and a contract-free
+counterfactual in which the same model's first proposal is taken at face
+value. Without contracts, 30--35\% of adversarial requests would have
+executed a plausible but wrong analysis: unbounded windows, unpinned
+models, AMPLFI without a candidate, no refusal of unbounded requests. With
+contracts the silently-wrong rate is zero for Sonnet and Haiku. The suite
+also found two gaps in the validator itself: a made-up revision string
+(\texttt{v99}) passed a policy that rejected only the literal
+\texttt{UNPINNED} (one Opus case, 0.020), and plans scheduling AMPLFI
+without a candidate condition passed the contracts, which cannot express
+cross-task rules (two Haiku cases). Both rules were added to the planner
+validator and the Haiku rerun is at 1.000; we report the pre-fix Opus row
+unchanged.
+
+\begin{table}
+\centering
+\caption{Adversarial suite: fraction of cases that fail closed with a
+recorded reason versus execute a plausible-but-wrong plan.}
+\label{tab:guardrails}
+\begin{tabular}{llrrr}
+\toprule
+backbone & path & cases & fail closed & silently wrong \\
+\midrule
+claude-opus-5 & contract & 51 & 0.980 & 0.020 \\
+claude-opus-5 & contract-free & 51 & 0.647 & 0.353 \\
+claude-sonnet-5 & contract & 51 & 1.000 & 0.000 \\
+claude-sonnet-5 & contract-free & 51 & 0.647 & 0.353 \\
+claude-haiku-4.5 & contract & 10 & 1.000 & 0.000 \\
+claude-haiku-4.5 & contract-free & 10 & 0.700 & 0.300 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Scientific validation on GWTC events}
 \label{sec:population}
