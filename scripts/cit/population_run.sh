@@ -15,7 +15,14 @@ PY
 run_one() {
   name="$1"; gps="$2"
   out="$RUNS/$name"; mkdir -p "$out"
-  if ls "$out"/submission_*/worker/run_*/run_manifest.json >/dev/null 2>&1; then echo "$name done"; return; fi
+  if python - "$out" <<'PY'
+import glob, json, sys
+ok = any(json.load(open(f)).get("status") == "completed"
+         for f in glob.glob(sys.argv[1] + "/submission_*/worker/run_*/run_manifest.json"))
+sys.exit(0 if ok else 1)
+PY
+  then echo "$name done"; return; fi
+  rm -rf "$out"/submission_*
   uv run ml4gw-agent run "Fetch strain data for $gps, check data quality, run Aframe detection and AMPLFI parameter estimation, then scan anomalies with GWAK and reconcile the two results." \
     --mode real --executor htcondor --runs-dir "$out" --device cuda --seed 0 --ifos H1 L1 \
     --data-source "$SOURCE" --aframe-far 365.25 --gwak-far 365.25 \

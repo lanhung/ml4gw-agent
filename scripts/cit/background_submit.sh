@@ -32,7 +32,7 @@ request_cpus = 4
 request_memory = $(mem)
 request_disk = 8GB
 request_gpus = 1
-requirements = (GPUs_Capability >= 7.0)
+requirements = (GPUs_Capability >= 7.0) && (Microarch >= "x86_64-v2")
 accounting_group = ligo.dev.o4.cbc.explore.test
 accounting_group_user = fan.zhang
 should_transfer_files = NO
