@@ -22,11 +22,77 @@ TBD: ML4GW pipelines in production (Aframe live since 2025-08; AMPLFI; GWAK; Dee
 
 \section{Design}
 \label{sec:design}
+
+\agent\ separates three concerns that are usually entangled in an analysis
+script: \emph{what} a request means (planning), \emph{whether} a step may
+run (contracts and preconditions), and \emph{how} it runs (adapters and
+executors). Figure~\ref{fig:arch} summarises the data flow.
+
 \subsection{Skill contracts}
-\subsection{Planning: deterministic baseline and LLM planner}
+\label{sec:contracts}
+Every capability the agent can schedule is a \emph{skill} described by a
+versioned YAML manifest: a name (\texttt{aframe.detect},
+\texttt{amplfi.pe}, \texttt{gwak.scan}, \texttt{deepclean.clean}, \ldots), a
+JSON-schema for inputs and for outputs with \texttt{additionalProperties:
+false}, a list of machine-checkable preconditions, output validations
+(fields that must exist, artifacts that must be on disk), resource
+estimates, a risk level with an approval flag, and the adapter that
+implements it. Model-bearing skills take an immutable \texttt{model\_revision}
+(a git commit or a SHA-256 of the weights) and refuse \texttt{UNPINNED}.
+Contracts are the only interface the planner sees; the planner cannot
+invent parameters or skip a precondition, because plan validation rejects
+any task whose parameters fail the input schema or whose references point to
+outputs that no upstream task declares.
+
+\subsection{Planning}
+\label{sec:planner}
+A \emph{plan} is a directed acyclic graph of tasks with typed references
+(\texttt{\$\{fetch\_data.outputs.strain\_artifact\}}) and optional conditions
+evaluated at run time (\texttt{when: \$\{inspect\_data.outputs.quality\_passed\}
+truthy}). Two planners produce plans. The deterministic baseline planner
+maps a request to routes by lexical intent (detection, parameter
+estimation, anomaly scan, cleaning) and encodes the domain rules: AMPLFI is
+conditioned on an Aframe candidate; GWAK needs its own 4096\,Hz fetch;
+DeepClean cleaning runs only after its applicability check reports
+\texttt{applicable}; an unbounded request (``scan all of O3'') is refused at
+planning time. The LLM planner asks a language model for a plan under a
+structured-output schema derived from the contracts, validates it, and
+falls back to the baseline with a recorded reason when validation or the
+API fails. Both produce the same plan object, so every downstream guarantee
+is independent of the planner.
+
 \subsection{Fail-closed adapters and provenance}
+\label{sec:adapters}
+An adapter is the code that runs a skill. Adapters never fabricate: when a
+model, a credential, a witness channel or a calibration is missing, the
+task fails with a reason and dependent tasks are skipped, not executed with
+defaults. Each run produces a manifest that records the plan, every task's
+resolved parameters, outputs, validations, warnings, timings, the packages
+and model revisions used, and the SHA-256 of every artifact. Mock adapters
+exist for software testing and are labelled \texttt{simulated: true} in every
+output; no mock result can enter a scientific record.
+
 \subsection{Calibration as a first-class object}
+\label{sec:calib}
+Detection statistics are only meaningful against a background. The layer
+ships calibration tables keyed by model revision: thresholds at named false
+alarm rates from time-shifted background studies, with the livetime that
+supports them, and a FAR curve so that any score can be reported as a
+measured background rate. The planner resolves a requested FAR to a
+threshold for the pinned revision; if none is measurable at that rate for
+that revision, the plan carries a warning and the adapter marks the flag as
+uncalibrated. Section~\ref{sec:calibration} describes the studies.
+
 \subsection{Executors and cost policy}
+\label{sec:executors}
+A plan runs locally, on an HTCondor pool (the LIGO Data Grid), or on a
+remote GPU host over SSH; a Kubernetes executor is registered as deferred.
+Before submission the runtime estimates CPU- and GPU-hours, memory and
+transfer volume from the contracts and the timings measured in earlier
+runs, checks them against a budget policy, and requires explicit
+authorisation above a configurable GPU-hour limit. Long GPS-time requests
+are split into overlapping segments, submitted as sub-plans and merged
+without duplicate candidates.
 
 \section{Evaluation of planning}
 \label{sec:planning}

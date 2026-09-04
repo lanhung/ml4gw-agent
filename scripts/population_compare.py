@@ -172,9 +172,8 @@ def main(argv: list[str] | None = None) -> int:
     args.output.write_text(json.dumps(rows, indent=1) + "\n")
     if args.markdown:
         args.markdown.write_text(markdown(rows))
-    print(
-        f"{len(rows)} events, {sum(r.get('status') == 'completed' for r in rows)} completed"
-    )
+    completed = sum(r.get("status") == "completed" for r in rows)
+    print(f"{len(rows)} events, {completed} completed")
     return 0
 
 
