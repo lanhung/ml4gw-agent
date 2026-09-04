@@ -313,9 +313,91 @@ SNR.}
 
 \section{Significance calibration}
 \label{sec:calibration}
+
 \subsection{Time-shifted backgrounds}
+For each shipped model revision the agent carries a background study made
+with the same adapters that run the science: public GWOSC stretches with
+catalog events excised, the L1 stream shifted against H1 by multiples of
+8 s, every lag scored, peaks clustered within 8 s, and the false-alarm
+rate at a statistic $x$ taken as the number of peaks at or above $x$ per
+unit livetime. The tables in the repository (\texttt{calibration/}) record
+the livetime, the loudest peaks, thresholds at named rates and a full FAR
+curve, keyed by revision; the planner resolves a requested rate to a
+threshold and refuses to report a rate the livetime cannot support (a
+rate below one event per livetime is a bound, not a measurement).
+
+The first study (three stretches, 123 lags, 5.5 d) fixed the one-per-day
+thresholds used throughout this paper: 2.70 on Aframe's integrated
+statistic and 25.55 on the GWAK score. The extended study (36 event-free
+H1L1 stretches in O2 and O3, 40 lags each, run as 72 HTCondor shards on the
+Data Grid) reaches BGLIVETIME d of livetime and makes the one-per-month
+rate measurable: BGTHRESHOLDS. The GWAK background is bimodal: a Gaussian
+bulk ending near 14 and, in every lag of every stretch, one peak at
+20--26. A time shift moves only one detector, so a loud single-detector
+transient recurs in every lag; these are glitches, and the anomaly
+detector scores them above the two loudest catalog mergers (15.4 and
+14.3). The one-per-day cut therefore sits at the glitch level, and the
+agent reports the measured rate at an event's score
+(\texttt{target\_far\_per\_year}, about $10^4$ per year for GW150914 and
+GW190521 against $3\times10^6$ per year for the noise window) rather than
+a flag.
+
 \subsection{Injections}
+To measure what the thresholds mean for signals we injected IMRPhenomD
+binary black hole waveforms (component masses uniform in
+10--80 $M_\odot$, aligned spins uniform in $\pm0.5$, isotropic sky) into
+cached public O1--O3 noise around three catalog events, scaled to network
+optimal SNR 6--30 with 25 injections per SNR, plus 25 control windows, and
+ran the real Aframe and GWAK adapters on each artifact
+(Table~\ref{tab:injections}). Aframe reaches 50\% efficiency at network
+SNR 8.2 and 90\% at 11.8 at the one-per-day cut with no false candidate in
+the controls, and recovers the coalescence time to 12 ms (median) with
+90\% within 51 ms. GWAK never crosses its one-per-day cut, as the
+glitch-dominated background predicts; the injection is the loudest kernel
+of its window in 88\% of cases above SNR 15, and the misses at high SNR
+are all long, low-mass inspirals ($m_1 \leq 24\,M_\odot$) that do not fit a
+0.5 s kernel.
+
+\begin{table}
+\centering
+\caption{Injection recovery per network SNR (25 injections per row, 25
+controls).}
+\label{tab:injections}
+\begin{tabular}{rrrr}
+\toprule
+SNR & Aframe candidate (1/day) & GWAK loudest kernel & GWAK $z\geq5$ \\
+\midrule
+6 & 1/25 & 0/25 & 6/25 \\
+8 & 12/25 & 1/25 & 9/25 \\
+10 & 18/25 & 13/25 & 16/25 \\
+12 & 23/25 & 14/25 & 19/25 \\
+15 & 22/25 & 22/25 & 23/25 \\
+20 & 25/25 & 17/25 & 19/25 \\
+30 & 25/25 & 22/25 & 22/25 \\
+controls & 0/25 & 0/25 & 8/25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{DeepClean applicability and signal preservation}
+Noise subtraction is the step where an agent can most easily destroy
+science, so it is guarded twice. \texttt{deepclean.check\_applicability}
+passes only when the strain source can serve witness channels (public
+GWOSC strain cannot), a reviewed coupling configuration covers the
+detector and interval, and the witness channels are actually fetched;
+\texttt{deepclean.clean} runs only under that verdict, verifies the
+weights against the pinned hash, subtracts a band-limited estimate that
+depends on the witnesses alone, and reports \texttt{applicable: false} if
+the in-band ASD does not improve or the out-of-band ASD moves by more than
+5\%. On public data the check fails closed with the reason and the plan
+skips cleaning; on collaboration data (not part of this paper's evidence)
+a self-trained 60 Hz mains-coupling model reduces the line by a factor of
+seven on held-out data and leaves the out-of-band spectrum unchanged to
+$10^{-7}$. Because the estimate is a function of the witnesses only,
+injected signals pass through unchanged (match 1.000 to double precision
+over 32 injections); this is a structural regression check on the
+implementation, not an independent physics result, and a reviewed
+injection tolerance remains open.
 
 \section{Cost and scalability}
 \label{sec:cost}
