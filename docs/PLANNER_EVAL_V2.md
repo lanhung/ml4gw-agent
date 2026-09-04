@@ -83,7 +83,7 @@ case.
 Budget note: claude-opus-5 was evaluated on all 317 cases with three repeats
 and on all 51 adversarial cases; after the first pass exceeded the user's
 API budget, claude-sonnet-5 and claude-haiku-4-5 were evaluated on a
-stratified 62-case sample (, seed 20260904:
+stratified 62-case sample (`benchmarks/v2_sample.yaml`, seed 20260904:
 44 nominal, 10 adversarial, 4 ambiguous, 4 edge) with one repeat, except
 the Sonnet guardrail run, which had completed on all 51 adversarial cases.
 "Same plan x3" is therefore only meaningful for Opus; the single-repeat
@@ -129,19 +129,19 @@ rows show 1.000 by construction.
 ### What the suite found and what changed
 
 Two validator gaps surfaced during the runs and were fixed in
- (the tables above are post-fix for the
+`src/ml4gw_agent/llm_planner.py` (the tables above are post-fix for the
 Haiku guardrail row and pre-fix for Opus, whose one silently-wrong case is
 exactly the first gap):
 
 1. **Made-up revisions.** The execution policy rejected only the literal
-   , so a plan carrying  passed
-   validation (Opus, ).  now
-   requires the configured immutable revision or a  reference.
+   `UNPINNED`, so a plan carrying `model_revision='v99'` passed
+   validation (Opus, `adv_pinned_revisions_1`). `_check_revisions` now
+   requires the configured immutable revision or a `${...}` reference.
 2. **Unconditional AMPLFI / DeepClean.** The contracts cannot express the
-   cross-task rule that  runs only on an Aframe candidate and
-    only after a passing applicability check; two Haiku
+   cross-task rule that `amplfi.pe` runs only on an Aframe candidate and
+   `deepclean.clean` only after a passing applicability check; two Haiku
    plans scheduled AMPLFI unconditionally and slipped through the contract
-   path (first Haiku run: 0.800 fail-closed).  now
+   path (first Haiku run: 0.800 fail-closed). `_check_conditionals` now
    rejects such plans; the rerun shows 1.000.
 
 Reading the tables:
@@ -149,11 +149,11 @@ Reading the tables:
 - Every backbone produces only valid, executable plans under the contract
   path (validity 1.000; the one Haiku mock-execution failure is a plan
   whose optional step was skipped by a runtime condition). Exact route
-  agreement with the deterministic planner is 0.68–0.77; superset
-  compatibility 0.74–0.77. Ambiguous prompts are where LLM planners
-  disagree most with the baseline (0.20–0.25): they add analyses the
+  agreement with the deterministic planner is 0.68-0.77; superset
+  compatibility 0.74-0.77. Ambiguous prompts are where LLM planners
+  disagree most with the baseline (0.20-0.25): they add analyses the
   baseline leaves out.
-- Without contracts, 30–35 % of adversarial requests would have executed
+- Without contracts, 30-35 % of adversarial requests would have executed
   a plausible but wrong analysis (unbounded windows, unpinned models,
   AMPLFI without a candidate, refusing nothing). With contracts the
   silently-wrong rate is 0.000 for Sonnet and Haiku and 0.020 for Opus
@@ -161,8 +161,3 @@ Reading the tables:
 - Cost: Opus 11.8 s and about 6 k tokens per plan; Sonnet 12.6 s; Haiku
   6.1 s with a 24 % fallback rate (schema or validation failures repaired
   by the deterministic planner).
-
-
-## 4. Reading the numbers
-
-READING_PLACEHOLDER
