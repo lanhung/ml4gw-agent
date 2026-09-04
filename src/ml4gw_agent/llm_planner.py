@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import time
 from collections.abc import Callable
@@ -184,6 +185,225 @@ class AnthropicClient:
             "output_tokens": int(response.usage.output_tokens),
         }
         return next(block.text for block in response.content if block.type == "text")
+
+
+# --- other providers -------------------------------------------------------
+
+PROVIDERS: dict[str, dict[str, str]] = {
+    # name: default base URL (OpenAI-compatible unless anthropic), default
+    # model, environment variable holding the key. Free tiers as of 2026-09:
+    # OpenRouter ":free" models, SiliconFlow's small Qwen models, Groq's
+    # developer tier, and any local Ollama server (no key needed).
+    "anthropic": {
+        "base_url": "",
+        "model": DEFAULT_MODEL,
+        "key_env": "ANTHROPIC_API_KEY",
+    },
+    "openai": {
+        "base_url": "https://api.openai.com/v1",
+        "model": "gpt-4o-mini",
+        "key_env": "OPENAI_API_KEY",
+    },
+    "deepseek": {
+        "base_url": "https://api.deepseek.com/v1",
+        "model": "deepseek-chat",
+        "key_env": "DEEPSEEK_API_KEY",
+    },
+    "qwen": {
+        "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "model": "qwen-plus",
+        "key_env": "DASHSCOPE_API_KEY",
+    },
+    "openrouter": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "model": "qwen/qwen3-235b-a22b:free",
+        "key_env": "OPENROUTER_API_KEY",
+    },
+    "siliconflow": {
+        "base_url": "https://api.siliconflow.cn/v1",
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "key_env": "SILICONFLOW_API_KEY",
+    },
+    "groq": {
+        "base_url": "https://api.groq.com/openai/v1",
+        "model": "llama-3.3-70b-versatile",
+        "key_env": "GROQ_API_KEY",
+    },
+    "ollama": {
+        "base_url": "http://127.0.0.1:11434/v1",
+        "model": "qwen2.5:14b",
+        "key_env": "OLLAMA_API_KEY",
+    },
+    "custom": {"base_url": "", "model": "", "key_env": "ML4GW_LLM_API_KEY"},
+}
+GENERIC_KEY_ENV = "ML4GW_LLM_API_KEY"
+JSON_ONLY_NOTE = (
+    "\n\nRespond with a single JSON object that satisfies this JSON schema and "
+    "nothing else (no prose, no code fences):\n"
+)
+
+
+def provider_key(provider: str, environ: dict[str, str] | None = None) -> str | None:
+    env = os.environ if environ is None else environ
+    spec = PROVIDERS.get(provider, PROVIDERS["custom"])
+    return env.get(GENERIC_KEY_ENV) or env.get(spec["key_env"]) or None
+
+
+def provider_status(environ: dict[str, str] | None = None) -> dict[str, bool]:
+    """Which providers have a key on this host (Ollama needs none)."""
+    return {
+        name: bool(provider_key(name, environ)) or name == "ollama"
+        for name in PROVIDERS
+        if name != "custom"
+    }
+
+
+def _strip_fences(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+        if text.rstrip().endswith("```"):
+            text = text.rstrip()[:-3]
+    return text.strip()
+
+
+@dataclass
+class OpenAICompatibleClient:
+    """Chat-completions client for any OpenAI-compatible endpoint.
+
+    Works with DeepSeek, Qwen (DashScope), OpenRouter, SiliconFlow, Groq,
+    OpenAI and a local Ollama server. Structured output is requested with
+    ``response_format`` = JSON schema; if the endpoint rejects that it falls
+    back to JSON mode, then to plain text with the schema in the prompt. The
+    planner validates and repairs whatever comes back, so a weaker model
+    degrades to more repairs and fallbacks, never to an invalid plan.
+    """
+
+    base_url: str
+    model: str
+    api_key: str | None = None
+    max_tokens: int = 8000
+    temperature: float = 0.0
+    timeout: float = 180.0
+    retries: int = 3
+    transport: Any = None  # httpx transport override (tests)
+    last_usage: dict[str, int] = field(default_factory=dict)
+    format_mode: str = "json_schema"
+
+    def _post(self, body: dict[str, Any]) -> dict[str, Any]:
+        import httpx
+
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        url = self.base_url.rstrip("/") + "/chat/completions"
+        last: Exception | None = None
+        for attempt in range(self.retries):
+            try:
+                with httpx.Client(
+                    timeout=self.timeout, transport=self.transport
+                ) as http:
+                    response = http.post(url, json=body, headers=headers)
+            except httpx.HTTPError as exc:
+                last = exc
+                time.sleep(min(2**attempt, 8))
+                continue
+            if response.status_code in (429, 500, 502, 503, 529):
+                last = PlanningError(f"{response.status_code}: {response.text[:200]}")
+                time.sleep(min(2**attempt, 8))
+                continue
+            if response.status_code == 400:
+                raise _BadRequest(response.text[:400])
+            if response.status_code >= 300:
+                raise PlanningError(
+                    f"{self.model} at {self.base_url}: HTTP {response.status_code} "
+                    f"{response.text[:300]}"
+                )
+            return response.json()
+        raise PlanningError(f"{self.model} at {self.base_url}: {last}")
+
+    def complete(self, system: str, user: str, schema: dict[str, Any]) -> str:
+        modes = [self.format_mode] + [
+            m for m in ("json_schema", "json_object", "text") if m != self.format_mode
+        ]
+        data = None
+        for mode in modes:
+            body: dict[str, Any] = {
+                "model": self.model,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": system + JSON_ONLY_NOTE + json.dumps(schema),
+                    },
+                    {"role": "user", "content": user},
+                ],
+                "max_tokens": self.max_tokens,
+                "temperature": self.temperature,
+            }
+            if mode == "json_schema":
+                body["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {"name": "plan", "schema": schema, "strict": True},
+                }
+            elif mode == "json_object":
+                body["response_format"] = {"type": "json_object"}
+            try:
+                data = self._post(body)
+            except _BadRequest as exc:
+                if mode == "text":
+                    raise PlanningError(f"{self.model}: {exc}") from exc
+                continue  # endpoint does not support this response format
+            self.format_mode = mode
+            break
+        if data is None:
+            raise PlanningError(f"{self.model}: no accepted response format")
+        try:
+            choice = data["choices"][0]
+            content = choice["message"]["content"]
+        except (KeyError, IndexError, TypeError) as exc:
+            raise PlanningError(
+                f"{self.model}: malformed response {str(data)[:200]}"
+            ) from exc
+        if content is None:
+            raise PlanningError(f"{self.model}: empty completion")
+        usage = data.get("usage") or {}
+        self.last_usage = {
+            "input_tokens": int(usage.get("prompt_tokens", 0) or 0),
+            "output_tokens": int(usage.get("completion_tokens", 0) or 0),
+        }
+        return _strip_fences(str(content))
+
+
+class _BadRequest(Exception):
+    pass
+
+
+def build_client(
+    provider: str = "anthropic",
+    model: str | None = None,
+    base_url: str | None = None,
+    api_key: str | None = None,
+    environ: dict[str, str] | None = None,
+) -> LLMClient:
+    """Instantiate the planner client for ``provider`` with env/explicit keys."""
+    if provider not in PROVIDERS:
+        raise PlanningError(
+            f"unknown LLM provider {provider!r}; known: {sorted(PROVIDERS)}"
+        )
+    spec = PROVIDERS[provider]
+    if provider == "anthropic":
+        return AnthropicClient(model=model or spec["model"])
+    url = base_url or spec["base_url"]
+    name = model or spec["model"]
+    if not url or not name:
+        raise PlanningError("provider 'custom' needs --llm-base-url and --llm-model")
+    key = api_key or provider_key(provider, environ)
+    if not key and provider != "ollama":
+        raise PlanningError(
+            f"no API key for provider {provider}: set {spec['key_env']} or "
+            f"{GENERIC_KEY_ENV}"
+        )
+    return OpenAICompatibleClient(base_url=url, model=name, api_key=key)
 
 
 @dataclass

@@ -56,7 +56,19 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
         help="llm: Claude proposes the plan, validated by the same rules (needs the "
         "llm extra and ANTHROPIC_API_KEY); baseline: deterministic router",
     )
-    parser.add_argument("--llm-model", default="claude-opus-5")
+    parser.add_argument(
+        "--llm-provider",
+        default="anthropic",
+        help="anthropic, openai, deepseek, qwen, openrouter, siliconflow, groq, "
+        "ollama or custom (OpenAI-compatible; key from the provider's env var "
+        "or ML4GW_LLM_API_KEY)",
+    )
+    parser.add_argument(
+        "--llm-model", default=None, help="model name (provider default if omitted)"
+    )
+    parser.add_argument(
+        "--llm-base-url", default=None, help="override the endpoint base URL"
+    )
     parser.add_argument(
         "--memory",
         type=Path,
@@ -136,12 +148,12 @@ def _planner_from_args(args: argparse.Namespace):
     registry = load_default_registry()
     config = _config_from_args(args)
     if getattr(args, "planner", "baseline") == "llm":
-        from .llm_planner import AnthropicClient, ExperimentMemory, LLMPlanner
+        from .llm_planner import ExperimentMemory, LLMPlanner, build_client
 
         memory = ExperimentMemory(args.memory) if args.memory else None
         return LLMPlanner(
             registry,
-            AnthropicClient(model=args.llm_model),
+            build_client(args.llm_provider, args.llm_model, args.llm_base_url),
             config,
             memory=memory,
             mode=getattr(args, "mode", "real"),

@@ -54,3 +54,21 @@ def test_guards(client):
     assert client.post("/api/run", json=real).status_code == 400  # node not configured
     assert client.get("/api/jobs/nope").status_code == 404
     assert client.get("/api/records/../../x").status_code in (404, 422)
+
+
+def test_llm_provider_without_key_is_a_clear_400(client, monkeypatch):
+    for var in ("OPENROUTER_API_KEY", "ML4GW_LLM_API_KEY"):
+        monkeypatch.delenv(var, raising=False)
+    response = client.post(
+        "/api/plan",
+        json={
+            "prompt": "Run Aframe detection on GW150914.",
+            "mode": "mock",
+            "planner": "llm",
+            "llm_provider": "openrouter",
+        },
+    )
+    assert response.status_code == 400
+    assert "OPENROUTER_API_KEY" in response.json()["detail"]
+    health = client.get("/api/health").json()
+    assert "llm_providers" in health and health["llm_providers"]["ollama"] is True

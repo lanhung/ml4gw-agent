@@ -48,6 +48,11 @@ class PlanRequest(BaseModel):
     prompt: str = Field(min_length=3, max_length=500)
     mode: str = Field(default="mock", pattern="^(mock|real)$")
     planner: str = Field(default="baseline", pattern="^(baseline|llm)$")
+    llm_provider: str = Field(default="anthropic", pattern="^[a-z_]+$")
+    llm_model: str | None = Field(default=None, max_length=200)
+    llm_base_url: str | None = Field(default=None, max_length=300)
+    # optional per-request key; used for this request only, never stored or logged
+    llm_api_key: str | None = Field(default=None, max_length=500)
     ifos: list[str] = Field(default_factory=lambda: ["H1", "L1"])
     aframe_far_per_year: float = Field(default=365.25, gt=0)
     seed: int = Field(default=0, ge=0)
@@ -86,17 +91,16 @@ def _planner(req: PlanRequest):
     config = _config(req)
     if req.planner == "llm":
         try:
-            from ..llm_planner import AnthropicClient, LLMPlanner
+            from ..llm_planner import LLMPlanner, build_client
         except ImportError as exc:  # pragma: no cover
             raise HTTPException(400, f"LLM planner unavailable: {exc}") from exc
-        if not (
-            os.environ.get("ANTHROPIC_API_KEY")
-            or os.environ.get("ANTHROPIC_AUTH_TOKEN")
-        ):
-            raise HTTPException(
-                400, "LLM planner needs ANTHROPIC_API_KEY on the server; use baseline"
+        try:
+            client = build_client(
+                req.llm_provider, req.llm_model, req.llm_base_url, req.llm_api_key
             )
-        return LLMPlanner(registry, AnthropicClient(), config, mode=req.mode)
+        except PlanningError as exc:
+            raise HTTPException(400, str(exc)) from exc
+        return LLMPlanner(registry, client, config, mode=req.mode)
     return BaselinePlanner(registry, config)
 
 
@@ -170,9 +174,19 @@ class RemoteNode:
             "--amplfi-revision",
             DEFAULT_AMPLFI,
         ]
+        key_env = ""
+        if req.planner == "llm":
+            argv += ["--planner", "llm", "--llm-provider", req.llm_provider]
+            if req.llm_model:
+                argv += ["--llm-model", req.llm_model]
+            if req.llm_base_url:
+                argv += ["--llm-base-url", req.llm_base_url]
+            if req.llm_api_key:
+                # per-request key travels only in this command's environment
+                key_env = f"ML4GW_LLM_API_KEY={shlex.quote(req.llm_api_key)} "
         command = (
             f"mkdir -p {shlex.quote(run_dir)} && cd {shlex.quote(self.repo)} && "
-            f"{self.env} && {' '.join(shlex.quote(a) for a in argv)} "
+            f"{self.env} && {key_env}{' '.join(shlex.quote(a) for a in argv)} "
             f"2> {shlex.quote(run_dir)}/console.err"
         )
         with self.lock:
@@ -252,12 +266,21 @@ def index() -> str:
     )
 
 
+def _provider_status() -> dict[str, bool]:
+    try:
+        from ..llm_planner import provider_status
+    except ImportError:  # pragma: no cover
+        return {}
+    return provider_status()
+
+
 @app.get("/api/health")
 def health() -> dict[str, Any]:
     return {
         "ok": True,
         "real_runs": NODE.configured,
         "llm_planner": bool(os.environ.get("ANTHROPIC_API_KEY")),
+        "llm_providers": _provider_status(),
         "passcode_required": bool(PASSCODE),
     }
 
@@ -298,6 +321,8 @@ def skills() -> list[dict[str, Any]]:
 def _plan_or_http(req: PlanRequest) -> PlanSpec:
     try:
         return _planner(req).plan(req.prompt)
+    except HTTPException:
+        raise
     except PlanningError as exc:
         raise HTTPException(422, str(exc)) from exc
     except Exception as exc:  # noqa: BLE001 - e.g. Anthropic API/billing errors

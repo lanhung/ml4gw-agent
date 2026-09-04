@@ -50,7 +50,20 @@ code,pre{font-family:var(--mono);font-size:13px}pre{background:var(--bg);padding
   <div class="chips" id="examples"></div>
   <div class="row">
     <div><label>Mode</label><select id="mode"><option value="mock">mock (runs here, simulated values)</option><option value="real">real (GPU node, pinned models)</option></select></div>
-    <div><label>Planner</label><select id="planner"><option value="baseline">deterministic baseline</option><option value="llm">Claude (validated as PlanSpec)</option></select></div>
+    <div><label>Planner</label><select id="planner"><option value="baseline">deterministic baseline</option><option value="llm">LLM planner (validated as PlanSpec)</option></select></div>
+    <div id="llmwrap" class="hidden"><label>LLM provider</label><select id="provider">
+      <option value="anthropic">Anthropic (Claude)</option>
+      <option value="deepseek">DeepSeek</option>
+      <option value="qwen">Qwen / DashScope</option>
+      <option value="openrouter">OpenRouter (free models)</option>
+      <option value="siliconflow">SiliconFlow</option>
+      <option value="groq">Groq</option>
+      <option value="ollama">Ollama (local, free)</option>
+      <option value="openai">OpenAI</option>
+      <option value="custom">custom OpenAI-compatible</option></select></div>
+    <div id="llmwrap2" class="hidden"><label>Model (blank = provider default)</label><input id="llm_model" placeholder="e.g. deepseek-chat, qwen-plus, qwen/qwen3-235b-a22b:free"></div>
+    <div id="llmwrap3" class="hidden"><label>Base URL (custom / override)</label><input id="llm_base_url" placeholder="https://.../v1"></div>
+    <div id="llmwrap4" class="hidden"><label>API key (this request only; blank = server key)</label><input id="llm_api_key" type="password" autocomplete="off"></div>
     <div><label>Detectors</label><select id="ifos"><option value="H1 L1">H1 L1</option><option value="H1 L1 V1">H1 L1 V1</option></select></div>
     <div><label>Aframe FAR target (per year)</label><input id="far" type="number" value="365.25" step="any"></div>
     <div><label>Seed</label><input id="seed" type="number" value="0"></div>
@@ -92,7 +105,7 @@ code,pre{font-family:var(--mono);font-size:13px}pre{background:var(--bg);padding
 const $=id=>document.getElementById(id);
 const EXAMPLES=["Analyze GW150914","Fetch strain data for GW190521, check data quality, run Aframe detection and AMPLFI parameter estimation.","Analyze GPS 1126260200.","Run Aframe and GWAK on GW150914 and reconcile the two results.","Use DeepClean if appropriate for GW150914.","对 GW150914 做参数估计","Scan all of O3."];
 EXAMPLES.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;c.onclick=()=>{$('prompt').value=t};$('examples').appendChild(c)});
-function req(){return {prompt:$('prompt').value.trim(),mode:$('mode').value,planner:$('planner').value,ifos:$('ifos').value.split(' '),aframe_far_per_year:parseFloat($('far').value)||365.25,seed:parseInt($('seed').value)||0,passcode:$('passcode').value}}
+function req(){return {prompt:$('prompt').value.trim(),mode:$('mode').value,planner:$('planner').value,llm_provider:$('provider').value,llm_model:$('llm_model').value.trim()||null,llm_base_url:$('llm_base_url').value.trim()||null,llm_api_key:$('llm_api_key').value||null,ifos:$('ifos').value.split(' '),aframe_far_per_year:parseFloat($('far').value)||365.25,seed:parseInt($('seed').value)||0,passcode:$('passcode').value}}
 function esc(s){return String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 function fmt(v){if(typeof v==='number')return Number.isInteger(v)?v:v.toPrecision(6);if(Array.isArray(v))return v.map(fmt).join(', ');if(v&&typeof v==='object')return '<code>'+esc(JSON.stringify(v)).slice(0,300)+'</code>';return esc(v)}
 async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}:undefined);const j=await r.json();if(!r.ok)throw new Error(j.detail||r.statusText);return j}
@@ -116,7 +129,11 @@ async function refresh(id){const j=await api('/api/jobs/'+id);if(j.plan){renderP
  if(j.status==='completed'||j.status==='failed')clearInterval(poll)}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.add('hidden'));$('tab-'+b.dataset.tab).classList.remove('hidden')});
 $('mode').onchange=()=>{$('passwrap').classList.toggle('hidden',!(window._pass&&$('mode').value==='real'))};
-async function init(){try{const h=await api('/api/health');window._pass=h.passcode_required;$('health').textContent=`real runs: ${h.real_runs?'GPU node connected':'not configured'} · LLM planner: ${h.llm_planner?'available':'needs API key'}`}catch(e){}
+const PRESETS={anthropic:['claude-opus-5',''],deepseek:['deepseek-chat','https://api.deepseek.com/v1'],qwen:['qwen-plus','https://dashscope.aliyuncs.com/compatible-mode/v1'],openrouter:['qwen/qwen3-235b-a22b:free','https://openrouter.ai/api/v1'],siliconflow:['Qwen/Qwen2.5-7B-Instruct','https://api.siliconflow.cn/v1'],groq:['llama-3.3-70b-versatile','https://api.groq.com/openai/v1'],ollama:['qwen2.5:14b','http://127.0.0.1:11434/v1'],openai:['gpt-4o-mini','https://api.openai.com/v1'],custom:['','']};
+function llmToggle(){const on=$('planner').value==='llm';for(const id of ['llmwrap','llmwrap2','llmwrap3','llmwrap4'])$(id).classList.toggle('hidden',!on)}
+function presetFill(){const p=PRESETS[$('provider').value]||['',''];$('llm_model').placeholder=p[0]||'model name';$('llm_base_url').placeholder=p[1]||'https://.../v1';const st=window._providers||{};$('llm_api_key').placeholder=st[$('provider').value]?'server key configured; leave blank':'no server key: paste yours'}
+$('planner').addEventListener('change',llmToggle);$('provider').addEventListener('change',presetFill);
+async function init(){llmToggle();try{const h=await api('/api/health');window._pass=h.passcode_required;window._providers=h.llm_providers||{};presetFill();$('health').textContent=`real runs: ${h.real_runs?'GPU node connected':'not configured'} · LLM providers with server keys: ${Object.entries(h.llm_providers||{}).filter(([k,v])=>v).map(([k])=>k).join(', ')||'none (paste a key)'}`}catch(e){}
  try{const rs=await api('/api/records');$('records').innerHTML=rs.map(r=>{let h=`<h3 style="margin:10px 0 4px;font-size:14px"><code>${esc(r.name)}</code></h3>`;
   if(r.background)h+=`<div>background study: ${fmt(r.background.livetime_days)} days livetime, ${r.background.n_peaks} peaks, 1/day threshold ${fmt(r.background.thresholds?.far_1_per_day)}, loudest ${fmt(r.background.loudest)}</div>`;
   if(r.comparisons.length)h+='<table><tr><th>comparison</th><th>network</th><th>result</th><th>checks</th></tr>'+r.comparisons.map(c=>`<tr><td>${esc(c.name)}</td><td>${c.agent_network||c.buoy_network?esc(c.agent_network||'?')+'/'+esc(c.buoy_network||'?'):'HL (not recorded)'}</td><td class="${c.passed?'ok':'bad'}">${c.passed?'passed':'failed'}${c.note?' · AMPLFI: '+esc(c.note):''}</td><td>${c.checks.map(k=>`${esc(k.quantity)} ${fmt(k.agent)} vs ${fmt(k.buoy)} (Δ ${Number(k.difference).toExponential(1)})`).join('<br>')}</td></tr>`).join('')+'</table>';
