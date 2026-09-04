@@ -29,7 +29,7 @@ universe = vanilla
 executable = $OUT/worker.sh
 arguments = \$(pipe) \$(idx) \$(start) \$(end) $OUT
 request_cpus = 4
-request_memory = 16GB
+request_memory = $(mem)
 request_disk = 8GB
 request_gpus = 1
 requirements = (GPUs_Capability >= 7.0)
@@ -40,8 +40,8 @@ environment = "HOME=$HOME"
 log = $OUT/log/\$(pipe)_\$(idx).log
 output = $OUT/log/\$(pipe)_\$(idx).out
 error = $OUT/log/\$(pipe)_\$(idx).err
-queue pipe,idx,start,end from (
-$(awk '{print "aframe," $1 "," $2 "," $3 "\ngwak," $1 "," $2 "," $3}' "$OUT/stretches.txt")
+queue pipe,idx,start,end,mem from (
+$(awk '{print "aframe," $1 "," $2 "," $3 ",32GB\ngwak," $1 "," $2 "," $3 ",16GB"}' "$OUT/stretches.txt")
 )
 SUB
 condor_submit "$OUT/background.sub"
