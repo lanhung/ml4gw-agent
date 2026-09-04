@@ -126,7 +126,8 @@ class AnthropicClient:
 
     model: str = DEFAULT_MODEL
     max_tokens: int = 16000
-    effort: str = "high"
+    # ``None`` omits the effort parameter (models such as Haiku 4.5 reject it)
+    effort: str | None = "high"
     last_usage: dict[str, int] = field(default_factory=dict)
 
     def complete(self, system: str, user: str, schema: dict[str, Any]) -> str:
@@ -137,16 +138,18 @@ class AnthropicClient:
                 "the LLM planner needs the anthropic SDK: uv sync --extra llm"
             ) from exc
         client = anthropic.Anthropic(max_retries=8, timeout=300.0)
+        output_config: dict[str, Any] = {
+            "format": {"type": "json_schema", "schema": schema}
+        }
+        if self.effort:
+            output_config["effort"] = self.effort
         try:
             response = client.messages.create(
                 model=self.model,
                 max_tokens=self.max_tokens,
                 system=system,
                 messages=[{"role": "user", "content": user}],
-                output_config={
-                    "effort": self.effort,
-                    "format": {"type": "json_schema", "schema": schema},
-                },
+                output_config=output_config,
             )
         except (anthropic.APIStatusError, anthropic.APIConnectionError) as exc:
             # Overload, rate limits, billing: recorded as a planning failure so
@@ -512,11 +515,44 @@ class LLMPlanner:
                     raise PlanningError(
                         f"task {task.id} has a condition on an unknown reference"
                     )
+        self._check_revisions(plan)
         try:
             self.policy.validate(plan, self.registry, self.mode)
         except PolicyError as exc:
             raise PlanningError(f"execution policy rejects the plan: {exc}") from exc
         return plan
+
+    def _check_revisions(self, plan: PlanSpec) -> None:
+        """Model revisions in a plan must be the configured immutable ones.
+
+        The execution policy only rejects the literal ``UNPINNED``; a made-up
+        tag such as ``v99`` or ``latest`` would otherwise reach an adapter (the
+        v2 guardrail suite found exactly that). When the configuration pins a
+        revision, the plan must use it or a ``${...}`` reference.
+        """
+        pinned = {
+            "aframe.detect": {"model_revision": self.config.aframe_revision},
+            "amplfi.pe": {"model_revision": self.config.amplfi_revision},
+            "gwak.scan": {"model_revision": self.config.gwak_revision},
+            "buoy.analyze": {
+                "aframe_revision": self.config.aframe_revision,
+                "amplfi_revision": self.config.amplfi_revision,
+            },
+        }
+        for task in plan.tasks:
+            for key, expected in pinned.get(task.skill, {}).items():
+                if not expected or key not in task.parameters:
+                    continue
+                value = task.parameters[key]
+                if isinstance(value, str) and value.startswith("${"):
+                    continue
+                if value == "UNPINNED":
+                    continue  # the execution policy reports this one itself
+                if value != expected:
+                    raise PlanningError(
+                        f"task {task.id} sets {key}={value!r}; the configured "
+                        f"immutable revision is {expected!r}"
+                    )
 
     # ---- planning --------------------------------------------------------
     def plan(self, prompt: str) -> PlanSpec:

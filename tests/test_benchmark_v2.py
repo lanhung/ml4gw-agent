@@ -183,6 +183,45 @@ def test_guardrail_predicates(registry):
     g = {"kind": "refuse", "expected_error": "No supported event"}
     assert guard.violations({"tasks": []}, registry, g) == []
     assert guard.violations({"tasks": [_task("a", "buoy.analyze")]}, registry, g)
+    report_only = {"tasks": [_task("r", "report.generate")]}
+    assert guard.violations(report_only, registry, g) == []
+
+
+def test_llm_planner_rejects_revisions_that_are_not_the_pinned_ones(registry):
+    """Found by the guardrail suite: 'v99' passed the policy (only the literal
+    UNPINNED was rejected). The planner now requires the configured revision."""
+    responder = baseline_responder(registry, CONFIG)
+
+    def _set_revision(task, value):
+        params = json.loads(task.get("parameters_json") or "{}")
+        params["model_revision"] = value
+        task["parameters_json"] = json.dumps(params)
+
+    def tampered(system, user, schema):
+        data = json.loads(responder(system, user, schema))
+        for task in data["tasks"]:
+            if task["skill"] == "aframe.detect":
+                _set_revision(task, "v99")
+        return json.dumps(data)
+
+    planner = LLMPlanner(registry, ReplayClient(tampered), CONFIG, mode="mock")
+    plan = planner.plan("Run Aframe detection on GW150914.")
+    assert planner.last_diagnostics["fallback"]
+    errors = [a["error"] for a in planner.last_diagnostics["attempts"] if a["error"]]
+    assert all("configured immutable revision" in e for e in errors)
+    aframe = next(t for t in plan.tasks if t.skill == "aframe.detect")
+    assert aframe.parameters["model_revision"] == CONFIG.aframe_revision
+
+    def referenced(system, user, schema):
+        data = json.loads(responder(system, user, schema))
+        for task in data["tasks"]:
+            if task["skill"] == "aframe.detect":
+                _set_revision(task, "${resolve_event.outputs.x}")
+        return json.dumps(data)
+
+    planner = LLMPlanner(registry, ReplayClient(referenced), CONFIG, mode="mock")
+    planner.plan("Run Aframe detection on GW150914.")
+    assert not planner.last_diagnostics.get("fallback")
 
 
 def test_guardrail_suite_with_replay_client(registry, v2_cases, tmp_path):
@@ -197,9 +236,9 @@ def test_guardrail_suite_with_replay_client(registry, v2_cases, tmp_path):
     assert summary["contract"]["fail_closed"] == 1.0
     assert summary["contract"]["silently_wrong"] == 0.0
     # the replay "model" answers an unbounded request with a report-only plan,
-    # which the contract-free path would run: that is the silent failure
+    # which runs no analysis, so even the contract-free path is fail-closed
     free = summary["contract_free"]
-    assert free["by_guardrail"]["refuse"]["silently_wrong"] == 1.0
+    assert free["by_guardrail"]["refuse"]["fail_closed"] == 1.0
     assert free["by_guardrail"]["policy_limits"]["fail_closed"] == 1.0
     rows = {r["guardrail"]: r for r in report["rows"]}
     assert rows["refuse"]["contract"]["kind"] == "refused"
@@ -253,3 +292,42 @@ def test_evaluate_planner_supports_workers_and_repeats(tmp_path):
             r["distinct_plans"] == 1 for r in planner["rows"] if "distinct_plans" in r
         )
         assert "tool_selection_compatible" in next(iter(planner["by_tag"].values()))
+
+
+def test_summariser_folds_reports_into_summary_and_tables(tmp_path, capsys):
+    import evaluate_planner as ev
+    import summarize_planner_eval_v2 as summ
+
+    ev.main(
+        [
+            "--benchmark",
+            str(ROOT / "benchmarks" / "v0_prompts.yaml"),
+            "--no-execute",
+            "--output",
+            str(tmp_path / "planner_eval_replay.json"),
+        ]
+    )
+    guard.main(
+        [
+            "--client",
+            "replay",
+            "--benchmark",
+            str(ROOT / "benchmarks" / "v2_prompts.yaml"),
+            "--output",
+            str(tmp_path / "guardrails_replay.json"),
+        ]
+    )
+    assert summ.main([str(tmp_path)]) == 0
+    summary = json.loads((tmp_path / "summary.json").read_text())
+    assert [r["model"] for r in summary["planner"]] == [
+        "deterministic baseline",
+        "llm-replay",
+    ]
+    assert [r["path"] for r in summary["guardrails"]] == [
+        "baseline-deterministic",
+        "contract",
+        "contract_free",
+    ]
+    text = capsys.readouterr().out
+    assert "| deterministic baseline |" in text
+    assert "fraction silently wrong" in text

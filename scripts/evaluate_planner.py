@@ -199,6 +199,12 @@ def main(argv=None):
     parser.add_argument("--benchmark", action="append", default=None)
     parser.add_argument("--client", choices=["replay", "anthropic"], default="replay")
     parser.add_argument("--model", default="claude-opus-5")
+    parser.add_argument(
+        "--effort",
+        default="high",
+        help="output_config.effort for the Anthropic client; 'none' omits it "
+        "(required for models that reject the parameter, e.g. Haiku 4.5)",
+    )
     parser.add_argument("--no-execute", action="store_true")
     parser.add_argument("--workers", type=int, default=1, help="parallel cases")
     parser.add_argument(
@@ -218,7 +224,8 @@ def main(argv=None):
 
     def llm():
         if args.client == "anthropic":
-            client = AnthropicClient(model=args.model)
+            effort = None if args.effort.lower() == "none" else args.effort
+            client = AnthropicClient(model=args.model, effort=effort)
         else:
             client = ReplayClient(baseline_responder(registry, CONFIG))
         return LLMPlanner(
