@@ -11,7 +11,7 @@
 \affiliation{TBD}
 
 \begin{abstract}
-Machine-learning pipelines now cover the full low-latency gravitational-wave workflow: detection (Aframe), parameter estimation (AMPLFI), unmodelled anomaly search (GWAK) and noise subtraction (DeepClean). Composing them for a given scientific request still requires expert judgement about data access, model applicability, significance calibration and compute. We present \agent, an orchestration layer in which a large language model or a deterministic planner turns a natural-language request into a directed acyclic graph of typed skills, each bound to a versioned contract (JSON-schema inputs and outputs, machine-checked preconditions, immutable model revisions) and executed by a fail-closed adapter that records every artifact by cryptographic hash. We evaluate the layer on three axes: planning quality on a benchmark of 317 prompts across three model backbones, including an adversarial suite that measures silent, plausible-but-wrong outcomes; scientific fidelity on the 90 events of GWTC-1, GWTC-2.1 and GWTC-3 processed end to end through Aframe, AMPLFI and GWAK on the LIGO Data Grid, compared with the catalog and with the published Aframe O3 search; and significance calibration from time-shifted backgrounds of NNN days (Aframe) and NNN days (GWAK) together with injection campaigns. Aframe recovers 60 of the 76 analysed events at a one-per-day threshold with the published pattern of misses, AMPLFI covers the catalog chirp mass at the nominal 90\%, and without contracts a third of adversarial requests would have executed a plausible but wrong analysis. The code, contracts, calibration tables and run manifests are public.
+Machine-learning pipelines now cover the full low-latency gravitational-wave workflow: detection (Aframe), parameter estimation (AMPLFI), unmodelled anomaly search (GWAK) and noise subtraction (DeepClean). Composing them for a given scientific request still requires expert judgement about data access, model applicability, significance calibration and compute. We present \agent, an orchestration layer in which a large language model or a deterministic planner turns a natural-language request into a directed acyclic graph of typed skills, each bound to a versioned contract (JSON-schema inputs and outputs, machine-checked preconditions, immutable model revisions) and executed by a fail-closed adapter that records every artifact by cryptographic hash. We evaluate the layer on three axes: planning quality on a benchmark of 317 prompts across three model backbones, including an adversarial suite that measures silent, plausible-but-wrong outcomes; scientific fidelity on the 90 events of GWTC-1, GWTC-2.1 and GWTC-3 processed end to end through Aframe, AMPLFI and GWAK on the LIGO Data Grid, compared with the catalog and with the published Aframe O3 search; and significance calibration from time-shifted backgrounds of 69 days for each of Aframe and GWAK together with injection campaigns. Aframe recovers 60 of the 76 analysed events at a one-per-day threshold with the published pattern of misses, AMPLFI covers the catalog chirp mass at the nominal 90\%, and without contracts a third of adversarial requests would have executed a plausible but wrong analysis. The code, contracts, calibration tables and run manifests are public.
 \end{abstract}
 
 \keywords{Gravitational waves --- Neural networks --- Astronomy software --- Astronomy data analysis}
@@ -330,8 +330,13 @@ The first study (three stretches, 123 lags, 5.5 d) fixed the one-per-day
 thresholds used throughout this paper: 2.70 on Aframe's integrated
 statistic and 25.55 on the GWAK score. The extended study (36 event-free
 H1L1 stretches in O2 and O3, 40 lags each, run as 72 HTCondor shards on the
-Data Grid) reaches BGLIVETIME d of livetime and makes the one-per-month
-rate measurable: BGTHRESHOLDS. The GWAK background is bimodal: a Gaussian
+Data Grid) reaches 68.6 d (Aframe, 546\,923 peaks) and 68.9 d (GWAK, 554\,049 peaks)
+of livetime and makes the one-per-month rate measurable: Aframe 2.99 per
+day and 4.40 per month, GWAK 27.85 per day and 28.23 per month. The
+population run and the injections below used the first study's cuts,
+recorded in every manifest; against the extended study 59 of the 60
+population candidates remain above the one-per-day cut and 54 above the
+one-per-month cut. The GWAK background is bimodal: a Gaussian
 bulk ending near 14 and, in every lag of every stretch, one peak at
 20--26. A time shift moves only one detector, so a loud single-detector
 transient recurs in every lag; these are glitches, and the anomaly
