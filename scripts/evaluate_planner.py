@@ -25,6 +25,7 @@ import json
 import sys
 import tempfile
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import yaml
@@ -55,9 +56,8 @@ def load_cases(paths):
     return cases
 
 
-def evaluate(name, make_planner, cases, registry, execute):
-    rows = []
-    for case in cases:
+def evaluate(name, make_planner, cases, registry, execute, repeats=2, workers=1):
+    def one(case):
         planner = make_planner()
         started = time.time()
         error = None
@@ -93,8 +93,14 @@ def evaluate(name, make_planner, cases, registry, execute):
             )
             row["valid"] = plan is not None
         if plan is not None:
-            second = make_planner().plan(case["prompt"])
-            row["reproducible"] = plan_hash(plan) == plan_hash(second)
+            hashes = {plan_hash(plan)}
+            for _ in range(max(0, repeats - 1)):
+                try:
+                    hashes.add(plan_hash(make_planner().plan(case["prompt"])))
+                except PlanningError as exc:
+                    hashes.add(f"error:{exc}")
+            row["reproducible"] = len(hashes) == 1
+            row["distinct_plans"] = len(hashes)
             if execute:
                 with tempfile.TemporaryDirectory() as tmp:
                     manifest = AgentRuntime(registry).run(
@@ -105,8 +111,13 @@ def evaluate(name, make_planner, cases, registry, execute):
                     r.status == TaskStatus.COMPLETED for r in manifest.tasks.values()
                 )
         usage = getattr(getattr(planner, "client", None), "last_usage", None) or {}
-        row["tokens"] = usage.get("input_tokens", 0) + usage.get("output_tokens", 0)
-        rows.append(row)
+        row["input_tokens"] = usage.get("input_tokens", 0)
+        row["output_tokens"] = usage.get("output_tokens", 0)
+        row["tokens"] = row["input_tokens"] + row["output_tokens"]
+        return row
+
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        rows = list(pool.map(one, cases))
     summary = {
         "planner": name,
         "cases": len(rows),
@@ -128,6 +139,9 @@ def evaluate(name, make_planner, cases, registry, execute):
         "fallback_rate": sum(r["fallback"] for r in rows) / len(rows),
         "mean_latency_seconds": sum(r["latency"] for r in rows) / len(rows),
         "total_tokens": sum(r["tokens"] for r in rows),
+        "total_input_tokens": sum(r["input_tokens"] for r in rows),
+        "total_output_tokens": sum(r["output_tokens"] for r in rows),
+        "repeats": repeats,
         "by_tag": {},
     }
     for tag in sorted({r["tag"] for r in rows}):
@@ -136,6 +150,9 @@ def evaluate(name, make_planner, cases, registry, execute):
             "cases": len(subset),
             "tool_selection_accuracy": sum(r["selection_correct"] for r in subset)
             / len(subset),
+            "tool_selection_compatible": sum(r["selection_compatible"] for r in subset)
+            / len(subset),
+            "plan_validity": sum(r["valid"] for r in subset) / len(subset),
         }
     return summary, rows
 
@@ -182,7 +199,17 @@ def main(argv=None):
     parser.add_argument("--benchmark", action="append", default=None)
     parser.add_argument("--client", choices=["replay", "anthropic"], default="replay")
     parser.add_argument("--model", default="claude-opus-5")
+    parser.add_argument(
+        "--effort",
+        default="high",
+        help="output_config.effort for the Anthropic client; 'none' omits it "
+        "(required for models that reject the parameter, e.g. Haiku 4.5)",
+    )
     parser.add_argument("--no-execute", action="store_true")
+    parser.add_argument("--workers", type=int, default=1, help="parallel cases")
+    parser.add_argument(
+        "--repeats", type=int, default=2, help="plans per case for reproducibility"
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     root = Path(__file__).resolve().parents[1] / "benchmarks"
@@ -197,17 +224,32 @@ def main(argv=None):
 
     def llm():
         if args.client == "anthropic":
-            client = AnthropicClient(model=args.model)
+            effort = None if args.effort.lower() == "none" else args.effort
+            client = AnthropicClient(model=args.model, effort=effort)
         else:
             client = ReplayClient(baseline_responder(registry, CONFIG))
         return LLMPlanner(
             registry, client, CONFIG, mode="mock", memory=ExperimentMemory(memory_path)
         )
 
-    report = {"benchmarks": [str(p) for p in paths], "planners": []}
+    report = {
+        "benchmarks": [str(p) for p in paths],
+        "client": args.client,
+        "model": args.model if args.client == "anthropic" else None,
+        "planners": [],
+    }
     planners = (("baseline-deterministic", baseline), (f"llm-{args.client}", llm))
     for name, factory in planners:
-        summary, rows = evaluate(name, factory, cases, registry, not args.no_execute)
+        summary, rows = evaluate(
+            name,
+            factory,
+            cases,
+            registry,
+            not args.no_execute,
+            repeats=args.repeats,
+            workers=args.workers,
+        )
+        summary["model"] = args.model if args.client == "anthropic" else None
         summary["recovery"] = recovery_check(factory, registry)
         summary["rows"] = rows
         report["planners"].append(summary)
