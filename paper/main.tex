@@ -18,7 +18,62 @@ Machine-learning pipelines now cover the full low-latency gravitational-wave wor
 
 \section{Introduction}
 \label{sec:intro}
-TBD: ML4GW pipelines in production (Aframe live since 2025-08; AMPLFI; GWAK; DeepClean). Agentic AI for science: Coscientist, ChemCrow, Virtual Lab, Co-Scientist; in astronomy Mephisto (ApJS 2026), CMBAgent/Denario. The reliability problem: silent incorrect computation \citep{rawat2026} and fabricated results in gwBenchmarks \citep{islam2026}. Our thesis: contracts and fail-closed adapters make an agent's science auditable.
+
+Machine learning now covers every stage of the low-latency
+gravitational-wave workflow. Aframe detects binary black hole mergers
+directly from strain with a median latency of about three seconds
+\citep{aframe2025} and has run in the LIGO--Virgo--KAGRA (LVK) online
+analysis since August 2025; AMPLFI produces posterior samples and sky maps
+seconds later \citep{amplfi2025}; GWAK searches the same data for
+unmodelled transients \citep{gwak2024}; DeepClean subtracts environmental
+noise couplings using auxiliary witness channels \citep{deepclean2020}.
+Offline, machine-learning searches of the third observing run (O3) have
+reached the sensitivity of matched filtering for stellar-mass binaries and
+have started to report their own candidates \citep{marx2025,koloniari2025,
+silver2025}.
+
+What has not been automated is the judgement that composes these tools for
+a given scientific question: which data source can serve the request,
+whether a model's training range and detector set apply, what threshold
+turns a network output into a significance statement, whether an
+expensive step is justified, and how every number in the answer can be
+traced back to immutable inputs. This judgement is currently supplied by
+experts writing scripts, and it is exactly the kind of task that large
+language model (LLM) agents are being proposed for across the sciences.
+Agents have planned and executed chemistry \citep{boiko2023,bran2024},
+designed experimentally validated nanobodies \citep{swanson2025}, and in
+astronomy interpreted multi-band galaxy photometry through an existing
+modelling code \citep{sun2026} and driven cosmological parameter
+inference \citep{laverick2024}.
+
+The same studies expose the central risk. In an evaluation of an
+astrophysical multi-agent system on eighteen tasks, the dominant failure
+was not a crash but ``silent incorrect computation'': syntactically valid
+code producing plausible but wrong results, without self-diagnosis
+\citep{rawat2026}. A benchmark of twelve coding agents on
+gravitational-wave problems found metric misuse, constraint violations and
+fabricated results \citep{islam2026}. For a field whose results are
+significance statements about rare events, an agent that occasionally
+invents a number is worse than no agent.
+
+This paper presents \agent, an orchestration layer built around that
+constraint. Its design principle is that the agent may decide \emph{what}
+to run but never \emph{whether a result is valid}: every capability is a
+skill with a machine-checked contract, every adapter fails closed, every
+model is pinned, every threshold comes from a recorded background study,
+and every artifact is hashed into a manifest. We evaluate the layer on
+three axes. Planning: a benchmark of NNN natural-language requests across
+three LLM backbones, including an adversarial suite that measures how
+often a plausible-but-wrong analysis would have executed with and without
+contracts (Section~\ref{sec:planning}). Scientific fidelity: the 90 events
+of GWTC-1, GWTC-2.1 and GWTC-3 processed end to end through Aframe, AMPLFI
+and GWAK on the LIGO Data Grid, compared with the catalog and with the
+published Aframe O3 search (Section~\ref{sec:population}). Calibration:
+time-shifted backgrounds and injection campaigns for the shipped model
+revisions, and a witness-channel noise-subtraction route with a
+signal-preservation check (Section~\ref{sec:calibration}). Section~\ref{sec:cost}
+reports the measured cost, and Section~\ref{sec:discussion} discusses what
+this design does and does not solve.
 
 \section{Design}
 \label{sec:design}
