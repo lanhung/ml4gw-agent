@@ -1,0 +1,1264 @@
+{
+  "ended_at": "2026-09-04T07:02:50.176797Z",
+  "environment": {
+    "agent_version": "0.2.0",
+    "platform": "Linux-4.18.0-553.150.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "process_id": 618987,
+    "python_executable": "/home/fan.zhang/ml4gw-agent/.venv/bin/python3",
+    "python_version": "3.12.14"
+  },
+  "execution": {
+    "budget": {
+      "authorized": false,
+      "max_cpu_hours": 24.0,
+      "max_gpu_hours": 4.0,
+      "max_latency_seconds": 21600.0,
+      "max_transfer_gb": 20.0,
+      "require_authorization_above_gpu_hours": 1.0
+    },
+    "decision": {
+      "allowed": true,
+      "authorization_required": false,
+      "reasons": []
+    },
+    "estimate": {
+      "assumptions": [
+        "runtimes measured on an RTX 5000 Ada with cached GWOSC strain (2026-09-03 acceptance runs); CPU-only execution scaled by 20x"
+      ],
+      "cpu_hours": 0.0647,
+      "expected_latency_seconds": 78.0,
+      "gpu_hours": 0.0139,
+      "memory_gb": 16.0,
+      "n_segments": 1,
+      "per_task": [
+        {
+          "basis": "catalog lookup",
+          "cpu_cores": 1,
+          "gpu": "no",
+          "memory_gb": 0.1,
+          "n_segments": 1,
+          "seconds": 1.0,
+          "skill": "data.resolve_event",
+          "task": "resolve_event"
+        },
+        {
+          "basis": "cached astropy download cache, per detector",
+          "cpu_cores": 1,
+          "gpu": "no",
+          "memory_gb": 2.0,
+          "n_segments": 1,
+          "seconds": 10.0,
+          "skill": "data.fetch",
+          "task": "fetch_data"
+        },
+        {
+          "basis": "segment query and finite checks",
+          "cpu_cores": 2,
+          "gpu": "no",
+          "memory_gb": 4.0,
+          "n_segments": 1,
+          "seconds": 5.0,
+          "skill": "data.inspect",
+          "task": "inspect_data"
+        },
+        {
+          "basis": "per 128 s window, RTX 5000 Ada",
+          "cpu_cores": 4,
+          "gpu": "yes",
+          "memory_gb": 16.0,
+          "n_segments": 1,
+          "seconds": 5.0,
+          "skill": "aframe.detect",
+          "task": "run_aframe"
+        },
+        {
+          "basis": "20000 samples plus sky map, RTX 5000 Ada",
+          "cpu_cores": 4,
+          "gpu": "yes",
+          "memory_gb": 16.0,
+          "n_segments": 1,
+          "seconds": 15.0,
+          "skill": "amplfi.pe",
+          "task": "run_amplfi"
+        },
+        {
+          "basis": "cached astropy download cache, per detector",
+          "cpu_cores": 1,
+          "gpu": "no",
+          "memory_gb": 2.0,
+          "n_segments": 1,
+          "seconds": 10.0,
+          "skill": "data.fetch",
+          "task": "fetch_data_4k"
+        },
+        {
+          "basis": "contract estimate; adapter blocked",
+          "cpu_cores": 4,
+          "gpu": "yes",
+          "memory_gb": 16.0,
+          "n_segments": 1,
+          "seconds": 30.0,
+          "skill": "gwak.scan",
+          "task": "run_gwak"
+        },
+        {
+          "basis": "milliseconds",
+          "cpu_cores": 1,
+          "gpu": "no",
+          "memory_gb": 1.0,
+          "n_segments": 1,
+          "seconds": 1.0,
+          "skill": "analysis.reconcile",
+          "task": "reconcile_detections"
+        },
+        {
+          "basis": "less than one second",
+          "cpu_cores": 1,
+          "gpu": "no",
+          "memory_gb": 0.2,
+          "n_segments": 1,
+          "seconds": 1.0,
+          "skill": "report.generate",
+          "task": "generate_report"
+        }
+      ],
+      "transfer_gb": 0.0
+    },
+    "executor": "local",
+    "jobs": [
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-resolve_event",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:27.913397+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-fetch_data",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:27.927066+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-fetch_data_4k",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:33.125891+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-inspect_data",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:34.604534+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-run_aframe",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:35.051683+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-run_gwak",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:45.946451+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-run_amplfi",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:46.780077+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-reconcile_detections",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:50.163291+00:00"
+      },
+      {
+        "checkpoint": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2/run_manifest.json",
+        "error": null,
+        "executor": "local",
+        "id": "run_290040ff58c2-generate_report",
+        "status": "completed",
+        "submitted_at": "2026-09-04T07:02:50.171689+00:00"
+      }
+    ],
+    "selection_reason": "runtime default"
+  },
+  "mode": "real",
+  "plan": {
+    "created_at": "2026-09-04T07:02:09.744264Z",
+    "goal": "Compose a bounded ML4GW analysis for 1248331528.5.",
+    "id": "plan_d595efc311fc",
+    "planner": "baseline-deterministic-v0.1",
+    "prompt": "Fetch strain data for 1248331528.5, check data quality, run Aframe detection and AMPLFI parameter estimation, then scan anomalies with GWAK and reconcile the two results.",
+    "schema_version": "1.0",
+    "tasks": [
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [],
+        "id": "resolve_event",
+        "max_retries": 0,
+        "parameters": {
+          "event": "1248331528.5"
+        },
+        "skill": "data.resolve_event",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "resolve_event"
+        ],
+        "id": "fetch_data",
+        "max_retries": 0,
+        "parameters": {
+          "event": "1248331528.5",
+          "event_offset_fraction": 0.75,
+          "gps_time": "${resolve_event.outputs.catalog_time}",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "sample_rate": 2048,
+          "source": "gwosc",
+          "window_seconds": 128.0
+        },
+        "skill": "data.fetch",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "fetch_data"
+        ],
+        "id": "inspect_data",
+        "max_retries": 0,
+        "parameters": {
+          "expected_ifos": [
+            "H1",
+            "L1"
+          ],
+          "min_duration_seconds": 128.0,
+          "require_science_mode": true,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}"
+        },
+        "skill": "data.inspect",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "inspect_data"
+        ],
+        "id": "run_aframe",
+        "max_retries": 0,
+        "parameters": {
+          "candidate_window_seconds": 2.0,
+          "device": "cuda",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "model_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+          "seed": 0,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+          "target_time": "${resolve_event.outputs.catalog_time}",
+          "threshold": 2.7006401797746933,
+          "threshold_calibration": {
+            "far_per_year": 365.25,
+            "livetime_seconds": 478556.25,
+            "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+            "source": "scripts/aframe_background.py, final 123-lag study of 2026-09-03 (time-shifted GWOSC O1/O2/O3 stretches around GW150914, GW170817, GW190521; 40 shifts of 8 s per stretch)",
+            "threshold": 2.7006401797746933
+          }
+        },
+        "skill": "aframe.detect",
+        "when": {
+          "operator": "truthy",
+          "reference": "${inspect_data.outputs.quality_passed}",
+          "value": null
+        }
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "run_aframe"
+        ],
+        "id": "run_amplfi",
+        "max_retries": 0,
+        "parameters": {
+          "coalescence_time": "${run_aframe.outputs.predicted_coalescence_time}",
+          "device": "cuda",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "min_samples_per_pix": 5,
+          "model_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "nside": 64,
+          "samples": 20000,
+          "seed": 0,
+          "strain_artifact": "${fetch_data.outputs.strain_artifact}",
+          "use_distance": true
+        },
+        "skill": "amplfi.pe",
+        "when": {
+          "operator": "truthy",
+          "reference": "${run_aframe.outputs.candidate_found}",
+          "value": null
+        }
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "resolve_event"
+        ],
+        "id": "fetch_data_4k",
+        "max_retries": 0,
+        "parameters": {
+          "event": "1248331528.5",
+          "event_offset_fraction": 0.75,
+          "gps_time": "${resolve_event.outputs.catalog_time}",
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "sample_rate": 4096,
+          "source": "gwosc",
+          "window_seconds": 128.0
+        },
+        "skill": "data.fetch",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": false,
+        "depends_on": [
+          "inspect_data",
+          "fetch_data_4k"
+        ],
+        "id": "run_gwak",
+        "max_retries": 0,
+        "parameters": {
+          "device": "cuda",
+          "model_revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+          "seed": 0,
+          "strain_artifact": "${fetch_data_4k.outputs.strain_artifact}",
+          "target_time": "${resolve_event.outputs.catalog_time}",
+          "threshold": 25.547705696655274,
+          "threshold_calibration": {
+            "far_per_year": 365.25,
+            "livetime_seconds": 480378.1875,
+            "revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+            "source": "scripts/gwak_background.py, 2026-09-03 study (time-shifted GWOSC O1/O2/O3 stretches around GW150914, GW170817, GW190521; 40 shifts of 8 s per stretch)",
+            "threshold": 25.547705696655274
+          },
+          "top_k": 10
+        },
+        "skill": "gwak.scan",
+        "when": {
+          "operator": "truthy",
+          "reference": "${inspect_data.outputs.quality_passed}",
+          "value": null
+        }
+      },
+      {
+        "allow_failed_dependencies": true,
+        "depends_on": [
+          "run_aframe",
+          "run_gwak"
+        ],
+        "id": "reconcile_detections",
+        "max_retries": 0,
+        "parameters": {
+          "aframe_task": "run_aframe",
+          "gwak_task": "run_gwak"
+        },
+        "skill": "analysis.reconcile",
+        "when": null
+      },
+      {
+        "allow_failed_dependencies": true,
+        "depends_on": [
+          "inspect_data",
+          "run_aframe",
+          "run_amplfi",
+          "run_gwak",
+          "reconcile_detections"
+        ],
+        "id": "generate_report",
+        "max_retries": 0,
+        "parameters": {
+          "title": "ML4GW Agent composed analysis: 1248331528.5"
+        },
+        "skill": "report.generate",
+        "when": null
+      }
+    ],
+    "warnings": []
+  },
+  "run_directory": "/home/fan.zhang/ml4gw-runs/population/GW190728_064510/submission_plan_d595efc311fc/worker/run_290040ff58c2",
+  "run_id": "run_290040ff58c2",
+  "schema_version": "1.0",
+  "started_at": "2026-09-04T07:02:27.899355Z",
+  "status": "completed",
+  "tasks": {
+    "fetch_data": {
+      "adapter_metadata": {
+        "adapter": "gwosc-fetch-v0.2",
+        "data_source": "GWOSC public strain",
+        "event_time_source": "parameter",
+        "ldg": null,
+        "native_sample_rates_hz": {
+          "H1": 4096.0,
+          "L1": 4096.0
+        },
+        "packages": {
+          "gwdatafind": "2.1.1",
+          "gwosc": "0.8.3",
+          "gwpy": "4.0.2",
+          "h5py": "3.16.0",
+          "igwn-auth-utils": "1.4.0",
+          "numpy": "1.26.4"
+        },
+        "python_call": "gwpy.timeseries.TimeSeries.fetch_open_data"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/fetch_data/strain_1248331528.5.hdf5",
+          "sha256": "5db9063cdfb82ece9d0fc4b428afe6166ec6005a37c95facdf328c7d9f43edcc",
+          "size_bytes": 4202496
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:33.115818Z",
+      "error": null,
+      "outputs": {
+        "event_time": 1248331528.5,
+        "gps_end": 1248331560.0,
+        "gps_start": 1248331432.0,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 2048,
+        "simulated": false,
+        "source": "gwosc",
+        "strain_artifact": "artifacts/fetch_data/strain_1248331528.5.hdf5"
+      },
+      "parameters": {
+        "event": "1248331528.5",
+        "event_offset_fraction": 0.75,
+        "gps_time": 1248331528.5,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 2048,
+        "source": "gwosc",
+        "window_seconds": 128.0
+      },
+      "skill": "data.fetch",
+      "started_at": "2026-09-04T07:02:27.920206Z",
+      "status": "completed",
+      "task_id": "fetch_data",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:strain_artifact",
+          "message": "artifact 'strain_artifact' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:strain_artifact",
+          "message": "artifact 'strain_artifact' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "fetch_data_4k": {
+      "adapter_metadata": {
+        "adapter": "gwosc-fetch-v0.2",
+        "data_source": "GWOSC public strain",
+        "event_time_source": "parameter",
+        "ldg": null,
+        "native_sample_rates_hz": {
+          "H1": 4096.0,
+          "L1": 4096.0
+        },
+        "packages": {
+          "gwdatafind": "2.1.1",
+          "gwosc": "0.8.3",
+          "gwpy": "4.0.2",
+          "h5py": "3.16.0",
+          "igwn-auth-utils": "1.4.0",
+          "numpy": "1.26.4"
+        },
+        "python_call": "gwpy.timeseries.TimeSeries.fetch_open_data"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/fetch_data_4k/strain_1248331528.5.hdf5",
+          "sha256": "7319f8630772e6870d32a1f8f4838ed3975176918369f74721bd1ec25f1dffb0",
+          "size_bytes": 8396800
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:34.597275Z",
+      "error": null,
+      "outputs": {
+        "event_time": 1248331528.5,
+        "gps_end": 1248331560.0,
+        "gps_start": 1248331432.0,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 4096,
+        "simulated": false,
+        "source": "gwosc",
+        "strain_artifact": "artifacts/fetch_data_4k/strain_1248331528.5.hdf5"
+      },
+      "parameters": {
+        "event": "1248331528.5",
+        "event_offset_fraction": 0.75,
+        "gps_time": 1248331528.5,
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "sample_rate": 4096,
+        "source": "gwosc",
+        "window_seconds": 128.0
+      },
+      "skill": "data.fetch",
+      "started_at": "2026-09-04T07:02:33.119236Z",
+      "status": "completed",
+      "task_id": "fetch_data_4k",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:strain_artifact",
+          "message": "artifact 'strain_artifact' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:strain_artifact",
+          "message": "artifact 'strain_artifact' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "generate_report": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "text/markdown",
+          "relative_path": "report.md",
+          "sha256": "3d56ee1aa441e7a5c905cf474fe487c174a78dd1c45074fcde89eaf9ae4c51f7",
+          "size_bytes": 8245
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:50.174028Z",
+      "error": null,
+      "outputs": {
+        "report_path": "report.md",
+        "simulated": false
+      },
+      "parameters": {
+        "title": "ML4GW Agent composed analysis: 1248331528.5"
+      },
+      "skill": "report.generate",
+      "started_at": "2026-09-04T07:02:50.166259Z",
+      "status": "completed",
+      "task_id": "generate_report",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:report_path",
+          "message": "artifact 'report_path' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:report_path",
+          "message": "artifact 'report_path' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "inspect_data": {
+      "adapter_metadata": {
+        "adapter": "strain-inspect-v0.2",
+        "checks": [
+          "readable_hdf5",
+          "expected_detectors",
+          "equal_lengths",
+          "finite_values",
+          "non_constant",
+          "minimum_duration",
+          "science_segments"
+        ],
+        "packages": {
+          "gwosc": "0.8.3",
+          "h5py": "3.16.0",
+          "numpy": "1.26.4"
+        }
+      },
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/inspect_data/quality_diagnostics.json",
+          "sha256": "5d0cdfcd39d35323ff654b2acb482dfb56bad3baf56cb8b36a22f3f1ca92b236",
+          "size_bytes": 631
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:35.044036Z",
+      "error": null,
+      "outputs": {
+        "available_ifos": [
+          "H1",
+          "L1"
+        ],
+        "diagnostics_artifact": "artifacts/inspect_data/quality_diagnostics.json",
+        "duration_seconds": 128.0,
+        "issues": [],
+        "quality_passed": true,
+        "sample_rate": 2048.0,
+        "simulated": false
+      },
+      "parameters": {
+        "expected_ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_duration_seconds": 128.0,
+        "require_science_mode": true,
+        "strain_artifact": "artifacts/fetch_data/strain_1248331528.5.hdf5"
+      },
+      "skill": "data.inspect",
+      "started_at": "2026-09-04T07:02:34.599853Z",
+      "status": "completed",
+      "task_id": "inspect_data",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:quality_passed",
+          "message": "output field 'quality_passed' is present",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:diagnostics_artifact",
+          "message": "artifact 'diagnostics_artifact' exists",
+          "passed": true
+        }
+      ]
+    },
+    "reconcile_detections": {
+      "adapter_metadata": {
+        "adapter": "builtin-reconcile-v0.3"
+      },
+      "artifacts": [],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:50.163557Z",
+      "error": null,
+      "outputs": {
+        "aframe_candidate": true,
+        "follow_up": "modelled search fired without an unmodeled anomaly: proceed with AMPLFI, note that GWAK did not flag the segment",
+        "gwak_anomaly": false,
+        "parameter_estimation_recommended": true,
+        "route": "aframe_only",
+        "simulated": false
+      },
+      "parameters": {
+        "aframe_task": "run_aframe",
+        "gwak_task": "run_gwak"
+      },
+      "skill": "analysis.reconcile",
+      "started_at": "2026-09-04T07:02:50.157588Z",
+      "status": "completed",
+      "task_id": "reconcile_detections",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:route",
+          "message": "output field 'route' is present",
+          "passed": true
+        }
+      ]
+    },
+    "resolve_event": {
+      "adapter_metadata": {},
+      "artifacts": [
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/resolve_event/event_info.json",
+          "sha256": "1484e88a83798b1fcea30fdcb9d2e76a36bbefbe73b33b66e451df87053e0cfd",
+          "size_bytes": 140
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:27.917787Z",
+      "error": null,
+      "outputs": {
+        "catalog_time": 1248331528.5,
+        "delegated_resolution": false,
+        "event": "1248331528.5",
+        "event_kind": "gps",
+        "simulated": false
+      },
+      "parameters": {
+        "event": "1248331528.5"
+      },
+      "skill": "data.resolve_event",
+      "started_at": "2026-09-04T07:02:27.908793Z",
+      "status": "completed",
+      "task_id": "resolve_event",
+      "validations": [
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:event",
+          "message": "output field 'event' is present",
+          "passed": true
+        }
+      ]
+    },
+    "run_aframe": {
+      "adapter_metadata": {
+        "adapter": "aframe-buoy-v0.2",
+        "device": "cuda",
+        "n_inference_steps": 16352,
+        "packages": {
+          "h5py": "3.16.0",
+          "ml4gw": "0.8.3",
+          "ml4gw-buoy": "0.6.1",
+          "torch": "2.10.0"
+        },
+        "python_call": "buoy.models.Aframe.__call__",
+        "repo_id": "ML4GW/aframe",
+        "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/run_aframe/aframe_outputs.hdf5",
+          "sha256": "4c8183560141a8b276a3b264dca55a16f394bc0d7516d8c2da78f77f693c10c2",
+          "size_bytes": 404728
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:45.936120Z",
+      "error": null,
+      "outputs": {
+        "candidate_found": true,
+        "candidate_times": [
+          1248331528.4765625
+        ],
+        "detection_statistic": 8.598572049822126,
+        "model": {
+          "config": {
+            "aframe_right_pad": 0.0,
+            "batch_size": 32,
+            "fduration": 1.0,
+            "fftlength": 2.5,
+            "highpass": 32.0,
+            "inference_sampling_rate": 128.0,
+            "integration_window_length": 1.5,
+            "kernel_length": 1.5,
+            "lowpass": null,
+            "offline_sampling_rate": 4.0,
+            "psd_length": 64.0,
+            "sample_rate": 2048.0
+          },
+          "device": "cuda",
+          "repo_id": "ML4GW/aframe",
+          "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4"
+        },
+        "output_artifact": "artifacts/run_aframe/aframe_outputs.hdf5",
+        "peak_in_window": true,
+        "peak_near_target": true,
+        "predicted_coalescence_time": 1248331528.4765625,
+        "raw_peak_time": 1248331528.4765625,
+        "simulated": false,
+        "target_offset_seconds": -0.0234375,
+        "target_time": 1248331528.5,
+        "threshold": 2.7006401797746933,
+        "threshold_calibrated": true,
+        "threshold_far_per_year": 365.25
+      },
+      "parameters": {
+        "candidate_window_seconds": 2.0,
+        "device": "cuda",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "model_revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+        "seed": 0,
+        "strain_artifact": "artifacts/fetch_data/strain_1248331528.5.hdf5",
+        "target_time": 1248331528.5,
+        "threshold": 2.7006401797746933,
+        "threshold_calibration": {
+          "far_per_year": 365.25,
+          "livetime_seconds": 478556.25,
+          "revision": "3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4",
+          "source": "scripts/aframe_background.py, final 123-lag study of 2026-09-03 (time-shifted GWOSC O1/O2/O3 stretches around GW150914, GW170817, GW190521; 40 shifts of 8 s per stretch)",
+          "threshold": 2.7006401797746933
+        }
+      },
+      "skill": "aframe.detect",
+      "started_at": "2026-09-04T07:02:35.046361Z",
+      "status": "completed",
+      "task_id": "run_aframe",
+      "validations": [
+        {
+          "check": "task_condition",
+          "message": "condition evaluated true",
+          "passed": true
+        },
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_field:detection_statistic",
+          "message": "output field 'detection_statistic' is present",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:output_artifact",
+          "message": "artifact 'output_artifact' exists",
+          "passed": true
+        }
+      ]
+    },
+    "run_amplfi": {
+      "adapter_metadata": {
+        "adapter": "amplfi-buoy-v0.2",
+        "device": "cuda",
+        "model_config": "amplfi-hl-config.yaml",
+        "model_weights": "amplfi-hl.ckpt",
+        "packages": {
+          "amplfi": "0.6.0",
+          "ligo.skymap": "2.4.0",
+          "ml4gw": "0.8.3",
+          "ml4gw-buoy": "0.6.1",
+          "torch": "2.10.0"
+        },
+        "python_call": "buoy.models.Amplfi.__call__",
+        "repo_id": "ML4GW/amplfi",
+        "revision": "8b97d2f8459d04924cb010dfee0262260bf3da80"
+      },
+      "artifacts": [
+        {
+          "media_type": "image/fits",
+          "relative_path": "artifacts/run_amplfi/amplfi_HL.fits",
+          "sha256": "f35ea969e923ae02857ba4a07fc4b7624362dfe6f066c981906843ed96396a7e",
+          "size_bytes": 123840
+        },
+        {
+          "media_type": "application/json",
+          "relative_path": "artifacts/run_amplfi/credible_intervals.json",
+          "sha256": "96568b9db4788a17b2e8ce58abcf07cbb3f11365119abd1463bfd2bd5fde16c4",
+          "size_bytes": 1888
+        },
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/run_amplfi/posterior_samples.dat",
+          "sha256": "69a215566ba95b2c1a4a1ba03b18feaa642dccbf9627f8aa7a6529602bf4bbb1",
+          "size_bytes": 1733460
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:50.154220Z",
+      "error": null,
+      "outputs": {
+        "coalescence_time": 1248331528.4765625,
+        "credible_intervals": {
+          "chirp_mass": {
+            "mean": 10.371375949536295,
+            "median": 10.302770614624023,
+            "p5": 10.029758071899414,
+            "p95": 10.959816169738769,
+            "std": 0.2998091837770735
+          },
+          "chirp_mass_source": {
+            "mean": 9.258437643267467,
+            "median": 9.25655632903883,
+            "p5": 8.553549001408031,
+            "p95": 9.997953352901048,
+            "std": 0.44311744814071646
+          },
+          "dec": {
+            "mean": -0.09461828280407919,
+            "median": 0.03650569170713425,
+            "p5": -1.3626087009906769,
+            "p95": 0.7547620922327041,
+            "std": 0.683200515586346
+          },
+          "distance": {
+            "mean": 595.4981706063915,
+            "median": 563.5159912109375,
+            "p5": 239.45667114257813,
+            "p95": 1032.4102478027341,
+            "std": 247.55348728206536
+          },
+          "inclination": {
+            "mean": 1.4717838089094046,
+            "median": 1.3258963227272034,
+            "p5": 0.24573032259941102,
+            "p95": 2.865983438491821,
+            "std": 0.8741529945418389
+          },
+          "mass_1": {
+            "mean": 15.626068258819718,
+            "median": 14.464767932891846,
+            "p5": 12.02943058013916,
+            "p95": 23.26931209564208,
+            "std": 3.7476680688965716
+          },
+          "mass_2": {
+            "mean": 9.618694931400217,
+            "median": 9.870924949645996,
+            "p5": 6.568489384651184,
+            "p95": 11.772808170318603,
+            "std": 1.6336378448729498
+          },
+          "mass_ratio": {
+            "mean": 0.6628925588331409,
+            "median": 0.6838554739952087,
+            "p5": 0.2830612421035767,
+            "p95": 0.9676454424858093,
+            "std": 0.2149030309152078
+          },
+          "ra": {
+            "mean": 3.0062281767599206,
+            "median": 1.76318359375,
+            "p5": 0.3003106117248535,
+            "p95": 6.01318359375,
+            "std": 2.1585467251021253
+          }
+        },
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "model": {
+          "config": "amplfi-hl-config.yaml",
+          "device": "cuda",
+          "inference_params": [
+            "chirp_mass",
+            "mass_ratio",
+            "distance",
+            "phic",
+            "inclination",
+            "dec",
+            "psi",
+            "phi"
+          ],
+          "kernel_length": 3.0,
+          "psd_length": 10.0,
+          "repo_id": "ML4GW/amplfi",
+          "revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+          "sample_rate": 2048.0,
+          "weights": "amplfi-hl.ckpt"
+        },
+        "n_samples": 17674,
+        "posterior_artifact": "artifacts/run_amplfi/posterior_samples.dat",
+        "simulated": false,
+        "skymap_artifact": "artifacts/run_amplfi/amplfi_HL.fits",
+        "summary_artifact": "artifacts/run_amplfi/credible_intervals.json"
+      },
+      "parameters": {
+        "coalescence_time": 1248331528.4765625,
+        "device": "cuda",
+        "ifos": [
+          "H1",
+          "L1"
+        ],
+        "min_samples_per_pix": 5,
+        "model_revision": "8b97d2f8459d04924cb010dfee0262260bf3da80",
+        "nside": 64,
+        "samples": 20000,
+        "seed": 0,
+        "strain_artifact": "artifacts/fetch_data/strain_1248331528.5.hdf5",
+        "use_distance": true
+      },
+      "skill": "amplfi.pe",
+      "started_at": "2026-09-04T07:02:46.773405Z",
+      "status": "completed",
+      "task_id": "run_amplfi",
+      "validations": [
+        {
+          "check": "task_condition",
+          "message": "condition evaluated true",
+          "passed": true
+        },
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:posterior_artifact",
+          "message": "artifact 'posterior_artifact' exists",
+          "passed": true
+        },
+        {
+          "check": "artifact_nonempty:posterior_artifact",
+          "message": "artifact 'posterior_artifact' is non-empty",
+          "passed": true
+        }
+      ]
+    },
+    "run_gwak": {
+      "adapter_metadata": {
+        "adapter": "gwak2-torchscript-v0.4",
+        "model_dir": "/home/fan.zhang/ml4gw-agent/models/gwak",
+        "packages": {
+          "h5py": "3.16.0",
+          "ml4gw": "0.8.3",
+          "torch": "2.10.0"
+        },
+        "python_call": "torch.jit.load(embedder) -> torch.jit.load(metric)",
+        "revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad"
+      },
+      "artifacts": [
+        {
+          "media_type": "application/octet-stream",
+          "relative_path": "artifacts/run_gwak/gwak_scores.hdf5",
+          "sha256": "ee3b109d433affb95be7d9ca983fb1fa08323f8a015c39b055a3f7e582628ba7",
+          "size_bytes": 96280
+        }
+      ],
+      "attempts": 1,
+      "command": null,
+      "ended_at": "2026-09-04T07:02:46.769930Z",
+      "error": null,
+      "outputs": {
+        "analysis_end": 1248331559.5,
+        "analysis_start": 1248331496.5,
+        "anomaly_artifact": "artifacts/run_gwak/gwak_scores.hdf5",
+        "anomaly_found": false,
+        "max_far_per_year": 423458.630914627,
+        "max_score": 14.080097198486328,
+        "median_score": 12.807035446166992,
+        "model": {
+          "device": "cuda",
+          "embedder_sha256": "f775aed557370a77b1fb0568b1e45015a6482bb7213832782d54e05979620c6f",
+          "metric_sha256": "a0c755adebfadb678dd4bcd7c190c57007d089ac4281f989e0a0ebef62bb3812",
+          "preprocessing": {
+            "fduration_seconds": 1.0,
+            "fftlength_seconds": 2.0,
+            "highpass_hz": 30.0,
+            "kernel_length_seconds": 0.5,
+            "psd_length_seconds": 64.0,
+            "sample_rate": 4096.0,
+            "stride_seconds": 0.0625
+          },
+          "revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+          "source_commit": "7b9f58a"
+        },
+        "n_kernels": 1001,
+        "simulated": false,
+        "target_far_per_year": 2762926.326249982,
+        "target_rank": 25,
+        "target_score": 13.348633766174316,
+        "target_time": 1248331528.5,
+        "target_zscore": 5.3095269259536275,
+        "threshold": 25.547705696655274,
+        "threshold_calibrated": true,
+        "top_segments": [
+          {
+            "log_prob": -14.080097198486328,
+            "score": 14.080097198486328,
+            "time": 1248331513.4375
+          },
+          {
+            "log_prob": -13.879796028137207,
+            "score": 13.879796028137207,
+            "time": 1248331527.4375
+          },
+          {
+            "log_prob": -13.867607116699219,
+            "score": 13.867607116699219,
+            "time": 1248331518.8125
+          },
+          {
+            "log_prob": -13.833978652954102,
+            "score": 13.833978652954102,
+            "time": 1248331548.8125
+          },
+          {
+            "log_prob": -13.82996940612793,
+            "score": 13.82996940612793,
+            "time": 1248331550.75
+          },
+          {
+            "log_prob": -13.800511360168457,
+            "score": 13.800511360168457,
+            "time": 1248331544.3125
+          },
+          {
+            "log_prob": -13.53719711303711,
+            "score": 13.53719711303711,
+            "time": 1248331558.0625
+          },
+          {
+            "log_prob": -13.526565551757812,
+            "score": 13.526565551757812,
+            "time": 1248331555.25
+          },
+          {
+            "log_prob": -13.520681381225586,
+            "score": 13.520681381225586,
+            "time": 1248331550.5
+          },
+          {
+            "log_prob": -13.514516830444336,
+            "score": 13.514516830444336,
+            "time": 1248331555.0625
+          }
+        ]
+      },
+      "parameters": {
+        "device": "cuda",
+        "model_revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+        "seed": 0,
+        "strain_artifact": "artifacts/fetch_data_4k/strain_1248331528.5.hdf5",
+        "target_time": 1248331528.5,
+        "threshold": 25.547705696655274,
+        "threshold_calibration": {
+          "far_per_year": 365.25,
+          "livetime_seconds": 480378.1875,
+          "revision": "gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad",
+          "source": "scripts/gwak_background.py, 2026-09-03 study (time-shifted GWOSC O1/O2/O3 stretches around GW150914, GW170817, GW190521; 40 shifts of 8 s per stretch)",
+          "threshold": 25.547705696655274
+        },
+        "top_k": 10
+      },
+      "skill": "gwak.scan",
+      "started_at": "2026-09-04T07:02:45.939355Z",
+      "status": "completed",
+      "task_id": "run_gwak",
+      "validations": [
+        {
+          "check": "task_condition",
+          "message": "condition evaluated true",
+          "passed": true
+        },
+        {
+          "check": "input_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "output_json_schema",
+          "message": "schema validation passed",
+          "passed": true
+        },
+        {
+          "check": "artifact_exists:anomaly_artifact",
+          "message": "artifact 'anomaly_artifact' exists",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "warnings": [
+    "H1 strain resampled from 4096 Hz to 2048 Hz",
+    "L1 strain resampled from 4096 Hz to 2048 Hz"
+  ]
+}

@@ -233,10 +233,83 @@ claude-haiku-4.5 & contract-free & 10 & 0.700 & 0.300 \\
 
 \section{Scientific validation on GWTC events}
 \label{sec:population}
+
 \subsection{Setup on the LIGO Data Grid}
-\subsection{Detection: comparison with the catalog and with the Aframe O3 search}
-\subsection{Parameter estimation: AMPLFI versus GWTC posteriors}
+We submitted one request per event for the 90 events of GWTC-1, GWTC-2.1
+and GWTC-3 \citep{gwtc21,gwtc3}: fetch 128 s of public GWOSC strain around
+the catalog time \citep{gwosc}, check data quality, run Aframe and AMPLFI,
+scan the window with GWAK at 4096 Hz and reconcile. Each request became one
+whole-plan HTCondor job on the Caltech LIGO Data Grid pool through the
+agent's HTCondor executor, with the deterministic planner, the pinned model
+revisions and the calibrated one-per-day thresholds. Every outcome below is
+read from the run manifests; no event was retried or edited by hand.
+
+Table~\ref{tab:stages} shows where events left the pipeline. Seven events
+have no public H1 or L1 data in the window (single-LIGO events); the data
+adapter failed closed with that reason. Seven more failed the data-quality
+gate (non-finite H1 samples or an uncovered \texttt{H1\_DATA} flag), so
+their Aframe, AMPLFI and GWAK tasks were skipped by the plan's condition
+rather than run on bad data. The remaining 76 events were analysed end to
+end.
+
+\begin{table}
+\centering
+\caption{Population run: outcome by stage.}
+\label{tab:stages}
+\begin{tabular}{lr}
+\toprule
+stage & events \\
+\midrule
+requested & 90 \\
+no public H1L1 data (fetch failed closed) & 7 \\
+data-quality gate failed (analysis skipped) & 7 \\
+analysed end to end & 76 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Detection}
+Aframe reports a candidate within 2 s of the catalog time above the
+calibrated one-per-day threshold for 60 of the 76 analysed events, and for
+60 of the 71 whose secondary mass lies inside the model's training range
+($m_2 \geq 5\,M_\odot$). The five in-range-excluded misses are the
+neutron-star events (GW170817, GW190425 is quality-gated, GW200115,
+GW191219, GW200210, GW190917); the eleven binary black hole misses have
+catalog network SNR 4.7--12.0 (median 7.9). Recovery by SNR is 2/8 below
+8, 18/23 at 8--10, 12/15 at 10--12 and 28/30 above 12. For the candidates
+the coalescence time agrees with the catalog to 0.037 s (median absolute
+offset; 90\% within 0.083 s). The published Aframe O3 search recovered 38
+of 70 H1L1 GWTC-3 events against a 100-year background \citep{marx2025};
+our targeted analysis at a much looser threshold is not a competing
+sensitivity, but it reproduces the same pattern of misses: sources below
+the training range and SNR below about 12.
+
+\subsection{Parameter estimation}
+For the 60 candidates AMPLFI's 90\% interval on the source-frame chirp mass
+contains the catalog value in 54 cases (the nominal 90\%), with a median
+ratio of AMPLFI median to catalog of 1.07. Luminosity distances are biased
+low by about 30\% (median ratio 0.71; 37 of 60 intervals cover the catalog),
+a known property of the two-detector model relative to three-detector
+catalog posteriors \citep{amplfi2025}. Figure~\ref{fig:population} shows
+the comparison.
+
 \subsection{Anomaly scores}
+GWAK scores all 76 windows. The target kernel is the loudest of its window
+for 31 events and within the top ten for a further 16 (median $z$-score
+8.8), but no event exceeds the one-per-day cut, which sits at the level of
+single-detector glitches (Section~\ref{sec:calibration}). Each manifest
+records the measured background rate at the target score instead.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figures/population.png}
+\caption{Population run on 76 analysed GWTC events. Left: Aframe statistic
+versus catalog network SNR (blue: candidate above the one-per-day
+threshold, red: not). Middle: AMPLFI source-frame chirp mass (median and
+90\% interval) versus catalog. Right: GWAK $z$-score at the target versus
+SNR.}
+\label{fig:population}
+\end{figure}
 
 \section{Significance calibration}
 \label{sec:calibration}
