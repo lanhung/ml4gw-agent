@@ -15,12 +15,7 @@ PY
 run_one() {
   name="$1"; gps="$2"
   out="$RUNS/$name"; mkdir -p "$out"
-  if python - "$out" <<'PY'
-import glob, json, sys
-ok = any(json.load(open(f)).get("status") == "completed"
-         for f in glob.glob(sys.argv[1] + "/submission_*/worker/run_*/run_manifest.json"))
-sys.exit(0 if ok else 1)
-PY
+  if python "$HOME/ml4gw-agent/scripts/cit/is_complete.py" "$out"
   then echo "$name done"; return; fi
   rm -rf "$out"/submission_*
   uv run ml4gw-agent run "Fetch strain data for $gps, check data quality, run Aframe detection and AMPLFI parameter estimation, then scan anomalies with GWAK and reconcile the two results." \
