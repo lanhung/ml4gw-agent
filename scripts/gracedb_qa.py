@@ -212,14 +212,19 @@ def markdown(rows: list[dict]) -> str:
         ]
         lines.append("| " + " | ".join(cells) + " |")
     n = len(rows)
+    time_ok = sum(bool(r.get("time_ok")) for r in rows)
+    plan_ok = sum(bool(r.get("plan_ok")) for r in rows)
+    inst = [r for r in rows if r.get("instruments_ok") is not None]
+    retr = [r for r in rows if r.get("retraction_ok") is not None]
+    runs = [r for r in rows if r.get("run")]
     lines += [
         "",
-        f"- cases: {n}; time resolved within 1 s: {sum(bool(r.get('time_ok')) for r in rows)}; "
-        f"plan ok: {sum(bool(r.get('plan_ok')) for r in rows)}; "
-        f"instruments ok: {sum(1 for r in rows if r.get('instruments_ok'))} of {sum(1 for r in rows if r.get('instruments_ok') is not None)}; "
-        f"retraction ok: {sum(1 for r in rows if r.get('retraction_ok'))} of {sum(1 for r in rows if r.get('retraction_ok') is not None)}",
-        f"- real runs scored: {sum(1 for r in rows if r.get('run'))}; "
-        f"as expected: {sum(1 for r in rows if (r.get('run') or {}).get('as_expected'))}",
+        f"- cases: {n}; time resolved within 1 s: {time_ok}; plan ok: {plan_ok}; "
+        f"instruments ok: {sum(1 for r in inst if r['instruments_ok'])} "
+        f"of {len(inst)}; "
+        f"retraction ok: {sum(1 for r in retr if r['retraction_ok'])} of {len(retr)}",
+        f"- real runs scored: {len(runs)}; as expected: "
+        f"{sum(1 for r in runs if r['run'].get('as_expected'))}",
     ]
     return "\n".join(lines) + "\n"
 

@@ -163,8 +163,8 @@ def main(argv: list[str] | None = None) -> int:
             cat,
             med,
             yerr=[
-                [m - lo_ for m, lo_ in zip(med, lo)],
-                [h - m for m, h in zip(med, hi)],
+                [m - lo_ for m, lo_ in zip(med, lo, strict=True)],
+                [h - m for m, h in zip(med, hi, strict=True)],
             ],
             fmt="o",
             ms=3,
