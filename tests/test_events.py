@@ -86,3 +86,46 @@ def test_gracedb_instruments_fallback_to_preferred_event():
 
     rec = gracedb_lookup("S000000a", fetch=fetch)
     assert rec["instruments"] == ["H1", "L1"] and rec["far"] == 1e-9
+
+
+def test_lookup_route_and_adapter(registry, tmp_path):
+    from ml4gw_agent.planning import BaselinePlanner, PlannerConfig
+
+    planner = BaselinePlanner(registry, PlannerConfig())
+    plan = planner.plan("What is the mass of GW231123_135430 and how far away is it?")
+    assert [t.skill for t in plan.tasks] == [
+        "data.resolve_event",
+        "catalog.lookup",
+        "report.generate",
+    ]
+    zh = planner.plan("查一下 S231123cg 的质量是多少？")
+    assert zh.tasks[1].skill == "catalog.lookup"
+    # analysis words win over lookup words
+    mixed = planner.plan("Tell me about GW150914 and run Aframe detection.")
+    assert "aframe.detect" in [t.skill for t in mixed.tasks]
+    assert "catalog.lookup" not in [t.skill for t in mixed.tasks]
+
+
+def test_catalog_lookup_adapter_offline_table(registry, tmp_path, monkeypatch):
+    from ml4gw_agent.adapters.base import ExecutionContext
+    from ml4gw_agent.adapters.builtin import BuiltinAdapter
+    from ml4gw_agent.models import TaskSpec
+
+    def broken(url):
+        raise OSError("offline")
+
+    monkeypatch.setattr("ml4gw_agent.adapters.events.fetch_json", broken)
+    params = {"event": "GW231123_135430", "question": "mass?"}
+    context = ExecutionContext(
+        skill=registry.get("catalog.lookup"),
+        task=TaskSpec(id="lookup", skill="catalog.lookup", parameters=params),
+        parameters=params,
+        run_dir=tmp_path,
+        mode="mock",
+        records={},
+        prompt="mass?",
+    )
+    out = BuiltinAdapter("catalog_lookup").execute(context).outputs
+    assert out["mass_1_source"] == 137.0 and out["gracedb_id"] == "S231123cg"
+    assert "137.0 Msun" in out["answer"] and out["simulated"] is False
+    assert any("GWOSC catalog" in s for s in out["sources"])

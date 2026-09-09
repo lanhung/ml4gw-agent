@@ -122,8 +122,46 @@ class BaselinePlanner:
         explicitly_composed = any(
             (wants_aframe, wants_amplfi, wants_gwak, wants_deepclean, wants_data)
         )
-
-        if not explicitly_composed or "buoy" in text:
+        wants_lookup = (
+            not explicitly_composed
+            and "buoy" not in text
+            and (
+                self._contains(
+                    text,
+                    "what is the mass",
+                    "what are the masses",
+                    "how massive",
+                    "how far",
+                    "what is the distance",
+                    "when did",
+                    "what time",
+                    "which detectors",
+                    "what is the far",
+                    "false alarm rate of",
+                    "look up",
+                    "lookup",
+                    "catalog value",
+                    "catalog parameters",
+                    "was it retracted",
+                    "is it retracted",
+                    "质量是多少",
+                    "多大质量",
+                    "距离是多少",
+                    "有多远",
+                    "什么时候",
+                    "发生时间",
+                    "哪些探测器",
+                    "误报率是多少",
+                    "查一下",
+                    "查询",
+                    "是否被撤回",
+                    "撤回了吗",
+                )
+            )
+        )
+        if wants_lookup:
+            plan = self._lookup_plan(prompt, event)
+        elif not explicitly_composed or "buoy" in text:
             plan = self._buoy_plan(prompt, event)
         else:
             plan = self._composed_plan(
@@ -224,6 +262,38 @@ class BaselinePlanner:
             )
             return 0.0, None
         return calibrated.threshold, calibrated.as_dict()
+
+    def _lookup_plan(self, prompt: str, event: str) -> PlanSpec:
+        """Answer from catalogs and GraceDB only: no strain, no models."""
+        tasks = [
+            TaskSpec(
+                id="resolve_event",
+                skill="data.resolve_event",
+                parameters={"event": event},
+            ),
+            TaskSpec(
+                id="lookup",
+                skill="catalog.lookup",
+                parameters={"event": event, "question": prompt},
+                depends_on=["resolve_event"],
+            ),
+            TaskSpec(
+                id="generate_report",
+                skill="report.generate",
+                parameters={"title": f"Catalog lookup for {event}"},
+                depends_on=["lookup"],
+                allow_failed_dependencies=True,
+            ),
+        ]
+        return PlanSpec(
+            prompt=prompt,
+            goal=f"Answer a catalog question about {event} without running an analysis",
+            tasks=tasks,
+            warnings=[
+                "Lookup route: values come from the GWTC catalogs and GraceDB; "
+                "no strain was fetched and no model ran."
+            ],
+        )
 
     def _composed_plan(
         self,

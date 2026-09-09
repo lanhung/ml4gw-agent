@@ -57,3 +57,16 @@ command environment. Structured output is requested as a JSON schema, then
 JSON mode, then plain JSON in the prompt, whichever the endpoint accepts;
 the plan is validated by the same contracts either way, so a weaker model
 costs repairs and deterministic fallbacks, not invalid plans.
+
+## Lookup route (2026-09-09)
+
+Questions that ask for catalog facts rather than an analysis ("What is the
+mass of GW231123_135430?", "S250727cl 是什么时候发生的、哪些探测器？", "Was
+S251017di retracted?") are routed to `catalog.lookup`: `data.resolve_event`
+→ `catalog.lookup` → `report.generate`. The answer comes from the shipped
+GWTC table (`calibration/gwtc_events.json`, GWOSC catalogs GWTC-1 to
+GWTC-5.0 and the O4 discovery papers) and the public GraceDB API (t0, FAR,
+detectors, ADVNO retraction); no strain is fetched and no model runs, and
+the report says so. Analysis words (Aframe, AMPLFI, GWAK, DeepClean, data
+quality, Buoy) always win over lookup words, so "tell me about X and run
+Aframe" is an analysis.

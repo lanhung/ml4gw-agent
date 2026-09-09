@@ -1,0 +1,62 @@
+schema_version: "1.0"
+name: catalog.lookup
+version: "0.1.0"
+description: Answer a lookup question about an event from the GWTC catalogs and GraceDB without touching strain data.
+status: stable
+risk: low
+requires_approval: false
+adapter:
+  kind: builtin
+  entrypoint: catalog_lookup
+  timeout_seconds: 60
+input_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event, question]
+  properties:
+    event:
+      oneOf:
+        - {type: string, minLength: 1}
+        - {type: number, minimum: 100000000}
+    question: {type: string, minLength: 1}
+output_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required: [event, answer, sources, simulated]
+  properties:
+    event: {type: string}
+    gw_name: {type: [string, "null"]}
+    gracedb_id: {type: [string, "null"]}
+    catalog: {type: [string, "null"]}
+    catalog_time: {type: [number, "null"]}
+    utc: {type: [string, "null"]}
+    instruments: {type: [array, "null"], items: {type: string}}
+    far_per_year: {type: [number, "null"]}
+    retracted: {type: [boolean, "null"]}
+    mass_1_source: {type: [number, "null"]}
+    mass_2_source: {type: [number, "null"]}
+    chirp_mass_source: {type: [number, "null"]}
+    total_mass_source: {type: [number, "null"]}
+    luminosity_distance: {type: [number, "null"]}
+    network_snr: {type: [number, "null"]}
+    p_astro: {type: [number, "null"]}
+    answer: {type: string}
+    sources: {type: array, items: {type: string}}
+    simulated: {type: boolean}
+preconditions:
+  - name: recognized_event_format
+    description: Event must be a GWTC name, GraceDB ID, superevent ID, UTC timestamp or GPS time.
+    machine_check: event_format
+validations:
+  - {kind: output_field, target: answer, required: true}
+resources:
+  cpu_cores: 1
+  memory_gb: 0.2
+  gpu: none
+  estimated_runtime: seconds
+tags: [catalog, gracedb, lookup]
+notes:
+  - Reads the shipped GWTC table (calibration/gwtc_events.json, GWOSC event API) and the public GraceDB API; no strain is fetched and no model runs, so the answer is catalog knowledge, not a new measurement.
+  - Values carry the catalog they came from; when an event exists only in GraceDB (no catalog entry yet) the answer says so and gives t0, FAR and detectors only.

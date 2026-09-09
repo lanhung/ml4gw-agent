@@ -141,6 +141,13 @@ def resolve(event: str, *, online: bool, fetch=fetch_json) -> dict[str, Any]:
             )
         else:
             out["resolution_note"] = "not in the shipped GWTC table"
+        if online and out.get("gracedb_id"):
+            try:
+                g = gracedb_lookup(str(out["gracedb_id"]), fetch=fetch)
+            except Exception as exc:  # noqa: BLE001 - table answer stands
+                out["resolution_note"] = f"GraceDB lookup failed: {exc}"[:200]
+            else:
+                out.update(instruments=g["instruments"], retracted=g["retracted"])
         return out
     if event[:1] == "S" or event[:1] == "G":
         out["event_kind"] = (
