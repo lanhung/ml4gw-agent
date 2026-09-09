@@ -21,6 +21,7 @@ def test_default_registry_loads_all_initial_contracts(registry):
         "deepclean.check_applicability",
         "deepclean.clean",
         "analysis.reconcile",
+        "catalog.lookup",
         "report.generate",
     } == names
 
