@@ -1,7 +1,7 @@
 schema_version: "1.0"
 name: data.resolve_event
 version: "0.1.0"
-description: Validate an event identifier and classify its source before execution.
+description: Resolve an event identifier (GWTC name, GraceDB superevent/event id, UTC timestamp or GPS) to a catalog time with FAR, detectors and retraction status.
 status: stable
 risk: low
 requires_approval: false
@@ -29,6 +29,14 @@ output_schema:
     event_kind:
       enum: [gwtc, gracedb_event, gracedb_superevent, gps]
     catalog_time: {type: [number, "null"]}
+    gw_name: {type: [string, "null"]}
+    gracedb_id: {type: [string, "null"]}
+    far_per_year: {type: [number, "null"]}
+    instruments: {type: [array, "null"], items: {type: string}}
+    retracted: {type: [boolean, "null"]}
+    catalog: {type: [string, "null"]}
+    resolution_source: {type: [string, "null"]}
+    resolution_note: {type: [string, "null"]}
     delegated_resolution: {type: boolean}
     simulated: {type: boolean}
 preconditions:

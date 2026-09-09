@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Population statistics and figures from ``population_compare.py`` output.
 
-    python scripts/population_figures.py docs/acceptance/population-2026-09-04/summary.json \
-        --outdir docs/acceptance/population-2026-09-04
+python scripts/population_figures.py summary.json --outdir <dir>
+    --outdir docs/acceptance/population-2026-09-04
 """
 
 from __future__ import annotations
@@ -162,7 +162,10 @@ def main(argv: list[str] | None = None) -> int:
         axes[1].errorbar(
             cat,
             med,
-            yerr=[[m - l for m, l in zip(med, lo)], [h - m for m, h in zip(med, hi)]],
+            yerr=[
+                [m - lo_ for m, lo_ in zip(med, lo)],
+                [h - m for m, h in zip(med, hi)],
+            ],
             fmt="o",
             ms=3,
             lw=0.6,

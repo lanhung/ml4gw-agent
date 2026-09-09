@@ -106,32 +106,22 @@ class BuiltinAdapter(SkillAdapter):
 
     @staticmethod
     def _resolve_event(context: ExecutionContext) -> AdapterOutcome:
+        from .events import resolve
+
         raw_event = context.parameters["event"]
         event = str(raw_event)
         if not EVENT_PATTERN.fullmatch(event):
             raise AdapterError(f"unsupported event identifier: {event}")
-
         if event[:2].upper() == "GW":
             event = event.upper()
-            kind = "gwtc"
-            catalog_time = KNOWN_CATALOG_TIMES.get(event)
-        elif event[:1].upper() == "S":
-            event = "S" + event[1:]
-            kind = "gracedb_superevent"
-            catalog_time = None
-        elif event[:1].upper() == "G":
-            event = "G" + event[1:]
-            kind = "gracedb_event"
-            catalog_time = None
-        else:
-            kind = "gps"
-            catalog_time = float(event)
-
+        elif event[:1].upper() in {"S", "G"} and not event[:2].upper() == "GW":
+            event = event[0].upper() + event[1:]
+        resolved = resolve(event, online=context.mode != "mock")
+        if resolved["event_kind"] == "gwtc" and resolved["catalog_time"] is None:
+            resolved["catalog_time"] = KNOWN_CATALOG_TIMES.get(event)
         output = {
-            "event": event,
-            "event_kind": kind,
-            "catalog_time": catalog_time,
-            "delegated_resolution": catalog_time is None,
+            **resolved,
+            "delegated_resolution": resolved["catalog_time"] is None,
             "simulated": context.mode == "mock",
         }
         artifact_dir = artifact_directory(context)

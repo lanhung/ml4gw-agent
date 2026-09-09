@@ -107,17 +107,25 @@ class GWOSCFetchAdapter(SkillAdapter):
             return ["NDS2 access relies on a valid Kerberos ticket or SciToken"]
         if source == "ldg":
             ldg_preflight([str(ifo) for ifo in context.parameters.get("ifos", [])])
-            if event[:1] in {"G", "S"} and not event.startswith("GW"):
+            if (
+                event[:1] in {"G", "S"}
+                and not event.startswith("GW")
+                and context.parameters.get("gps_time") is None
+            ):
                 raise AdapterUnavailableError(
                     "GraceDB identifiers must be resolved to a GPS time first; "
                     "pass gps_time or use buoy.analyze"
                 )
             return []
-        if event[:1] in {"G", "S"} and not event.startswith("GW"):
+        if (
+            event[:1] in {"G", "S"}
+            and not event.startswith("GW")
+            and context.parameters.get("gps_time") is None
+        ):
             raise AdapterUnavailableError(
-                "the public GWOSC adapter cannot fetch GraceDB events; use "
-                "buoy.analyze with LIGO credentials or data.fetch with "
-                "source: ldg"
+                "the public GWOSC adapter cannot fetch GraceDB events without a "
+                "resolved gps_time; data.resolve_event supplies it for public "
+                "superevents, otherwise use source: nds2/ldg with credentials"
             )
         missing = missing_modules(REQUIRED_MODULES)
         if missing:

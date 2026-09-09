@@ -1,0 +1,96 @@
+# GraceDB question-answering validation set (2026-09-09).
+# Truth comes from the public GraceDB API (t_0, FAR, instruments, ADVNO) and the
+# GWOSC catalogs (GWTC-4.x / GWTC-5.0 / O4 discovery papers); see
+# scripts/gracedb_qa.py. "public_data" says whether GWOSC serves H1+L1 strain.
+events:
+- id: S231123cg
+  gw_name: GW231123_135430
+  why: heaviest binary black hole so far (137+101 Msun), O4a discovery paper
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S231226av
+  gw_name: GW231226_101520
+  why: loudest O4a event (network SNR 34.7)
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S231028bg
+  gw_name: GW231028_153006
+  why: 94+59 Msun, SNR 22.4
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S231224e
+  gw_name: GW231224_024321
+  why: low-mass BBH (9.3+7.3 Msun), SNR 14
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S240104bl
+  gw_name: GW240104_164932
+  why: SNR 14.8 O4a BBH
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S230529ay
+  gw_name: GW230529_181500
+  why: mass-gap NSBH, single detector (L1 only)
+  instruments: [L1]
+  public_data: true
+  expect_run: fail_closed_fetch
+- id: S250114ax
+  gw_name: GW250114_082203
+  why: O4b high-profile 33+32 Msun BBH (discovery paper)
+  instruments: [H1, L1]
+  public_data: true
+  expect_run: completed
+- id: S250119cv
+  gw_name: null
+  why: HLV superevent FAR 4e-20 Hz analysed earlier through NDS2
+  instruments: [H1, L1, V1]
+  public_data: unknown
+  expect_run: completed_or_fail_closed_fetch
+- id: S250727cl
+  gw_name: null
+  why: O4c HLV superevent, FAR 4e-20 Hz, no public strain yet
+  instruments: [H1, L1, V1]
+  public_data: false
+  expect_run: fail_closed_fetch
+- id: S251108dn
+  gw_name: null
+  why: O4c HLV superevent, FAR 9e-18 Hz
+  instruments: [H1, L1, V1]
+  public_data: false
+  expect_run: fail_closed_fetch
+- id: S250810ck
+  gw_name: null
+  why: H1+V1 only (no L1), non-public
+  instruments: [H1, V1]
+  public_data: false
+  expect_run: fail_closed_fetch
+- id: S250206dm
+  gw_name: null
+  why: HIGH_PROFILE H1L1 candidate, non-public
+  instruments: [H1, L1]
+  public_data: false
+  expect_run: fail_closed_fetch
+- id: S251017di
+  gw_name: null
+  why: retracted alert (ADVNO); the agent must surface the retraction
+  instruments: [H1, L1]
+  public_data: false
+  expect_run: fail_closed_fetch
+  retracted: true
+prompt_templates:
+- key: superevent_en
+  text: "Analyse superevent {id}: check data quality, run Aframe detection and AMPLFI parameter estimation."
+- key: superevent_zh
+  text: "分析超级事件 {id}：数据质量检查、Aframe 探测和 AMPLFI 参数估计。"
+- key: gw_name
+  text: "Run Aframe detection and AMPLFI parameter estimation on {gw_name}."
+  requires: gw_name
+- key: gps
+  text: "Fetch strain data for {gps}, check data quality, run Aframe detection and AMPLFI parameter estimation."
+- key: utc
+  text: "What did the detectors see at {utc} UTC? Run Aframe detection and AMPLFI parameter estimation."

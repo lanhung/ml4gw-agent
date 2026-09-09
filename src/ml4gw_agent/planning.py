@@ -9,7 +9,8 @@ from .models import ConditionSpec, PlanSpec, TaskSpec
 from .registry import SkillRegistry
 
 EVENT_PATTERN = re.compile(
-    r"\b(?:GW\d{6}(?:_\d{6})?|G\d{6,}|S\d{6}[a-z]+|\d{9,10}(?:\.\d+)?)\b",
+    r"\b(?:GW\d{6}(?:_\d{6})?|G\d{6,}|S\d{6}[a-z]+|\d{9,10}(?:\.\d+)?"
+    r"|\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:\s?(?:UTC|Z))?)\b",
     re.IGNORECASE,
 )
 
