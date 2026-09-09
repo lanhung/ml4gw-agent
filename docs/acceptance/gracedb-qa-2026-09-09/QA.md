@@ -2,65 +2,65 @@
 
 | case | extracted | time err [s] | time ok | instruments ok | retraction ok | plan ok | run | as expected | Aframe cand. | tc off [s] | chirp AMPLFI/cat (in 90%) |
 |---|---|---:|---|---|---|---|---|---|---|---:|---|
-| S231123cg__superevent_en | S231123cg | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231123cg__superevent_zh | S231123cg | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231123cg__gw_name | GW231123_135430 | -0.03 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231123cg__gps | 1384782888.63 | -0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231123cg__utc | 2023-11-23 13:54:30 UTC | -0.63 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231226av__superevent_en | S231226av | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231226av__superevent_zh | S231226av | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231226av__gw_name | GW231226_101520 | -0.01 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231226av__gps | 1387620938.31 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231226av__utc | 2023-12-26 10:15:20 UTC | -0.31 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231028bg__superevent_en | S231028bg | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231028bg__superevent_zh | S231028bg | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231028bg__gw_name | GW231028_153006 | +0.05 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231028bg__gps | 1382542224.25 | -0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231028bg__utc | 2023-10-28 15:30:06 UTC | -0.25 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231224e__superevent_en | S231224e | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231224e__superevent_zh | S231224e | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S231224e__gw_name | GW231224_024321 | +0.03 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231224e__gps | 1387421019.97 | -0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S231224e__utc | 2023-12-24 02:43:21 UTC | -0.97 | True | None | None | True | — | — | — | — | — / None (—) |
-| S240104bl__superevent_en | S240104bl | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S240104bl__superevent_zh | S240104bl | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S240104bl__gw_name | GW240104_164932 | -0.03 | True | None | None | True | — | — | — | — | — / None (—) |
-| S240104bl__gps | 1388422190.63 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S240104bl__utc | 2024-01-04 16:49:32 UTC | -0.63 | True | None | None | True | — | — | — | — | — / None (—) |
-| S230529ay__superevent_en | S230529ay | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S230529ay__superevent_zh | S230529ay | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S230529ay__gw_name | GW230529_181500 | -0.05 | True | None | None | True | — | — | — | — | — / None (—) |
-| S230529ay__gps | 1369419318.75 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S230529ay__utc | 2023-05-29 18:15:00 UTC | -0.75 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250114ax__superevent_en | S250114ax | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250114ax__superevent_zh | S250114ax | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250114ax__gw_name | GW250114_082203 | -0.02 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250114ax__gps | 1420878141.22 | -0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250114ax__utc | 2025-01-14 08:22:03 UTC | -0.22 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250119cv__superevent_en | S250119cv | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250119cv__superevent_zh | S250119cv | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250119cv__gps | 1421348576.32 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250119cv__utc | 2025-01-19 19:02:38 UTC | -0.32 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250727cl__superevent_en | S250727cl | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250727cl__superevent_zh | S250727cl | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250727cl__gps | 1437674627.65 | -0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250727cl__utc | 2025-07-27 18:03:29 UTC | -0.65 | True | None | None | True | — | — | — | — | — / None (—) |
-| S251108dn__superevent_en | S251108dn | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S251108dn__superevent_zh | S251108dn | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S251108dn__gps | 1446633181.58 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S251108dn__utc | 2025-11-08 10:32:43 UTC | -0.58 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250810ck__superevent_en | S250810ck | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250810ck__superevent_zh | S250810ck | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250810ck__gps | 1438871055.34 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250810ck__utc | 2025-08-10 14:23:57 UTC | -0.34 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250206dm__superevent_en | S250206dm | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250206dm__superevent_zh | S250206dm | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S250206dm__gps | 1422912348.44 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S250206dm__utc | 2025-02-06 21:25:30 UTC | -0.44 | True | None | None | True | — | — | — | — | — / None (—) |
-| S251017di__superevent_en | S251017di | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S251017di__superevent_zh | S251017di | +0.00 | True | True | True | True | — | — | — | — | — / None (—) |
-| S251017di__gps | 1444770508.11 | +0.00 | True | None | None | True | — | — | — | — | — / None (—) |
-| S251017di__utc | 2025-10-17 21:08:10 UTC | -0.11 | True | None | None | True | — | — | — | — | — / None (—) |
+| S231123cg__superevent_en | S231123cg | +0.00 | True | True | True | True | completed | True | True | -0.009 | 65.8 / None (None) |
+| S231123cg__superevent_zh | S231123cg | +0.00 | True | True | True | True | completed | True | True | -0.009 | 65.8 / None (None) |
+| S231123cg__gw_name | GW231123_135430 | -0.03 | True | None | None | True | completed | True | True | +0.025 | 65.8 / None (None) |
+| S231123cg__gps | 1384782888.63 | -0.00 | True | None | None | True | completed | True | True | -0.005 | 65.8 / None (None) |
+| S231123cg__utc | 2023-11-23 13:54:30 UTC | -0.63 | True | None | None | True | completed | True | True | +0.625 | 65.8 / None (None) |
+| S231226av__superevent_en | S231226av | +0.00 | True | True | True | True | completed | True | True | -0.017 | 33.1 / 32.5 (True) |
+| S231226av__superevent_zh | S231226av | +0.00 | True | True | True | True | completed | True | True | -0.017 | 33.1 / 32.5 (True) |
+| S231226av__gw_name | GW231226_101520 | -0.01 | True | None | None | True | completed | True | True | -0.011 | 33.1 / 32.5 (True) |
+| S231226av__gps | 1387620938.31 | +0.00 | True | None | None | True | completed | True | True | -0.021 | 33.1 / 32.5 (True) |
+| S231226av__utc | 2023-12-26 10:15:20 UTC | -0.31 | True | None | None | True | completed | True | True | +0.289 | 33.1 / 32.5 (True) |
+| S231028bg__superevent_en | S231028bg | +0.00 | True | True | True | True | completed | True | True | -0.018 | 62.9 / 63.0 (True) |
+| S231028bg__superevent_zh | S231028bg | +0.00 | True | True | True | True | completed | True | True | -0.018 | 62.9 / 63.0 (True) |
+| S231028bg__gw_name | GW231028_153006 | +0.05 | True | None | None | True | completed | True | True | -0.066 | 62.9 / 63.0 (True) |
+| S231028bg__gps | 1382542224.25 | -0.00 | True | None | None | True | completed | True | True | -0.016 | 62.9 / 63.0 (True) |
+| S231028bg__utc | 2023-10-28 15:30:06 UTC | -0.25 | True | None | None | True | completed | True | True | +0.234 | 62.9 / 63.0 (True) |
+| S231224e__superevent_en | S231224e | +0.00 | True | True | True | True | completed | True | True | +0.007 | 8.9 / 7.13 (False) |
+| S231224e__superevent_zh | S231224e | +0.00 | True | True | True | True | completed | True | True | +0.007 | 8.9 / 7.13 (False) |
+| S231224e__gw_name | GW231224_024321 | +0.03 | True | None | None | True | completed | True | True | -0.023 | 8.9 / 7.13 (False) |
+| S231224e__gps | 1387421019.97 | -0.00 | True | None | None | True | completed | True | True | +0.007 | 8.9 / 7.13 (False) |
+| S231224e__utc | 2023-12-24 02:43:21 UTC | -0.97 | True | None | None | True | completed | True | True | +0.977 | 8.9 / 7.13 (False) |
+| S240104bl__superevent_en | S240104bl | +0.00 | True | True | True | True | completed | True | None | — | — / 31.8 (None) |
+| S240104bl__superevent_zh | S240104bl | +0.00 | True | True | True | True | completed | True | None | — | — / 31.8 (None) |
+| S240104bl__gw_name | GW240104_164932 | -0.03 | True | None | None | True | completed | True | None | — | — / 31.8 (None) |
+| S240104bl__gps | 1388422190.63 | +0.00 | True | None | None | True | completed | True | None | — | — / 31.8 (None) |
+| S240104bl__utc | 2024-01-04 16:49:32 UTC | -0.63 | True | None | None | True | completed | True | None | — | — / 31.8 (None) |
+| S230529ay__superevent_en | S230529ay | +0.00 | True | True | True | True | failed | True | None | — | — / 1.94 (None) |
+| S230529ay__superevent_zh | S230529ay | +0.00 | True | True | True | True | failed | True | None | — | — / 1.94 (None) |
+| S230529ay__gw_name | GW230529_181500 | -0.05 | True | None | None | True | failed | True | None | — | — / 1.94 (None) |
+| S230529ay__gps | 1369419318.75 | +0.00 | True | None | None | True | failed | True | None | — | — / 1.94 (None) |
+| S230529ay__utc | 2023-05-29 18:15:00 UTC | -0.75 | True | None | None | True | failed | True | None | — | — / 1.94 (None) |
+| S250114ax__superevent_en | S250114ax | +0.00 | True | True | True | True | completed | True | True | -0.043 | 28.8 / 28.6 (True) |
+| S250114ax__superevent_zh | S250114ax | +0.00 | True | True | True | True | completed | True | True | -0.043 | 28.8 / 28.6 (True) |
+| S250114ax__gw_name | GW250114_082203 | -0.02 | True | None | None | True | completed | True | True | -0.020 | 28.8 / 28.6 (True) |
+| S250114ax__gps | 1420878141.22 | -0.00 | True | None | None | True | completed | True | True | -0.040 | 28.8 / 28.6 (True) |
+| S250114ax__utc | 2025-01-14 08:22:03 UTC | -0.22 | True | None | None | True | completed | True | True | +0.180 | 28.8 / 28.6 (True) |
+| S250119cv__superevent_en | S250119cv | +0.00 | True | True | True | True | completed | True | True | -0.082 | 9.6 / None (None) |
+| S250119cv__superevent_zh | S250119cv | +0.00 | True | True | True | True | completed | True | True | -0.082 | 9.6 / None (None) |
+| S250119cv__gps | 1421348576.32 | +0.00 | True | None | None | True | completed | True | True | -0.086 | 9.6 / None (None) |
+| S250119cv__utc | 2025-01-19 19:02:38 UTC | -0.32 | True | None | None | True | completed | True | True | +0.234 | 9.6 / None (None) |
+| S250727cl__superevent_en | S250727cl | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250727cl__superevent_zh | S250727cl | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250727cl__gps | 1437674627.65 | -0.00 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S250727cl__utc | 2025-07-27 18:03:29 UTC | -0.65 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S251108dn__superevent_en | S251108dn | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S251108dn__superevent_zh | S251108dn | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S251108dn__gps | 1446633181.58 | +0.00 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S251108dn__utc | 2025-11-08 10:32:43 UTC | -0.58 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S250810ck__superevent_en | S250810ck | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250810ck__superevent_zh | S250810ck | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250810ck__gps | 1438871055.34 | +0.00 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S250810ck__utc | 2025-08-10 14:23:57 UTC | -0.34 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S250206dm__superevent_en | S250206dm | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250206dm__superevent_zh | S250206dm | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S250206dm__gps | 1422912348.44 | +0.00 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S250206dm__utc | 2025-02-06 21:25:30 UTC | -0.44 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S251017di__superevent_en | S251017di | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S251017di__superevent_zh | S251017di | +0.00 | True | True | True | True | failed | True | None | — | — / None (None) |
+| S251017di__gps | 1444770508.11 | +0.00 | True | None | None | True | failed | True | None | — | — / None (None) |
+| S251017di__utc | 2025-10-17 21:08:10 UTC | -0.11 | True | None | None | True | failed | True | None | — | — / None (None) |
 
 - cases: 59; time resolved within 1 s: 59; plan ok: 59; instruments ok: 26 of 26; retraction ok: 26 of 26
-- real runs scored: 0; as expected: 0
+- real runs scored: 59; as expected: 59

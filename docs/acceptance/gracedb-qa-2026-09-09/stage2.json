@@ -1,0 +1,3225 @@
+[
+ {
+  "case": "S231123cg__superevent_en",
+  "event": "S231123cg",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S231123cg: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1384782888.634277,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.167545842243851e-10,
+  "catalog": {
+   "name": "GW231123_135430",
+   "GPS": 1384782888.6,
+   "mass_1_source": 137.0,
+   "mass_2_source": 101.0,
+   "chirp_mass_source": null,
+   "luminosity_distance": 2200.0,
+   "network_matched_filter_snr": 20.7
+  },
+  "extracted_event": "S231123cg",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1384782888.634277,
+   "gw_name": "GW231123_135430",
+   "gracedb_id": "S231123cg",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.009996014467119455,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.849549864019666,
+   "tc_offset_s": -0.009277105331420898,
+   "amplfi_chirp_median": 65.84673115827738,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231123cg__superevent_zh",
+  "event": "S231123cg",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S231123cg\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1384782888.634277,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.167545842243851e-10,
+  "catalog": {
+   "name": "GW231123_135430",
+   "GPS": 1384782888.6,
+   "mass_1_source": 137.0,
+   "mass_2_source": 101.0,
+   "chirp_mass_source": null,
+   "luminosity_distance": 2200.0,
+   "network_matched_filter_snr": 20.7
+  },
+  "extracted_event": "S231123cg",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1384782888.634277,
+   "gw_name": "GW231123_135430",
+   "gracedb_id": "S231123cg",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.009996014467119455,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.849660498755318,
+   "tc_offset_s": -0.009277105331420898,
+   "amplfi_chirp_median": 65.84673115827738,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231123cg__gw_name",
+  "event": "S231123cg",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW231123_135430.",
+  "truth_gps": 1384782888.634277,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.167545842243851e-10,
+  "catalog": {
+   "name": "GW231123_135430",
+   "GPS": 1384782888.6,
+   "mass_1_source": 137.0,
+   "mass_2_source": 101.0,
+   "chirp_mass_source": null,
+   "luminosity_distance": 2200.0,
+   "network_matched_filter_snr": 20.7
+  },
+  "extracted_event": "GW231123_135430",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1384782888.6,
+   "gw_name": "GW231123_135430",
+   "gracedb_id": "S231123cg",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 0.0001,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.03427720069885254,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.849660498755318,
+   "tc_offset_s": 0.02500009536743164,
+   "amplfi_chirp_median": 65.84673115827738,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231123cg__gps",
+  "event": "S231123cg",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1384782888.63, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1384782888.634277,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.167545842243851e-10,
+  "catalog": {
+   "name": "GW231123_135430",
+   "GPS": 1384782888.6,
+   "mass_1_source": 137.0,
+   "mass_2_source": 101.0,
+   "chirp_mass_source": null,
+   "luminosity_distance": 2200.0,
+   "network_matched_filter_snr": 20.7
+  },
+  "extracted_event": "1384782888.63",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1384782888.63,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.00427699089050293,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.849583838667188,
+   "tc_offset_s": -0.005000114440917969,
+   "amplfi_chirp_median": 65.84484246357329,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231123cg__utc",
+  "event": "S231123cg",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2023-11-23 13:54:30 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1384782888.634277,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.167545842243851e-10,
+  "catalog": {
+   "name": "GW231123_135430",
+   "GPS": 1384782888.6,
+   "mass_1_source": 137.0,
+   "mass_2_source": 101.0,
+   "chirp_mass_source": null,
+   "luminosity_distance": 2200.0,
+   "network_matched_filter_snr": 20.7
+  },
+  "extracted_event": "2023-11-23 13:54:30 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1384782888.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.6342771053314209,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.849549864019666,
+   "tc_offset_s": 0.625,
+   "amplfi_chirp_median": 65.84673115827738,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231226av__superevent_en",
+  "event": "S231226av",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S231226av: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387620938.305845,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.113964008261949e-50,
+  "catalog": {
+   "name": "GW231226_101520",
+   "GPS": 1387620938.3,
+   "mass_1_source": 40.2,
+   "mass_2_source": 35.1,
+   "chirp_mass_source": 32.5,
+   "luminosity_distance": 1180.0,
+   "network_matched_filter_snr": 34.7
+  },
+  "extracted_event": "S231226av",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387620938.305845,
+   "gw_name": "GW231226_101520",
+   "gracedb_id": "S231226av",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 3.5154030587127283e-43,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.799035165991102,
+   "tc_offset_s": -0.016782522201538086,
+   "amplfi_chirp_median": 33.07833132429437,
+   "catalog_chirp": 32.5,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231226av__superevent_zh",
+  "event": "S231226av",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S231226av\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1387620938.305845,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.113964008261949e-50,
+  "catalog": {
+   "name": "GW231226_101520",
+   "GPS": 1387620938.3,
+   "mass_1_source": 40.2,
+   "mass_2_source": 35.1,
+   "chirp_mass_source": 32.5,
+   "luminosity_distance": 1180.0,
+   "network_matched_filter_snr": 34.7
+  },
+  "extracted_event": "S231226av",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387620938.305845,
+   "gw_name": "GW231226_101520",
+   "gracedb_id": "S231226av",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 3.5154030587127283e-43,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.799098781176975,
+   "tc_offset_s": -0.016782522201538086,
+   "amplfi_chirp_median": 33.07833132429437,
+   "catalog_chirp": 32.5,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231226av__gw_name",
+  "event": "S231226av",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW231226_101520.",
+  "truth_gps": 1387620938.305845,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.113964008261949e-50,
+  "catalog": {
+   "name": "GW231226_101520",
+   "GPS": 1387620938.3,
+   "mass_1_source": 40.2,
+   "mass_2_source": 35.1,
+   "chirp_mass_source": 32.5,
+   "luminosity_distance": 1180.0,
+   "network_matched_filter_snr": 34.7
+  },
+  "extracted_event": "GW231226_101520",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387620938.3,
+   "gw_name": "GW231226_101520",
+   "gracedb_id": "S231226av",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 1e-05,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.005845069885253906,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.799035165991102,
+   "tc_offset_s": -0.01093745231628418,
+   "amplfi_chirp_median": 33.07833132429437,
+   "catalog_chirp": 32.5,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231226av__gps",
+  "event": "S231226av",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1387620938.31, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387620938.305845,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.113964008261949e-50,
+  "catalog": {
+   "name": "GW231226_101520",
+   "GPS": 1387620938.3,
+   "mass_1_source": 40.2,
+   "mass_2_source": 35.1,
+   "chirp_mass_source": 32.5,
+   "luminosity_distance": 1180.0,
+   "network_matched_filter_snr": 34.7
+  },
+  "extracted_event": "1387620938.31",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387620938.31,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.00415492057800293,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.799098781176975,
+   "tc_offset_s": -0.020937442779541016,
+   "amplfi_chirp_median": 33.07833132429437,
+   "catalog_chirp": 32.5,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231226av__utc",
+  "event": "S231226av",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2023-12-26 10:15:20 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387620938.305845,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.113964008261949e-50,
+  "catalog": {
+   "name": "GW231226_101520",
+   "GPS": 1387620938.3,
+   "mass_1_source": 40.2,
+   "mass_2_source": 35.1,
+   "chirp_mass_source": 32.5,
+   "luminosity_distance": 1180.0,
+   "network_matched_filter_snr": 34.7
+  },
+  "extracted_event": "2023-12-26 10:15:20 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387620938.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.3058450222015381,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.799098781176975,
+   "tc_offset_s": 0.2890625,
+   "amplfi_chirp_median": 33.07833132429437,
+   "catalog_chirp": 32.5,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231028bg__superevent_en",
+  "event": "S231028bg",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S231028bg: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1382542224.252621,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 7.633333220095278e-31,
+  "catalog": {
+   "name": "GW231028_153006",
+   "GPS": 1382542224.3,
+   "mass_1_source": 94.0,
+   "mass_2_source": 59.0,
+   "chirp_mass_source": 63.0,
+   "luminosity_distance": 4200.0,
+   "network_matched_filter_snr": 22.4
+  },
+  "extracted_event": "S231028bg",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1382542224.252621,
+   "gw_name": "GW231028_153006",
+   "gracedb_id": "S231028bg",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 2.4088967642647874e-23,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.47801672560828,
+   "tc_offset_s": -0.018245935440063477,
+   "amplfi_chirp_median": 62.94432453459581,
+   "catalog_chirp": 63.0,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231028bg__superevent_zh",
+  "event": "S231028bg",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S231028bg\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1382542224.252621,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 7.633333220095278e-31,
+  "catalog": {
+   "name": "GW231028_153006",
+   "GPS": 1382542224.3,
+   "mass_1_source": 94.0,
+   "mass_2_source": 59.0,
+   "chirp_mass_source": 63.0,
+   "luminosity_distance": 4200.0,
+   "network_matched_filter_snr": 22.4
+  },
+  "extracted_event": "S231028bg",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1382542224.252621,
+   "gw_name": "GW231028_153006",
+   "gracedb_id": "S231028bg",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 2.4088967642647874e-23,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.478016878877366,
+   "tc_offset_s": -0.018245935440063477,
+   "amplfi_chirp_median": 62.94432453459581,
+   "catalog_chirp": 63.0,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231028bg__gw_name",
+  "event": "S231028bg",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW231028_153006.",
+  "truth_gps": 1382542224.252621,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 7.633333220095278e-31,
+  "catalog": {
+   "name": "GW231028_153006",
+   "GPS": 1382542224.3,
+   "mass_1_source": 94.0,
+   "mass_2_source": 59.0,
+   "chirp_mass_source": 63.0,
+   "luminosity_distance": 4200.0,
+   "network_matched_filter_snr": 22.4
+  },
+  "extracted_event": "GW231028_153006",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1382542224.3,
+   "gw_name": "GW231028_153006",
+   "gracedb_id": "S231028bg",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 1e-05,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0473790168762207,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.47801672560828,
+   "tc_offset_s": -0.06562495231628418,
+   "amplfi_chirp_median": 62.94432453459581,
+   "catalog_chirp": 63.0,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231028bg__gps",
+  "event": "S231028bg",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1382542224.25, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1382542224.252621,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 7.633333220095278e-31,
+  "catalog": {
+   "name": "GW231028_153006",
+   "GPS": 1382542224.3,
+   "mass_1_source": 94.0,
+   "mass_2_source": 59.0,
+   "chirp_mass_source": 63.0,
+   "luminosity_distance": 4200.0,
+   "network_matched_filter_snr": 22.4
+  },
+  "extracted_event": "1382542224.25",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1382542224.25,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.0026209354400634766,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.478016878877366,
+   "tc_offset_s": -0.015625,
+   "amplfi_chirp_median": 62.94432453459581,
+   "catalog_chirp": 63.0,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231028bg__utc",
+  "event": "S231028bg",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2023-10-28 15:30:06 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1382542224.252621,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 7.633333220095278e-31,
+  "catalog": {
+   "name": "GW231028_153006",
+   "GPS": 1382542224.3,
+   "mass_1_source": 94.0,
+   "mass_2_source": 59.0,
+   "chirp_mass_source": 63.0,
+   "luminosity_distance": 4200.0,
+   "network_matched_filter_snr": 22.4
+  },
+  "extracted_event": "2023-10-28 15:30:06 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1382542224.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.2526209354400635,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.478016878877366,
+   "tc_offset_s": 0.234375,
+   "amplfi_chirp_median": 62.94432453459581,
+   "catalog_chirp": 63.0,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231224e__superevent_en",
+  "event": "S231224e",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S231224e: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387421019.970009,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.527968e-09,
+  "catalog": {
+   "name": "GW231224_024321",
+   "GPS": 1387421020.0,
+   "mass_1_source": 9.3,
+   "mass_2_source": 7.31,
+   "chirp_mass_source": 7.13,
+   "luminosity_distance": 950.0,
+   "network_matched_filter_snr": 14.0
+  },
+  "extracted_event": "S231224e",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387421019.970009,
+   "gw_name": "GW231224_024321",
+   "gracedb_id": "S231224e",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.048219002956800004,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 4.9042635304587225,
+   "tc_offset_s": 0.0065534114837646484,
+   "amplfi_chirp_median": 8.94767317457126,
+   "catalog_chirp": 7.13,
+   "chirp_in_90": false,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231224e__superevent_zh",
+  "event": "S231224e",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S231224e\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1387421019.970009,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.527968e-09,
+  "catalog": {
+   "name": "GW231224_024321",
+   "GPS": 1387421020.0,
+   "mass_1_source": 9.3,
+   "mass_2_source": 7.31,
+   "chirp_mass_source": 7.13,
+   "luminosity_distance": 950.0,
+   "network_matched_filter_snr": 14.0
+  },
+  "extracted_event": "S231224e",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387421019.970009,
+   "gw_name": "GW231224_024321",
+   "gracedb_id": "S231224e",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.048219002956800004,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 4.9042635304587225,
+   "tc_offset_s": 0.0065534114837646484,
+   "amplfi_chirp_median": 8.94767317457126,
+   "catalog_chirp": 7.13,
+   "chirp_in_90": false,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231224e__gw_name",
+  "event": "S231224e",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW231224_024321.",
+  "truth_gps": 1387421019.970009,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.527968e-09,
+  "catalog": {
+   "name": "GW231224_024321",
+   "GPS": 1387421020.0,
+   "mass_1_source": 9.3,
+   "mass_2_source": 7.31,
+   "chirp_mass_source": 7.13,
+   "luminosity_distance": 950.0,
+   "network_matched_filter_snr": 14.0
+  },
+  "extracted_event": "GW231224_024321",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387421020.0,
+   "gw_name": "GW231224_024321",
+   "gracedb_id": "S231224e",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 1e-05,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.02999091148376465,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 4.904482373169491,
+   "tc_offset_s": -0.0234375,
+   "amplfi_chirp_median": 8.94767317457126,
+   "catalog_chirp": 7.13,
+   "chirp_in_90": false,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231224e__gps",
+  "event": "S231224e",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1387421019.97, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387421019.970009,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.527968e-09,
+  "catalog": {
+   "name": "GW231224_024321",
+   "GPS": 1387421020.0,
+   "mass_1_source": 9.3,
+   "mass_2_source": 7.31,
+   "chirp_mass_source": 7.13,
+   "luminosity_distance": 950.0,
+   "network_matched_filter_snr": 14.0
+  },
+  "extracted_event": "1387421019.97",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387421019.97,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -9.059906005859375e-06,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 4.904365718364716,
+   "tc_offset_s": 0.006562471389770508,
+   "amplfi_chirp_median": 8.94767317457126,
+   "catalog_chirp": 7.13,
+   "chirp_in_90": false,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S231224e__utc",
+  "event": "S231224e",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2023-12-24 02:43:21 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1387421019.970009,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.527968e-09,
+  "catalog": {
+   "name": "GW231224_024321",
+   "GPS": 1387421020.0,
+   "mass_1_source": 9.3,
+   "mass_2_source": 7.31,
+   "chirp_mass_source": 7.13,
+   "luminosity_distance": 950.0,
+   "network_matched_filter_snr": 14.0
+  },
+  "extracted_event": "2023-12-24 02:43:21 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1387421019.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.9700090885162354,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 4.9042635304587225,
+   "tc_offset_s": 0.9765625,
+   "amplfi_chirp_median": 8.94767317457126,
+   "catalog_chirp": 7.13,
+   "chirp_in_90": false,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S240104bl__superevent_en",
+  "event": "S240104bl",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S240104bl: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1388422190.629466,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.554967487258808e-17,
+  "catalog": {
+   "name": "GW240104_164932",
+   "GPS": 1388422190.6,
+   "mass_1_source": 42.3,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 31.8,
+   "luminosity_distance": 1910.0,
+   "network_matched_filter_snr": 14.8
+  },
+  "extracted_event": "S240104bl",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1388422190.629466,
+   "gw_name": "GW240104_164932",
+   "gracedb_id": "S240104bl",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.1218624197591857e-09,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 31.8,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S240104bl__superevent_zh",
+  "event": "S240104bl",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S240104bl\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1388422190.629466,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.554967487258808e-17,
+  "catalog": {
+   "name": "GW240104_164932",
+   "GPS": 1388422190.6,
+   "mass_1_source": 42.3,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 31.8,
+   "luminosity_distance": 1910.0,
+   "network_matched_filter_snr": 14.8
+  },
+  "extracted_event": "S240104bl",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1388422190.629466,
+   "gw_name": "GW240104_164932",
+   "gracedb_id": "S240104bl",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.1218624197591857e-09,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 31.8,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S240104bl__gw_name",
+  "event": "S240104bl",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW240104_164932.",
+  "truth_gps": 1388422190.629466,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.554967487258808e-17,
+  "catalog": {
+   "name": "GW240104_164932",
+   "GPS": 1388422190.6,
+   "mass_1_source": 42.3,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 31.8,
+   "luminosity_distance": 1910.0,
+   "network_matched_filter_snr": 14.8
+  },
+  "extracted_event": "GW240104_164932",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1388422190.6,
+   "gw_name": "GW240104_164932",
+   "gracedb_id": "S240104bl",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 1e-05,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.02946615219116211,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 31.8,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S240104bl__gps",
+  "event": "S240104bl",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1388422190.63, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1388422190.629466,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.554967487258808e-17,
+  "catalog": {
+   "name": "GW240104_164932",
+   "GPS": 1388422190.6,
+   "mass_1_source": 42.3,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 31.8,
+   "luminosity_distance": 1910.0,
+   "network_matched_filter_snr": 14.8
+  },
+  "extracted_event": "1388422190.63",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1388422190.63,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0005340576171875,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 31.8,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S240104bl__utc",
+  "event": "S240104bl",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2024-01-04 16:49:32 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1388422190.629466,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 3.554967487258808e-17,
+  "catalog": {
+   "name": "GW240104_164932",
+   "GPS": 1388422190.6,
+   "mass_1_source": 42.3,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 31.8,
+   "luminosity_distance": 1910.0,
+   "network_matched_filter_snr": 14.8
+  },
+  "extracted_event": "2024-01-04 16:49:32 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1388422190.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.6294660568237305,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 31.8,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S230529ay__superevent_en",
+  "event": "S230529ay",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S230529ay: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1369419318.746094,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.975121185032117e-10,
+  "catalog": {
+   "name": "GW230529_181500",
+   "GPS": 1369419318.7,
+   "mass_1_source": 3.6,
+   "mass_2_source": 1.4,
+   "chirp_mass_source": 1.94,
+   "luminosity_distance": 201.0,
+   "network_matched_filter_snr": 11.6
+  },
+  "extracted_event": "S230529ay",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1369419318.746094,
+   "gw_name": "GW230529_181500",
+   "gracedb_id": "S230529ay",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.006233008430876954,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1369419222.0, 1369419350.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 1.94,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S230529ay__superevent_zh",
+  "event": "S230529ay",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S230529ay\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1369419318.746094,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.975121185032117e-10,
+  "catalog": {
+   "name": "GW230529_181500",
+   "GPS": 1369419318.7,
+   "mass_1_source": 3.6,
+   "mass_2_source": 1.4,
+   "chirp_mass_source": 1.94,
+   "luminosity_distance": 201.0,
+   "network_matched_filter_snr": 11.6
+  },
+  "extracted_event": "S230529ay",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1369419318.746094,
+   "gw_name": "GW230529_181500",
+   "gracedb_id": "S230529ay",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.006233008430876954,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1369419222.0, 1369419350.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 1.94,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S230529ay__gw_name",
+  "event": "S230529ay",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW230529_181500.",
+  "truth_gps": 1369419318.746094,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.975121185032117e-10,
+  "catalog": {
+   "name": "GW230529_181500",
+   "GPS": 1369419318.7,
+   "mass_1_source": 3.6,
+   "mass_2_source": 1.4,
+   "chirp_mass_source": 1.94,
+   "luminosity_distance": 201.0,
+   "network_matched_filter_snr": 11.6
+  },
+  "extracted_event": "GW230529_181500",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1369419318.7,
+   "gw_name": "GW230529_181500",
+   "gracedb_id": "S230529ay",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": 0.001,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.04609394073486328,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1369419222.0, 1369419350.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 1.94,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S230529ay__gps",
+  "event": "S230529ay",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1369419318.75, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1369419318.746094,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.975121185032117e-10,
+  "catalog": {
+   "name": "GW230529_181500",
+   "GPS": 1369419318.7,
+   "mass_1_source": 3.6,
+   "mass_2_source": 1.4,
+   "chirp_mass_source": 1.94,
+   "luminosity_distance": 201.0,
+   "network_matched_filter_snr": 11.6
+  },
+  "extracted_event": "1369419318.75",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1369419318.75,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0039060115814208984,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1369419222.0, 1369419350.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 1.94,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S230529ay__utc",
+  "event": "S230529ay",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2023-05-29 18:15:00 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1369419318.746094,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.975121185032117e-10,
+  "catalog": {
+   "name": "GW230529_181500",
+   "GPS": 1369419318.7,
+   "mass_1_source": 3.6,
+   "mass_2_source": 1.4,
+   "chirp_mass_source": 1.94,
+   "luminosity_distance": 201.0,
+   "network_matched_filter_snr": 11.6
+  },
+  "extracted_event": "2023-05-29 18:15:00 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1369419318.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.7460939884185791,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1369419222.0, 1369419350.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": 1.94,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250114ax__superevent_en",
+  "event": "S250114ax",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S250114ax: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1420878141.222656,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.112182061567461e-27,
+  "catalog": {
+   "name": "GW250114_082203",
+   "GPS": 1420878141.2,
+   "mass_1_source": 33.6,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 28.6,
+   "luminosity_distance": 403.0,
+   "network_matched_filter_snr": null
+  },
+  "extracted_event": "S250114ax",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1420878141.222656,
+   "gw_name": "GW250114_082203",
+   "gracedb_id": "S250114ax",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.2977059662612131e-19,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 9.291777202061244,
+   "tc_offset_s": -0.0429685115814209,
+   "amplfi_chirp_median": 28.79500257977084,
+   "catalog_chirp": 28.6,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250114ax__superevent_zh",
+  "event": "S250114ax",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S250114ax\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1420878141.222656,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.112182061567461e-27,
+  "catalog": {
+   "name": "GW250114_082203",
+   "GPS": 1420878141.2,
+   "mass_1_source": 33.6,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 28.6,
+   "luminosity_distance": 403.0,
+   "network_matched_filter_snr": null
+  },
+  "extracted_event": "S250114ax",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1420878141.222656,
+   "gw_name": "GW250114_082203",
+   "gracedb_id": "S250114ax",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.2977059662612131e-19,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 9.291758622441971,
+   "tc_offset_s": -0.0429685115814209,
+   "amplfi_chirp_median": 28.79500257977084,
+   "catalog_chirp": 28.6,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250114ax__gw_name",
+  "event": "S250114ax",
+  "template": "gw_name",
+  "prompt": "Run Aframe detection and AMPLFI parameter estimation on GW250114_082203.",
+  "truth_gps": 1420878141.222656,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.112182061567461e-27,
+  "catalog": {
+   "name": "GW250114_082203",
+   "GPS": 1420878141.2,
+   "mass_1_source": 33.6,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 28.6,
+   "luminosity_distance": 403.0,
+   "network_matched_filter_snr": null
+  },
+  "extracted_event": "GW250114_082203",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1420878141.2,
+   "gw_name": "GW250114_082203",
+   "gracedb_id": "S250114ax",
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gwtc_table",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.022655963897705078,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 9.291784167289734,
+   "tc_offset_s": -0.02031254768371582,
+   "amplfi_chirp_median": 28.795776256784034,
+   "catalog_chirp": 28.6,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250114ax__gps",
+  "event": "S250114ax",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1420878141.22, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1420878141.222656,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.112182061567461e-27,
+  "catalog": {
+   "name": "GW250114_082203",
+   "GPS": 1420878141.2,
+   "mass_1_source": 33.6,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 28.6,
+   "luminosity_distance": 403.0,
+   "network_matched_filter_snr": null
+  },
+  "extracted_event": "1420878141.22",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1420878141.22,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.0026559829711914062,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 9.291758622441971,
+   "tc_offset_s": -0.04031252861022949,
+   "amplfi_chirp_median": 28.79500257977084,
+   "catalog_chirp": 28.6,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250114ax__utc",
+  "event": "S250114ax",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-01-14 08:22:03 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1420878141.222656,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.112182061567461e-27,
+  "catalog": {
+   "name": "GW250114_082203",
+   "GPS": 1420878141.2,
+   "mass_1_source": 33.6,
+   "mass_2_source": 32.2,
+   "chirp_mass_source": 28.6,
+   "luminosity_distance": 403.0,
+   "network_matched_filter_snr": null
+  },
+  "extracted_event": "2025-01-14 08:22:03 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1420878141.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.2226560115814209,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 9.291777202061244,
+   "tc_offset_s": 0.1796875,
+   "amplfi_chirp_median": 28.79500257977084,
+   "catalog_chirp": 28.6,
+   "chirp_in_90": true,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250119cv__superevent_en",
+  "event": "S250119cv",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S250119cv: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1421348576.316095,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "S250119cv",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1421348576.316095,
+   "gw_name": "GW250119_190238",
+   "gracedb_id": "S250119cv",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.263493405944e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.503977830920899,
+   "tc_offset_s": -0.08172011375427246,
+   "amplfi_chirp_median": 9.595859061626314,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250119cv__superevent_zh",
+  "event": "S250119cv",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S250119cv\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1421348576.316095,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "S250119cv",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1421348576.316095,
+   "gw_name": "GW250119_190238",
+   "gracedb_id": "S250119cv",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.263493405944e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.503886959382465,
+   "tc_offset_s": -0.08172011375427246,
+   "amplfi_chirp_median": 9.595364096146533,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250119cv__gps",
+  "event": "S250119cv",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1421348576.32, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1421348576.316095,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "1421348576.32",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1421348576.32,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0039048194885253906,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.500693823610032,
+   "tc_offset_s": -0.08562493324279785,
+   "amplfi_chirp_median": 9.595392410259455,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250119cv__utc",
+  "event": "S250119cv",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-01-19 19:02:38 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1421348576.316095,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "2025-01-19 19:02:38 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1421348576.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.31609511375427246,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "completed",
+   "fetch_status": "completed",
+   "fetch_error": "",
+   "aframe_candidate": true,
+   "aframe_statistic": 8.50390709723745,
+   "tc_offset_s": 0.234375,
+   "amplfi_chirp_median": 9.595364096146533,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250727cl__superevent_en",
+  "event": "S250727cl",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S250727cl: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1437674627.654941,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "S250727cl",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1437674627.654941,
+   "gw_name": null,
+   "gracedb_id": "S250727cl",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.263493405944e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1437674531.0, 1437674659.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250727cl__superevent_zh",
+  "event": "S250727cl",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S250727cl\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1437674627.654941,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "S250727cl",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1437674627.654941,
+   "gw_name": null,
+   "gracedb_id": "S250727cl",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.263493405944e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1437674531.0, 1437674659.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250727cl__gps",
+  "event": "S250727cl",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1437674627.65, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1437674627.654941,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "1437674627.65",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1437674627.65,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.004940986633300781,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1437674531.0, 1437674659.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250727cl__utc",
+  "event": "S250727cl",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-07-27 18:03:29 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1437674627.654941,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 4.003769e-20,
+  "catalog": null,
+  "extracted_event": "2025-07-27 18:03:29 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1437674627.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.6549410820007324,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1437674531.0, 1437674659.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251108dn__superevent_en",
+  "event": "S251108dn",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S251108dn: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1446633181.578369,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 9.446361708874871e-18,
+  "catalog": null,
+  "extracted_event": "S251108dn",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1446633181.578369,
+   "gw_name": null,
+   "gracedb_id": "S251108dn",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 2.981045042639896e-10,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1446633085.0, 1446633213.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251108dn__superevent_zh",
+  "event": "S251108dn",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S251108dn\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1446633181.578369,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 9.446361708874871e-18,
+  "catalog": null,
+  "extracted_event": "S251108dn",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1446633181.578369,
+   "gw_name": null,
+   "gracedb_id": "S251108dn",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 2.981045042639896e-10,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1446633085.0, 1446633213.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251108dn__gps",
+  "event": "S251108dn",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1446633181.58, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1446633181.578369,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 9.446361708874871e-18,
+  "catalog": null,
+  "extracted_event": "1446633181.58",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1446633181.58,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.001631021499633789,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1446633085.0, 1446633213.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251108dn__utc",
+  "event": "S251108dn",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-11-08 10:32:43 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1446633181.578369,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 9.446361708874871e-18,
+  "catalog": null,
+  "extracted_event": "2025-11-08 10:32:43 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1446633181.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.5783689022064209,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1446633085.0, 1446633213.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250810ck__superevent_en",
+  "event": "S250810ck",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S250810ck: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1438871055.335815,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 5.37903494434587e-20,
+  "catalog": null,
+  "extracted_event": "S250810ck",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1438871055.335815,
+   "gw_name": null,
+   "gracedb_id": "S250810ck",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.6974943315968922e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1438870959.0, 1438871087.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250810ck__superevent_zh",
+  "event": "S250810ck",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S250810ck\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1438871055.335815,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 5.37903494434587e-20,
+  "catalog": null,
+  "extracted_event": "S250810ck",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1438871055.335815,
+   "gw_name": null,
+   "gracedb_id": "S250810ck",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 1.6974943315968922e-12,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1438870959.0, 1438871087.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250810ck__gps",
+  "event": "S250810ck",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1438871055.34, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1438871055.335815,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 5.37903494434587e-20,
+  "catalog": null,
+  "extracted_event": "1438871055.34",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1438871055.34,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0041849613189697266,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1438870959.0, 1438871087.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250810ck__utc",
+  "event": "S250810ck",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-08-10 14:23:57 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1438871055.335815,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 5.37903494434587e-20,
+  "catalog": null,
+  "extracted_event": "2025-08-10 14:23:57 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1438871055.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.3358149528503418,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1438870959.0, 1438871087.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250206dm__superevent_en",
+  "event": "S250206dm",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S250206dm: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1422912348.438965,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.26701833689754e-09,
+  "catalog": null,
+  "extracted_event": "S250206dm",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1422912348.438965,
+   "gw_name": null,
+   "gracedb_id": "S250206dm",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.03998405786847781,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1422912252.0, 1422912380.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250206dm__superevent_zh",
+  "event": "S250206dm",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S250206dm\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1422912348.438965,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.26701833689754e-09,
+  "catalog": null,
+  "extracted_event": "S250206dm",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1422912348.438965,
+   "gw_name": null,
+   "gracedb_id": "S250206dm",
+   "instruments": [
+    ""
+   ],
+   "retracted": false,
+   "far_per_year": 0.03998405786847781,
+   "resolution_source": "gracedb",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1422912252.0, 1422912380.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250206dm__gps",
+  "event": "S250206dm",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1422912348.44, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1422912348.438965,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.26701833689754e-09,
+  "catalog": null,
+  "extracted_event": "1422912348.44",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1422912348.44,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.0010349750518798828,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1422912252.0, 1422912380.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S250206dm__utc",
+  "event": "S250206dm",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-02-06 21:25:30 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1422912348.438965,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": false,
+  "truth_far_hz": 1.26701833689754e-09,
+  "catalog": null,
+  "extracted_event": "2025-02-06 21:25:30 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1422912348.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.4389650821685791,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1422912252.0, 1422912380.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251017di__superevent_en",
+  "event": "S251017di",
+  "template": "superevent_en",
+  "prompt": "Analyse superevent S251017di: check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1444770508.105494,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": true,
+  "truth_far_hz": 7.041725023589097e-08,
+  "catalog": null,
+  "extracted_event": "S251017di",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1444770508.105494,
+   "gw_name": null,
+   "gracedb_id": "S251017di",
+   "instruments": [
+    ""
+   ],
+   "retracted": true,
+   "far_per_year": 2.2221994160441527,
+   "resolution_source": "gracedb",
+   "resolution_note": "retracted by the collaboration (ADVNO)"
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1444770412.0, 1444770540.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251017di__superevent_zh",
+  "event": "S251017di",
+  "template": "superevent_zh",
+  "prompt": "\u5206\u6790\u8d85\u7ea7\u4e8b\u4ef6 S251017di\uff1a\u6570\u636e\u8d28\u91cf\u68c0\u67e5\u3001Aframe \u63a2\u6d4b\u548c AMPLFI \u53c2\u6570\u4f30\u8ba1\u3002",
+  "truth_gps": 1444770508.105494,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": true,
+  "truth_far_hz": 7.041725023589097e-08,
+  "catalog": null,
+  "extracted_event": "S251017di",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1444770508.105494,
+   "gw_name": null,
+   "gracedb_id": "S251017di",
+   "instruments": [
+    ""
+   ],
+   "retracted": true,
+   "far_per_year": 2.2221994160441527,
+   "resolution_source": "gracedb",
+   "resolution_note": "retracted by the collaboration (ADVNO)"
+  },
+  "time_ok": true,
+  "time_error_s": 0.0,
+  "instruments_ok": true,
+  "retraction_ok": true,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1444770412.0, 1444770540.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251017di__gps",
+  "event": "S251017di",
+  "template": "gps",
+  "prompt": "Fetch strain data for 1444770508.11, check data quality, run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1444770508.105494,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": true,
+  "truth_far_hz": 7.041725023589097e-08,
+  "catalog": null,
+  "extracted_event": "1444770508.11",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1444770508.11,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "gps",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": 0.00450587272644043,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1444770412.0, 1444770540.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ },
+ {
+  "case": "S251017di__utc",
+  "event": "S251017di",
+  "template": "utc",
+  "prompt": "What did the detectors see at 2025-10-17 21:08:10 UTC? Run Aframe detection and AMPLFI parameter estimation.",
+  "truth_gps": 1444770508.105494,
+  "truth_instruments": [
+   ""
+  ],
+  "truth_retracted": true,
+  "truth_far_hz": 7.041725023589097e-08,
+  "catalog": null,
+  "extracted_event": "2025-10-17 21:08:10 UTC",
+  "plan_skills": [
+   "data.resolve_event",
+   "data.fetch",
+   "data.inspect",
+   "aframe.detect",
+   "amplfi.pe",
+   "report.generate"
+  ],
+  "plan_ok": true,
+  "resolved": {
+   "catalog_time": 1444770508.0,
+   "gw_name": null,
+   "gracedb_id": null,
+   "instruments": null,
+   "retracted": null,
+   "far_per_year": null,
+   "resolution_source": "utc",
+   "resolution_note": null
+  },
+  "time_ok": true,
+  "time_error_s": -0.10549402236938477,
+  "instruments_ok": null,
+  "retraction_ok": null,
+  "run": {
+   "status": "failed",
+   "fetch_status": "failed",
+   "fetch_error": "AdapterError: gwosc fetch failed for H1 over [1444770412.0, 1444770540.0]: GetExceptionGroup: failed to get data from any source (1 sub-exception)",
+   "aframe_candidate": null,
+   "aframe_statistic": null,
+   "tc_offset_s": null,
+   "amplfi_chirp_median": null,
+   "catalog_chirp": null,
+   "chirp_in_90": null,
+   "as_expected": true
+  }
+ }
+]

@@ -67,11 +67,14 @@ def gracedb_lookup(identifier: str, fetch=fetch_json) -> dict[str, Any]:
         data = fetch(f"{GRACEDB_API}/superevents/{identifier}/")
         labels = list(data.get("labels") or [])
         preferred = data.get("preferred_event_data") or {}
+        instruments = data.get("instruments") or preferred.get("instruments") or ""
         return {
             "gracedb_id": identifier,
             "gps": float(data["t_0"]),
-            "far": data.get("far"),
-            "instruments": sorted(str(data.get("instruments") or "").split(",")),
+            "far": data.get("far")
+            if data.get("far") is not None
+            else preferred.get("far"),
+            "instruments": sorted(i for i in str(instruments).split(",") if i),
             "labels": labels,
             "retracted": "ADVNO" in labels,
             "gw_name": data.get("gw_id"),
@@ -84,7 +87,9 @@ def gracedb_lookup(identifier: str, fetch=fetch_json) -> dict[str, Any]:
         "gracedb_id": identifier,
         "gps": float(data["gpstime"]),
         "far": data.get("far"),
-        "instruments": sorted(str(data.get("instruments") or "").split(",")),
+        "instruments": sorted(
+            i for i in str(data.get("instruments") or "").split(",") if i
+        ),
         "labels": labels,
         "retracted": "ADVNO" in labels,
         "gw_name": None,

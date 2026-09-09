@@ -68,3 +68,21 @@ def test_resolve_offline_and_failures():
     assert resolve("1126259462.4", online=False)["catalog_time"] == pytest.approx(
         1126259462.4
     )
+
+
+def test_gracedb_instruments_fallback_to_preferred_event():
+    def fetch(url):
+        return {
+            "t_0": 1.0,
+            "far": None,
+            "instruments": "",
+            "labels": [],
+            "preferred_event_data": {
+                "instruments": "H1,L1",
+                "far": 1e-9,
+                "pipeline": "x",
+            },
+        }
+
+    rec = gracedb_lookup("S000000a", fetch=fetch)
+    assert rec["instruments"] == ["H1", "L1"] and rec["far"] == 1e-9
