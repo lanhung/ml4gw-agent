@@ -184,3 +184,117 @@ numbers belong to those models; here they are a fidelity check on the layer.
 - Publication: a decision on LVK review for the O4 material, author list and
   acknowledgements, and optionally a human-expert baseline for the planner
   benchmark.
+
+## 7. Two design bullets in detail
+
+### Fail-closed adapters
+
+"Fail-closed" is borrowed from engineering: when a fail-closed door loses
+power it locks, it does not swing open. Here, when a task loses a
+precondition it stops, it does not proceed on a guess. An adapter is the
+deterministic code behind one skill, and it has three hooks:
+
+- `probe()` reports whether the adapter can run here at all. This is what the
+  Skills table on the web page shows, for example `aframe.detect` as
+  "missing: buoy, torch, ml4gw" on the web host, because real detection runs
+  on the GPU node.
+- `preflight(context)` checks the specific request before any computation and
+  either returns non-fatal warnings or raises. Missing credential, unknown
+  detector, GraceDB identifier without a resolved time: all caught here.
+- `execute(context)` does the work and returns outputs, artifacts, the command
+  that was run, metadata and warnings.
+
+Four classes of missing input are named on the slide, and each has a concrete
+refusal:
+
+| Missing | What happens |
+|---|---|
+| model | `AdapterUnavailableError` when the package or the weights are absent; `AdapterError` when the shipped SHA-256 does not match the requested revision. `UNPINNED` revisions are rejected by the execution policy, and invented tags such as `v99` by the planner validator. |
+| credential | `credential_status()` returns false with the exact remedy, for example "set BEARER_TOKEN_FILE (SciToken from `htgettoken -a vault.ligo.org -i igwn`) or X509_USER_PROXY". Cluster-local datafind servers are an explicit exception. |
+| witness | `deepclean.check_applicability` fetches the configured witness channels; a failure becomes `applicable: false` with the reason, and the cleaning task is skipped by its plan condition. |
+| calibration | If no background study covers the pinned revision at the requested false-alarm rate, the plan carries a warning and the adapter sets `threshold_calibrated: false`, so a boolean flag is never presented as a significance statement. |
+
+Failure propagates through the plan rather than being swallowed. The runtime
+walks tasks in topological order and, before running each one, inspects its
+dependencies:
+
+- a failed or blocked dependency marks the task `blocked` with
+  `failed or blocked dependencies: fetch_data`;
+- a skipped dependency marks it `skipped`;
+- a task whose `when` condition evaluates false is `skipped`, and the
+  evaluation itself is recorded as a validation
+  ("condition evaluated false; task skipped").
+
+The one deliberate exception is `allow_failed_dependencies`, which
+`report.generate` sets, so a run that failed still produces a readable report
+explaining why.
+
+After `execute` returns, the outputs are validated against the skill's output
+schema and its declared checks (required fields present, declared artifacts
+actually on disk). A failed check raises and the task is marked failed, so an
+adapter cannot return a malformed or half-filled result and have it pass.
+Retries are bounded and only apply to expected adapter errors. Errors are a
+typed hierarchy (`AdapterError`, `AdapterUnavailableError`, `ValidationError`,
+`PolicyError`, `PlanningError`); anything outside it is caught at a last-resort
+boundary and recorded as `Unexpected <type>`, so an unknown bug is visible as
+an unknown bug rather than as a result.
+
+The property to state in one sentence: **there is no partial credit**. A plan
+that completes 60 % of its tasks does not hand you a number for the other 40 %.
+
+### Run manifest
+
+Every run writes one JSON file, `run_manifest.json`, and rewrites it after
+every state change, so it is simultaneously the audit record and the
+checkpoint used for cancel and resume. It is schema-versioned.
+
+At the top level it holds the run id and directory, the mode (`mock` or
+`real`), status, start and end times, the full validated plan, the environment
+(agent version, platform, Python version and executable, process id), the
+execution block (which executor, the budget policy and its decision, the
+resource estimate, and every job handle), and the accumulated warnings.
+
+Each task record holds:
+
+| Field | Content |
+|---|---|
+| `parameters` | the **resolved** parameters, after `${task.outputs.field}` substitution, so you see the values actually used |
+| `command` | the exact argument vector when a command-line tool was invoked |
+| `outputs` | the adapter's output object, schema-validated |
+| `adapter_metadata` | adapter name and version, device, package versions, model repository and immutable revision, the exact Python call |
+| `validations` | every check with its verdict and message |
+| `artifacts` | relative path, SHA-256, size and media type for each file produced |
+| `started_at`, `ended_at`, `attempts`, `status`, `error` | timing, retries, outcome |
+
+A real example, the Aframe task of the S231123cg run:
+
+```
+adapter        aframe-buoy-v0.2, device cuda, 16352 inference steps
+packages       torch 2.10.0, ml4gw 0.8.3, ml4gw-buoy 0.6.1, h5py 3.16.0
+model          ML4GW/aframe @ 3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4
+validations    task_condition, input_json_schema, output_json_schema,
+               output_field:detection_statistic, artifact_exists:output_artifact
+artifact       artifacts/run_aframe/aframe_outputs.hdf5
+               sha256 85b10eedc11cb8ecc784e7d08a6f25a5fd82c6c8ae75a5ebd035f379040b59b5
+               404728 bytes
+timing         2026-09-09T02:00:00.913Z to 02:00:35.193Z, 1 attempt
+```
+
+The command and adapter metadata are written *before* execution, so a task that
+dies still leaves the exact call that was attempted.
+
+What this buys, concretely:
+
+- **Reproducibility**: the same request, model revisions, package versions and
+  seed can be replayed from the manifest.
+- **Auditability**: a reviewer checks any number in the talk without rerunning
+  anything, and the artifact hash proves the file was not edited afterwards.
+- **Attribution**: "which model version produced this?" is answered by the
+  record, not by memory.
+- **Recalibration**: because thresholds and their provenance are recorded,
+  growing the background from 5.5 to 69 days let us re-label every earlier
+  candidate automatically; 59 of 60 survived the tighter cut.
+- **Cost accounting**: the timing fields across 113 manifests produce the
+  measured cost table, which is also what the budget policy is calibrated on.
+- **Failure provenance**: the failed runs discussed above are readable months
+  later because the reason, the detector and the interval are in the record.
