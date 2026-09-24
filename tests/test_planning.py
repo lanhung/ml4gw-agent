@@ -177,3 +177,173 @@ def test_unknown_revision_falls_back_to_raw_cut_with_warning(registry):
     assert task.parameters["threshold"] == 0.0
     assert task.parameters["threshold_calibration"] is None
     assert any("raw 0.0 cut" in w for w in plan.warnings)
+
+
+# --------------------------------------------------------------------------- #
+# Negation, structured exclusions and explicit pipeline choice
+# --------------------------------------------------------------------------- #
+
+AFRAME_GWAK = [
+    "data.resolve_event",
+    "data.fetch",
+    "data.inspect",
+    "aframe.detect",
+    "data.fetch",
+    "gwak.scan",
+    "analysis.reconcile",
+    "report.generate",
+]
+
+
+@pytest.mark.parametrize(
+    "suffix",
+    [
+        " Do not run AMPLFI.",
+        " Don't run AMPLFI parameter estimation.",
+        " Without AMPLFI.",
+        " Skip parameter estimation.",
+        " 不要运行 AMPLFI 参数估计。",
+        "，不需要 AMPLFI 参数估计。",
+        "；无需参数估计。",
+    ],
+)
+def test_negated_amplfi_mention_is_an_exclusion(registry, suffix):
+    prompt = "Run Aframe and GWAK on GW150914 and reconcile the two results." + suffix
+    plan = BaselinePlanner(registry).plan(prompt)
+    assert [task.skill for task in plan.tasks] == AFRAME_GWAK
+    assert plan.route == "decomposed"
+    assert plan.excluded_skills == ["amplfi.pe"]
+    assert any("Excluded by request: amplfi.pe" in w for w in plan.warnings)
+
+
+def test_negation_is_clause_local_and_respects_contrast(registry):
+    from ml4gw_agent.planning import mentions
+
+    found = mentions("do not run gwak, run aframe and amplfi")
+    assert found.excluded == {"gwak"}
+    assert found.requested == {"aframe", "amplfi"}
+
+    found = mentions("run aframe but not amplfi")
+    assert found.excluded == {"amplfi"} and found.requested == {"aframe"}
+
+    # a contrast marker after the cue cancels it for the later tool
+    found = mentions("not gwak but aframe")
+    assert found.excluded == {"gwak"} and found.requested == {"aframe"}
+
+    # a cue in an earlier clause never reaches a later clause
+    found = mentions("do not use cuda; run amplfi")
+    assert found.requested == {"amplfi"} and not found.excluded
+
+    # a continuation marker ends the scope; a bare conjunction extends it
+    found = mentions("skip detection and go straight to amplfi parameter estimation")
+    assert found.requested == {"amplfi"} and not found.excluded
+    found = mentions("do not run amplfi or gwak on gw150914")
+    assert found.excluded == {"amplfi", "gwak"} and not found.requested
+    found = mentions("skip gwak and run amplfi")
+    assert found.excluded == {"gwak"} and found.requested == {"amplfi"}
+
+
+def test_generic_request_with_exclusion_leaves_buoy(registry):
+    plan = BaselinePlanner(registry).plan("Analyze GW150914 without AMPLFI.")
+    assert plan.route == "decomposed"
+    assert [task.skill for task in plan.tasks] == [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "report.generate",
+    ]
+
+    plan = BaselinePlanner(registry).plan("Don't use Buoy: analyze GW150914.")
+    assert plan.route == "decomposed"
+    assert plan.excluded_skills == ["buoy.analyze"]
+    assert "amplfi.pe" in [task.skill for task in plan.tasks]
+
+
+def test_contradictory_and_impossible_requests_fail_closed(registry):
+    with pytest.raises(PlanningError, match="both asks for and rules out"):
+        BaselinePlanner(registry).plan(
+            "Run AMPLFI parameter estimation on GW150914 and do not run AMPLFI."
+        )
+    # a worded exclusion of a prerequisite is overridden with a warning ...
+    plan = BaselinePlanner(registry).plan("Run AMPLFI on GW150914, not Aframe.")
+    skills = [task.skill for task in plan.tasks]
+    assert "aframe.detect" in skills and "amplfi.pe" in skills
+    assert plan.excluded_skills == []
+    assert any("scheduled anyway" in w for w in plan.warnings)
+    # ... but a structured exclusion of it cannot be satisfied
+    with pytest.raises(PlanningError, match="cannot run with aframe.detect excluded"):
+        BaselinePlanner(
+            registry, PlannerConfig(exclude_skills=("aframe.detect",))
+        ).plan("Run AMPLFI parameter estimation on GW150914.")
+
+
+def test_structured_exclusions_and_route_field(registry):
+    planner = BaselinePlanner(registry, PlannerConfig(exclude_skills=("amplfi.pe",)))
+    plan = planner.plan("Analyze GW150914.")
+    assert plan.route == "decomposed"
+    assert "amplfi.pe" not in [task.skill for task in plan.tasks]
+    assert plan.excluded_skills == ["amplfi.pe"]
+
+    planner = BaselinePlanner(registry, PlannerConfig(exclude_skills=("gwak.scan",)))
+    plan = planner.plan("Run Aframe detection on GW150914.")
+    skills = [task.skill for task in plan.tasks]
+    assert "gwak.scan" not in skills and "analysis.reconcile" not in skills
+    assert plan.excluded_skills == ["analysis.reconcile", "gwak.scan"]
+    # a structured exclusion that contradicts the prompt is refused, not ignored
+    with pytest.raises(PlanningError, match="both asks for and rules out"):
+        planner.plan("Run Aframe and GWAK on GW150914.")
+
+    with pytest.raises(PlanningError, match="unknown skill"):
+        BaselinePlanner(registry, PlannerConfig(exclude_skills=("nope.skill",))).plan(
+            "Analyze GW150914."
+        )
+
+    assert BaselinePlanner(registry).plan("Analyze GW150914.").route == "buoy"
+    assert (
+        BaselinePlanner(registry).plan("What is the mass of GW150914?").route
+        == "lookup"
+    )
+
+
+def test_explicit_pipeline_choice(registry):
+    decomposed = BaselinePlanner(registry, PlannerConfig(pipeline="decomposed"))
+    plan = decomposed.plan("Analyze GW150914.")
+    assert plan.route == "decomposed"
+    assert [task.skill for task in plan.tasks] == [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate",
+    ]
+    # the Buoy wording that misrouted the gpt-6-luna case is now forced apart
+    plan = decomposed.plan(
+        "Run the Buoy event analysis pipeline for GW150914, using Aframe "
+        "detection followed by AMPLFI parameter estimation."
+    )
+    assert plan.route == "decomposed" and "buoy.analyze" not in [
+        task.skill for task in plan.tasks
+    ]
+
+    buoy = BaselinePlanner(registry, PlannerConfig(pipeline="buoy"))
+    assert buoy.plan("Run Aframe and AMPLFI on GW150914.").route == "buoy"
+    with pytest.raises(PlanningError, match="covers Aframe and AMPLFI only"):
+        buoy.plan("Run GWAK on GW150914.")
+    with pytest.raises(PlanningError, match="conflicts with excluding"):
+        BaselinePlanner(
+            registry, PlannerConfig(pipeline="buoy", exclude_skills=("amplfi.pe",))
+        ).plan("Analyze GW150914.")
+
+
+def test_plan_spec_rejects_scheduled_excluded_skill():
+    from ml4gw_agent.models import PlanSpec, TaskSpec
+
+    with pytest.raises(ValueError, match="excluded skills"):
+        PlanSpec(
+            prompt="test GW150914",
+            goal="test",
+            excluded_skills=["data.fetch"],
+            tasks=[TaskSpec(id="fetch", skill="data.fetch")],
+        )

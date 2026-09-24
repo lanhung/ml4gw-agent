@@ -359,3 +359,40 @@ def test_llm_planner_requires_conditions_for_amplfi_and_deepclean(registry):
         planner._check_conditionals(
             PlanSpec(id="p", prompt="q", goal="g", tasks=[aframe, wrong])
         )
+
+
+def test_llm_plan_must_honour_request_exclusions(registry):
+    """A model plan that schedules a negated tool is rejected, then the
+    baseline (which honours the exclusion) is used; contradictions are
+    refused before any model call."""
+    from ml4gw_agent.llm_planner import LLMPlanner, ReplayClient, baseline_responder
+    from ml4gw_agent.planning import BaselinePlanner, PlannerConfig
+
+    config = PlannerConfig(aframe_revision="a" * 40, amplfi_revision="b" * 40)
+    respond = baseline_responder(registry, config)
+
+    def ignores_negation(system, user, schema):
+        # answer as if the user had asked for Aframe and AMPLFI
+        rewritten = user.replace(
+            "Run Aframe on GW150914. Do not run AMPLFI.",
+            "Run Aframe and AMPLFI on GW150914.",
+        )
+        return respond(system, rewritten, schema)
+
+    planner = LLMPlanner(registry, ReplayClient(ignores_negation), config, mode="mock")
+    plan = planner.plan("Run Aframe on GW150914. Do not run AMPLFI.")
+    assert "amplfi.pe" not in [t.skill for t in plan.tasks]
+    assert plan.excluded_skills == ["amplfi.pe"]
+    assert planner.last_diagnostics["fallback"] is True
+    assert all("rules out" in a["error"] for a in planner.last_diagnostics["attempts"])
+
+    honest = LLMPlanner(registry, ReplayClient(respond), config, mode="mock")
+    plan = honest.plan("Run Aframe on GW150914. Do not run AMPLFI.")
+    assert plan.route == "decomposed" and plan.excluded_skills == ["amplfi.pe"]
+    assert honest.last_diagnostics.get("fallback", False) is False
+
+    with pytest.raises(PlanningError, match="both asks for and rules out"):
+        honest.plan("Run AMPLFI on GW150914 and do not run AMPLFI.")
+    assert BaselinePlanner(registry).constraints(
+        "Analyze GW150914"
+    ).excluded_skills == (frozenset())

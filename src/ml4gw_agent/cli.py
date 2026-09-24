@@ -115,6 +115,21 @@ def _add_planner_arguments(parser: argparse.ArgumentParser) -> None:
         dest="candidate_window_seconds",
         help="Seconds around the requested time within which a peak counts",
     )
+    parser.add_argument(
+        "--pipeline",
+        choices=["auto", "buoy", "decomposed"],
+        default="auto",
+        help="auto: generic prompts use Buoy, named tools build the decomposed "
+        "DAG; buoy / decomposed force one route",
+    )
+    parser.add_argument(
+        "--exclude-skill",
+        action="append",
+        default=[],
+        dest="exclude_skills",
+        metavar="SKILL",
+        help="Registered skill that must not be scheduled (repeatable)",
+    )
 
 
 def _config_from_args(args: argparse.Namespace) -> PlannerConfig:
@@ -138,6 +153,8 @@ def _config_from_args(args: argparse.Namespace) -> PlannerConfig:
         gwak_threshold=args.gwak_threshold,
         gwak_far_per_year=args.gwak_far_per_year,
         candidate_window_seconds=args.candidate_window_seconds,
+        pipeline=args.pipeline,
+        exclude_skills=tuple(args.exclude_skills),
         data_source=args.data_source,
     )
 

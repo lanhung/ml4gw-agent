@@ -13,6 +13,7 @@ import pytest
 from pydantic import ValidationError
 
 from ml4gw_agent import mcp_jobs
+from ml4gw_agent.errors import PlanningError
 from ml4gw_agent.mcp_jobs import (
     AnalysisConfig,
     Job,
@@ -396,3 +397,44 @@ def test_cancel_escalates_to_terminate(service, monkeypatch, tmp_path):
         time.sleep(0.01)
     assert ready.exists()
     assert service.cancel_run(job["job_id"])["returncode"] == -signal.SIGTERM
+
+
+def test_plan_analysis_routing_contract(service):
+    generic = service.plan_analysis("Analyze GW150914")
+    assert generic["route"] == "buoy"
+    assert generic["skills"] == [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate",
+    ]
+
+    negated = service.plan_analysis(
+        "Run Aframe and GWAK on GW150914 and reconcile the two results. "
+        "Do not run AMPLFI."
+    )
+    assert negated["excluded_skills"] == ["amplfi.pe"]
+    assert "amplfi.pe" not in negated["skills"]
+
+    forced = service.plan_analysis(
+        "Run the Buoy event analysis pipeline for GW150914, using Aframe "
+        "detection followed by AMPLFI parameter estimation.",
+        AnalysisConfig(pipeline="decomposed"),
+    )
+    assert forced["route"] == "decomposed"
+    assert forced["skills"][3:5] == ["aframe.detect", "amplfi.pe"]
+
+    excluded = service.plan_analysis(
+        "Analyze GW150914", AnalysisConfig(exclude_skills=["amplfi.pe"])
+    )
+    assert excluded["route"] == "decomposed"
+    assert "amplfi.pe" not in excluded["skills"]
+
+    # mode stays a top-level argument; config still rejects it
+    with pytest.raises(ValidationError, match="mode"):
+        AnalysisConfig.model_validate({"mode": "mock"})
+    with pytest.raises(ValidationError):
+        AnalysisConfig.model_validate({"pipeline": "shell"})
+    with pytest.raises(PlanningError, match="unknown skill"):
+        service.plan_analysis(
+            "Analyze GW150914", AnalysisConfig(exclude_skills=["rm.rf"])
+        )

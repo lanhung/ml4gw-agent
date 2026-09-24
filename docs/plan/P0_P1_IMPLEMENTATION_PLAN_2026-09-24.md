@@ -244,8 +244,10 @@ mock manifest 和 135 个产物，全部路径、大小和哈希一致；另有 
 
 本轮发现的后续处理项：
 
-- [ ] 修复规划器对否定/排除语义的处理，并校验启动计划是否满足请求约束。
-- [ ] 明确 Buoy 封装流程与独立技能 DAG 的选择约束，补充有针对性的路由用例。
+- [x] 修复规划器对否定/排除语义的处理，并校验启动计划是否满足请求约束。
+      见第 6.4 节。
+- [x] 明确 Buoy 封装流程与独立技能 DAG 的选择约束，补充有针对性的路由用例。
+      见第 6.4 节。
 - [ ] 排查 CLIProxy HTTP 408 的代理/上游原因，单独验证带首错记录的重试方案。
 
 ### 6.3 GLM 全部可用模型测试（2026-09-24）
@@ -278,6 +280,39 @@ mock manifest 和 135 个产物，全部路径、大小和哈希一致；另有 
 后续应明确 MCP 工具的默认 Buoy 路由契约，突出 `mode` 属于顶层参数，
 并在单独实验中验证保留首错记录的限流退避策略。这些补测不替代科学精度、
 权属或真实 GPU 分析验收，也未消除第 6.2 节已经记录的规划器否定语义缺陷。
+
+### 6.4 规划器约束修复（2026-09-24）
+
+针对第 6.2 / 6.3 节记录的两类软件缺陷，修改了确定性规划器和 MCP 工具契约；
+没有改动测试脚本、提示词或判定标准，也没有重跑模型矩阵。
+
+- **否定语义。** `planning.mentions()` 按子句扫描每个工具词，前面同一子句
+  内出现否定提示词（do not / without / skip / 不要 / 不需要 / 跳过 等）且
+  中间没有转折或接续词（but / then / 直接 / 然后 等）时记为排除；相邻工具
+  只有用连词相连时才共享同一个否定。排除写入 `PlanSpec.excluded_skills`，
+  `PlanSpec` 校验器和规划器的 `_constrain()` 都会拒绝排入被排除技能的计划。
+  第 6.2 节复现的三组输入现在得到与对照相同的 8 项任务图，
+  `excluded_skills=["amplfi.pe"]`。
+- **前置条件仍优先。** 提示词只排除被请求技能的前置条件时（v1 / v2 基准里的
+  "Run AMPLFI without running Aframe first"），前置条件照常排入并追加警告，
+  保持既有基准和规划器评估的期望不变；结构化 `exclude_skills` 出现同类冲突
+  则拒绝生成计划。正面请求与否定同时指向同一工具也拒绝。
+- **路由契约。** `PlannerConfig` / `AnalysisConfig` 新增
+  `pipeline: auto | buoy | decomposed` 与 `exclude_skills`；`PlanSpec` 记录
+  `route`。`plan_analysis` 返回 `route`、`excluded_skills` 和有序 `skills`，
+  工具说明与服务 `instructions` 写明默认 Buoy 路由、`mode` 为顶层参数以及
+  两个新配置项。CLI 增加 `--pipeline` 与 `--exclude-skill`，Web 请求增加
+  同名可选字段。gpt-6-luna 改写的 Buoy 措辞在 `pipeline="decomposed"` 下
+  得到六任务分解 DAG。
+- **验证。** 新增规划器与服务测试，`benchmarks/v0_prompts.yaml` 增加中英文
+  否定、泛化排除和矛盾请求用例；v1 / v2 基准全部保持通过。
+  `scripts/planner_constraints_check.py` 生成
+  [`planner-constraints.json`](../acceptance/p0-p1-2026-09-24/planner-constraints.json)
+  （12/12，含规划器源码哈希，无模型调用、无科学执行）。
+
+这些修复消除了矩阵中已复现的规划器缺陷，但不改写第 6.2 / 6.3 节的原始成绩；
+模型是否会利用新契约（核对 `route`、把 `mode` 放在顶层）需要重跑矩阵才能
+说明。
 
 ## 7. 待外部确认（不计作软件完成）
 

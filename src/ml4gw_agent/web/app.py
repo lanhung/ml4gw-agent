@@ -56,6 +56,8 @@ class PlanRequest(BaseModel):
     ifos: list[str] = Field(default_factory=lambda: ["H1", "L1"])
     aframe_far_per_year: float = Field(default=365.25, gt=0)
     seed: int = Field(default=0, ge=0)
+    pipeline: str = Field(default="auto", pattern="^(auto|buoy|decomposed)$")
+    exclude_skills: list[str] = Field(default_factory=list, max_length=12)
     passcode: str = ""
 
 
@@ -83,6 +85,8 @@ def _config(req: PlanRequest) -> PlannerConfig:
         amplfi_revision=DEFAULT_AMPLFI,
         gwak_revision="c" * 40 if req.mode == "mock" else None,
         aframe_far_per_year=req.aframe_far_per_year,
+        pipeline=req.pipeline,
+        exclude_skills=tuple(req.exclude_skills),
     )
 
 

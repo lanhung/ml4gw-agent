@@ -110,10 +110,42 @@ uv run --no-sync python scripts/evaluate_mcp_gpt_matrix.py \
 | 工具 | 输入 | 主要返回 |
 |---|---|---|
 | `list_skills` | 无 | 注册表中 12 项完整契约、成熟度、mock / real 本机探测结果；可用性不等于某次分析通过 preflight |
-| `plan_analysis` | `prompt`；可选 `config`，`mode: mock / real`（默认 mock） | `plan_id`、原始 PlanSpec / 任务图、资源估计、预算决策、警告 |
+| `plan_analysis` | `prompt`；顶层 `mode: mock / real`（默认 mock，不放在 `config` 内）；可选 `config`，含 `pipeline` 与 `exclude_skills` | `plan_id`、`route`、`excluded_skills`、有序 `skills`、原始 PlanSpec / 任务图、资源估计、预算决策、警告 |
 | `start_analysis` | 保存的 `plan_id` | 立即返回 `job_id` 与状态；模式由保存记录决定，不接受任意计划、命令或路径 |
 | `get_run` | `job_id` | 状态、逐任务结果 / 失败原因、Markdown 报告、产物路径 / 大小 / SHA-256、日志路径 |
 | `cancel_run` | `job_id` | 终止进程组并保留记录；已结束作业保持原状态 |
+
+### 路由契约
+
+`mode` 是 `plan_analysis` 的顶层参数，`config` 只接受科学参数；把 `mode`
+放进 `config` 会收到 `extra_forbidden` 校验错误。规划器按下面的固定规则选路，
+返回值里的 `route` 和 `skills` 就是启动前要核对的内容：
+
+| 请求 | `route` | 任务图 |
+|---|---|---|
+| 泛化请求，如 "Analyze GW150914"、"使用默认流程分析 GW150914" | `buoy` | `data.resolve_event → buoy.analyze → report.generate`（Buoy 内部运行 Aframe 和 AMPLFI） |
+| 点名 Aframe、AMPLFI、GWAK、DeepClean 或数据质量 | `decomposed` | 独立技能 DAG；AMPLFI 只在 Aframe 报告候选后运行 |
+| 目录问题，如 "What is the mass of GW150914" | `lookup` | `catalog.lookup`，不取应变、不跑模型 |
+
+强制或收窄路线：
+
+- `config.pipeline`：`auto`（默认，上表规则）、`buoy`（强制 Buoy；与 GWAK /
+  DeepClean 请求或排除 Aframe / AMPLFI 冲突时拒绝）、`decomposed`（强制独立
+  DAG；泛化请求得到 Aframe→AMPLFI）。
+- `config.exclude_skills`：注册表技能名列表，如 `["amplfi.pe"]`。排除
+  `buoy.analyze`、`aframe.detect` 或 `amplfi.pe` 会离开 Buoy 路线；排除
+  `gwak.scan` 同时去掉 `analysis.reconcile`。未知技能名、与提示词正面请求
+  冲突、或排除被请求技能的前置条件（AMPLFI 需要 Aframe）都会拒绝生成计划。
+- 提示词中的否定表达（"do not run AMPLFI"、"without AMPLFI"、
+  "不要运行 AMPLFI 参数估计"、"跳过 GWAK"）按子句识别，写入
+  `excluded_skills`；计划若仍排入被排除的技能会失败关闭。提示词只排除前置
+  条件（"run AMPLFI without Aframe"）时，前置条件仍会排入并给出警告。
+  结构化的 `exclude_skills` 是权威通道；否定识别是启发式，见
+  [`mentions()`](../src/ml4gw_agent/planning.py)。
+
+复现记录：[`planner-constraints.json`](acceptance/p0-p1-2026-09-24/planner-constraints.json)，
+由 `scripts/planner_constraints_check.py` 生成，覆盖 GPT / GLM 矩阵中失败的
+否定和 Buoy 措辞用例以及结构化控制。
 
 `config` 接受科学参数，如 `ifos`、`device`、`seed`、`window_seconds`、
 `sample_rate`、`samples_per_event`、模型 revisions、FAR / 阈值、

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from typing import Literal
 
 from .calibration import aframe_threshold, gwak_threshold
 from .errors import PlanningError
@@ -38,10 +39,174 @@ class PlannerConfig:
     gwak_far_per_year: float = 365.25
     candidate_window_seconds: float = 2.0
     data_source: str = "gwosc"
+    pipeline: Literal["auto", "buoy", "decomposed"] = "auto"
+    exclude_skills: tuple[str, ...] = ()
     extra_warnings: tuple[str, ...] = field(default_factory=tuple)
 
 
 AFRAME_IFOS: tuple[str, ...] = ("H1", "L1")
+
+# Prompt vocabulary per tool. A mention counts as a request only when no
+# negation cue precedes it inside the same clause (see ``mentions``).
+TOOL_PHRASES: dict[str, tuple[str, ...]] = {
+    "aframe": ("aframe", "cbc detection", "detect compact", "并合检测", "cbc 检测"),
+    "amplfi": (
+        "amplfi",
+        "parameter estimation",
+        "estimate parameters",
+        "参数估计",
+        "参数反演",
+    ),
+    "gwak": ("gwak", "anomaly", "unmodeled", "unusual", "异常", "未建模"),
+    "deepclean": (
+        "deepclean",
+        "noise subtraction",
+        "clean the data",
+        "denoise",
+        "去噪",
+        "噪声扣除",
+    ),
+    "data": (
+        "fetch data",
+        "download data",
+        "data quality",
+        "strain data",
+        "下载数据",
+        "数据质量",
+        "应变数据",
+    ),
+    "buoy": ("buoy",),
+}
+
+# Skill names each tool word stands for; used for structured exclusions and
+# for the fail-closed check that a plan never schedules an excluded skill.
+TOOL_SKILLS: dict[str, tuple[str, ...]] = {
+    "aframe": ("aframe.detect",),
+    "amplfi": ("amplfi.pe",),
+    "gwak": ("gwak.scan", "analysis.reconcile"),
+    "deepclean": ("deepclean.check_applicability", "deepclean.clean"),
+    "buoy": ("buoy.analyze",),
+}
+
+NEGATION_CUES: tuple[str, ...] = (
+    "do not",
+    "don't",
+    "dont ",
+    "does not",
+    "doesn't",
+    "not ",
+    "no ",
+    "never",
+    "without",
+    "skip",
+    "exclude",
+    "excluding",
+    "omit",
+    "avoid",
+    "instead of",
+    "rather than",
+    "不要",
+    "不需要",
+    "无需",
+    "不用",
+    "不必",
+    "别",
+    "跳过",
+    "排除",
+    "不运行",
+    "不做",
+    "不进行",
+    "不含",
+    "不包括",
+    "不跑",
+    "免去",
+)
+# A contrast or continuation marker after the cue ends its scope:
+# "not Aframe but AMPLFI", "skip detection and go straight to AMPLFI".
+CONTRAST_MARKERS: tuple[str, ...] = (
+    " but ",
+    " only ",
+    " just ",
+    " then ",
+    " go ",
+    " straight",
+    "而是",
+    "只",
+    "仅",
+    "直接",
+    "然后",
+    "接着",
+    "再",
+)
+# Between an earlier negated tool and a later one, only a bare conjunction
+# keeps the negation: "do not run AMPLFI or GWAK".
+CONJUNCTION_GAP = re.compile(r"^[\s,、]*(?:and|or|nor|和|或|及|以及|与)?[\s,、]*$")
+CLAUSE_SPLIT = re.compile(r"[.;!?\n。；！？,，]")
+NEGATION_WINDOW = 48
+
+
+@dataclass(frozen=True)
+class ToolMentions:
+    """Which tools a prompt asks for and which it rules out."""
+
+    requested: frozenset[str]
+    excluded: frozenset[str]
+
+
+@dataclass(frozen=True)
+class RequestConstraints:
+    """What a request rules out, after prompt and configuration are merged.
+
+    Both planners honour the same object: the baseline builds its DAG from it
+    and the LLM planner rejects any model plan that schedules an excluded
+    skill. ``overrides`` are warnings for worded exclusions that precondition
+    reasoning had to ignore (AMPLFI needs Aframe).
+    """
+
+    requested: frozenset[str]
+    excluded_tools: frozenset[str]
+    excluded_skills: frozenset[str]
+    overrides: tuple[str, ...] = ()
+
+
+def mentions(text: str) -> ToolMentions:
+    """Classify every tool mention as requested or negated.
+
+    The scan is clause-local: a negation cue only affects tool words that
+    follow it in the same clause, within ``NEGATION_WINDOW`` characters, and
+    with no contrast marker in between. Structured ``exclude_skills`` remain
+    the authoritative channel; this heuristic exists so a plain sentence like
+    "do not run AMPLFI" is never read as a request to run it.
+    """
+    requested: set[str] = set()
+    excluded: set[str] = set()
+    all_phrases = [phrase for phrases in TOOL_PHRASES.values() for phrase in phrases]
+    for clause in CLAUSE_SPLIT.split(text):
+        for tool, phrases in TOOL_PHRASES.items():
+            for phrase in phrases:
+                start = clause.find(phrase)
+                while start != -1:
+                    window = clause[max(0, start - NEGATION_WINDOW) : start]
+                    cue_at = max(
+                        (window.rfind(cue) for cue in NEGATION_CUES), default=-1
+                    )
+                    negated = cue_at != -1
+                    if negated:
+                        scope = window[cue_at:]
+                        negated = not any(m in scope for m in CONTRAST_MARKERS)
+                    if negated:
+                        # an earlier tool inside the scope takes the negation
+                        # unless this mention is joined to it by a conjunction
+                        ends = [
+                            scope.find(other) + len(other)
+                            for other in all_phrases
+                            if other != phrase and other in scope
+                        ]
+                        if ends:
+                            negated = bool(CONJUNCTION_GAP.match(scope[max(ends) :]))
+                    (excluded if negated else requested).add(tool)
+                    start = clause.find(phrase, start + len(phrase))
+    return ToolMentions(frozenset(requested), frozenset(excluded))
 
 
 class BaselinePlanner:
@@ -80,51 +245,26 @@ class BaselinePlanner:
         event = self.extract_event(prompt)
         text = prompt.casefold()
 
-        wants_aframe = self._contains(
-            text, "aframe", "cbc detection", "detect compact", "并合检测", "cbc 检测"
-        )
-        wants_amplfi = self._contains(
-            text,
-            "amplfi",
-            "parameter estimation",
-            "estimate parameters",
-            "参数估计",
-            "参数反演",
-        )
-        wants_gwak = self._contains(
-            text,
-            "gwak",
-            "anomaly",
-            "unmodeled",
-            "unusual",
-            "异常",
-            "未建模",
-        )
-        wants_deepclean = self._contains(
-            text,
-            "deepclean",
-            "noise subtraction",
-            "clean the data",
-            "denoise",
-            "去噪",
-            "噪声扣除",
-        )
-        wants_data = self._contains(
-            text,
-            "fetch data",
-            "download data",
-            "data quality",
-            "strain data",
-            "下载数据",
-            "数据质量",
-            "应变数据",
-        )
+        constraints = self.constraints(prompt)
+        found = constraints
+        excluded_tools = set(constraints.excluded_tools)
+        excluded_skills = set(constraints.excluded_skills)
+        override = list(constraints.overrides)
+        wants = {tool: tool in found.requested for tool in TOOL_PHRASES}
+        wants_aframe = wants["aframe"]
+        wants_amplfi = wants["amplfi"]
+        wants_gwak = wants["gwak"]
+        wants_deepclean = wants["deepclean"]
+        wants_data = wants["data"]
+        wants_buoy = wants["buoy"]
         explicitly_composed = any(
             (wants_aframe, wants_amplfi, wants_gwak, wants_deepclean, wants_data)
         )
         wants_lookup = (
             not explicitly_composed
-            and "buoy" not in text
+            and not wants_buoy
+            and not excluded_tools
+            and self.config.pipeline == "auto"
             and (
                 self._contains(
                     text,
@@ -159,22 +299,148 @@ class BaselinePlanner:
                 )
             )
         )
-        if wants_lookup:
+        route = self._route(
+            wants_buoy=wants_buoy,
+            wants_lookup=wants_lookup,
+            explicitly_composed=explicitly_composed,
+            excluded_tools=excluded_tools,
+            wants_gwak=wants_gwak,
+            wants_deepclean=wants_deepclean,
+        )
+
+        if route == "lookup":
             plan = self._lookup_plan(prompt, event)
-        elif not explicitly_composed or "buoy" in text:
+        elif route == "buoy":
             plan = self._buoy_plan(prompt, event)
         else:
+            if not explicitly_composed:
+                # A generic request routed away from Buoy gets Buoy's content:
+                # detection followed by conditional parameter estimation.
+                wants_aframe, wants_amplfi = True, True
+            wants_aframe = (wants_aframe or wants_amplfi) and "aframe" not in (
+                excluded_tools
+            )
+            if wants_amplfi and "aframe" in excluded_tools:
+                raise PlanningError(
+                    "AMPLFI needs the coalescence time that Aframe estimates; "
+                    "it cannot run with aframe.detect excluded."
+                )
             plan = self._composed_plan(
                 prompt=prompt,
                 event=event,
                 wants_aframe=wants_aframe,
-                wants_amplfi=wants_amplfi,
-                wants_gwak=wants_gwak,
-                wants_deepclean=wants_deepclean,
+                wants_amplfi=wants_amplfi and "amplfi" not in excluded_tools,
+                wants_gwak=wants_gwak and "gwak" not in excluded_tools,
+                wants_deepclean=wants_deepclean and "deepclean" not in excluded_tools,
             )
 
+        plan = self._constrain(plan, route, excluded_tools, excluded_skills)
+        if override:
+            plan = plan.model_copy(update={"warnings": plan.warnings + override})
         self.registry.validate_plan_skills(plan)
         return plan
+
+    def constraints(self, prompt: str) -> RequestConstraints:
+        """Merge worded and structured exclusions; refuse contradictions."""
+        found = mentions(prompt.casefold())
+        overrides: tuple[str, ...] = ()
+        if "amplfi" in found.requested and "aframe" in found.excluded:
+            # Precondition reasoning wins over wording: AMPLFI needs the
+            # coalescence time Aframe estimates, so Aframe stays scheduled.
+            found = ToolMentions(found.requested, found.excluded - {"aframe"})
+            overrides = (
+                "Aframe was ruled out by the prompt but is scheduled anyway: "
+                "AMPLFI needs the coalescence time that Aframe estimates.",
+            )
+        excluded_tools, excluded_skills = self._exclusions(found)
+        conflict = sorted(found.requested & excluded_tools - {"data"})
+        if conflict:
+            raise PlanningError(
+                f"The request both asks for and rules out {conflict}. Reword the "
+                "prompt or pass exclude_skills explicitly."
+            )
+        return RequestConstraints(
+            requested=found.requested,
+            excluded_tools=frozenset(excluded_tools),
+            excluded_skills=frozenset(excluded_skills),
+            overrides=overrides,
+        )
+
+    def _exclusions(self, found: ToolMentions) -> tuple[set[str], set[str]]:
+        """Merge negated prompt mentions with structured exclude_skills."""
+        skills: set[str] = set()
+        for name in self.config.exclude_skills:
+            if name not in self.registry:
+                raise PlanningError(f"exclude_skills names an unknown skill: {name}")
+            skills.add(name)
+        tools = {tool for tool in found.excluded if tool != "data"}
+        # A structured skill name stands for its whole tool: ruling out
+        # gwak.scan also rules out the reconciliation that needs it.
+        tools.update(
+            tool
+            for tool, tool_skills in TOOL_SKILLS.items()
+            if skills & set(tool_skills)
+        )
+        for tool in tools:
+            skills.update(TOOL_SKILLS[tool])
+        return tools, skills
+
+    def _route(
+        self,
+        *,
+        wants_buoy: bool,
+        wants_lookup: bool,
+        explicitly_composed: bool,
+        excluded_tools: set[str],
+        wants_gwak: bool,
+        wants_deepclean: bool,
+    ) -> Literal["buoy", "decomposed", "lookup"]:
+        buoy_blocked = bool(excluded_tools & {"buoy", "aframe", "amplfi"})
+        if self.config.pipeline == "buoy":
+            if buoy_blocked:
+                raise PlanningError(
+                    "pipeline='buoy' runs Aframe and AMPLFI inside Buoy, which "
+                    f"conflicts with excluding {sorted(excluded_tools)}."
+                )
+            if wants_gwak or wants_deepclean:
+                raise PlanningError(
+                    "pipeline='buoy' covers Aframe and AMPLFI only; GWAK or "
+                    "DeepClean requests need pipeline='decomposed'."
+                )
+            return "buoy"
+        if self.config.pipeline == "decomposed":
+            return "decomposed"
+        if wants_lookup:
+            return "lookup"
+        if buoy_blocked:
+            return "decomposed"
+        if wants_buoy or not explicitly_composed:
+            return "buoy"
+        return "decomposed"
+
+    @staticmethod
+    def _constrain(
+        plan: PlanSpec,
+        route: Literal["buoy", "decomposed", "lookup"],
+        excluded_tools: set[str],
+        excluded_skills: set[str],
+    ) -> PlanSpec:
+        """Record the route and fail closed if an excluded skill slipped in."""
+        scheduled = sorted({task.skill for task in plan.tasks} & excluded_skills)
+        if scheduled:
+            raise PlanningError(f"plan would schedule excluded skills: {scheduled}")
+        warnings = list(plan.warnings)
+        if excluded_skills:
+            warnings.append(
+                "Excluded by request: " + ", ".join(sorted(excluded_skills)) + "."
+            )
+        return plan.model_copy(
+            update={
+                "route": route,
+                "excluded_skills": sorted(excluded_skills),
+                "warnings": warnings,
+            }
+        )
 
     def _buoy_plan(self, prompt: str, event: str) -> PlanSpec:
         parameters: dict[str, object] = {

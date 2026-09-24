@@ -64,6 +64,10 @@ uv run --no-sync ml4gw-agent mcp --runs-dir ./runs/mcp
 The official SDK v2 service exposes `list_skills`, `plan_analysis`,
 `start_analysis`, `get_run` and `cancel_run`. It runs a saved complete plan in a
 separate local process, defaults to mock and keeps jobs/results across restarts.
+Generic prompts route to the Buoy wrapper and named tools to the decomposed
+DAG; `config.pipeline` forces a route, `config.exclude_skills` or a negated
+phrase ("do not run AMPLFI") rules tools out, and every plan reports its
+`route` and `excluded_skills`.
 See [client configuration and real-mode setup](docs/MCP.md), the
 [upstream integration checklist](docs/SKILL_INTEGRATION.md), the
 [complete contract example](docs/SKILL_CONTRACT_EXAMPLE.md), and

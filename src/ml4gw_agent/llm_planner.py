@@ -723,6 +723,30 @@ class LLMPlanner:
             self.registry.validate_plan_skills(plan)
         except RegistryError as exc:
             raise PlanningError(f"registry rejects the plan: {exc}") from exc
+        # The request's exclusions bind the model exactly as they bind the
+        # baseline: a negated tool or a configured exclude_skills entry must
+        # not be scheduled, and the plan records what was ruled out.
+        constraints = self.baseline.constraints(prompt)
+        scheduled = sorted({t.skill for t in plan.tasks} & constraints.excluded_skills)
+        if scheduled:
+            raise PlanningError(
+                f"plan schedules {scheduled}, which the request rules out"
+            )
+        skills = {t.skill for t in plan.tasks}
+        route = (
+            "buoy"
+            if "buoy.analyze" in skills
+            else "lookup"
+            if "catalog.lookup" in skills
+            else "decomposed"
+        )
+        plan = plan.model_copy(
+            update={
+                "route": route,
+                "excluded_skills": sorted(constraints.excluded_skills),
+                "warnings": plan.warnings + list(constraints.overrides),
+            }
+        )
         ids = {task.id for task in plan.tasks}
         upstream = _transitive_dependencies(plan)
         for task in plan.tasks:
@@ -847,6 +871,8 @@ class LLMPlanner:
         if not prompt.strip():
             raise PlanningError("Prompt cannot be empty.")
         self.baseline.extract_event(prompt)
+        # Contradictory or unsatisfiable exclusions are refused the same way.
+        self.baseline.constraints(prompt)
         extra = ""
         for attempt in range(self.max_repairs + 1):
             started = time.time()

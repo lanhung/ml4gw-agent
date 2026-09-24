@@ -75,10 +75,22 @@ class AnalysisConfig(StrictModel):
     gwak_far_per_year: float = Field(default=365.25, gt=0)
     candidate_window_seconds: float = Field(default=2.0, gt=0)
     data_source: Literal["gwosc", "ldg", "nds2"] = "gwosc"
+    pipeline: Literal["auto", "buoy", "decomposed"] = Field(
+        default="auto",
+        description="auto: generic prompts use the Buoy wrapper and named tools "
+        "build the decomposed DAG; buoy / decomposed force one route.",
+    )
+    exclude_skills: list[str] = Field(
+        default_factory=list,
+        max_length=12,
+        description="Registered skill names that must not be scheduled, for "
+        "example ['amplfi.pe']; the plan fails closed if one would be.",
+    )
 
     def planner_config(self) -> PlannerConfig:
         values = self.model_dump()
         values["ifos"] = tuple(values["ifos"])
+        values["exclude_skills"] = tuple(values["exclude_skills"])
         return PlannerConfig(**values)
 
 
@@ -239,6 +251,9 @@ class JobService:
             return {
                 "plan_id": plan.id,
                 "mode": mode,
+                "route": plan.route,
+                "excluded_skills": list(plan.excluded_skills),
+                "skills": [task.skill for task in plan.tasks],
                 "plan": plan.model_dump(mode="json"),
                 "estimate": estimate.as_dict(),
                 "budget": decision.as_dict(),

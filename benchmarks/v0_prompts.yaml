@@ -114,6 +114,46 @@ cases:
   - gwak.scan
   - analysis.reconcile
   - report.generate
+- id: aframe_gwak_negated_amplfi_en
+  prompt: Run Aframe and GWAK on GW150914 and reconcile the two results. Do not run AMPLFI.
+  expected_skills:
+  - data.resolve_event
+  - data.fetch
+  - data.inspect
+  - aframe.detect
+  - data.fetch
+  - gwak.scan
+  - analysis.reconcile
+  - report.generate
+  forbidden_skills:
+  - amplfi.pe
+- id: aframe_gwak_negated_amplfi_zh
+  prompt: 用 mock 模式对 GW150914 运行 Aframe 和 GWAK，并对两路结果进行 reconcile，不需要 AMPLFI 参数估计。
+  expected_skills:
+  - data.resolve_event
+  - data.fetch
+  - data.inspect
+  - aframe.detect
+  - data.fetch
+  - gwak.scan
+  - analysis.reconcile
+  - report.generate
+  forbidden_skills:
+  - amplfi.pe
+- id: generic_without_amplfi
+  prompt: Analyze GW150914 without AMPLFI.
+  expected_skills:
+  - data.resolve_event
+  - data.fetch
+  - data.inspect
+  - aframe.detect
+  - report.generate
+  forbidden_skills:
+  - amplfi.pe
+  - buoy.analyze
+- id: contradictory_amplfi
+  prompt: Run AMPLFI parameter estimation on GW150914 and do not run AMPLFI.
+  expected_error: both asks for and rules out
 - id: unbounded_o3
   prompt: Scan all of O3.
   expected_error: No supported event identifier

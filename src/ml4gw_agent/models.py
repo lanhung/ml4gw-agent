@@ -148,6 +148,8 @@ class PlanSpec(StrictModel):
     created_at: datetime = Field(default_factory=utc_now)
     planner: str = "baseline-deterministic-v0.1"
     warnings: list[str] = Field(default_factory=list)
+    route: Literal["buoy", "decomposed", "lookup"] | None = None
+    excluded_skills: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_graph(self) -> PlanSpec:
@@ -156,6 +158,11 @@ class PlanSpec(StrictModel):
             raise ValueError("task ids must be unique")
 
         known = set(task_ids)
+        excluded = set(self.excluded_skills)
+        scheduled = {task.skill for task in self.tasks}
+        offending = sorted(scheduled & excluded)
+        if offending:
+            raise ValueError(f"plan schedules excluded skills: {offending}")
         for task in self.tasks:
             missing = set(task.depends_on) - known
             if missing:
