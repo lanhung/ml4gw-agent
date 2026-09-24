@@ -154,7 +154,8 @@ def test_clean_adapter_subtracts_only_the_named_detector(
     context = _context(registry, tmp_path, "deepclean.clean", "clean_deepclean", params)
     adapter = PYTHON_ADAPTERS["deepclean_clean"]()
     assert isinstance(adapter, DeepCleanCleanAdapter)
-    assert adapter.probe() == "available"
+    # The backend is substituted here; installation availability is tested
+    # separately in test_execution_boundaries with explicit dependency probes.
     assert adapter.describe_invocation(context)[1]["model_dir"] == str(model_dir)
     outcome = adapter.execute(context)
     assert outcome.outputs["applicable"] is True

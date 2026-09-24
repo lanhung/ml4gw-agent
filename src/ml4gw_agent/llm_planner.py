@@ -24,7 +24,7 @@ import re
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -555,7 +555,7 @@ class ExperimentMemory:
             None,
         )
         entry = {
-            "timestamp": datetime.now(UTC).isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "run_id": manifest.run_id,
             "prompt": plan.prompt,
             "planner": plan.planner,

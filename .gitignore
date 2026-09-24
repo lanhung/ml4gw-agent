@@ -14,3 +14,12 @@ runs/
 # Claude Code worktrees and session files
 .claude/
 docs/acceptance/background-extended-*/*.npy
+
+.idea
+.agent
+
+docs/key
+
+# Test execution logs and evidence archives
+/docs/test/**/*.log
+/docs/test/glm-evidence-*.tar.gz

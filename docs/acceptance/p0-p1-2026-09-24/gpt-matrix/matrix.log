@@ -1,0 +1,278 @@
+[gpt-5.5] BEGIN
+[gpt-5.6-luna] BEGIN
+[gpt-5.5/buoy] list_skills: ok
+[gpt-5.6-luna/buoy] list_skills: ok
+[gpt-5.5/buoy] plan_analysis: ok
+[gpt-5.6-luna/buoy] plan_analysis: ok
+[gpt-5.5/buoy] start_analysis: running
+[gpt-5.5/buoy] get_run: completed
+[gpt-5.6-luna/buoy] start_analysis: running
+[gpt-5.6-luna/buoy] get_run: completed
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-5.6-luna/aframe_amplfi] plan_analysis: ok
+[gpt-5.6-luna/aframe_amplfi] start_analysis: running
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-5.6-luna/aframe_amplfi] get_run: completed
+[gpt-5.5/aframe_amplfi] plan_analysis: ok
+[gpt-5.5/aframe_amplfi] start_analysis: running
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-5.5/aframe_amplfi] get_run: completed
+[gpt-5.6-luna/aframe_gwak] plan_analysis: ok
+[gpt-5.6-luna/aframe_gwak] start_analysis: running
+[gpt-5.6-luna/aframe_gwak] get_run: completed
+[aframe_gwak] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-5.5/aframe_gwak] plan_analysis: ok
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-5.6-luna/invalid_requests] start_analysis: error
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-5.6-luna/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-5.6-luna/invalid_requests] get_run: error
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-5.6-luna/invalid_requests] plan_analysis: error
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-5.6-luna/invalid_requests] plan_analysis: error
+[gpt-5.5/aframe_gwak] start_analysis: running
+[gpt-5.5/aframe_gwak] get_run: completed
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-luna/budget] plan_analysis: ok
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-5.6-luna/budget] start_analysis: error
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-luna/busy_cancel] plan_analysis: ok
+[gpt-5.6-luna/busy_cancel] start_analysis: running
+[aframe_gwak] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-5.5/invalid_requests] start_analysis: error
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_d6eb1fa9cd44 is running'
+[gpt-5.6-luna/busy_cancel] start_analysis: error
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-5.5/invalid_requests] get_run: error
+[gpt-5.6-luna/busy_cancel] cancel_run: cancelled
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-5.5/invalid_requests] get_run: error
+[gpt-5.6-luna/busy_cancel] get_run: cancelled
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-5.5/invalid_requests] plan_analysis: error
+[gpt-5.6-luna/busy_cancel] cancel_run: cancelled
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-5.5/invalid_requests] plan_analysis: error
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-5.6-luna.json
+[gpt-5.6-luna] FINISHED 6/6
+[gpt-5.6-sol] BEGIN
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-sol/buoy] list_skills: ok
+[gpt-5.5/budget] plan_analysis: ok
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-5.5/budget] start_analysis: error
+[gpt-5.6-sol/buoy] plan_analysis: ok
+[gpt-5.6-sol/buoy] start_analysis: running
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-sol/buoy] get_run: completed
+[gpt-5.5/busy_cancel] plan_analysis: ok
+[gpt-5.5/busy_cancel] start_analysis: running
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_c8b11473f3b2 is running'
+[gpt-5.5/busy_cancel] start_analysis: error
+[gpt-5.5/busy_cancel] cancel_run: cancelled
+[gpt-5.5/busy_cancel] get_run: cancelled
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-5.5/busy_cancel] cancel_run: cancelled
+[gpt-5.6-sol/aframe_amplfi] plan_analysis: ok
+[gpt-5.6-sol/aframe_amplfi] start_analysis: running
+[gpt-5.6-sol/aframe_amplfi] get_run: completed
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-5.5.json
+[gpt-5.5] FINISHED 6/6
+[gpt-5.6-terra] BEGIN
+[gpt-5.6-terra/buoy] list_skills: ok
+[gpt-5.6-terra/buoy] plan_analysis: ok
+[gpt-5.6-terra/buoy] start_analysis: running
+[gpt-5.6-terra/buoy] get_run: completed
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-5.6-sol/aframe_gwak] list_skills: ok
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-5.6-terra/aframe_amplfi] plan_analysis: ok
+[gpt-5.6-sol/aframe_gwak] plan_analysis: ok
+[gpt-5.6-terra/aframe_amplfi] start_analysis: running
+[gpt-5.6-terra/aframe_amplfi] get_run: completed
+[gpt-5.6-sol/aframe_gwak] start_analysis: running
+[gpt-5.6-sol/aframe_gwak] get_run: completed
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-5.6-terra/aframe_gwak] plan_analysis: ok
+[gpt-5.6-terra/aframe_gwak] start_analysis: running
+[aframe_gwak] FAIL {'agent_finished': False, 'expected_skills': True, 'completed_mock': False, 'tasks_completed': False, 'report_and_artifacts': False, 'no_tool_errors': True, 'mock_disclosed': False, 'no_transport_failure': False}
+[aframe_gwak] FAIL {'agent_finished': True, 'expected_skills': False, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-5.6-terra/invalid_requests] start_analysis: error
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-5.6-terra/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-5.6-terra/invalid_requests] get_run: error
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-5.6-terra/invalid_requests] plan_analysis: error
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-5.6-terra/invalid_requests] plan_analysis: error
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-5.6-sol/invalid_requests] start_analysis: error
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-5.6-sol/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-5.6-sol/invalid_requests] get_run: error
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-5.6-sol/invalid_requests] plan_analysis: error
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-5.6-sol/invalid_requests] plan_analysis: error
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-terra/budget] plan_analysis: ok
+[gpt-5.6-sol/budget] plan_analysis: ok
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-5.6-sol/budget] start_analysis: error
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-5.6-terra/budget] start_analysis: error
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-sol/busy_cancel] plan_analysis: ok
+[gpt-5.6-sol/busy_cancel] start_analysis: running
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_37848a7da39c is running'
+[gpt-5.6-sol/busy_cancel] start_analysis: error
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-5.6-sol/busy_cancel] cancel_run: cancelled
+[gpt-5.6-sol/busy_cancel] get_run: cancelled
+[gpt-5.6-sol/busy_cancel] cancel_run: cancelled
+[gpt-5.6-terra/busy_cancel] plan_analysis: ok
+[gpt-5.6-terra/busy_cancel] start_analysis: running
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-5.6-sol.json
+[gpt-5.6-sol] FINISHED 5/6
+[gpt-6-astra] BEGIN
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_99335d7c9737 is running'
+[gpt-5.6-terra/busy_cancel] start_analysis: error
+[gpt-5.6-terra/busy_cancel] cancel_run: cancelled
+[gpt-5.6-terra/busy_cancel] get_run: cancelled
+[gpt-6-astra/buoy] list_skills: ok
+[gpt-5.6-terra/busy_cancel] cancel_run: cancelled
+[gpt-6-astra/buoy] plan_analysis: ok
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-5.6-terra.json
+[gpt-5.6-terra] FINISHED 5/6
+[gpt-6-luna] BEGIN
+[gpt-6-luna/buoy] list_skills: ok
+[gpt-6-luna/buoy] plan_analysis: ok
+[gpt-6-luna/buoy] start_analysis: running
+[gpt-6-astra/buoy] start_analysis: running
+[gpt-6-luna/buoy] get_run: completed
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-6-luna/aframe_amplfi] list_skills: ok
+[gpt-6-luna/aframe_amplfi] plan_analysis: ok
+[gpt-6-luna/aframe_amplfi] start_analysis: running
+[gpt-6-luna/aframe_amplfi] get_run: completed
+[gpt-6-astra/buoy] get_run: completed
+[aframe_amplfi] FAIL {'agent_finished': True, 'expected_skills': False, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-6-luna/aframe_gwak] list_skills: ok
+[gpt-6-luna/aframe_gwak] plan_analysis: ok
+[gpt-6-luna/aframe_gwak] start_analysis: running
+[gpt-6-luna/aframe_gwak] get_run: completed
+[aframe_gwak] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-6-luna/invalid_requests] start_analysis: error
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-6-luna/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-6-luna/invalid_requests] get_run: error
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-6-luna/invalid_requests] plan_analysis: error
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-6-luna/invalid_requests] plan_analysis: error
+[gpt-6-astra/aframe_amplfi] plan_analysis: ok
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-astra/aframe_amplfi] start_analysis: running
+[gpt-6-luna/budget] list_skills: ok
+[gpt-6-luna/budget] plan_analysis: ok
+[gpt-6-astra/aframe_amplfi] get_run: completed
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-6-luna/budget] start_analysis: error
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-6-astra/aframe_gwak] plan_analysis: ok
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-astra/aframe_gwak] start_analysis: running
+[gpt-6-luna/busy_cancel] plan_analysis: ok
+[gpt-6-astra/aframe_gwak] get_run: completed
+[gpt-6-luna/busy_cancel] start_analysis: running
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_e716c1aacef2 is running'
+[gpt-6-luna/busy_cancel] start_analysis: error
+[gpt-6-luna/busy_cancel] cancel_run: cancelled
+[gpt-6-luna/busy_cancel] get_run: cancelled
+[gpt-6-luna/busy_cancel] cancel_run: cancelled
+[aframe_gwak] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-6-luna.json
+[gpt-6-luna] FINISHED 5/6
+[gpt-6-sol] BEGIN
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-6-astra/invalid_requests] start_analysis: error
+[gpt-6-sol/buoy] list_skills: ok
+[gpt-6-sol/buoy] plan_analysis: ok
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-6-astra/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-6-astra/invalid_requests] get_run: error
+[gpt-6-sol/buoy] start_analysis: running
+[gpt-6-sol/buoy] get_run: completed
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-6-astra/invalid_requests] plan_analysis: error
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-6-astra/invalid_requests] plan_analysis: error
+[buoy] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'twelve_skills': True, 'no_transport_failure': True}
+[gpt-6-sol/aframe_amplfi] plan_analysis: ok
+[gpt-6-sol/aframe_amplfi] start_analysis: running
+[gpt-6-sol/aframe_amplfi] get_run: completed
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-astra/budget] plan_analysis: ok
+[aframe_amplfi] PASS {'agent_finished': True, 'expected_skills': True, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-6-astra/budget] start_analysis: error
+[gpt-6-sol/aframe_gwak] list_skills: ok
+[gpt-6-sol/aframe_gwak] plan_analysis: ok
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-astra/busy_cancel] plan_analysis: ok
+[gpt-6-sol/aframe_gwak] start_analysis: running
+[gpt-6-astra/busy_cancel] start_analysis: running
+[gpt-6-sol/aframe_gwak] get_run: completed
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_b07f2574cacb is running'
+[gpt-6-astra/busy_cancel] start_analysis: error
+[gpt-6-astra/busy_cancel] cancel_run: cancelled
+[aframe_gwak] FAIL {'agent_finished': True, 'expected_skills': False, 'completed_mock': True, 'tasks_completed': True, 'report_and_artifacts': True, 'no_tool_errors': True, 'mock_disclosed': True, 'no_transport_failure': True}
+[gpt-6-astra/busy_cancel] get_run: cancelled
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier'
+[gpt-6-sol/invalid_requests] start_analysis: error
+[gpt-6-astra/busy_cancel] cancel_run: cancelled
+Tool 'get_run' failed: 'Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier'
+[gpt-6-sol/invalid_requests] get_run: error
+Tool 'get_run' failed: 'Error executing tool get_run: INVALID_ID: invalid job identifier'
+[gpt-6-sol/invalid_requests] get_run: error
+Tool 'plan_analysis' failed: 'Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science'
+[gpt-6-sol/invalid_requests] plan_analysis: error
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-6-astra.json
+[gpt-6-astra] FINISHED 6/6
+Tool 'plan_analysis' rejected arguments: ['config.allow_real']
+[gpt-6-sol/invalid_requests] plan_analysis: error
+[invalid_requests] PASS {'agent_finished': True, 'UNKNOWN_PLAN': True, 'UNKNOWN_JOB': True, 'INVALID_ID': True, 'REAL_DISABLED': True, 'allow_real': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-sol/budget] plan_analysis: ok
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0'
+[gpt-6-sol/budget] start_analysis: error
+[budget] PASS {'agent_finished': True, 'budget_denied': True, 'start_denied': True, 'no_job_started': True, 'no_transport_failure': True}
+[gpt-6-sol/busy_cancel] plan_analysis: ok
+[gpt-6-sol/busy_cancel] start_analysis: running
+Tool 'start_analysis' failed: 'Error executing tool start_analysis: SERVICE_BUSY: job job_9d81f2a1a3ec is running'
+[gpt-6-sol/busy_cancel] start_analysis: error
+[gpt-6-sol/busy_cancel] cancel_run: cancelled
+[gpt-6-sol/busy_cancel] get_run: cancelled
+[gpt-6-sol/busy_cancel] cancel_run: cancelled
+[busy_cancel] PASS {'agent_finished': True, 'busy': True, 'cancelled_twice': True, 'cancelled_record_read': True, 'one_job': True, 'no_transport_failure': True}
+Report: docs/acceptance/p0-p1-2026-09-24/gpt-matrix/gpt-6-sol.json
+[gpt-6-sol] FINISHED 5/6
+Matrix: 38/42 -> docs/acceptance/p0-p1-2026-09-24/gpt-matrix/summary.json

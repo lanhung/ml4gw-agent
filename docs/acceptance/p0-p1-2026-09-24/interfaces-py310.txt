@@ -1,0 +1,65 @@
+........................................................................ [ 33%]
+............................ss.s........................................ [ 66%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.10.21-final-0 _______________
+
+Name                                          Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------------------------------------
+src/ml4gw_agent/__init__.py                       6      0      0      0   100%
+src/ml4gw_agent/__main__.py                       3      3      2      0     0%   1-4
+src/ml4gw_agent/_version.py                       1      0      0      0   100%
+src/ml4gw_agent/adapters/__init__.py             12      0      0      0   100%
+src/ml4gw_agent/adapters/aframe.py              127      7     30      3    94%   63-66, 179, 186-187, 199
+src/ml4gw_agent/adapters/amplfi.py              122     12     26      2    91%   63-65, 75-78, 180-181, 196-197, 205-206, 211
+src/ml4gw_agent/adapters/base.py                 41      3      0      0    93%   45, 59-60
+src/ml4gw_agent/adapters/builtin.py             146     15     60     15    83%   36, 116, 119-120, 123, 140, 143-144, 149->153, 154, 156->164, 161-162, 170, 172->174, 175->177, 200, 205, 260
+src/ml4gw_agent/adapters/buoy.py                164     25     44     10    82%   60, 70->72, 72->74, 75, 110->112, 112->114, 115, 117, 123-132, 229-238, 245-246, 340-341, 354, 359-363
+src/ml4gw_agent/adapters/deepclean.py           157      7     38      3    95%   62, 103->91, 120-123, 163, 315, 337
+src/ml4gw_agent/adapters/deepclean_model.py      69      6      6      1    91%   57, 63, 77-82, 413
+src/ml4gw_agent/adapters/events.py               87      9     36      7    87%   46, 84-86, 105, 143, 147-148, 180->182, 183, 184->188
+src/ml4gw_agent/adapters/gwak.py                205     53     42     12    71%   51-54, 60, 73, 102-135, 157-162, 186-189, 195, 211, 230, 238, 251, 256, 269, 279-280, 290, 300-301, 305, 322->334
+src/ml4gw_agent/adapters/gwosc.py               124     19     36      7    82%   64-68, 98-107, 115, 142, 169-173, 182-187, 245
+src/ml4gw_agent/adapters/injection.py           113      2     16      3    96%   94, 116, 171->166
+src/ml4gw_agent/adapters/ldg.py                 167     72     54      2    57%   65, 99, 139-167, 179-183, 201-216, 220-235, 321-379, 395->exit
+src/ml4gw_agent/adapters/mock.py                 82      2      4      1    97%   57-58, 161->164
+src/ml4gw_agent/adapters/strain.py               71      2     20      2    96%   105, 119
+src/ml4gw_agent/adapters/strain_io.py            92      2     22      2    96%   91, 100
+src/ml4gw_agent/calibration/__init__.py          55      1     16      1    97%   88
+src/ml4gw_agent/capabilities.py                  26      0     12      0   100%
+src/ml4gw_agent/cli.py                          193     18     38      7    88%   149-152, 282-301, 310-312, 396-398, 412, 476-477, 481
+src/ml4gw_agent/errors.py                         7      0      0      0   100%
+src/ml4gw_agent/executors/__init__.py            11      0      0      0   100%
+src/ml4gw_agent/executors/base.py               109      9     14      2    89%   66-81, 163, 230
+src/ml4gw_agent/executors/budget.py              35      0     10      0   100%
+src/ml4gw_agent/executors/estimate.py            91      3     14      1    96%   106-107, 170
+src/ml4gw_agent/executors/htcondor.py           109      6     32      3    94%   136-137, 146-147, 241, 257
+src/ml4gw_agent/executors/kubernetes.py          69      7     24      6    86%   43->45, 103, 129, 152, 158-159, 167, 174
+src/ml4gw_agent/executors/local.py               32      1      2      1    94%   50
+src/ml4gw_agent/executors/partition.py           56      1     22      1    97%   113
+src/ml4gw_agent/executors/registry.py            53      0     12      1    98%   81->83
+src/ml4gw_agent/executors/ssh.py                116      3     20      3    96%   194, 210, 250
+src/ml4gw_agent/executors/submit.py             226      6     64      9    95%   90, 286, 334, 355, 400->397, 453, 462, 463->466, 489->491
+src/ml4gw_agent/llm_planner.py                  405     40    130     14    89%   146-187, 263->267, 265->267, 307-310, 318, 330->358, 348->350, 354, 359, 602-603, 689, 692, 696-697, 708-709, 731->738, 742, 757, 828, 909-911, 928
+src/ml4gw_agent/mcp_jobs.py                     331     18     88      9    94%   134, 161-163, 280, 295, 321, 323, 359, 388-389, 398-399, 416, 469-470, 503-504
+src/ml4gw_agent/mcp_server.py                    46      0      0      0   100%
+src/ml4gw_agent/models.py                       186      4     24      4    96%   138, 156, 162, 166
+src/ml4gw_agent/planning.py                     137      0     44      0   100%
+src/ml4gw_agent/policy.py                        53      0     38      0   100%
+src/ml4gw_agent/provenance.py                    46      0     10      0   100%
+src/ml4gw_agent/registry.py                      59      0     14      0   100%
+src/ml4gw_agent/runtime.py                      218      4     62      6    96%   150, 159, 342->363, 355->357, 368, 403
+src/ml4gw_agent/skill_manifests/__init__.py       0      0      0      0   100%
+src/ml4gw_agent/validation.py                    46      0     16      1    98%   80->93
+src/ml4gw_agent/web/__init__.py                   0      0      0      0   100%
+src/ml4gw_agent/web/app.py                      260     94     54      2    56%   103, 137-150, 153-215, 252-255, 290-318, 328-331, 352-353, 416, 431-485, 490-495
+-----------------------------------------------------------------------------------------
+TOTAL                                          4764    454   1196    141    89%
+Required test coverage of 85% reached. Total coverage: 88.57%
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_deepclean_model.py:8: Science suite: uv sync --extra buoy --group dev
+SKIPPED [1] tests/test_ldg_deepclean.py:252: Science suite: uv sync --extra buoy --group dev
+SKIPPED [1] tests/test_ldg_deepclean.py:271: Science suite: uv sync --extra buoy --group dev
+SKIPPED [1] tests/test_ldg_deepclean.py:319: Science suite: uv sync --extra buoy --group dev
+214 passed, 4 skipped in 66.60s (0:01:06)

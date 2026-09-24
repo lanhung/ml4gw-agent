@@ -1,0 +1,3337 @@
+{
+  "timestamp_utc": "2026-09-24T07:52:11.685673+00:00",
+  "archive": "glm-evidence-2026-09-24.tar.gz",
+  "bytes": 981241,
+  "sha256": "a782698e3c906876168a0d2a1ac0adf2848f2002dc8b1644687f7f12cd264fea",
+  "files": 665,
+  "original_bytes": 6658890,
+  "members_verified": true,
+  "credential_scan_passed": true,
+  "members": [
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/conversation.json",
+      "bytes": 57810,
+      "sha256": "6a8a0420c1f38aa085d7fb1dcd37ca263f7e600a57d665b1bd83aac104fa04e3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/job.json",
+      "bytes": 277,
+      "sha256": "ae54dc1b4cfc27827f6ab306c27f1b83ea62a643fb44cfbe9984ce8f0f214c8a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/job.log",
+      "bytes": 862,
+      "sha256": "563ab71c31f32bef3394e0374ea0bb7652422ffd8ab44235a13e159ef38d7320"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/plan.json",
+      "bytes": 3617,
+      "sha256": "92a3ed75388a99d9036457e6509bffbda42914edc85bb25b28d03813038eb626"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/report.md",
+      "bytes": 2299,
+      "sha256": "6354883f1c67bfc7ee2447228e1902376f7818790355164478c0a16c73804bc2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/run_manifest.json",
+      "bytes": 21287,
+      "sha256": "27eccaf2f8677f96f59829a24b31e632e16fe876bba14be729ff0a519958e2d7"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/plans/plan_f0b9931c7efb/metadata.json",
+      "bytes": 162,
+      "sha256": "e7568105339b0810777cdf43e1088e4817d90b4de0f374dd38ca0a00c9248115"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/plans/plan_f0b9931c7efb/plan.json",
+      "bytes": 3617,
+      "sha256": "92a3ed75388a99d9036457e6509bffbda42914edc85bb25b28d03813038eb626"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/conversation.json",
+      "bytes": 70322,
+      "sha256": "4cd44328658e3b49462391399ab7b705d787775df0eedbd58be75342bd74e044"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/job.json",
+      "bytes": 277,
+      "sha256": "de0c04c0dc882ad42660ebf06596aa8f07986afbeca224c6a067c182a99c2a4c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/job.log",
+      "bytes": 1021,
+      "sha256": "4cbe5951ac03e84dcfafe345a815465eb248a7c64b45f7cfbeadd29c4982e077"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/plan.json",
+      "bytes": 4638,
+      "sha256": "cf8aca385071d3155c5e05266262f16b5c8fd58a043d9dffb2fa34269b75a086"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/report.md",
+      "bytes": 2808,
+      "sha256": "93678fccfe1ccc64cf4a69a39697d41574c16e8cde336d9622afbfb51f1e15e3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/run_manifest.json",
+      "bytes": 26382,
+      "sha256": "4520fe9fdb53bd0b280e50c86b0f46388dfde8eee5d31796cc2e2b086229bccf"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/plans/plan_67710457b24e/metadata.json",
+      "bytes": 162,
+      "sha256": "97c1f8877f62f16b2a543028160ac1a08e5637749c35c94fbf011315f13e0141"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/plans/plan_67710457b24e/plan.json",
+      "bytes": 4638,
+      "sha256": "cf8aca385071d3155c5e05266262f16b5c8fd58a043d9dffb2fa34269b75a086"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/budget/conversation.json",
+      "bytes": 13139,
+      "sha256": "845e142846e6d2a707cff33501f2094477e8de9167e44cbebaae9cd15a8ea9c9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/budget/plans/plan_ef96dda9bbe2/metadata.json",
+      "bytes": 162,
+      "sha256": "4b975d402349a160c62983e9f1b77b924c9a40dda4f505755eb5453959f5c559"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/budget/plans/plan_ef96dda9bbe2/plan.json",
+      "bytes": 1529,
+      "sha256": "fc1d457060603a525e7632ee33de2964cd4083305b148fd0ebbca82f53ead9a8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/conversation.json",
+      "bytes": 186328,
+      "sha256": "195be1b26fefc38faa268af3580019b041d6cb24177d5cc7b4e4de4898dda3ce"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/job.json",
+      "bytes": 277,
+      "sha256": "4fcf43908519cc34d7fc26e09433d5250c4c8c7cbc32505ab182e2012f96a08c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/job.log",
+      "bytes": 1044,
+      "sha256": "b9850974713d61ba299fd73dedcc623ee5fdedb388144fc606df082d73eb8046"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/plan.json",
+      "bytes": 5637,
+      "sha256": "cc3539202286a14a1d70125b2b5681d634cac46fe5faa6ab11deea1e938e7c70"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/report.md",
+      "bytes": 3393,
+      "sha256": "07fb17d3b78c3375cc25c0b6c90237628911aa8621dd19b60d42bfe1ca2ed1a0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/run_manifest.json",
+      "bytes": 30681,
+      "sha256": "9b8856913798ecc0548916d4967e10a371872e6274ae3c3c2dcc0c04f976133b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/plans/plan_2afea2c07d70/metadata.json",
+      "bytes": 162,
+      "sha256": "111ad0f321c3d160192c8e364cff40e5215a9708042b414fd51f87cecf58ad7e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/plans/plan_2afea2c07d70/plan.json",
+      "bytes": 5637,
+      "sha256": "cc3539202286a14a1d70125b2b5681d634cac46fe5faa6ab11deea1e938e7c70"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/conversation.json",
+      "bytes": 21227,
+      "sha256": "bd83f4b4f551e80a78c7adc1893ba9876fb9cdba000307067e826623b5ddf852"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/jobs/job_a5d10e4dc4e6/job.json",
+      "bytes": 325,
+      "sha256": "8f5fe13e31e42e2241a3e1179b38eb64f1a9beb6f86389d61db63edba96e6af6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/jobs/job_a5d10e4dc4e6/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/jobs/job_a5d10e4dc4e6/plan.json",
+      "bytes": 1529,
+      "sha256": "7c443f5b3d285b80a77b936e2c1b214c6447264dc4b4af808020653ffb336049"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/plans/plan_80d37a401a71/metadata.json",
+      "bytes": 162,
+      "sha256": "ecef54c2c2963aab5ca4a42d1663c497cafb79cb27e35c9b3948811847707783"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/busy_cancel/plans/plan_80d37a401a71/plan.json",
+      "bytes": 1529,
+      "sha256": "7c443f5b3d285b80a77b936e2c1b214c6447264dc4b4af808020653ffb336049"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/invalid_requests/conversation.json",
+      "bytes": 8726,
+      "sha256": "3598d0d4b0e0e402ab8508bd5ef7f4591297acf124c3cbf933995622e71f536c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/conversation.json",
+      "bytes": 58008,
+      "sha256": "ff3a28cb1f11b98ce2f383853bb08f712046e6b514055d5eaddbaf11f9ed19a1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/job.json",
+      "bytes": 277,
+      "sha256": "f4aedf5c38d4567f6f5b7e109003485d7b6346950c3bc5025dc32e3ade107943"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/job.log",
+      "bytes": 874,
+      "sha256": "f8befb2b417286a833766b05bca8aee20cfcfb70be7d18e0ac805093a41a54cb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/plan.json",
+      "bytes": 3617,
+      "sha256": "ee5159ca28beb95b9f205565ccb9fa713bfa5179fb0b547caa17cc831b006e1b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/report.md",
+      "bytes": 2299,
+      "sha256": "6354883f1c67bfc7ee2447228e1902376f7818790355164478c0a16c73804bc2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/run_manifest.json",
+      "bytes": 21315,
+      "sha256": "c974d46ca2f0341485269afa8f0867da5efe7521a28607a11e0d6c680afdf130"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/plans/plan_50ef6095c201/metadata.json",
+      "bytes": 162,
+      "sha256": "3b63cae9e118d0da0454dac868e0eac66d109b322b2c20c5653c9b3aa4076848"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/plans/plan_50ef6095c201/plan.json",
+      "bytes": 3617,
+      "sha256": "ee5159ca28beb95b9f205565ccb9fa713bfa5179fb0b547caa17cc831b006e1b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/conversation.json",
+      "bytes": 67481,
+      "sha256": "f568f45bb3ce7a6ff61d6339aafb98da8d3c93a5eca5d99323cc219cc7e1acdb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/job.json",
+      "bytes": 277,
+      "sha256": "1640ef174e754dd56eb6c5064847ab78096502bfb09ab9b4562db25fe1eac30b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/job.log",
+      "bytes": 1033,
+      "sha256": "6962d6eddf9f528eb457d2cb1aa9b0740545bb12346d365885cea75dec9ad6db"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/plan.json",
+      "bytes": 4625,
+      "sha256": "a4c49a357ee2f6c0f16d19189713494b7066e772fa4b5f5d9602224b6cfe0ce0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/report.md",
+      "bytes": 2795,
+      "sha256": "5b17c7d8f50600c1f916e8ed7328a41f149e6943cfe0ddc97961301300e27bdc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/run_manifest.json",
+      "bytes": 26405,
+      "sha256": "1aa8efeaccbf51461dc3144d28d03cd7a6c7da85605e4c4b8e18e61e38b2e6da"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/plans/plan_536de7e3da9c/metadata.json",
+      "bytes": 162,
+      "sha256": "2859020a17917e59ae985a86b7633af00ba85c46f1d475d2182d9eca6b24724a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/plans/plan_536de7e3da9c/plan.json",
+      "bytes": 4625,
+      "sha256": "a4c49a357ee2f6c0f16d19189713494b7066e772fa4b5f5d9602224b6cfe0ce0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/budget/conversation.json",
+      "bytes": 12423,
+      "sha256": "700e340853eb5957746601a8d15e7bf5213d625bc4b71fc496485f1646a3e856"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/budget/plans/plan_d2137b78fe0e/metadata.json",
+      "bytes": 162,
+      "sha256": "f5daef8c0575bba2bff3c151ac3f20a8b17eca8af6f373c0941af46663f5c08f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/budget/plans/plan_d2137b78fe0e/plan.json",
+      "bytes": 1521,
+      "sha256": "5cd8447ec290899513f9ac8db7318c33bb9ec0b64c5ad8fed62fe973ff9b2743"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/conversation.json",
+      "bytes": 142696,
+      "sha256": "f13077664dd52405fc777faf7469d5fe91f2013ad5e6168b75d18f24dc165193"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/job.json",
+      "bytes": 277,
+      "sha256": "511196201b1fdb6bbf93a15173e5a156e023bd9e5338c0cff41989f450bfa68f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/job.log",
+      "bytes": 714,
+      "sha256": "7dd525c6bb3bb920bfa1dcb2fb86108bff8a9cac757bb87d8905d65a095b4cef"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/plan.json",
+      "bytes": 1535,
+      "sha256": "5269c65cb52418d7dfd85cce2124c3902618beb40b9d0c8649ad9b64a5e3399a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json",
+      "bytes": 156,
+      "sha256": "a62e4f395e2ea8663669ebf66bba5d73cd8f5c959f658f0fde9b0e39279f29c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json",
+      "bytes": 178,
+      "sha256": "c993ad26a949e6e8b7b473a5c4bb86b249fbd5b9615c66c1a4eb26a23a4b0c63"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/artifacts/analyze_event/buoy/GW150914/summary.html",
+      "bytes": 81,
+      "sha256": "dec08fe8f42feaf11c45311c4ced2de4ee3adf7f84922b626249cf6c2c044756"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/report.md",
+      "bytes": 1536,
+      "sha256": "31ec6feb1d44cf468b7f9e2eb6162f6a9b4eaa699aaaaa8c569828b5764f52ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/run_manifest.json",
+      "bytes": 11369,
+      "sha256": "372d2bedd385cd28d44caa7897642c4ee85fd68caf8b61223334645c1fce8f1f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/plans/plan_1021745103a6/metadata.json",
+      "bytes": 162,
+      "sha256": "e46376ec133d9d3ad48f6a3f45a79a32058bfc62a05bd2cd271a265c97f6338d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/plans/plan_1021745103a6/plan.json",
+      "bytes": 1535,
+      "sha256": "5269c65cb52418d7dfd85cce2124c3902618beb40b9d0c8649ad9b64a5e3399a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/conversation.json",
+      "bytes": 20728,
+      "sha256": "5bd3f199fcc51fb3f4f73035d2a4f754b7dab5e4ceb59dd0218f87f259876780"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/jobs/job_0aa5ed04811d/job.json",
+      "bytes": 325,
+      "sha256": "731f11d26ec5cb3226abd25135fda187e7f838593ecda5668bfdc94abdbf745a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/jobs/job_0aa5ed04811d/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/jobs/job_0aa5ed04811d/plan.json",
+      "bytes": 1529,
+      "sha256": "607f42eb4190240ee24b09ea567c9ca3627f2737fca0abc79fc168c5e99a54fe"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/plans/plan_b498f9504b0e/metadata.json",
+      "bytes": 162,
+      "sha256": "85fc6193dd1bc9da846e78cb194316b4aeeec82f590dc7630ecfc6c8e3ecaff0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/busy_cancel/plans/plan_b498f9504b0e/plan.json",
+      "bytes": 1529,
+      "sha256": "607f42eb4190240ee24b09ea567c9ca3627f2737fca0abc79fc168c5e99a54fe"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/invalid_requests/conversation.json",
+      "bytes": 9464,
+      "sha256": "6f97bd0687b1ae6a50006a41aff64d2092ba8cf47223591397891334c0f65962"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/conversation.json",
+      "bytes": 58824,
+      "sha256": "2cd91b864d2542cae00ca398622739d9252bd6a43f782caf6c1facb5e69b505e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/job.json",
+      "bytes": 277,
+      "sha256": "d346fa0b8bf1a35d51fa056fc0c614b8d3adc3aafc010d34cbc4f71c4834cf24"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/job.log",
+      "bytes": 862,
+      "sha256": "996f5bfc7fb06a98f7d13043e52492fd4c8d84f851006458bb54c48da000b8c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/plan.json",
+      "bytes": 3631,
+      "sha256": "5c5eead1a2a22e6e22abcf0b0a778146b639bdd9d94cee4fac3e192d115c5d89"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/report.md",
+      "bytes": 2313,
+      "sha256": "b4821dcbba7344c49b11b80fa1ab74f06f2ba2c817fc53082d355de9270e8b9d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/run_manifest.json",
+      "bytes": 21301,
+      "sha256": "6b3f63c702817563bcc2ad59f3384483b9e7d70578e03a8b962be2c912971410"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/plans/plan_4bfb62a0d670/metadata.json",
+      "bytes": 162,
+      "sha256": "1acae93feba85f113edfa6c8b20b04e745b973c0c8defaac9f9f6c374b6dc27b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/plans/plan_4bfb62a0d670/plan.json",
+      "bytes": 3631,
+      "sha256": "5c5eead1a2a22e6e22abcf0b0a778146b639bdd9d94cee4fac3e192d115c5d89"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/conversation.json",
+      "bytes": 174793,
+      "sha256": "e90ae44383479b13ccaa97899c32c87a08911059cbfa18b7bb545dd4aa6e197d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/job.json",
+      "bytes": 277,
+      "sha256": "f52ed5a1abfb42f52fff6d46a780b9922b3e7aec081fb0f3deb2a279f8bf4104"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/job.log",
+      "bytes": 1021,
+      "sha256": "9a59345e646656c96eb18645808ba74a7981c79a3c0fd7abd6c375fcc3f93e1d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/plan.json",
+      "bytes": 4729,
+      "sha256": "7d80a94bfe585d99cbacb7dc57e8e7329571f28d347eabaf147804298b196eee"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/report.md",
+      "bytes": 2899,
+      "sha256": "2369bd3e81fa403ba6f720072b77b1a9b33a79331fe404d64b2f10679800c886"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/run_manifest.json",
+      "bytes": 26473,
+      "sha256": "db151d8e05ae15f0e31e3aade2a38a5759ffae8bf10b6417d57e4ad0f9d9b914"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/plans/plan_8e02e0c24c2b/metadata.json",
+      "bytes": 162,
+      "sha256": "194c7d28ed65dee98fc0414d6b9c636ad88a4faeef3472c0e06e63f1f8a3f682"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/plans/plan_8e02e0c24c2b/plan.json",
+      "bytes": 4729,
+      "sha256": "7d80a94bfe585d99cbacb7dc57e8e7329571f28d347eabaf147804298b196eee"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/budget/conversation.json",
+      "bytes": 12982,
+      "sha256": "56ef69872539bc01369f8c0c0410d30ae34ce9bb56ba0aa7174469b067522f62"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/budget/plans/plan_c7ee719ffb31/metadata.json",
+      "bytes": 162,
+      "sha256": "60ee0529a9b94bb5c3446f78eef1ee966c9d65afca94e61770abf8772b9a699b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/budget/plans/plan_c7ee719ffb31/plan.json",
+      "bytes": 1529,
+      "sha256": "0caef1d14a4f3bef726f1bbf76d8747347ecf78f7ac3fce79a3da61cb779870e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/conversation.json",
+      "bytes": 142364,
+      "sha256": "512a92aa67b8f76aee9cea3bb09d4e6216500d04d6cf41235fcb7442eaf534ab"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/job.json",
+      "bytes": 277,
+      "sha256": "46f6d4ac0ee1865065b28fe2e8dbe06bbe4868099bb18ca9b3f06d04fc3c4045"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/job.log",
+      "bytes": 702,
+      "sha256": "7994744ae06a6fdb3db0d1fb2976e293b10ce28cf0ec6e7ab9532495d118390d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/plan.json",
+      "bytes": 1561,
+      "sha256": "cc80142c5cf36bbaf031fe531a30e5c5668b04e906f4a3625f1e0efbc39078ab"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json",
+      "bytes": 156,
+      "sha256": "a62e4f395e2ea8663669ebf66bba5d73cd8f5c959f658f0fde9b0e39279f29c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json",
+      "bytes": 178,
+      "sha256": "c993ad26a949e6e8b7b473a5c4bb86b249fbd5b9615c66c1a4eb26a23a4b0c63"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/artifacts/analyze_event/buoy/GW150914/summary.html",
+      "bytes": 81,
+      "sha256": "dec08fe8f42feaf11c45311c4ced2de4ee3adf7f84922b626249cf6c2c044756"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/report.md",
+      "bytes": 1562,
+      "sha256": "e62f212c54e34ee3417c78a7c620bd155dca34c012c973f9f2266c1d7300e772"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/run_manifest.json",
+      "bytes": 11367,
+      "sha256": "d5b478eaace6dc0e0450e21f339baa0c44b01a25a33c5668c2d3959ae3baab04"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/plans/plan_b6cff2d42925/metadata.json",
+      "bytes": 162,
+      "sha256": "b35d0e04f3db76d8d5efecce811afc28dc8db99b32340b503b2154d97e655c8e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/plans/plan_b6cff2d42925/plan.json",
+      "bytes": 1561,
+      "sha256": "cc80142c5cf36bbaf031fe531a30e5c5668b04e906f4a3625f1e0efbc39078ab"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/conversation.json",
+      "bytes": 21526,
+      "sha256": "3e83ab0bd04a3a15bcacc60618fa99a09a8eb99bd55d8a7319e09098c7cb5fd4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/jobs/job_254deb69fc28/job.json",
+      "bytes": 325,
+      "sha256": "38cacde970b03b0123ffc2ce5c2473ecc6b03c9cf39f12832177ff4f7a2d1c71"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/jobs/job_254deb69fc28/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/jobs/job_254deb69fc28/plan.json",
+      "bytes": 1529,
+      "sha256": "effd4210654df57a80a5ee125b27cbc59c915099c3798c63b56a9bf1a6a849c2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/plans/plan_be219ee3eb91/metadata.json",
+      "bytes": 162,
+      "sha256": "83b831f4d5fa0101db2a556e8344030dc0f14e64b7a77fdf4299ae1b4664941d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/busy_cancel/plans/plan_be219ee3eb91/plan.json",
+      "bytes": 1529,
+      "sha256": "effd4210654df57a80a5ee125b27cbc59c915099c3798c63b56a9bf1a6a849c2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/invalid_requests/conversation.json",
+      "bytes": 8416,
+      "sha256": "5da37bcd86287c8bb22a430e4dc498e171d9522c980c3bf6bc17b2267f67bf38"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/conversation.json",
+      "bytes": 58048,
+      "sha256": "0b78d698d68f4ee980bd512532e5f06b8c30c742ecf1d3755b9b15aa5bae9ec9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/job.json",
+      "bytes": 277,
+      "sha256": "afa3ee93c635f3798acb7e506c61752eac1a28bcf033b83e4068c89317a09c34"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/job.log",
+      "bytes": 862,
+      "sha256": "57ac1b678b0747a891ae28e55b7cde68bfa3c5843096c93e6c6cd2afd4d634dc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/plan.json",
+      "bytes": 3630,
+      "sha256": "d35af70ac8bdaa7465ddeef23d7a342fcbf6ec6485fc1767ff095c3e77daacc4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/report.md",
+      "bytes": 2312,
+      "sha256": "a5a7f82332171767df54876ad679501c2d9d3e937c0415d55b53acb4c995339c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/run_manifest.json",
+      "bytes": 21300,
+      "sha256": "465304f283b46dd20d8b1715e1c2adcb37b8d3717390b2f56f62a41aec6d5e84"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/plans/plan_a7ef9180540a/metadata.json",
+      "bytes": 162,
+      "sha256": "9081bf45b448966a28279038794931fdac6aacab14da433d543e8155dd4daf09"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/plans/plan_a7ef9180540a/plan.json",
+      "bytes": 3630,
+      "sha256": "d35af70ac8bdaa7465ddeef23d7a342fcbf6ec6485fc1767ff095c3e77daacc4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/conversation.json",
+      "bytes": 174738,
+      "sha256": "c79d6dfe6dcaee75229775cc512cffa53ebc91349183ae9d34ddf7e45cc6bbde"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/job.json",
+      "bytes": 277,
+      "sha256": "561ad9999b62699cb026e03d166b57e723e897abee02792fc910b78a6e8f267e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/job.log",
+      "bytes": 1021,
+      "sha256": "cf4e9b12b8b26f3a321d2679bd0ad18c2a41d19c8346b32f651591ea70cbeb03"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/plan.json",
+      "bytes": 4751,
+      "sha256": "2d531debb29a56170ddf5ef89784967ee90cae2a39096fe993f7c50e1bbb2f44"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/report.md",
+      "bytes": 2919,
+      "sha256": "0b2dcd8de8aabaf701c2779390b5d9bc46709df1c7587f3cea50032ec914d284"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/run_manifest.json",
+      "bytes": 26497,
+      "sha256": "85bf84c0be81eca5244d95a346f5f1c326d6af11d654ef81395bad9ca9e432a5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/plans/plan_72bd3419a3de/metadata.json",
+      "bytes": 162,
+      "sha256": "9ba3fd0cb0ab9e902dc7243b7e9caa4063d4e40073a04a6d9109e4ded28f9e32"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/plans/plan_72bd3419a3de/plan.json",
+      "bytes": 4751,
+      "sha256": "2d531debb29a56170ddf5ef89784967ee90cae2a39096fe993f7c50e1bbb2f44"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/budget/conversation.json",
+      "bytes": 13164,
+      "sha256": "8ade89c223ee90a3359dc96231c73c00938a047aa731abb40a9fb7d061911d70"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/budget/plans/plan_b63b39461494/metadata.json",
+      "bytes": 162,
+      "sha256": "8a2dd3b563e0ed88c9b5ffa31fbdd5cd409f546e3e79ccb62b2cd323ef409492"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/budget/plans/plan_b63b39461494/plan.json",
+      "bytes": 1529,
+      "sha256": "7ebcf6124afffb48d6dabfd8087fc31da8bbb9a67162fbbdbed34ffc55cdcbe4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/conversation.json",
+      "bytes": 163364,
+      "sha256": "1c56d0f2d2f8fd944240a689c25ca6711044010394820b2c264fb759621b3f87"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/job.json",
+      "bytes": 277,
+      "sha256": "f582f189f8ae16421eaaaeb01137f00fa1c17d0639e67e2881f7279a7343fd70"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/job.log",
+      "bytes": 835,
+      "sha256": "bf9fdfbd74f03a183be2e69d89c61a8b6274fe0cd5cd99c69b61b679212f38a1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/plan.json",
+      "bytes": 3717,
+      "sha256": "8e385f9c936057eed2e864dba5734a16b487bf20e37c21ff90e52291a9fb6307"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/report.md",
+      "bytes": 2399,
+      "sha256": "b221bb5d1acdc537be03aebc447c9e55c1788278da5d9255dec1af1b18c313d7"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/run_manifest.json",
+      "bytes": 21324,
+      "sha256": "a3932350c30008c249f5ed5d9205e968219153d486954169cbd48f7062574f61"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/plans/plan_ece735a9090e/metadata.json",
+      "bytes": 162,
+      "sha256": "07fccfcb4aec1cff685f78f732edc472af5a5f1e7e1a218e0f7c5be069a86f49"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/plans/plan_ece735a9090e/plan.json",
+      "bytes": 3717,
+      "sha256": "8e385f9c936057eed2e864dba5734a16b487bf20e37c21ff90e52291a9fb6307"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/conversation.json",
+      "bytes": 21014,
+      "sha256": "c50a2e71d05e8e035c8be5c5280f6126868f262e13b6abd2c72926bd4b83a215"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/jobs/job_e129096334b4/job.json",
+      "bytes": 325,
+      "sha256": "273ebdd6e42594e6ff6252490304550a767169a1f2781bfe30d001953c8a5f27"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/jobs/job_e129096334b4/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/jobs/job_e129096334b4/plan.json",
+      "bytes": 1529,
+      "sha256": "276ac4bd859874ababec7dbe1f0a40e7f620161aa4ac8dccac14879ca4995b1e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/plans/plan_d91c4f87ae2e/metadata.json",
+      "bytes": 162,
+      "sha256": "1f1eb4567ca71b1e514b6621f08d9c02d62c3aeace4852a59cda313217dd46e7"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/busy_cancel/plans/plan_d91c4f87ae2e/plan.json",
+      "bytes": 1529,
+      "sha256": "276ac4bd859874ababec7dbe1f0a40e7f620161aa4ac8dccac14879ca4995b1e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/invalid_requests/conversation.json",
+      "bytes": 9195,
+      "sha256": "dc4808ac0dc9b4a2bba3e30d5f1164da1cb7afd6783e7ef22d8d2ea41b68a58b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/conversation.json",
+      "bytes": 162994,
+      "sha256": "9c421d90753e828c4a85deebfbb7e8fb98d8cb293ec242b18db2c56bf50cd631"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/job.json",
+      "bytes": 277,
+      "sha256": "968fa225cdf0beccb847eae8ad21c45126e80f859cb1ace6c696cbfd9347b60d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/job.log",
+      "bytes": 856,
+      "sha256": "f19dddb2cbc5a646e4e359932fbf59971d66d044497a5e8cfb62fa50f8edd17a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/plan.json",
+      "bytes": 3630,
+      "sha256": "75864d745f66c3e1d343c17d6cf440858c6b55f1a0e4ae8bf45ef513dd9df4e6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/report.md",
+      "bytes": 2312,
+      "sha256": "a5a7f82332171767df54876ad679501c2d9d3e937c0415d55b53acb4c995339c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/run_manifest.json",
+      "bytes": 21286,
+      "sha256": "4939a6d14edc4112e69746c1f27db2532d3b6d067ff2cc7b625a28fba03f091d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/plans/plan_356bd6a8fc1b/metadata.json",
+      "bytes": 162,
+      "sha256": "00b5c885c6109eec68e62f6bcd09d8bbf8069946de20b06d598bc0fe0bfbee5a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/plans/plan_356bd6a8fc1b/plan.json",
+      "bytes": 3630,
+      "sha256": "75864d745f66c3e1d343c17d6cf440858c6b55f1a0e4ae8bf45ef513dd9df4e6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/conversation.json",
+      "bytes": 175602,
+      "sha256": "88c00443a57ebb12f7b44f326eddac0a5b4a54526fc21c71f3ea4242b3dceaaf"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/job.json",
+      "bytes": 277,
+      "sha256": "a6035038718afdd8cd7098cbcef0ae5f655663c53367c75d7127ff4dfdf3248d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/job.log",
+      "bytes": 1015,
+      "sha256": "dcabec217ca0875de339c5456fe5624f8c21a4434fac81439dc48f67c1c43389"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/plan.json",
+      "bytes": 4752,
+      "sha256": "f5f1216561a74cf14947ac4ff15da9dfc75258c089a519a46f002cde0d310eff"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/report.md",
+      "bytes": 2922,
+      "sha256": "b92e57134877c6bee6c4da45695b82634356c62073a288c66639389ae4a2b7f7"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/run_manifest.json",
+      "bytes": 26478,
+      "sha256": "d12ac3e4a0b4516d6951fb733ab16694518537ace91ca56f5dd2c04ab139fa0b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/plans/plan_53a449b03617/metadata.json",
+      "bytes": 162,
+      "sha256": "289944820b87b3264f4818a7d8f853a630f92dccfc81f70cb78f625c9de3c323"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/plans/plan_53a449b03617/plan.json",
+      "bytes": 4752,
+      "sha256": "f5f1216561a74cf14947ac4ff15da9dfc75258c089a519a46f002cde0d310eff"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/budget/conversation.json",
+      "bytes": 13478,
+      "sha256": "b27d4e1f71a0d179601a0ff2857299a407e0a63edb649b3e94039d30fb97faa6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/budget/plans/plan_cc4b7bef8226/metadata.json",
+      "bytes": 162,
+      "sha256": "036cc511fd8e15475607448611856906822841255ffe61cd6fb3c91d103457c5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/budget/plans/plan_cc4b7bef8226/plan.json",
+      "bytes": 1529,
+      "sha256": "14bdaf07ef374ce99f4eb11bed19563bee1d385f473309e08d39bf2dfdad21e8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/conversation.json",
+      "bytes": 186110,
+      "sha256": "de2ca089bec8c71e7cffcef4529c3de9509e93e21c6775b934a689df15c23262"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/job.json",
+      "bytes": 277,
+      "sha256": "c042a826292b8950a3ee776e50d4bf2222ff31ba4f2757582d16e134a8cf75f6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/job.log",
+      "bytes": 1038,
+      "sha256": "fcf11cd8222cd9314870a52906802b9105dda56bc2851cc0db9ff9cd0783fda9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/plan.json",
+      "bytes": 5632,
+      "sha256": "3eeab19428cb317fc58a712ee4421fa719e52845ab3196b24aeb794f5807bcc4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/report.md",
+      "bytes": 3388,
+      "sha256": "5789568c8253286bbbc4b0756909925c4f6a358b3f6cf64bd042bf673049a3ec"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/run_manifest.json",
+      "bytes": 30656,
+      "sha256": "75d7a939575aaf089a306dfaa7832999735c1ac022e44d4caa7127c11213873a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/plans/plan_6951fa4f69e9/metadata.json",
+      "bytes": 162,
+      "sha256": "70be8f6a19548676816fe3f7b59c8df3e338e5eee1d3398a8020fb41ed246611"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/plans/plan_6951fa4f69e9/plan.json",
+      "bytes": 5632,
+      "sha256": "3eeab19428cb317fc58a712ee4421fa719e52845ab3196b24aeb794f5807bcc4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/conversation.json",
+      "bytes": 22687,
+      "sha256": "98eeb028577b2c3898683b31b41a528001f325a956c2df0fc3fbc74cb3baefbd"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/jobs/job_0504eef21b08/job.json",
+      "bytes": 325,
+      "sha256": "4e82846b81e22fbc8aa7174087f93e60717d95b885ffe0549cc277062bcd88ba"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/jobs/job_0504eef21b08/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/jobs/job_0504eef21b08/plan.json",
+      "bytes": 1529,
+      "sha256": "3ef688aef4916609c17fb02f68382ccf794f40dab600162747997c85b07d5d6a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/plans/plan_57f3711d4b6f/metadata.json",
+      "bytes": 162,
+      "sha256": "39da970eae7386b709df706408f4495f4abda137201090bae55791d85b417818"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/busy_cancel/plans/plan_57f3711d4b6f/plan.json",
+      "bytes": 1529,
+      "sha256": "3ef688aef4916609c17fb02f68382ccf794f40dab600162747997c85b07d5d6a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/invalid_requests/conversation.json",
+      "bytes": 9617,
+      "sha256": "1cc32b5f649fb895daa0a862ad51fab11be79a4aa826f512631e370abe98bb43"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_amplfi/conversation.json",
+      "bytes": 1095,
+      "sha256": "8ebbe0c832ad02f8e7613d5e36e298c43eac89fffb68d6481f05be490abb9687"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_gwak/conversation.json",
+      "bytes": 1122,
+      "sha256": "cf6933840976100f1f79c34db3bd70efffb9c46ec480cc62ec33210b89129413"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/budget/conversation.json",
+      "bytes": 1309,
+      "sha256": "a00d057ab3d443c62fb4f321cee00d1e173d12a4d37080b5938a3d2a56dc9749"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/buoy/conversation.json",
+      "bytes": 1119,
+      "sha256": "32930ae67f7af0adae74ce8791c91ac16fda47378b89e3c0f53ea4289ea0e48c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/busy_cancel/conversation.json",
+      "bytes": 1385,
+      "sha256": "3921ef7251ca50b27a4750c3e6ad885ca91b5e53a427c1405f9bc6bc22896a6c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/invalid_requests/conversation.json",
+      "bytes": 1561,
+      "sha256": "b6a2f96ee7074a6bf2ea5406407f120b4abfeecb6993fc5c347a04c52b121577"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/conversation.json",
+      "bytes": 58169,
+      "sha256": "cfa0a9e76022c9e6bbd571a6382540d566a9255a38edb520936dac9a6dffb586"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/job.json",
+      "bytes": 277,
+      "sha256": "5b6ad0a06ab8747cddf85e13adfa18b1ce92a7f36a70df1b8bc8ca556971dd5d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/job.log",
+      "bytes": 862,
+      "sha256": "0023288bac0809fca9a35cad7448cada28eb38257cb86241866e3e8495c4634a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/plan.json",
+      "bytes": 3630,
+      "sha256": "9b277b44e76851f8e393ca1e43f61e2bf3ed282eefd78d64f87e052f75a3ee26"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/report.md",
+      "bytes": 2312,
+      "sha256": "a5a7f82332171767df54876ad679501c2d9d3e937c0415d55b53acb4c995339c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/run_manifest.json",
+      "bytes": 21300,
+      "sha256": "00c57f9b966a04b39425730428d67933b79d17795b216c140ca5c2a951485b59"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/plans/plan_a74b62081095/metadata.json",
+      "bytes": 162,
+      "sha256": "a5ecda55f5875607b97fee544c62a977c5787e584d23643a05988a0c55d1d1eb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/plans/plan_a74b62081095/plan.json",
+      "bytes": 3630,
+      "sha256": "9b277b44e76851f8e393ca1e43f61e2bf3ed282eefd78d64f87e052f75a3ee26"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/conversation.json",
+      "bytes": 69961,
+      "sha256": "06ad897f6c464fe8e3a8823076e7e0f3c85963efc88b027441d422ea35db4013"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/job.json",
+      "bytes": 277,
+      "sha256": "2c28edb2fac5a12c0971fe565224a266d7dc0e4f128b75c5fde1d4882d47027e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/job.log",
+      "bytes": 1021,
+      "sha256": "db74405cedeb1b12b7da9e84ab301ffaab9c8a4ddaec9621f28e3eee3eef54ad"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/plan.json",
+      "bytes": 4649,
+      "sha256": "19c4c4cf615499f950232933daa855f9162a8bcbec114648763f3954b5b3e8f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/report.md",
+      "bytes": 2819,
+      "sha256": "e5fdec5ada94011c10a36f827a7b76139e9dd9a219284d15f6072a354aeacdbc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/run_manifest.json",
+      "bytes": 26393,
+      "sha256": "d9975452f8f7a73542cfd34fa30a856503748d430237cc9860d470d7b466499d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/plans/plan_2b838d0cd671/metadata.json",
+      "bytes": 162,
+      "sha256": "13dc9a5e22893bcf761f8407227d470c5232cf7bb61519be2591928c868b6a2a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/plans/plan_2b838d0cd671/plan.json",
+      "bytes": 4649,
+      "sha256": "19c4c4cf615499f950232933daa855f9162a8bcbec114648763f3954b5b3e8f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/budget/conversation.json",
+      "bytes": 12733,
+      "sha256": "2c826b76254c7cef6547a2742119b83e154f529041840dbd0249a0258f264505"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/budget/plans/plan_c175838ea8eb/metadata.json",
+      "bytes": 162,
+      "sha256": "9ac842664158247bbcf8797f539f1e2136617299b60945c04afe8325c1c29122"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/budget/plans/plan_c175838ea8eb/plan.json",
+      "bytes": 1529,
+      "sha256": "b0f94915fe9c0acd9a3cacdcabe697ff720aaa3d766e3d1b31d55b7c7106e010"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/conversation.json",
+      "bytes": 141373,
+      "sha256": "7480c031b8ab5848c9e89d248e4eab80d0c656307e9816747a674bfe03d30b32"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/job.json",
+      "bytes": 277,
+      "sha256": "46789effaa9d51e3e43da3468d457910cef23f920117828c26eb0a7ea4ddab06"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/job.log",
+      "bytes": 702,
+      "sha256": "2f9e41677dba52381c9666625b97507824ebb12a83dbf31a45b1f7a500ff960f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/plan.json",
+      "bytes": 1529,
+      "sha256": "66e239ca414adc67dc39310b45f3a5112120f038f7bb293c05ce374360ee2307"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json",
+      "bytes": 156,
+      "sha256": "a62e4f395e2ea8663669ebf66bba5d73cd8f5c959f658f0fde9b0e39279f29c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json",
+      "bytes": 178,
+      "sha256": "c993ad26a949e6e8b7b473a5c4bb86b249fbd5b9615c66c1a4eb26a23a4b0c63"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/artifacts/analyze_event/buoy/GW150914/summary.html",
+      "bytes": 81,
+      "sha256": "dec08fe8f42feaf11c45311c4ced2de4ee3adf7f84922b626249cf6c2c044756"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/report.md",
+      "bytes": 1530,
+      "sha256": "c67a7fd53e66573f9afa5f7a52817b16dabd8534d19e44145e3d6bd3c5a68a32"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/run_manifest.json",
+      "bytes": 11335,
+      "sha256": "928b084b21bd73737efe985ba206976a48ec56ae3ed525fd243804671ba0fcf3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/plans/plan_c05902635cbb/metadata.json",
+      "bytes": 162,
+      "sha256": "81c0cf92d863018f21fb8af48905d910449792ac5e2acb2978be3185f30dd890"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/plans/plan_c05902635cbb/plan.json",
+      "bytes": 1529,
+      "sha256": "66e239ca414adc67dc39310b45f3a5112120f038f7bb293c05ce374360ee2307"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/conversation.json",
+      "bytes": 21167,
+      "sha256": "e765bb2e272ca9ff9a90c38e9b47ee91dcfaeaaba355055f3cba973b04520237"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/jobs/job_d53794074925/job.json",
+      "bytes": 325,
+      "sha256": "6a7a3da81f582ad6d43e5c4074954b7a544545672aca96aa9e951533d1184711"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/jobs/job_d53794074925/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/jobs/job_d53794074925/plan.json",
+      "bytes": 1529,
+      "sha256": "363bdf85b6e68ffe9700945fe6780912dff1dae031e75bd37233b5602428b0de"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/plans/plan_8c6b4106b51c/metadata.json",
+      "bytes": 162,
+      "sha256": "1e943009402018e6fbc2ff141b0db1ebd7ed1138482882767a3b9481a73f57fa"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/busy_cancel/plans/plan_8c6b4106b51c/plan.json",
+      "bytes": 1529,
+      "sha256": "363bdf85b6e68ffe9700945fe6780912dff1dae031e75bd37233b5602428b0de"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/invalid_requests/conversation.json",
+      "bytes": 9352,
+      "sha256": "635bc31c4ac636513c79ae2d400146859fa7bdcf71a8c811f9d6c73293195d12"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/conversation.json",
+      "bytes": 164229,
+      "sha256": "b515f08ef85909f4decfdbe7e0415fb6227cf05c4ac5bbd235a08ea1c7764d91"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/job.json",
+      "bytes": 277,
+      "sha256": "6140ca411246fe61122a8e641c960437c599cd968cc181bb5c473d000e1ef877"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/job.log",
+      "bytes": 862,
+      "sha256": "2f7866fef92f4ad2bd8e294c1ca9ef7ae41e70de8411d129a4f41dd593f2dc87"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/plan.json",
+      "bytes": 3706,
+      "sha256": "4dd3c1f43a03321c9841a84c59fe0636fb90b3a0156f6391dd21d2663dae0035"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/report.md",
+      "bytes": 2388,
+      "sha256": "658d2fa06f0cd2d84e6a30d88aea0f0e5cd003ab041cdadb80ad07a2807600bf"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/run_manifest.json",
+      "bytes": 21376,
+      "sha256": "54cea9fcd57755a26e0ea7be3e4b49aa2b950f3e262618d89c2ff7087e627412"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/plans/plan_ab6d2001a93c/metadata.json",
+      "bytes": 162,
+      "sha256": "f0172838c1731df9d001508ec618f7dcd5632a78c0885a179ef29197cf4e1fd4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/plans/plan_ab6d2001a93c/plan.json",
+      "bytes": 3706,
+      "sha256": "4dd3c1f43a03321c9841a84c59fe0636fb90b3a0156f6391dd21d2663dae0035"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/conversation.json",
+      "bytes": 177506,
+      "sha256": "90f33f8d00bdee88a029baf25233e8d1ca77278f33cbd01f271d6a3c523bcf8e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/job.json",
+      "bytes": 277,
+      "sha256": "1cb6848586727f68fccbfc334f96669f4342f072486477b45dda6388789e01c4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/job.log",
+      "bytes": 1021,
+      "sha256": "c010ab3d1f56acd8263536bd038cd05fae36407e4c9d477ce0a27789b3061b0a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/plan.json",
+      "bytes": 4792,
+      "sha256": "6c60530e3d263ae2c0d713b185ec2bb45a83fe3662986bfd8582e01f22b6bd13"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/report.md",
+      "bytes": 2962,
+      "sha256": "5f84ff3609ae14ac4793513831089423a46cc0fbeb9df04f858fa939f7dbc5e6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/run_manifest.json",
+      "bytes": 26536,
+      "sha256": "5ce73a01d48a2a264eb5a4691d8da457eb24092d2f493e452822c9b9cd2971c5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/plans/plan_6343eb889218/metadata.json",
+      "bytes": 162,
+      "sha256": "4d29d1ac9acedc08dc3b4340c8a3c0eef8b0470b51c469bacc70403b1783ab57"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/plans/plan_6343eb889218/plan.json",
+      "bytes": 4792,
+      "sha256": "6c60530e3d263ae2c0d713b185ec2bb45a83fe3662986bfd8582e01f22b6bd13"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/budget/conversation.json",
+      "bytes": 13500,
+      "sha256": "876b131268c13321b234942427b85bc7d282f96d7d419a937c17512afa98d5ab"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/budget/plans/plan_087af0cce888/metadata.json",
+      "bytes": 162,
+      "sha256": "e1a73abde492f30866279a554c3bac58647024f7c664275fee8987c472335267"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/budget/plans/plan_087af0cce888/plan.json",
+      "bytes": 1529,
+      "sha256": "94a0794259a5816fca2d151020cefc593758120cb6daff870b5ec775285679ef"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/conversation.json",
+      "bytes": 186472,
+      "sha256": "c847ad5bb78e89ae42677b20faf9da9ffdd8f2b5f990272550fc30b8262781b1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/job.json",
+      "bytes": 277,
+      "sha256": "7813979f5fc56c31e09b7a4cd920daa8df5ccad865eaa23d983b062af87b1ef9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/job.log",
+      "bytes": 1044,
+      "sha256": "3ddcde0e1ddba5d8733deb3dbccca814db306e369e5aac56b820b6f403387c97"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/plan.json",
+      "bytes": 5597,
+      "sha256": "f1dfbfc8d4fb04a245beedab2f6500247e50e0612e39a960290811abebf573dc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/report.md",
+      "bytes": 3353,
+      "sha256": "6f075b9c6f074f07fc90c8d23da29b9c2607366300edf140347a2ccb236fcfa1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/run_manifest.json",
+      "bytes": 30641,
+      "sha256": "782a43de51c096144d7a664d3431694babedbc2a914a6e1855743f46d8fc822c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/plans/plan_1d5027e19604/metadata.json",
+      "bytes": 162,
+      "sha256": "fbbb045cdb55bcee2ceed138c3995045944cdae0e2b6cdc478a8189d495528dd"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/plans/plan_1d5027e19604/plan.json",
+      "bytes": 5597,
+      "sha256": "f1dfbfc8d4fb04a245beedab2f6500247e50e0612e39a960290811abebf573dc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/conversation.json",
+      "bytes": 22789,
+      "sha256": "86a9a43d3ce30fa7e80ae4eadf7d2ecb0c504516e18a53751ae5b4814eb5881b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/jobs/job_bfb375954bd7/job.json",
+      "bytes": 325,
+      "sha256": "6b0c8391a393df52bcd7213f93b5a532a6f2b87362d7198f268e16c26b73c190"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/jobs/job_bfb375954bd7/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/jobs/job_bfb375954bd7/plan.json",
+      "bytes": 1542,
+      "sha256": "f6ed8c7af64559cb552787dbfc78a0296a1662d32d18c9c43e8c440fd5ee6c2a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/plans/plan_7ee1a78ea685/metadata.json",
+      "bytes": 162,
+      "sha256": "7c7bdcda50f3fbc53b482cea4d0d7903f6a559c81851718b462f6dd7731d9665"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/busy_cancel/plans/plan_7ee1a78ea685/plan.json",
+      "bytes": 1542,
+      "sha256": "f6ed8c7af64559cb552787dbfc78a0296a1662d32d18c9c43e8c440fd5ee6c2a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/invalid_requests/conversation.json",
+      "bytes": 10109,
+      "sha256": "e3384fd91e0b480a49f5031bc0aae823a74710b18ae0e7351395ca6e754174a5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/conversation.json",
+      "bytes": 168716,
+      "sha256": "11e77c689cc659ecbcdedadd526f9c0b1d749fbeaf76d05300433c3db5e553eb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/job.json",
+      "bytes": 277,
+      "sha256": "b810fc4d47518ed85bde4a4b016e175a21503b97a7b7802a2d4a2a7369038300"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/job.log",
+      "bytes": 862,
+      "sha256": "ef669d1e080acc331205ad8168dae064f9a533efd321c08328cb6e5a8736aa86"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/plan.json",
+      "bytes": 3877,
+      "sha256": "99602d2df5da4ae7c16ce1623e5ba2aec975f4c49ce0fc744df348dd8095990b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/report.md",
+      "bytes": 2559,
+      "sha256": "87abb1d5fa4e141ed684e936015d24b7b7c5832b647da8ee516e13736c17b94d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/run_manifest.json",
+      "bytes": 21547,
+      "sha256": "0d9288d8579597c05fbe623fd140883ba601ab08189c725192762f8cdcdc58bd"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/plans/plan_1d7381a6486b/metadata.json",
+      "bytes": 162,
+      "sha256": "1f1baaed2f3eef25bf3b4e8bf5cf457c2b63a01cc83b57a43f7529a34102d934"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/plans/plan_1d7381a6486b/plan.json",
+      "bytes": 3877,
+      "sha256": "99602d2df5da4ae7c16ce1623e5ba2aec975f4c49ce0fc744df348dd8095990b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/conversation.json",
+      "bytes": 177220,
+      "sha256": "e3350c108e5c763ada44b9154f712c4695291e51094cf44e709e1f8675c83994"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/job.json",
+      "bytes": 277,
+      "sha256": "5da3341a6d42906e82211bd55b8453d8887bf295d697d43097f5b2655f73ee7f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/job.log",
+      "bytes": 1021,
+      "sha256": "64bfe2757250aad64cefe4176c4680af22c5cdf98c3370d8e3eabcebd7247e42"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/plan.json",
+      "bytes": 4918,
+      "sha256": "8276d0fd616b0a2a06d885b194cab67190281fce8818168b37cda5005f5cc571"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/report.md",
+      "bytes": 3088,
+      "sha256": "7307e356036ac6a39bec06d217ba3b973c06cc64836011d416bfec2c01662fef"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/run_manifest.json",
+      "bytes": 26662,
+      "sha256": "b7c6329f09db1c6a5ce17b65f230f3e8dcd05b2f4626cb031a20dcdb5a072796"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/plans/plan_b409af2b7739/metadata.json",
+      "bytes": 162,
+      "sha256": "52ae28016c599e03d80c21a3a57d9bd38c074f8ec1ee91f96c41a487fba098e4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/plans/plan_b409af2b7739/plan.json",
+      "bytes": 4918,
+      "sha256": "8276d0fd616b0a2a06d885b194cab67190281fce8818168b37cda5005f5cc571"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/budget/conversation.json",
+      "bytes": 13559,
+      "sha256": "79d1ef88bfa86570aa6919712b276a470dad29912a88f62d022ba2a1d1721e8d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/budget/plans/plan_3f3429e1840c/metadata.json",
+      "bytes": 162,
+      "sha256": "97235aa82f33d6a883917a25c04110e99895a5b09d416944dd782998323d51be"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/budget/plans/plan_3f3429e1840c/plan.json",
+      "bytes": 1529,
+      "sha256": "914f556bf9f4bdd3ee7d66b40868b7b38af14a8080bcc54b1f39783d0901ddb4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/conversation.json",
+      "bytes": 166364,
+      "sha256": "49883ef196fe986d75f355290e654c6214a136b45f0ccb0dab1ef711d7d9cada"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/job.json",
+      "bytes": 277,
+      "sha256": "c9f9b1bbfd2d25773b0679a2384fb924d98275f71c256aa0cb34ee92c79efb97"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/job.log",
+      "bytes": 835,
+      "sha256": "05b556c741c0dda1c3c88e5381caf07931e9fdab9c3e1e5a4fa24878a8c0f826"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/plan.json",
+      "bytes": 3763,
+      "sha256": "939102af6b099badf8f167a96603e480f4200b407740428540918526930dfd31"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/report.md",
+      "bytes": 2445,
+      "sha256": "d340ac3b6e645fcd5920dfd021058868d394f099eaea67552012b3d1e05765b0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/run_manifest.json",
+      "bytes": 21370,
+      "sha256": "0ccaf03c55199c8d9bf05546fe764268ed6b5f7d8531763f3d7c437762b89fee"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/plans/plan_ab20c8ec4980/metadata.json",
+      "bytes": 162,
+      "sha256": "8590d743e567f6c66eb31bc45e9a60cf5b50328e5b2d7f1cb41166ac8c64d549"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/plans/plan_ab20c8ec4980/plan.json",
+      "bytes": 3763,
+      "sha256": "939102af6b099badf8f167a96603e480f4200b407740428540918526930dfd31"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/conversation.json",
+      "bytes": 24603,
+      "sha256": "f05e5d87256476df57ed93baae2cdbe175dd4ca0b2aad0cc80118f8aa1468b26"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/jobs/job_44aa5daa36cb/job.json",
+      "bytes": 325,
+      "sha256": "6d2401ed3a04e1b4af866171c16da04d9641c0be267ee08ac4572278ffd0ca9f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/jobs/job_44aa5daa36cb/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/jobs/job_44aa5daa36cb/plan.json",
+      "bytes": 1529,
+      "sha256": "042df040a56cb020ba48962d39fa183377e775c17967a0821b6e12d13dca0fa8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/plans/plan_da7d526b74b0/metadata.json",
+      "bytes": 162,
+      "sha256": "0e4cbfb9baf444aa24aff5603f6c7f67707d115c154a69300c1009d88d0f6103"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/busy_cancel/plans/plan_da7d526b74b0/plan.json",
+      "bytes": 1529,
+      "sha256": "042df040a56cb020ba48962d39fa183377e775c17967a0821b6e12d13dca0fa8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/invalid_requests/conversation.json",
+      "bytes": 10446,
+      "sha256": "738d70c271db522dfe4398a8a164513e41744cae1174ee3eb151f07c88dd6d61"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/conversation.json",
+      "bytes": 170117,
+      "sha256": "fec21544ba023db51f02770b6d1aba7e74a026367d0c63601b925df1c7006a81"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/job.json",
+      "bytes": 277,
+      "sha256": "14ac6a82601e5440f6daf013a49acf18c7a350b3aedbf42d65bc70953c7554a2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/job.log",
+      "bytes": 880,
+      "sha256": "057a73d47c48a8201efb561b5bd8d3237eb0444d51e382107d519efe5ada3f7a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/plan.json",
+      "bytes": 3861,
+      "sha256": "821107699ef0cfe6fba32f0c9c7bbfb47ebf94a4c5fd63efe68a2203ea5b741b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/report.md",
+      "bytes": 2543,
+      "sha256": "cf868bd6875b2d51ae15db2b42c355983221a57d51424787b490176dea8a273a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/run_manifest.json",
+      "bytes": 21573,
+      "sha256": "339b3ac3927efc657017e2cedc1ba7301803a39b42f05f0298804c2f1817b6c0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/plans/plan_ed4863193e02/metadata.json",
+      "bytes": 162,
+      "sha256": "45ff274dfbad323a91b323ff46d214175f2866b813341663331c5756c8d764d2"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/plans/plan_ed4863193e02/plan.json",
+      "bytes": 3861,
+      "sha256": "821107699ef0cfe6fba32f0c9c7bbfb47ebf94a4c5fd63efe68a2203ea5b741b"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/conversation.json",
+      "bytes": 177310,
+      "sha256": "e419338b469395a0da0f20959d0d8ff479a48a26680550b0884cf56a2d4de5bb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/job.json",
+      "bytes": 277,
+      "sha256": "09d0243a8810bb03877f74f752037b0b016800969e69f094243d60993f0510eb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/job.log",
+      "bytes": 1039,
+      "sha256": "9a85eeb93861155b43e3328e878f55b7fb0370f759e995ab7f30f5ab8e740da5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/plan.json",
+      "bytes": 4734,
+      "sha256": "53054637e5dce4d9472ab746ee61e6e28c9f0abc5e4aa3aa8b5847697e180985"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/report.md",
+      "bytes": 2906,
+      "sha256": "28e992ca27ee0831c96f6fe2bae9e2bd4e61831eb427456f0718ed2754ecc3e6"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/run_manifest.json",
+      "bytes": 26644,
+      "sha256": "eb45526b03ad8c17b24fd76b84f907546dc1bb0ddd145463fc5c23d51844b2f5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/plans/plan_037f3c534f9b/metadata.json",
+      "bytes": 162,
+      "sha256": "9d2f065910018116faa459f84b0caaab5dc9ebf69ca9856c618baf852574093f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/plans/plan_037f3c534f9b/plan.json",
+      "bytes": 4734,
+      "sha256": "53054637e5dce4d9472ab746ee61e6e28c9f0abc5e4aa3aa8b5847697e180985"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/budget/conversation.json",
+      "bytes": 14946,
+      "sha256": "db1152d32a71c9bcc677a41fbbfc12391784ca6391026ee24e471db6d0425baa"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/budget/plans/plan_67c6e95a4ac6/metadata.json",
+      "bytes": 162,
+      "sha256": "e35a1e4e912544a88c051d94e78202b42130e79196702cc90f1afdf152fc16c8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/budget/plans/plan_67c6e95a4ac6/plan.json",
+      "bytes": 1529,
+      "sha256": "38736fe8a3b35e8d81f01a59de563c3f5a0dc50a2be29a3826211491a9813ec9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/conversation.json",
+      "bytes": 186876,
+      "sha256": "988ffef2e16d9da7400ed400d863ca718a30429b3177726241bad69baf6ee8f5"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/job.json",
+      "bytes": 277,
+      "sha256": "35b48ebfcec44d5d6592fe14957c4ebe8b1074a67c645f53c96dc227a849c959"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/job.log",
+      "bytes": 1062,
+      "sha256": "d311d12fa689aec7f7785fcb473fb859a69d90f630a4a8b64a269e2c91cd5d14"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/plan.json",
+      "bytes": 5562,
+      "sha256": "56202af04d68df4e6f58a5f2f19b7bdabea667c360c1eb8f11fae36ec83d01c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/report.md",
+      "bytes": 3318,
+      "sha256": "ab657632c59cdc7c282a8c17e1c5501de69baa39c85bf6de3900903710b5eb84"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/run_manifest.json",
+      "bytes": 30810,
+      "sha256": "6d8a056762bbdd004866bf8f45593e0204016fdad4819189a3dc245d4df3b1d8"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/plans/plan_85fae516574a/metadata.json",
+      "bytes": 162,
+      "sha256": "95e4d18b067d23e06c9bada9d08f9a947ea4186aa8f4dd2ae73768e85d849a83"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/plans/plan_85fae516574a/plan.json",
+      "bytes": 5562,
+      "sha256": "56202af04d68df4e6f58a5f2f19b7bdabea667c360c1eb8f11fae36ec83d01c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/conversation.json",
+      "bytes": 22778,
+      "sha256": "32fe19daa55c5b2a722be069df457a6cfeb46390e8274e7eff2f704f6377e5c9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/jobs/job_02d94c08578e/job.json",
+      "bytes": 325,
+      "sha256": "48283aa7a3379214573dd37b31461b1a4acc457cc7d3d7116c77d1dd402f38bd"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/jobs/job_02d94c08578e/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/jobs/job_02d94c08578e/plan.json",
+      "bytes": 1542,
+      "sha256": "e44bcb561d7892f9b4c192a7144b535f9b43100cd1e287ef3cd8c244a498aaba"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/plans/plan_f2e0bd5f7e75/metadata.json",
+      "bytes": 162,
+      "sha256": "9ea3518d755cbbd77318eb1c81c5e074adebfd25de7224e97ebf1338ce3ce73e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/busy_cancel/plans/plan_f2e0bd5f7e75/plan.json",
+      "bytes": 1542,
+      "sha256": "e44bcb561d7892f9b4c192a7144b535f9b43100cd1e287ef3cd8c244a498aaba"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/invalid_requests/conversation.json",
+      "bytes": 10857,
+      "sha256": "3587328ca6f321a6a01e80bdf764d452e3a734aba7efc944b674aa7fc84c156e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/conversation.json",
+      "bytes": 166805,
+      "sha256": "06965c7fa941a78dd28897556258b8d75c1d0ef333cfc5d66de261f0a3e7c24e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/job.json",
+      "bytes": 277,
+      "sha256": "1b230b250cb4aec00d150b0c82366d78fbdad7e7b43d312fa673ca84cc4fcd2e"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/job.log",
+      "bytes": 883,
+      "sha256": "0092503fe9a730bb7b0b3874ba32751039b18652180ba24878939c2b79e9dc8d"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/plan.json",
+      "bytes": 3699,
+      "sha256": "84bdd0e111c411389540a336c14c0699e6003bd33c099f51acb7e27c4eedf16f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/report.md",
+      "bytes": 2381,
+      "sha256": "76f40a7c2d8b6f87ef47522ff695e62bb1f4592228215d4917105b3072d1b29a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/run_manifest.json",
+      "bytes": 21418,
+      "sha256": "85af6ad63ef41503c1942fb0b2284969d778759c627c65d2952c9f6f7e616f98"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/plans/plan_7771b68223fb/metadata.json",
+      "bytes": 162,
+      "sha256": "c85a139844d8669afa746e7c2bad3db22389b95b3e71caf8342c4f2ec0d6bd72"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/plans/plan_7771b68223fb/plan.json",
+      "bytes": 3699,
+      "sha256": "84bdd0e111c411389540a336c14c0699e6003bd33c099f51acb7e27c4eedf16f"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/conversation.json",
+      "bytes": 177643,
+      "sha256": "a4454603bfd3a6e98d9d3ca9aa40d25df17157392bd2c85b8b41ea6b1471d5eb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/job.json",
+      "bytes": 277,
+      "sha256": "ac10528fc492fa0f9cd5b460ca9d1c56e33ac667f60a07834068e067f3c94761"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/job.log",
+      "bytes": 1042,
+      "sha256": "e14211d461215faabf6838ad6ff85ca4fc217f697daccd08fb7c1b92173f27d0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/plan.json",
+      "bytes": 4705,
+      "sha256": "04a1e0e7b24e01e16484935bf9e18e3b3c5a6d65ea07f928580e8d728a37c3bb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/report.md",
+      "bytes": 2875,
+      "sha256": "8979a6d6cfc9475cc7be187e6c671cc411d797239bb10b289dfd35cbba2c1bbc"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/run_manifest.json",
+      "bytes": 26512,
+      "sha256": "7bf4699720f0e7dbbcc72c0cab205e97a83f1987dfe74368a5d2e35f865e7387"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/plans/plan_613c242058a4/metadata.json",
+      "bytes": 162,
+      "sha256": "fa58a2e1f98f0b5075d385e098ab203561618e85bca5e26541528b4f39b9a7d9"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/plans/plan_613c242058a4/plan.json",
+      "bytes": 4705,
+      "sha256": "04a1e0e7b24e01e16484935bf9e18e3b3c5a6d65ea07f928580e8d728a37c3bb"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/budget/conversation.json",
+      "bytes": 117904,
+      "sha256": "98ebf38796173b79408fe1adf8ebb9d6080ced7a2f300dee2fb87d0ba76ade1a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/budget/plans/plan_5478fe10cfcf/metadata.json",
+      "bytes": 162,
+      "sha256": "b4c1243b1bb3391503cf26a3b02efbe845d11e4497fea3a54670c4280397ff82"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/budget/plans/plan_5478fe10cfcf/plan.json",
+      "bytes": 1542,
+      "sha256": "d19d7c62b1303485505ea76bdb45c322bfdd7466b969abd6d7930c1862afef4a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/conversation.json",
+      "bytes": 143014,
+      "sha256": "74008c2b97ad39cd3f5dbf1e6add3adc8511a795971a5862cc620723df43efe4"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/job.json",
+      "bytes": 277,
+      "sha256": "78137a3cb0739c3addd43f1e2bebb25beb61a8be9a49296d77494d3fb2ce5f43"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/job.log",
+      "bytes": 723,
+      "sha256": "a1b2330907e759a23032d53c69ef5b15cb5f1ccb87515d2c2298ac499bba11e1"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/plan.json",
+      "bytes": 1543,
+      "sha256": "7b68b2473cab3cf253383221e0167c1a3f3c48f0613d87670fb3dc27e8732316"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json",
+      "bytes": 156,
+      "sha256": "a62e4f395e2ea8663669ebf66bba5d73cd8f5c959f658f0fde9b0e39279f29c3"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json",
+      "bytes": 178,
+      "sha256": "c993ad26a949e6e8b7b473a5c4bb86b249fbd5b9615c66c1a4eb26a23a4b0c63"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/artifacts/analyze_event/buoy/GW150914/summary.html",
+      "bytes": 81,
+      "sha256": "dec08fe8f42feaf11c45311c4ced2de4ee3adf7f84922b626249cf6c2c044756"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/report.md",
+      "bytes": 1544,
+      "sha256": "434bcdc6f77f06c8f98744f7fcbdddfff08bec2b77aa3f5acaee5ee2c7015352"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/run_manifest.json",
+      "bytes": 11398,
+      "sha256": "398e56f53a4e1b3055468fef74a06bb0147b68d17895e637971ee1a7406104be"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/plans/plan_e2e66e609539/metadata.json",
+      "bytes": 162,
+      "sha256": "49049faaf6a32e13a073f01b8c94063b11d15693029856c903d7a3a9a9f18b80"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/plans/plan_e2e66e609539/plan.json",
+      "bytes": 1543,
+      "sha256": "7b68b2473cab3cf253383221e0167c1a3f3c48f0613d87670fb3dc27e8732316"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/conversation.json",
+      "bytes": 22520,
+      "sha256": "95b519bbc459d0fd63b1cc0ae2166c452de53903d8bb5c5ca0443d662a963ee0"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/jobs/job_057264db5cc7/job.json",
+      "bytes": 325,
+      "sha256": "1a70990436d9734a275867bb8ac38e25fa39e4da66a561a51830459589001a1a"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/jobs/job_057264db5cc7/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/jobs/job_057264db5cc7/plan.json",
+      "bytes": 1529,
+      "sha256": "0ca2e0f185166719034def9295c7056a54baa334c7d735a654f190f5f054c9ce"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/plans/plan_ff3576eb7a8b/metadata.json",
+      "bytes": 162,
+      "sha256": "41f734ee9f1bdb0308e41051ba404065b9479a8f49ff8c03070909648ac31a77"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/busy_cancel/plans/plan_ff3576eb7a8b/plan.json",
+      "bytes": 1529,
+      "sha256": "0ca2e0f185166719034def9295c7056a54baa334c7d735a654f190f5f054c9ce"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/invalid_requests/conversation.json",
+      "bytes": 10935,
+      "sha256": "252c3cca3de30cca7d0c0ec0d2185f965f21967bf3d7b32db5205f1ebbdc256d"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/conversation.json",
+      "bytes": 186528,
+      "sha256": "bf82e9f56e78f04a0127cee5225683b008a411763bbeb13155f54c693b4f4f82"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/job.json",
+      "bytes": 277,
+      "sha256": "d4c9ab6943d9fb3a6ad6f893e543ba1520c718cb005853bd759a4d57c46b6b90"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/job.log",
+      "bytes": 1029,
+      "sha256": "2f3d6f0e7e1f04783d02f2018a763d9065f8a05d04bfbef023b5feca3fcaafa4"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/plan.json",
+      "bytes": 5557,
+      "sha256": "d47271805fe6f1fcf3cb84b7503af2833836fcaf666e0ad698ee767e4dfdf5a7"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/report.md",
+      "bytes": 3313,
+      "sha256": "388337d1acdb6ffbda130c63dc549d95db26e32e9cbee7212c5d14bec9944cc8"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/jobs/job_9b7b39bbc2df/runs/run_4abbe4826cb0/run_manifest.json",
+      "bytes": 30689,
+      "sha256": "837a6ad1d8f3d1f84eef7c41329522ec23ac0c6559ee6971549e806d82bd2953"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/plans/plan_c7850ad6b7b6/metadata.json",
+      "bytes": 162,
+      "sha256": "7547b2067a86fb60e7c98009fe626e7d9360f8a2e6b8878f55c1942fe37362e9"
+    },
+    {
+      "path": "runs/mcp-glm-preflight/20260924T072246821513Z/buoy/plans/plan_c7850ad6b7b6/plan.json",
+      "bytes": 5557,
+      "sha256": "d47271805fe6f1fcf3cb84b7503af2833836fcaf666e0ad698ee767e4dfdf5a7"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/conversation.json",
+      "bytes": 58300,
+      "sha256": "3a24c3e96ce0f7a38432941e07d4c55180b5be4d72c62009aca656741cd48f85"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/job.json",
+      "bytes": 277,
+      "sha256": "84f4ca645c515032c3846f5f73aeca53c5e898f0c9feb8f7fbea89cf4fbef5b2"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/job.log",
+      "bytes": 835,
+      "sha256": "8b07db9ed73d4684a4c82fbd7dd2a333a7b5b98b2a0d4a61258149658f726bcc"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/plan.json",
+      "bytes": 3630,
+      "sha256": "a1424329d05e25c1e195d3841a1c2ff8db78d1871863914aa8d9042fc420e2e2"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/run_amplfi/mock_posterior.json",
+      "bytes": 135,
+      "sha256": "3b33b2c63b65cb08f0fd210bea61263ef6e4b50ade725ea96575a9cb7fdc5709"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/artifacts/run_amplfi/mock_skymap.json",
+      "bytes": 108,
+      "sha256": "7bb98466f89919b0d9dc483be364613fad274360347b1e92e6f15bdaf92e96f1"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/report.md",
+      "bytes": 2312,
+      "sha256": "833e3c47e9253a5864355fa9ef716f87c9b9bdd3447e8001db79055f1bbf83d3"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/jobs/job_b9b8b9fa0e66/runs/run_3b2f23f5e3c7/run_manifest.json",
+      "bytes": 21237,
+      "sha256": "20d1d52554b327a6fb994224ead77743560fc7d07b515d24270b30a6dc498b34"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/plans/plan_08e27c6f237b/metadata.json",
+      "bytes": 162,
+      "sha256": "ce902ff6881220b8ec5bc47ae44644156076cf36c0d260f323aaa6bda1dcc30f"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_amplfi/plans/plan_08e27c6f237b/plan.json",
+      "bytes": 3630,
+      "sha256": "a1424329d05e25c1e195d3841a1c2ff8db78d1871863914aa8d9042fc420e2e2"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/conversation.json",
+      "bytes": 172993,
+      "sha256": "3a7aca054e08b516c92b6dce3bfb5fcf4ab36eb69f5ba460c296e49f225b12be"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/job.json",
+      "bytes": 277,
+      "sha256": "8f3a88b96b1260c4e92cafeed488b121bd2c80e7509f5a29e2ead78ffe79817a"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/job.log",
+      "bytes": 994,
+      "sha256": "6ce803abb6a70c57d881cb2033fcc7eefe640b6c40b9a0893bc2c3444efa4efd"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/plan.json",
+      "bytes": 4638,
+      "sha256": "ef2c2f60dcfb85a401816cb985ca9610f88f0db634873a1441f0017e25717b07"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/fetch_data/mock_strain.json",
+      "bytes": 161,
+      "sha256": "deb49b8569dabefbe6bdf095431a088111e5df8c2aede9e7f11935ac9b6bca10"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/fetch_data_4k/mock_strain.json",
+      "bytes": 161,
+      "sha256": "f58958330d4986e946c868ce536adcc6eb7c527d56748f8665cc32360616ad96"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/inspect_data/mock_quality_diagnostics.json",
+      "bytes": 182,
+      "sha256": "1ac58d1d41fbad830f80d8c97358141ded4cb4e84bca59c376cfc64e2d59bfd1"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/run_aframe/mock_aframe_output.json",
+      "bytes": 183,
+      "sha256": "75d3f9211a2054e0f9a4e75ab1d5bf98b9c5676e1ca53042f71e3692086636ae"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/artifacts/run_gwak/mock_gwak_output.json",
+      "bytes": 127,
+      "sha256": "3122b4a7f6a16cd078004c963cd738e284eb32895b7c5eb96499dbaf3c6c8031"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/report.md",
+      "bytes": 2808,
+      "sha256": "93678fccfe1ccc64cf4a69a39697d41574c16e8cde336d9622afbfb51f1e15e3"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/jobs/job_02e17a35c6f9/runs/run_2bf0f66eca02/run_manifest.json",
+      "bytes": 26301,
+      "sha256": "34a229e67ce514fc5675326a790f45153e86ce2887073de247425056b6476dd1"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/plans/plan_04f9d1cc698e/metadata.json",
+      "bytes": 162,
+      "sha256": "4c92e1bb9f79cb97c2f8c12707bc3ad3cd81dd39371af7deba39d0649604aa80"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/aframe_gwak/plans/plan_04f9d1cc698e/plan.json",
+      "bytes": 4638,
+      "sha256": "ef2c2f60dcfb85a401816cb985ca9610f88f0db634873a1441f0017e25717b07"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/budget/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/budget/conversation.json",
+      "bytes": 13154,
+      "sha256": "20e274ebde32e4ecd0a23d51a7f3aa90dab2f8f075ecccf0e88b3ad911f75de6"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/budget/plans/plan_5e08af6e3559/metadata.json",
+      "bytes": 162,
+      "sha256": "f779032bfee3c5b23018dd062bc4252e7599a531abaabe315cdf40ac8fc86504"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/budget/plans/plan_5e08af6e3559/plan.json",
+      "bytes": 1529,
+      "sha256": "a7f723d74675bcceb197db1fd0702a99c3179d1a84eb88dd2b256e6fd80af023"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/conversation.json",
+      "bytes": 141876,
+      "sha256": "2a47be046a95cc3da93b72e1fdb13ef09c6d7a9c0bfde9d38818224024ba606e"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/job.json",
+      "bytes": 277,
+      "sha256": "018bdb4fdf8ff46024f9a36860282881bc5ff0a54c68780f21654d99ef255c29"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/job.log",
+      "bytes": 675,
+      "sha256": "5e8fcaf180de2b0000359b9d521348ff22f5728c4c836d4c03deddb009f66eb6"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/plan.json",
+      "bytes": 1529,
+      "sha256": "270bd29820f5434f77f18e6b1795235de4de9c6c89e4923c944a452648ba4803"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json",
+      "bytes": 156,
+      "sha256": "a62e4f395e2ea8663669ebf66bba5d73cd8f5c959f658f0fde9b0e39279f29c3"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json",
+      "bytes": 178,
+      "sha256": "c993ad26a949e6e8b7b473a5c4bb86b249fbd5b9615c66c1a4eb26a23a4b0c63"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/artifacts/analyze_event/buoy/GW150914/summary.html",
+      "bytes": 81,
+      "sha256": "dec08fe8f42feaf11c45311c4ced2de4ee3adf7f84922b626249cf6c2c044756"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/artifacts/resolve_event/event_info.json",
+      "bytes": 350,
+      "sha256": "6f76baf16318313593108b328380024ab90870fe87fa53dffe897b429675d723"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/report.md",
+      "bytes": 1530,
+      "sha256": "c67a7fd53e66573f9afa5f7a52817b16dabd8534d19e44145e3d6bd3c5a68a32"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/jobs/job_e97d0e2732f0/runs/run_fd663de54b48/run_manifest.json",
+      "bytes": 11299,
+      "sha256": "1bedaaec539536162efef7f160d65dc7c866458a7f13e53dbed8b765b6b06a2d"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/plans/plan_c7b9eb27d06d/metadata.json",
+      "bytes": 162,
+      "sha256": "863da200ae890c20d9f6e05f47d8d1333e3e6821bd51edf6e2084d3fc0ecdead"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/buoy/plans/plan_c7b9eb27d06d/plan.json",
+      "bytes": 1529,
+      "sha256": "270bd29820f5434f77f18e6b1795235de4de9c6c89e4923c944a452648ba4803"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/conversation.json",
+      "bytes": 21916,
+      "sha256": "9338f5fdec6b8eb0e2981fb6623bad87dd1a336177c1016ec4264da78f86c17d"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/jobs/job_45d880590010/job.json",
+      "bytes": 325,
+      "sha256": "38a99b8361de52db90dc4d59f9bdf36cb604a12c406fd96084ea40461257469b"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/jobs/job_45d880590010/job.log",
+      "bytes": 92,
+      "sha256": "6a27f08d9dd454bf9d2e48fbf5819245a91066550ec43615b95cc631163f2b2c"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/jobs/job_45d880590010/plan.json",
+      "bytes": 1529,
+      "sha256": "737fc963a58725f2b70abbaf5ec6f486b73c99c7026f31bf6bd2fc95d4755380"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/plans/plan_bed81cd3f8ac/metadata.json",
+      "bytes": 162,
+      "sha256": "09bb617e3095b9b688cd5424591847fbcc6aa16f48f7c60ba9e6768e444d6101"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/busy_cancel/plans/plan_bed81cd3f8ac/plan.json",
+      "bytes": 1529,
+      "sha256": "737fc963a58725f2b70abbaf5ec6f486b73c99c7026f31bf6bd2fc95d4755380"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/invalid_requests/.service.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/mcp-glm-retry/20260924T074642181997Z/invalid_requests/conversation.json",
+      "bytes": 8791,
+      "sha256": "3338c65a06661713bb05267afb8234070c5a75ec26388f6c987cc9df9faaf6b8"
+    }
+  ]
+}

@@ -249,7 +249,9 @@ def test_shipped_support_table_and_public_data_is_inapplicable(registry, tmp_pat
 
 
 def test_normalize_units_restores_seconds_and_hertz():
-    pytest.importorskip("gwpy")
+    pytest.importorskip(
+        "gwpy", reason="Science suite: uv sync --extra buoy --group dev"
+    )
     from astropy import units as u
     from gwpy.timeseries import TimeSeries
 
@@ -266,7 +268,9 @@ def test_normalize_units_restores_seconds_and_hertz():
 
 
 def test_read_gwf_channel_prefers_framel(monkeypatch):
-    pytest.importorskip("gwpy")
+    pytest.importorskip(
+        "gwpy", reason="Science suite: uv sync --extra buoy --group dev"
+    )
     import sys
     import types
 
@@ -312,7 +316,9 @@ def test_ldg_uses_local_frames_when_datafind_returns_files(tmp_path, monkeypatch
 
 
 def test_nds2_transport_via_helper_interpreter(tmp_path, monkeypatch):
-    pytest.importorskip("gwpy")
+    pytest.importorskip(
+        "gwpy", reason="Science suite: uv sync --extra buoy --group dev"
+    )
     import sys
 
     from ml4gw_agent.adapters.ldg import fetch_nds2_strain

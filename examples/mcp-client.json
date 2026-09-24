@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ml4gw-agent": {
+      "command": "/absolute/path/ml4gw-agent/.venv/bin/python",
+      "args": [
+        "-m", "ml4gw_agent", "mcp",
+        "--runs-dir", "/absolute/path/ml4gw-agent/runs/mcp"
+      ]
+    }
+  }
+}

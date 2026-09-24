@@ -9,43 +9,32 @@ wraps tools such as Buoy, Aframe, AMPLFI, GWAK, DeepClean, and data services as
 versioned scientific skills with explicit inputs, outputs, preconditions,
 resource needs, validation, and provenance.
 
-## Current status: v0.3 (Phases 1–5 implemented; GW150914 and the five-event suite passed on 2026-09-03)
+## Current status (2026-09-24)
 
-Implemented now:
+| Area | Implemented and connected | Acceptance / remaining confirmation |
+|---|---|---|
+| Core | 12 versioned contracts, deterministic planner, validated DAG, policies, budgets, local executor, reports and provenance | Offline mock workflows are reproducible; mock values are not scientific results |
+| Buoy / Aframe / AMPLFI | Real CLI and decomposed adapters, conditional PE | Historical GPU comparison records and five-event suite; domain sign-off pending |
+| GWAK | Real adapter, dedicated 4096 Hz input branch, reconciliation, versioned background calibration | Historical runs exist; training attribution and model pairing need Fan / author confirmation |
+| DeepClean | Applicability gate, witness access, cleaning and diagnostics | Historical H1 60 Hz stand-in model runs; reviewed weights and applicability require confirmation |
+| Execution | Local, HTCondor, SSH; estimates, budgets and segmented batch plans | Historical HTCondor / SSH records; Kubernetes has code but no real-cluster acceptance |
+| Planning / interfaces | Baseline and optional LLM planner, CLI, Web, local stdio MCP | Observation and bounded replanning exist as APIs; automatic observation → replan → execution is not connected |
 
-- Versioned YAML skill contracts and a validated capability registry.
-- A deterministic baseline planner that converts supported prompts to a DAG.
-- DAG validation, dependency resolution, task state transitions, and fail-closed
-  execution.
-- A safe Buoy CLI adapter that uses an argument vector (`shell=False`) and
-  constrains every exposed option.
-- Real decomposed adapters: `data.fetch` over public GWOSC strain,
-  `data.inspect` quality gates, `aframe.detect` and `amplfi.pe` over
-  `buoy.models`. They write Buoy-compatible files so agent and direct runs
-  can be diffed with `scripts/compare_with_buoy.py`.
-- An offline mock adapter for testing orchestration without model weights,
-  credentials, or a GPU.
-- Output schema checks, artifact checksums, checkpointed run manifests, and a
-  Markdown report.
-- CLI commands for capability inspection, planning, preflight checks, and runs.
+Data reuse mainly follows the fixed plan's references and dedicated fetches.
+The runtime cache is scoped to a run; it does not provide general cross-run data
+reuse. The default Aframe branch still reads the original fetched strain and
+**does not consume DeepClean's cleaned artifact**. Historical manual before/after
+comparisons do not imply that this connection is automatic.
 
-Not yet claimed as complete:
-
-- Real GWAK, DeepClean, mldatafind, HTCondor, Kubernetes, or Triton adapters.
-- LLM-based planning and reflection.
-- Domain-reviewer sign-off. GW150914, GW190521, a GPS-identified event, and
-  a noise segment ran on a GPU node with both agent paths matching a direct
-  Buoy run within tolerance, and GW170817 is documented as unsupported by
-  Buoy (`docs/PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
-  `docs/PHASE1B_SUITE_RUN_2026-09-03.md`). A FAR-calibrated Aframe threshold
-  is now calibrated at 1/day from a time-shifted background; the GWAK route
-  runs on user-trained models; the HTCondor executor completed a full plan
-  on the CIT LDG pool (`docs/STATUS_2026-09-03.md` for the whole picture).
+See [the roadmap](docs/ROADMAP.md) for phase-specific evidence and
+[the model provenance review](docs/MODEL_PROVENANCE_REVIEW.md) for source claims,
+missing evidence and domain review status. Scientific correctness and model
+ownership are not established by software test results.
 
 ## Quick start
 
 ```bash
-uv sync --group dev
+uv sync --locked --group dev
 
 uv run ml4gw-agent skills
 uv run ml4gw-agent plan "Analyze GW150914"
@@ -62,6 +51,23 @@ artifacts/
 
 Every simulated value is explicitly marked as simulated. Mock output is useful
 for testing the agent runtime; it is not a scientific result.
+
+## Local MCP and developer integration
+
+```bash
+uv sync --locked --group dev --extra mcp
+uv run --no-sync python examples/mcp_mock_client.py
+# A local MCP host launches:
+uv run --no-sync ml4gw-agent mcp --runs-dir ./runs/mcp
+```
+
+The official SDK v2 service exposes `list_skills`, `plan_analysis`,
+`start_analysis`, `get_run` and `cancel_run`. It runs a saved complete plan in a
+separate local process, defaults to mock and keeps jobs/results across restarts.
+See [client configuration and real-mode setup](docs/MCP.md), the
+[upstream integration checklist](docs/SKILL_INTEGRATION.md), the
+[complete contract example](docs/SKILL_CONTRACT_EXAMPLE.md), and
+[installation / repository handoff](docs/REPOSITORY_HANDOFF.md).
 
 ## Run the decomposed real pipeline
 
@@ -95,8 +101,8 @@ uv run ml4gw-agent run "Analyze GW150914" \
 ```
 
 The real adapter delegates event resolution, public-data retrieval, Aframe
-inference, AMPLFI inference, plots, and HTML generation to Buoy. Pinning model
-revisions is strongly recommended for reproducible science. The runtime records
+inference, AMPLFI inference, plots, and HTML generation to Buoy. The default policy requires pinned model
+revisions for real execution. The runtime records
 the exact command, package version, timestamps, logs, artifacts, and SHA-256
 checksums.
 
@@ -123,6 +129,8 @@ refuses skills that still have `planned` adapters.
 - `docs/DESIGN_V0.1.md`: skill contracts, DAG structure, state machines, the
   LLM planner prompt, the GW150914 trace, and the design-to-code gap map.
 - `docs/ROADMAP.md`: phased delivery plan and exit criteria.
+- [P0/P1 implementation plan (2026-09-24)](docs/plan/P0_P1_IMPLEMENTATION_PLAN_2026-09-24.md):
+  repository readiness, skill guidance, and local stdio MCP delivery and validation.
 - `docs/V0_ACCEPTANCE.md`: exact v0.1 acceptance checklist.
 - `docs/PHASE1B_ACCEPTANCE.md`: GW150914 real-run runbook and criteria.
 - `scripts/phase1b_acceptance.sh`, `scripts/compare_with_buoy.py`: acceptance

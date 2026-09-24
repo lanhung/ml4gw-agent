@@ -6,8 +6,10 @@ import time
 
 import pytest
 
-fastapi = pytest.importorskip("fastapi")
-httpx = pytest.importorskip("httpx")
+fastapi = pytest.importorskip(
+    "fastapi", reason="Web suite: uv sync --extra web --group dev"
+)
+import httpx  # noqa: E402, F401 - required dev dependency
 from fastapi.testclient import TestClient  # noqa: E402
 
 from ml4gw_agent.web import app as web  # noqa: E402

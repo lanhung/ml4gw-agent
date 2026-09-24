@@ -5,8 +5,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-torch = pytest.importorskip("torch")
-pytest.importorskip("ml4gw")
+torch = pytest.importorskip(
+    "torch", reason="Science suite: uv sync --extra buoy --group dev"
+)
+pytest.importorskip("ml4gw", reason="Science suite: uv sync --extra buoy --group dev")
 
 from ml4gw_agent.adapters.deepclean_model import (  # noqa: E402
     DeepCleanConfig,

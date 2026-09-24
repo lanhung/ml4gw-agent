@@ -1,0 +1,189 @@
+{
+  "date": "2026-09-24",
+  "platform": "Linux x86_64",
+  "mcp_sdk": "2.2.0",
+  "coverage_threshold_percent": 85,
+  "matrix": [
+    {
+      "suite": "base",
+      "python": "3.10.21",
+      "passed": 208,
+      "skipped": 6,
+      "coverage_percent": 85.23,
+      "log": "base-py310.txt"
+    },
+    {
+      "suite": "base",
+      "python": "3.11.16",
+      "passed": 208,
+      "skipped": 6,
+      "coverage_percent": 85.23,
+      "log": "base-py311.txt"
+    },
+    {
+      "suite": "base",
+      "python": "3.12.14",
+      "passed": 208,
+      "skipped": 6,
+      "coverage_percent": 85.23,
+      "log": "base-py312.txt"
+    },
+    {
+      "suite": "interfaces",
+      "python": "3.10.21",
+      "passed": 214,
+      "skipped": 4,
+      "coverage_percent": 88.57,
+      "log": "interfaces-py310.txt"
+    },
+    {
+      "suite": "interfaces",
+      "python": "3.11.16",
+      "passed": 214,
+      "skipped": 4,
+      "coverage_percent": 88.57,
+      "log": "interfaces-py311.txt"
+    },
+    {
+      "suite": "interfaces",
+      "python": "3.12.14",
+      "passed": 214,
+      "skipped": 4,
+      "coverage_percent": 88.57,
+      "log": "interfaces-py312.txt"
+    }
+  ],
+  "static_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "154 files already formatted (after GLM evaluator compatibility and reporting)",
+    "uv_lock_check": "258 packages, passed"
+  },
+  "scientific_real_runs_reexecuted": false,
+  "stdio_lifecycle": {
+    "active_cancel": "cancelled",
+    "disconnect": "cancelled",
+    "restart_read": "cancelled"
+  },
+  "science_dependencies": {
+    "python": "3.11.16",
+    "torch": "2.10.0",
+    "ml4gw": "0.8.3",
+    "gwpy": "4.0.2",
+    "passed": 15,
+    "skipped": 0,
+    "warnings": 1,
+    "log": "science-py311.txt",
+    "command": "OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 pytest tests/test_ldg_deepclean.py tests/test_deepclean_model.py --no-cov -q -rs"
+  },
+  "live_gpt_mcp": {
+    "provider": "CLIProxyAPI",
+    "endpoint": "http://127.0.0.1:8317/v1",
+    "requested_model": "gpt-6-sol",
+    "returned_models": [
+      "gpt-6-sol"
+    ],
+    "passed": 6,
+    "failed": 0,
+    "initial_passed": 5,
+    "initial_failed": 1,
+    "initial_failure": "Lifecycle test fixture import; corrected and retried successfully.",
+    "requests": 30,
+    "reported_tokens": 149335,
+    "mock_manifests": 3,
+    "verified_artifacts": 19,
+    "science_mode": "mock",
+    "fallback": false,
+    "summary": "cliproxy-gpt.json",
+    "script": "../../../scripts/evaluate_mcp_gpt.py"
+  },
+  "live_gpt_matrix": {
+    "report": "../../test/P0_P1_GPT_MODEL_TEST_REPORT_2026-09-24.md",
+    "summary": "gpt-matrix/summary.json",
+    "post_verification": "gpt-matrix/post-verification.json",
+    "models": 7,
+    "passed_cases": 38,
+    "failed_cases": 4,
+    "assertions_passed": 299,
+    "assertions_total": 308,
+    "requests": 191,
+    "http_200": 190,
+    "http_408": 1,
+    "reported_tokens": 938024,
+    "science_mode": "mock",
+    "fallback": false,
+    "retries": 0,
+    "completed_manifests": 21,
+    "verified_artifacts": 135,
+    "completed_jobs": 21,
+    "cancelled_jobs": 7,
+    "failures": {
+      "negated_amplfi_request_adds_task": 2,
+      "buoy_route_instead_of_decomposed_dag": 1,
+      "proxy_http_408": 1
+    }
+  },
+  "live_glm_matrix": {
+    "report": "../../test/P0_P1_GLM_MODEL_TEST_REPORT_2026-09-24.md",
+    "summary": "../../test/glm-matrix-2026-09-24/summary.json",
+    "post_verification": "../../test/glm-matrix-2026-09-24/post-verification.json",
+    "endpoint": "https://open.bigmodel.cn/api/paas/v4",
+    "models": 11,
+    "passed_cases": 49,
+    "total_cases": 66,
+    "assertions_passed": 434,
+    "assertions_total": 484,
+    "requests": 265,
+    "http_200": 259,
+    "http_429": 6,
+    "reported_tokens": 1729801,
+    "science_mode": "mock",
+    "fallback": false,
+    "automatic_retries": 0,
+    "completed_manifests": 30,
+    "verified_artifacts": 210,
+    "cancelled_jobs": 10,
+    "failures": {
+      "default_route_rewritten": 6,
+      "config_mode_rejected_then_recovered": 5,
+      "glm_5_turbo_rate_limited_before_model_response": 6
+    }
+  },
+  "live_glm_serial_retry": {
+    "model": "glm-5-turbo",
+    "summary": "../../test/glm-retry-2026-09-24/summary.json",
+    "seconds_after_matrix_finished": 100.969,
+    "passed_cases": 6,
+    "total_cases": 6,
+    "assertions_passed": 44,
+    "assertions_total": 44,
+    "requests": 25,
+    "http_200": 25,
+    "reported_tokens": 147205,
+    "completed_manifests": 3,
+    "verified_artifacts": 19,
+    "cancelled_jobs": 1,
+    "initial_results_preserved": true
+  },
+  "live_glm_effective_sessions": {
+    "definition": "Ten initial model runs plus the single serial GLM-5-Turbo availability retry; original matrix unchanged",
+    "summary": "../../test/glm-retry-2026-09-24/effective-summary.json",
+    "models": 11,
+    "passed_cases": 55,
+    "total_cases": 66,
+    "assertions_passed": 473,
+    "assertions_total": 484
+  },
+  "live_glm_all_stages": {
+    "includes": ["compatibility_preflight", "initial_matrix", "serial_rate_limit_retry"],
+    "requests": 295,
+    "reported_tokens": 1938942,
+    "completed_manifests": 34,
+    "verified_artifacts": 238,
+    "cancelled_jobs": 11,
+    "archive": "../../test/glm-evidence-2026-09-24.tar.gz",
+    "archive_index": "../../test/glm-evidence-2026-09-24.index.json",
+    "archive_files": 665,
+    "archive_members_verified": true,
+    "credential_scan_passed": true
+  }
+}

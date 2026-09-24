@@ -1,0 +1,417 @@
+{
+  "timestamp_utc": "2026-09-24T07:45:19.680399+00:00",
+  "passed": true,
+  "scope": "All persisted jobs/manifests and replayed assertions; scenario verdicts are unchanged.",
+  "completed_manifests": 30,
+  "verified_artifacts": 210,
+  "job_states": {
+    "completed": 30,
+    "cancelled": 10
+  },
+  "jobs": [
+    {
+      "model": "glm-4.5",
+      "case": "buoy",
+      "job_id": "job_b0b37b5e4c22",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/buoy/jobs/job_b0b37b5e4c22/runs/run_462408ab1128/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "glm-4.5",
+      "case": "aframe_amplfi",
+      "job_id": "job_a346cdbe30fd",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_amplfi/jobs/job_a346cdbe30fd/runs/run_d8ad58fc5611/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-4.5",
+      "case": "aframe_gwak",
+      "job_id": "job_7a662259ad21",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5/20260924T072408633825Z/aframe_gwak/jobs/job_7a662259ad21/runs/run_ebe2710b344e/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-4.5",
+      "case": "busy_cancel",
+      "job_id": "job_a5d10e4dc4e6",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "buoy",
+      "job_id": "job_37d330838a95",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/buoy/jobs/job_37d330838a95/runs/run_d73096531cd7/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "aframe_amplfi",
+      "job_id": "job_5e735ed331be",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_amplfi/jobs/job_5e735ed331be/runs/run_9a3b708c651b/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "aframe_gwak",
+      "job_id": "job_15c3d22964ca",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.5-air/20260924T072408637385Z/aframe_gwak/jobs/job_15c3d22964ca/runs/run_a37d841e5f3d/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "busy_cancel",
+      "job_id": "job_0aa5ed04811d",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-4.6",
+      "case": "buoy",
+      "job_id": "job_934ea05688a5",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/buoy/jobs/job_934ea05688a5/runs/run_69b26d1ec998/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "glm-4.6",
+      "case": "aframe_amplfi",
+      "job_id": "job_5732680bc601",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_amplfi/jobs/job_5732680bc601/runs/run_b31aba409e07/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-4.6",
+      "case": "aframe_gwak",
+      "job_id": "job_f9d802b7ce45",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.6/20260924T072557816251Z/aframe_gwak/jobs/job_f9d802b7ce45/runs/run_43b3a128bbfb/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-4.6",
+      "case": "busy_cancel",
+      "job_id": "job_254deb69fc28",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-4.7",
+      "case": "buoy",
+      "job_id": "job_a953c74852bd",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/buoy/jobs/job_a953c74852bd/runs/run_723f522f7768/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-4.7",
+      "case": "aframe_amplfi",
+      "job_id": "job_f4fdb2c64a9e",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_amplfi/jobs/job_f4fdb2c64a9e/runs/run_ae333856ed8b/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-4.7",
+      "case": "aframe_gwak",
+      "job_id": "job_b39c1f125cb4",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-4.7/20260924T072854560679Z/aframe_gwak/jobs/job_b39c1f125cb4/runs/run_d97fb15e27f7/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-4.7",
+      "case": "busy_cancel",
+      "job_id": "job_e129096334b4",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5",
+      "case": "buoy",
+      "job_id": "job_feab21468c71",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/buoy/jobs/job_feab21468c71/runs/run_dee7afc5d84a/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "glm-5",
+      "case": "aframe_amplfi",
+      "job_id": "job_788483ed0ab8",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_amplfi/jobs/job_788483ed0ab8/runs/run_13fea5dd08de/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5",
+      "case": "aframe_gwak",
+      "job_id": "job_744e55431959",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5/20260924T073037523831Z/aframe_gwak/jobs/job_744e55431959/runs/run_cc0959e7ba85/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5",
+      "case": "busy_cancel",
+      "job_id": "job_0504eef21b08",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5.1",
+      "case": "buoy",
+      "job_id": "job_24276762d8d2",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/buoy/jobs/job_24276762d8d2/runs/run_4e6501b988ee/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "glm-5.1",
+      "case": "aframe_amplfi",
+      "job_id": "job_94284ca29d3f",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_amplfi/jobs/job_94284ca29d3f/runs/run_0d157864f1fc/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.1",
+      "case": "aframe_gwak",
+      "job_id": "job_fc29d3868c17",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.1/20260924T073306512874Z/aframe_gwak/jobs/job_fc29d3868c17/runs/run_5f45c8d19c99/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5.1",
+      "case": "busy_cancel",
+      "job_id": "job_d53794074925",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5.2",
+      "case": "buoy",
+      "job_id": "job_ba3c69d01dc9",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/buoy/jobs/job_ba3c69d01dc9/runs/run_a5fcaff62440/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "glm-5.2",
+      "case": "aframe_amplfi",
+      "job_id": "job_327ee9103543",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_amplfi/jobs/job_327ee9103543/runs/run_a5ab457b0cbb/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.2",
+      "case": "aframe_gwak",
+      "job_id": "job_de80f80da6fd",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.2/20260924T073338654558Z/aframe_gwak/jobs/job_de80f80da6fd/runs/run_22a06000c0a3/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5.2",
+      "case": "busy_cancel",
+      "job_id": "job_bfb375954bd7",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5.3",
+      "case": "buoy",
+      "job_id": "job_99de69eec5d6",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/buoy/jobs/job_99de69eec5d6/runs/run_8c7a1c0d8d9a/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.3",
+      "case": "aframe_amplfi",
+      "job_id": "job_1f6149f3ffab",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_amplfi/jobs/job_1f6149f3ffab/runs/run_71a18f3be8f5/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.3",
+      "case": "aframe_gwak",
+      "job_id": "job_0bdbb02b34b3",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3/20260924T073706728872Z/aframe_gwak/jobs/job_0bdbb02b34b3/runs/run_d23ea101edcb/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5.3",
+      "case": "busy_cancel",
+      "job_id": "job_44aa5daa36cb",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "buoy",
+      "job_id": "job_451dd5ec7899",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/buoy/jobs/job_451dd5ec7899/runs/run_a8fd7b7f5145/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "aframe_amplfi",
+      "job_id": "job_a539ec65c354",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_amplfi/jobs/job_a539ec65c354/runs/run_1e3e48f312df/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "aframe_gwak",
+      "job_id": "job_6c590ab9daf6",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flash/20260924T073740573200Z/aframe_gwak/jobs/job_6c590ab9daf6/runs/run_6afe41bf80b2/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "busy_cancel",
+      "job_id": "job_02d94c08578e",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "buoy",
+      "job_id": "job_341a1749fb9c",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/buoy/jobs/job_341a1749fb9c/runs/run_812b45f441d1/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "aframe_amplfi",
+      "job_id": "job_10c165228a58",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_amplfi/jobs/job_10c165228a58/runs/run_79bdf4b1a922/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "aframe_gwak",
+      "job_id": "job_b7928cef8f12",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5.3-flashx/20260924T074200498774Z/aframe_gwak/jobs/job_b7928cef8f12/runs/run_cc5096f2cb0d/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "busy_cancel",
+      "job_id": "job_057264db5cc7",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    }
+  ],
+  "requests": 265,
+  "http_status_counts": {
+    "200": 259,
+    "429": 6
+  },
+  "model_response_ids_match_requests": true,
+  "transcripts_verified": 66,
+  "scripts_unchanged_during_run": true,
+  "product_modules_unchanged_during_run": true,
+  "credential_scan": {
+    "passed": true,
+    "files": 627,
+    "secret_values_written": false
+  }
+}

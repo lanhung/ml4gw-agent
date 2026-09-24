@@ -1,0 +1,525 @@
+{
+  "timestamp_utc": "2026-09-24T06:45:23.410672+00:00",
+  "base_url": "http://127.0.0.1:8317/v1",
+  "python": "3.12.14",
+  "mcp_sdk": "2.2.0",
+  "available_models": [
+    "codex-auto-review",
+    "gpt-5.5",
+    "gpt-5.6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-6-astra",
+    "gpt-6-luna",
+    "gpt-6-sol",
+    "gpt-image-1.5",
+    "gpt-image-2",
+    "gpt-image-2.5",
+    "gpt-image-2.5-flare",
+    "gpt-image-2.5-sunburst"
+  ],
+  "selected_models": [
+    "gpt-5.5",
+    "gpt-5.6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-6-astra",
+    "gpt-6-luna",
+    "gpt-6-sol"
+  ],
+  "excluded_models": {
+    "codex-auto-review": "not a general GPT chat model",
+    "gpt-image-1.5": "image generation, outside MCP text/tool tests",
+    "gpt-image-2": "image generation, outside MCP text/tool tests",
+    "gpt-image-2.5": "image generation, outside MCP text/tool tests",
+    "gpt-image-2.5-flare": "image generation, outside MCP text/tool tests",
+    "gpt-image-2.5-sunburst": "image generation, outside MCP text/tool tests"
+  },
+  "settings": {
+    "workers": 2,
+    "timeout_seconds": 90,
+    "max_rounds": 16,
+    "max_tokens": 2500,
+    "temperature": "omitted (provider default)",
+    "reasoning_effort": "omitted (provider default)",
+    "cases": [
+      "buoy",
+      "aframe_amplfi",
+      "aframe_gwak",
+      "invalid_requests",
+      "budget",
+      "busy_cancel"
+    ],
+    "repeats": 1,
+    "retries": 0,
+    "live_llm": true,
+    "science_mode": "mock",
+    "fallback": false
+  },
+  "script_sha256": {
+    "evaluate_mcp_gpt_matrix.py": "071fa8c10eb0d5719eee4e457d6f9c8a3b4d2ed2918c7d404282e5d22df770b1",
+    "evaluate_mcp_gpt.py": "c676486017a679492e73ceb0e3385055da47a7bc0cd22a71699e1a18c6df12a7"
+  },
+  "status": "completed",
+  "models": [
+    {
+      "model": "gpt-5.5",
+      "returned_models": [
+        "gpt-5.5"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 186.109,
+      "requests": 29,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 3.729,
+      "input_tokens": 109922,
+      "output_tokens": 5593,
+      "total_tokens": 115515,
+      "cached_input_tokens": 50176,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "gpt-5.5.json"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "returned_models": [
+        "gpt-5.6-luna"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 138.683,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 4.756,
+      "input_tokens": 104001,
+      "output_tokens": 2566,
+      "total_tokens": 106567,
+      "cached_input_tokens": 41984,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "gpt-5.6-luna.json"
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "returned_models": [
+        "gpt-5.6-sol"
+      ],
+      "passed": 5,
+      "total": 6,
+      "assertions_passed": 43,
+      "assertions_total": 44,
+      "elapsed_seconds": 175.093,
+      "requests": 26,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 4.381,
+      "input_tokens": 144882,
+      "output_tokens": 4449,
+      "total_tokens": 149331,
+      "cached_input_tokens": 65536,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": false,
+          "failed_checks": [
+            "expected_skills"
+          ],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 21
+      },
+      "report": "gpt-5.6-sol.json"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "returned_models": [
+        "gpt-5.6-terra"
+      ],
+      "passed": 5,
+      "total": 6,
+      "assertions_passed": 38,
+      "assertions_total": 44,
+      "elapsed_seconds": 146.417,
+      "requests": 24,
+      "http_errors": 1,
+      "transport_errors": 0,
+      "median_request_seconds": 4.143,
+      "input_tokens": 92040,
+      "output_tokens": 2893,
+      "total_tokens": 94933,
+      "cached_input_tokens": 41984,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "completed_mock",
+            "tasks_completed",
+            "report_and_artifacts",
+            "mock_disclosed",
+            "no_transport_failure"
+          ],
+          "error": "CLIProxy HTTP 408"
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 2,
+        "artifacts": 12
+      },
+      "report": "gpt-5.6-terra.json"
+    },
+    {
+      "model": "gpt-6-astra",
+      "returned_models": [
+        "gpt-6-astra"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 240.317,
+      "requests": 29,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 5.321,
+      "input_tokens": 109641,
+      "output_tokens": 2586,
+      "total_tokens": 112227,
+      "cached_input_tokens": 61184,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "gpt-6-astra.json"
+    },
+    {
+      "model": "gpt-6-luna",
+      "returned_models": [
+        "gpt-6-luna"
+      ],
+      "passed": 5,
+      "total": 6,
+      "assertions_passed": 43,
+      "assertions_total": 44,
+      "elapsed_seconds": 125.122,
+      "requests": 28,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 3.197,
+      "input_tokens": 205885,
+      "output_tokens": 1708,
+      "total_tokens": 207593,
+      "cached_input_tokens": 124928,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": false,
+          "failed_checks": [
+            "expected_skills"
+          ],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 17
+      },
+      "report": "gpt-6-luna.json"
+    },
+    {
+      "model": "gpt-6-sol",
+      "returned_models": [
+        "gpt-6-sol"
+      ],
+      "passed": 5,
+      "total": 6,
+      "assertions_passed": 43,
+      "assertions_total": 44,
+      "elapsed_seconds": 142.978,
+      "requests": 30,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 3.797,
+      "input_tokens": 149846,
+      "output_tokens": 2012,
+      "total_tokens": 151858,
+      "cached_input_tokens": 105984,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": false,
+          "failed_checks": [
+            "expected_skills"
+          ],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 21
+      },
+      "report": "gpt-6-sol.json"
+    }
+  ],
+  "completed_at_utc": "2026-09-24T06:55:24.055082+00:00",
+  "elapsed_seconds": 600.644,
+  "passed_cases": 38,
+  "total_cases": 42,
+  "all_passed": false
+}

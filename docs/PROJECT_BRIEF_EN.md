@@ -1,4 +1,4 @@
-# ml4gw-agent: project brief and how to read the run records (2026-09-10)
+# ml4gw-agent: project brief and how to read the run records (updated 2026-09-24)
 
 An English brief for talks and for readers of the acceptance panel on the web
 interface. Every number below comes from a run manifest with SHA-256 artifact
@@ -20,16 +20,18 @@ decide **what** to run, but it is never trusted with **whether a result is
 valid**. Concretely:
 
 - **Typed skill contracts.** Every capability is a versioned YAML manifest with
-  JSON-schema inputs and outputs, machine-checked preconditions, resource
+  JSON-schema inputs and outputs, declared preconditions, resource
   estimates, a risk level, and an immutable model revision. The planner sees
-  only contracts; it cannot invent parameters or skip a precondition.
+  only contracts; adapters and policies implement specific checks. A
+  `machine_check` name is a declaration, not an automatically dispatched check.
 - **Two planners, one plan object.** A deterministic router (default for
   science) and an LLM planner (Claude, DeepSeek, Qwen, OpenRouter free models,
   Groq, local Ollama, or any OpenAI-compatible endpoint) both emit the same
   validated plan, so every downstream guarantee is independent of the planner.
-- **Fail-closed adapters.** When a model, credential, witness channel or
-  calibration is missing, the task fails with a recorded reason and its
-  dependants are skipped. Nothing is filled in with defaults.
+- **Fail-closed adapters.** Missing models, credentials and incompatible input
+  produce recorded errors; dependencies are blocked or skipped. Missing witness
+  support can make cleaning inapplicable. Missing calibration can instead produce
+  an explicitly uncalibrated raw threshold and warning; it is not significance.
 - **Provenance.** Each run writes a manifest with the plan, resolved
   parameters, outputs, validations, warnings, timings, package versions, model
   revisions and the SHA-256 of every artifact.
@@ -45,24 +47,26 @@ valid**. Concretely:
 
 | Area | State |
 |---|---|
-| Framework (phases 0-5) | complete: contracts, planners, adapters, manifests, budget policy, three executors, segmentation |
+| Framework (phases 0-5) | implementation and historical execution records exist; automatic replan loop and domain sign-off remain |
 | Aframe / AMPLFI | real adapters through Buoy 0.6.1 with pinned revisions |
-| GWAK | real adapter on the user's own GWAK 2.0 export, threshold calibrated |
+| GWAK | real adapter on recorded local GWAK 2.0 exports; calibration exists, trainer attribution and pairing need confirmation |
 | DeepClean | real applicability gate and cleaning route, self-trained 60 Hz H1 coupling |
 | Backgrounds | 69 d livetime for Aframe (1/day 2.986, 1/month 4.398) and 69 d for GWAK (27.85, 28.23) |
 | Injections | Aframe 50 % efficiency at network SNR 8.2, 90 % at 11.8, zero false candidates in controls |
 | Population validation | 90 GWTC events end to end on the CIT pool, 0.35 GPU-hours of compute |
 | Planner evaluation | 317 prompts, three backbones, adversarial suite |
 | Event question answering | 13 GraceDB superevents x 5 phrasings, 59/59 as expected |
-| Interfaces | CLI, FastAPI web UI, multi-provider LLM planning, catalog lookup route |
+| Interfaces | CLI, FastAPI web UI, multi-provider LLM planning, catalog lookup and local stdio MCP (baseline/local execution) |
 | Manuscript | six-page AASTeX draft with all placeholders filled |
 
 ## 3. Where GWAK and DeepClean came from
 
-**GWAK.** Upstream ML4GW/gwak publishes no inference package or weights, and
-the developers expect at least three more months. The models used here are the
-user's own GWAK 2.0 training on the LIGO Data Grid (repository commit
-`7b9f58a`). Candidate checkpoints were exported to TorchScript and tested
+**GWAK.** The shipped manifest records ML4GW/gwak commit `7b9f58a` and
+attributes local training to `fan.zhang` on CIT. The repository does not contain
+independent evidence establishing that attribution; Fan must confirm the trainer,
+training data and export chain. These are local exports, not a verified upstream
+model release. Historical experiment notes say that candidate checkpoints were
+exported to TorchScript and tested
 empirically on GW150914, GW190521 and a noise segment: only the S4 SimCLR
 embedder paired with the background-only normalizing-flow metric separates the
 events from the rest of their window (z-scores 10.5 and 11.8, rank 0 of 1001).
@@ -70,20 +74,31 @@ Tarantula embedders and linear or MLP metrics do not. The pairing is pinned by
 SHA-256 in `models/gwak/MANIFEST.json` as revision
 `gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad`.
 
-Usage: `ml4gw-agent run "Run Aframe and GWAK on GW150914 and reconcile the two
-results." --mode real --gwak-far 365.25`. The planner fetches a separate
-4096 Hz copy of the strain for GWAK. Preprocessing matches training: 0.5 s
+Usage (after installing science dependencies):
+
+```bash
+ml4gw-agent run "Run Aframe and GWAK on GW150914 and reconcile the two results." \
+  --mode real --gwak-far 365.25 \
+  --aframe-revision 3c947f6ded4a8b4b5a5dd7620d3e2e710e1716f4 \
+  --gwak-revision gwak2-7b9f58a-S4SimCLR-f775aed5-NFonlyBkg-a0c755ad
+```
+
+The planner fetches a separate 4096 Hz copy of the strain for GWAK.
+The recorded preprocessing uses 0.5 s
 kernels, 64 s PSD, 1 s fduration, 30 Hz high-pass, 1/16 s stride, strain
-normalised before whitening, flow evaluated on CPU in float64. Because the
+normalised before whitening, flow evaluated on CPU in float64. High-pass and
+stride are adapter choices that still require author confirmation. Because the
 background is glitch-dominated, read `target_far_per_year`, the z-score and the
 rank rather than the boolean `anomaly_found`.
 
-**DeepClean.** The DeepClean team supplied no configuration or weights, so the
-public `deepcleanv2` 60 Hz recipe was ported into
+**DeepClean.** This repository contains a stand-in model derived from the
+`deepcleanv2` 60 Hz recipe, ported into
 `src/ml4gw_agent/adapters/deepclean_model.py`: a 1-D convolutional autoencoder
 with hidden channels [8, 16, 32, 64], PSD-ratio loss, 55-65 Hz band, 4096 Hz,
-8 s training kernels, 1 s cleaning kernels. It was trained on non-public O4 H1
-data reached through NDS2 with the user's IGWN credential, using the mains
+8 s training kernels, 1 s cleaning kernels. The training record describes
+non-public O4 H1
+data reached through NDS2; trainer attribution and distribution permission need
+confirmation. The recorded setup uses the mains
 monitor `H1:PEM-CS_MAINSMON_EBAY_1_DQ` as the only witness. On held-out data
 the 60 Hz line drops by a factor of seven and the out-of-band ASD ratio stays
 at 1.0000. The weights (175 kB) ship in `models/deepclean/H1_60Hz/` and the
@@ -98,7 +113,15 @@ weights hash, subtracts a band-limited witness-only estimate, and reports
 `applicable: false` if the in-band ASD does not improve or the out-of-band ASD
 moves by more than 5 %. On superevent S250119cv the Aframe statistic went from
 8.50 to 8.67 after cleaning with an unchanged merger time, so the signal
-survives.
+survives in that recorded comparison. The default plan does not feed cleaned
+strain to Aframe; that comparison was performed separately.
+
+Implementation boundaries: data reuse mainly comes from fixed plan references
+and a run-scoped cache. `observe` and bounded `replan` exist as APIs, but CLI,
+Web and MCP do not automatically perform observation → replan → execution.
+Software acceptance, historical scientific runs and domain review are distinct.
+See [source evidence and pending confirmations](MODEL_PROVENANCE_REVIEW.md) and
+[the P0/P1 delivery plan](plan/P0_P1_IMPLEMENTATION_PLAN_2026-09-24.md).
 
 ## 4. How to read the "verified real runs" panel
 
@@ -245,8 +268,9 @@ that completes 60 % of its tasks does not hand you a number for the other 40 %.
 ### Run manifest
 
 Every run writes one JSON file, `run_manifest.json`, and rewrites it after
-every state change, so it is simultaneously the audit record and the
-checkpoint used for cancel and resume. It is schema-versioned.
+every state change, so it preserves the audit record and task state. It is schema-versioned.
+MCP keeps a separate job record and does not automatically resume interrupted
+science; batch-executor polling/resume is a separate feature.
 
 At the top level it holds the run id and directory, the mode (`mock` or
 `real`), status, start and end times, the full validated plan, the environment

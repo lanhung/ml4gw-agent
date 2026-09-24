@@ -1,0 +1,269 @@
+{
+  "timestamp_utc": "2026-09-24T07:45:19.666933+00:00",
+  "scope": "Deterministic planning only; no LLM requests or science execution.",
+  "planner_sha256": "50acf4720116b849af53bc8da8313764cb440a6de0d4fa0b4b8a4740dd8e63bf",
+  "controls": [
+    {
+      "case": "buoy",
+      "prompt": "使用默认流程分析 GW150914",
+      "skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ]
+    },
+    {
+      "case": "aframe_amplfi",
+      "prompt": "Run Aframe and AMPLFI on GW150914 in mock mode. Wait for completion and read the report and artifact index.",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ]
+    },
+    {
+      "case": "aframe_gwak",
+      "prompt": "用 mock 模式对 GW150914 运行 Aframe 和 GWAK，并对两路结果进行 reconcile。等待完成并读取报告和产物索引。",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ]
+    }
+  ],
+  "reproductions": [
+    {
+      "model": "glm-4.5",
+      "case": "buoy",
+      "arguments": {
+        "prompt": "Analyze GW150914 using the default pipeline: resolve event, fetch strain for H1 and L1, inspect data quality, run Aframe detection, run GWAK scan, reconcile detections, run AMPLFI parameter estimation if a candidate is found, and generate a report.",
+        "config": {
+          "ifos": [
+            "H1",
+            "L1"
+          ],
+          "data_source": "gwosc",
+          "window_seconds": 128,
+          "sample_rate": 2048,
+          "samples_per_event": 20000,
+          "nside": 64,
+          "use_distance": true,
+          "device": "cuda",
+          "seed": 0
+        },
+        "mode": "mock"
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced": true
+    },
+    {
+      "model": "glm-4.7",
+      "case": "buoy",
+      "arguments": {
+        "prompt": "Analyze GW150914 using the default pipeline: fetch strain, detect with Aframe, parameter estimation with AMPLFI, and generate report.",
+        "mode": "mock",
+        "config": {
+          "ifos": [
+            "H1",
+            "L1"
+          ]
+        }
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "reproduced": true
+    },
+    {
+      "model": "glm-5",
+      "case": "buoy",
+      "arguments": {
+        "prompt": "Analyze GW150914 using the default analysis pipeline: resolve event, fetch strain, inspect data quality, run Aframe detection, run GWAK scan, reconcile detections, run AMPLFI parameter estimation, and generate report. Use all default settings.",
+        "mode": "mock",
+        "config": {}
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced": true
+    },
+    {
+      "model": "glm-5.2",
+      "case": "buoy",
+      "arguments": {
+        "prompt": "Analyze GW150914 using the default pipeline flow: resolve event, fetch strain, inspect quality, run Aframe detection, run GWAK scan, reconcile detections, run AMPLFI parameter estimation, and generate report.",
+        "config": null,
+        "mode": "mock"
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced": true
+    },
+    {
+      "model": "glm-5.3",
+      "case": "buoy",
+      "arguments": {
+        "mode": "mock",
+        "prompt": "Analyze the event GW150914 using the default analysis flow (catalog resolution, strain fetch, inspection, detection, parameter estimation, and report), with default configuration."
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "reproduced": true
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "buoy",
+      "arguments": {
+        "prompt": "用默认流程分析引力波事件 GW150914：事件解析、数据获取与质量检查、Aframe 与 GWAK 检测、结果调和、AMPLFI 参数估计，并生成报告。"
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "observed_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "reproduced": true
+    }
+  ]
+}

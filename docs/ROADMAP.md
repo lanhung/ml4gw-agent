@@ -2,7 +2,24 @@
 
 The project is developed as vertical slices with explicit exit criteria. A
 phase is complete only when its real adapter has passed both software tests and
-a reviewed scientific acceptance case.
+a reviewed scientific acceptance case. Checked implementation items below do not
+by themselves mean that domain review is complete.
+
+## P0/P1 interface delivery — 2026-09-24
+
+The [P0/P1 implementation plan](plan/P0_P1_IMPLEMENTATION_PLAN_2026-09-24.md)
+is separate from the phase numbering below. This delivery fixes dependencies and
+Python 3.10 compatibility, documents upstream contracts and source evidence, and
+adds the official SDK v2 local stdio MCP interface for complete saved plans.
+See [MCP](MCP.md), [integration checklist](SKILL_INTEGRATION.md), and
+[model provenance review](MODEL_PROVENANCE_REVIEW.md).
+
+Current execution boundaries: baseline/LLM planning is connected to the CLI and
+Web; MCP uses the baseline and local executor. `observe` / `replan` are available
+APIs but are not automatically called by the execution entry points. Data reuse
+mainly follows fixed DAG references (plus a run-scoped result cache). DeepClean
+can write cleaned strain; the default Aframe task still consumes `fetch_data`,
+not `clean_deepclean`. Connecting these loops and data flows is follow-up work.
 
 ## Phase 0 — contracts and controlled runtime
 
@@ -53,8 +70,8 @@ Exit test:
 
 Status: **adapters implemented, unit-tested with fake backends (v0.2), and
 passed the GW150914 acceptance run and the five-event suite on a GPU node on
-2026-09-03; the calibrated threshold, a candidate-time window, mldatafind,
-and domain-reviewer sign-off remain.** Runbook: `PHASE1B_ACCEPTANCE.md`;
+2026-09-03; calibrated thresholds and candidate-time gates are implemented.
+A dedicated mldatafind integration and domain-reviewer sign-off remain.** Runbook: `PHASE1B_ACCEPTANCE.md`;
 records: `PHASE1B_ACCEPTANCE_RUN_2026-09-03.md`,
 `PHASE1B_SUITE_RUN_2026-09-03.md`.
 
@@ -104,27 +121,24 @@ Exit criteria:
 
 Target: parallel CBC and unmodeled analysis paths.
 
-Status: **real GWAK route running on the user's own exported GWAK 2.0
-models (S4 SimCLR embedder + background-only normalizing flow, the only
-pairing that separates; upstream release ≥ 3 months away); GW150914 and
-GW190521 are the loudest kernel at the catalog time, the noise segment is
-not. Threshold calibrated from a 5.56 d time-shifted background
-(`calibration/gwak_thresholds.json`, 1/day = 25.55, planner `--gwak-far`);
-the background is glitch-dominated, so the BBH events (rates 9e3–1.2e4 /yr)
-are reported through `target_far_per_year`, z-score and rank rather than
-`anomaly_found` (`PHASE2_GWAK_RUN_2026-09-03.md`). Author confirmation of
-the pairing remains.**
+Status: **real GWAK adapter connected, with historical runs and background
+calibration. The local exports and hashes are recorded; training attribution,
+embedder/metric pairing and preprocessing still need Fan / author confirmation.**
+The initial 5.56 d study is documented in `PHASE2_GWAK_RUN_2026-09-03.md`;
+subsequent background records are in `BACKGROUND_EXTENDED_2026-09-04.md`.
+Current versioned thresholds come from `calibration/gwak_thresholds.json`.
+The glitch-dominated background limits scientific interpretation.
 
 Work items:
 
 - [x] Freeze the supported GWAK workflow and model revisions: TorchScript
       embedder + background flow pinned by SHA-256 in `models/gwak/MANIFEST.json`
-      (ML4GW/gwak `7b9f58a`, user-trained; not an upstream release).
+      (ML4GW/gwak `7b9f58a` as recorded; independent attribution pending).
 - [x] Map inputs/outputs to the skill contract (`gwak.scan`: 4096 Hz H1+L1
       via a dedicated fetch, whitening per the training config, per-kernel
       scores, top segments, target-time score/rank).
-- [ ] Anomaly-score calibration (time-shifted background) and top-segment
-      validation on injections and glitches.
+- [x] Versioned anomaly-score calibration from time-shifted background.
+- [ ] Domain-reviewed top-segment validation on injections and glitches.
 - [x] Discrepancy logic: `analysis.reconcile` runs after both detection
       tasks; Aframe negative/GWAK positive routes to morphology diagnostics
       and never to AMPLFI, which stays conditioned on the Aframe candidate.
@@ -144,13 +158,15 @@ Target: scientifically guarded noise subtraction.
 
 Status: **real cleaning route running (2026-09-04,
 `PHASE3_DEEPCLEAN_RUN_2026-09-04.md`): a deepcleanv2-style 60 Hz H1 model
-trained by the agent on O4 NDS2 data (weights pinned by SHA-256 in
+recorded as a self-trained stand-in on O4 NDS2 data (trainer attribution pending;
+weights pinned by SHA-256 in
 `models/deepclean`, registered in `calibration/deepclean_support.json`),
 witness channels fetched by the applicability check, `deepclean.clean`
 verified on S250119cv (60 Hz line reduced, out-of-band ASD unchanged,
 Aframe statistic 8.50 → 8.67 on the cleaned strain). The weights are a
 self-trained stand-in for the DeepClean team's reviewed model; the
-injection campaign for a reviewed tolerance is open.**
+injection campaign for a reviewed tolerance is open. The default Aframe branch
+does not consume the cleaned artifact; the quoted comparison was a separate run.**
 
 Work items:
 
@@ -225,9 +241,10 @@ Exit criteria:
 Target: add LLM planning, observation, reflection, and experiment memory without
 weakening the deterministic execution boundary.
 
-Status: **implemented and measured with a replay client
-(`PHASE5_PLANNING.md`); the real-model row of the evaluation needs API
-credentials, which this host does not have.**
+Status: **planner, observation and bounded replanning APIs implemented, with
+replay and historical real-model evaluation records (`PHASE5_PLANNING.md`).
+Automatic observation → replanning → execution is not wired into CLI/Web/MCP;
+new live model evaluations require separately configured credentials.**
 
 Work items:
 
@@ -236,7 +253,8 @@ Work items:
       fallback).
 - [x] Retrieve only registry summaries relevant to the request.
 - [x] Structured observations (`observe`) and bounded replanning (`replan`,
-      at most once, only after a failure).
+      at most once, only after a failure), available as APIs.
+- [ ] Connect observation → replanning → execution with domain feedback rules.
 - [x] Experiment memory (`ExperimentMemory`: data, models, configuration,
       result, failures), fed back per event.
 - [x] 71 benchmark cases across `v0_prompts.yaml` and `v1_prompts.yaml`,

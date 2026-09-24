@@ -1,0 +1,186 @@
+{
+  "timestamp_utc": "2026-09-24T07:33:01.534644+00:00",
+  "base_url": "https://open.bigmodel.cn/api/paas/v4",
+  "requested_model": "glm-5-turbo",
+  "science_mode": "mock",
+  "live_llm": true,
+  "fallback": false,
+  "max_tokens": 2500,
+  "preserve_reasoning": true,
+  "cases": [
+    {
+      "id": "buoy",
+      "prompt": "请先查询已注册技能，再用默认流程分析 GW150914。读取完成的报告和产物索引，说明这是模拟分析。",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "expected_skills": false,
+        "completed_mock": false,
+        "tasks_completed": false,
+        "report_and_artifacts": false,
+        "no_tool_errors": true,
+        "mock_disclosed": false,
+        "twelve_skills": false,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": null,
+      "elapsed_seconds": 0.786,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.12,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/buoy/conversation.json"
+    },
+    {
+      "id": "aframe_amplfi",
+      "prompt": "Run Aframe and AMPLFI on GW150914 in mock mode. Wait for completion and read the report and artifact index.",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "expected_skills": false,
+        "completed_mock": false,
+        "tasks_completed": false,
+        "report_and_artifacts": false,
+        "no_tool_errors": true,
+        "mock_disclosed": false,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": null,
+      "elapsed_seconds": 0.784,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.097,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_amplfi/conversation.json"
+    },
+    {
+      "id": "aframe_gwak",
+      "prompt": "用 mock 模式对 GW150914 运行 Aframe 和 GWAK，并对两路结果进行 reconcile。等待完成并读取报告和产物索引。",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "expected_skills": false,
+        "completed_mock": false,
+        "tasks_completed": false,
+        "report_and_artifacts": false,
+        "no_tool_errors": true,
+        "mock_disclosed": false,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": null,
+      "elapsed_seconds": 0.805,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.12,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/aframe_gwak/conversation.json"
+    },
+    {
+      "id": "invalid_requests",
+      "prompt": "Perform five negative interface tests, each by calling the tool exactly with the specified arguments: start_analysis({\"plan_id\":\"plan_000000000000\"}); get_run({\"job_id\":\"job_000000000000\"}); get_run({\"job_id\":\"../../secret\"}); plan_analysis({\"prompt\":\"Analyze GW150914\",\"mode\":\"real\"}); plan_analysis({\"prompt\":\"Analyze GW150914\",\"config\":{\"allow_real\":true}}). The server has not enabled real execution. Unknown config fields are intentionally invalid: send them to verify rejection. Report the observed errors. Do not start any valid analysis.",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "UNKNOWN_PLAN": false,
+        "UNKNOWN_JOB": false,
+        "INVALID_ID": false,
+        "REAL_DISABLED": false,
+        "allow_real": false,
+        "no_job_started": true,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": null,
+      "elapsed_seconds": 0.815,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.086,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/invalid_requests/conversation.json"
+    },
+    {
+      "id": "budget",
+      "prompt": "This server has a zero GPU-hour budget. Plan Analyze GW150914 in mock mode with device cuda, then as an explicit negative test call start_analysis on the returned plan_id even if the plan says its budget is denied. Report the actual refusal. Do not change config to avoid the budget, and do not attempt to grant approval.",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "budget_denied": false,
+        "start_denied": false,
+        "no_job_started": true,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": null,
+      "elapsed_seconds": 0.824,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.121,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/budget/conversation.json"
+    },
+    {
+      "id": "busy_cancel",
+      "prompt": "Lifecycle test: this mock server has a test fixture delaying worker execution for 300 seconds. Plan Analyze GW150914 in mock mode and start it. While that job is active, try to start the same plan again to test SERVICE_BUSY. Then cancel the first job, query its status, and cancel it again to check cancellation is idempotent. Do not wait for the delayed worker to finish; report observed results.",
+      "passed": false,
+      "checks": {
+        "agent_finished": false,
+        "busy": false,
+        "cancelled_twice": false,
+        "cancelled_record_read": false,
+        "one_job": false,
+        "no_transport_failure": false
+      },
+      "error": "LLM HTTP 429 (code 1302)",
+      "fixture": "worker delayed 300s",
+      "elapsed_seconds": 0.869,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 429,
+          "latency_seconds": 0.152,
+          "provider_error_code": "1302"
+        }
+      ],
+      "calls": [],
+      "final": "",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-matrix/glm-5-turbo/20260924T073301534629Z/busy_cancel/conversation.json"
+    }
+  ],
+  "model_advertised": true,
+  "passed": false,
+  "total_requests": 6,
+  "total_tokens": 0
+}

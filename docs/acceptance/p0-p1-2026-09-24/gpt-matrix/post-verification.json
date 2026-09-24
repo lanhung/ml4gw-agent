@@ -1,0 +1,286 @@
+{
+  "timestamp_utc": "2026-09-24T06:56:25.186853+00:00",
+  "passed": true,
+  "scope": "All persisted jobs and manifests, including completed science whose result was not read by the agent after HTTP 408. This does not alter scenario verdicts.",
+  "completed_manifests": 21,
+  "verified_artifacts": 135,
+  "jobs": [
+    {
+      "model": "gpt-5.5",
+      "case": "buoy",
+      "job_id": "job_02009554826a",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.5/20260924T064523412226Z/buoy/jobs/job_02009554826a/runs/run_87d6a16a8541/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-5.5",
+      "case": "aframe_amplfi",
+      "job_id": "job_1208b1e84b40",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.5/20260924T064523412226Z/aframe_amplfi/jobs/job_1208b1e84b40/runs/run_573167c824b7/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-5.5",
+      "case": "aframe_gwak",
+      "job_id": "job_39504984309c",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.5/20260924T064523412226Z/aframe_gwak/jobs/job_39504984309c/runs/run_e3e3b5d4ff5e/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "gpt-5.5",
+      "case": "busy_cancel",
+      "job_id": "job_c8b11473f3b2",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "case": "buoy",
+      "job_id": "job_d81167d54454",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-luna/20260924T064523416403Z/buoy/jobs/job_d81167d54454/runs/run_0fdf0557a464/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "case": "aframe_amplfi",
+      "job_id": "job_78b023f2e79c",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-luna/20260924T064523416403Z/aframe_amplfi/jobs/job_78b023f2e79c/runs/run_7c8753697c77/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "case": "aframe_gwak",
+      "job_id": "job_b38df7dadc8c",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-luna/20260924T064523416403Z/aframe_gwak/jobs/job_b38df7dadc8c/runs/run_a915572d495f/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "case": "busy_cancel",
+      "job_id": "job_d6eb1fa9cd44",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "case": "buoy",
+      "job_id": "job_778e31c3c9b3",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-sol/20260924T064742103207Z/buoy/jobs/job_778e31c3c9b3/runs/run_e02de7f71b4f/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "case": "aframe_amplfi",
+      "job_id": "job_9a2d4694bb9c",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-sol/20260924T064742103207Z/aframe_amplfi/jobs/job_9a2d4694bb9c/runs/run_a2edefe5afcc/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "case": "aframe_gwak",
+      "job_id": "job_f509bc12fce6",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-sol/20260924T064742103207Z/aframe_gwak/jobs/job_f509bc12fce6/runs/run_cb0f856814e0/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "case": "busy_cancel",
+      "job_id": "job_37848a7da39c",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "case": "buoy",
+      "job_id": "job_57817cb75ad8",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-terra/20260924T064829525163Z/buoy/jobs/job_57817cb75ad8/runs/run_677e0b3810ac/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "case": "aframe_amplfi",
+      "job_id": "job_d4724e104872",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-terra/20260924T064829525163Z/aframe_amplfi/jobs/job_d4724e104872/runs/run_32c3270ea557/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "case": "aframe_gwak",
+      "job_id": "job_84cb7b9b139d",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-5.6-terra/20260924T064829525163Z/aframe_gwak/jobs/job_84cb7b9b139d/runs/run_92b04215d35c/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "case": "busy_cancel",
+      "job_id": "job_99335d7c9737",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-6-astra",
+      "case": "buoy",
+      "job_id": "job_79f908ce25ce",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-astra/20260924T065037201178Z/buoy/jobs/job_79f908ce25ce/runs/run_22a84814691b/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-6-astra",
+      "case": "aframe_amplfi",
+      "job_id": "job_ba58f0096bf2",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-astra/20260924T065037201178Z/aframe_amplfi/jobs/job_ba58f0096bf2/runs/run_3bc27b65dcb8/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-6-astra",
+      "case": "aframe_gwak",
+      "job_id": "job_4560d6256981",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-astra/20260924T065037201178Z/aframe_gwak/jobs/job_4560d6256981/runs/run_23bce2c2accc/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "gpt-6-astra",
+      "case": "busy_cancel",
+      "job_id": "job_b07f2574cacb",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-6-luna",
+      "case": "buoy",
+      "job_id": "job_d749b9873515",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-luna/20260924T065055945353Z/buoy/jobs/job_d749b9873515/runs/run_47976e15e9eb/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-6-luna",
+      "case": "aframe_amplfi",
+      "job_id": "job_07a081377557",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-luna/20260924T065055945353Z/aframe_amplfi/jobs/job_07a081377557/runs/run_ed9b65552d91/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-6-luna",
+      "case": "aframe_gwak",
+      "job_id": "job_3ec3376a37a7",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-luna/20260924T065055945353Z/aframe_gwak/jobs/job_3ec3376a37a7/runs/run_60e8b50f608f/run_manifest.json",
+      "tasks": 8
+    },
+    {
+      "model": "gpt-6-luna",
+      "case": "busy_cancel",
+      "job_id": "job_e716c1aacef2",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    },
+    {
+      "model": "gpt-6-sol",
+      "case": "buoy",
+      "job_id": "job_801f568f3b05",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 5,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-sol/20260924T065301072521Z/buoy/jobs/job_801f568f3b05/runs/run_e7d89d0959b3/run_manifest.json",
+      "tasks": 3
+    },
+    {
+      "model": "gpt-6-sol",
+      "case": "aframe_amplfi",
+      "job_id": "job_04727edd4561",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 7,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-sol/20260924T065301072521Z/aframe_amplfi/jobs/job_04727edd4561/runs/run_5c3d634296b0/run_manifest.json",
+      "tasks": 6
+    },
+    {
+      "model": "gpt-6-sol",
+      "case": "aframe_gwak",
+      "job_id": "job_daab9836c551",
+      "status": "completed",
+      "mode": "mock",
+      "artifacts": 9,
+      "manifest": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt-matrix/gpt-6-sol/20260924T065301072521Z/aframe_gwak/jobs/job_daab9836c551/runs/run_dc1436ceef5a/run_manifest.json",
+      "tasks": 9
+    },
+    {
+      "model": "gpt-6-sol",
+      "case": "busy_cancel",
+      "job_id": "job_9d81f2a1a3ec",
+      "status": "cancelled",
+      "mode": "mock",
+      "artifacts": 0,
+      "manifest": null
+    }
+  ],
+  "matching_model_responses": 190,
+  "all_jobs_terminal": true,
+  "artifact_path_size_sha256_checks": true,
+  "product_code_changed_during_matrix": false
+}

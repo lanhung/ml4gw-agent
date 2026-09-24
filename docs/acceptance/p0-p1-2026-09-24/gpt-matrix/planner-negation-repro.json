@@ -1,0 +1,57 @@
+{
+  "timestamp_utc": "2026-09-24T06:51:48.175636+00:00",
+  "live_llm": false,
+  "science_executed": false,
+  "source_file": "src/ml4gw_agent/planning.py",
+  "source_sha256": "50acf4720116b849af53bc8da8313764cb440a6de0d4fa0b4b8a4740dd8e63bf",
+  "finding": "BaselinePlanner performs substring matching and treats negated AMPLFI mentions as a positive request. Product code was not modified during the model matrix.",
+  "cases": [
+    {
+      "id": "control",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results.",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "has_amplfi": false
+    },
+    {
+      "id": "negative_english",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results. Do not run AMPLFI.",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "has_amplfi": true
+    },
+    {
+      "id": "negative_chinese",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results. 不要运行 AMPLFI 参数估计。",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "has_amplfi": true
+    }
+  ]
+}

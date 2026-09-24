@@ -1,0 +1,203 @@
+{
+  "timestamp_utc": "2026-09-24T07:22:46.821529+00:00",
+  "base_url": "https://open.bigmodel.cn/api/paas/v4",
+  "requested_model": "glm-5.3-flash",
+  "science_mode": "mock",
+  "live_llm": true,
+  "fallback": false,
+  "max_tokens": 2500,
+  "preserve_reasoning": true,
+  "cases": [
+    {
+      "id": "buoy",
+      "prompt": "请先查询已注册技能，再用默认流程分析 GW150914。读取完成的报告和产物索引，说明这是模拟分析。",
+      "passed": false,
+      "checks": {
+        "agent_finished": true,
+        "expected_skills": false,
+        "completed_mock": true,
+        "tasks_completed": true,
+        "report_and_artifacts": true,
+        "no_tool_errors": true,
+        "mock_disclosed": true,
+        "twelve_skills": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 68.728,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 20.664,
+          "model": "glm-5.3-flash",
+          "usage": {
+            "completion_tokens": 463,
+            "completion_tokens_details": {
+              "reasoning_tokens": 449
+            },
+            "prompt_tokens": 1448,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1911
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 8.454,
+          "model": "glm-5.3-flash",
+          "usage": {
+            "completion_tokens": 153,
+            "completion_tokens_details": {
+              "reasoning_tokens": 72
+            },
+            "prompt_tokens": 11120,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 11273
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 5.572,
+          "model": "glm-5.3-flash",
+          "usage": {
+            "completion_tokens": 76,
+            "completion_tokens_details": {
+              "reasoning_tokens": 23
+            },
+            "prompt_tokens": 13339,
+            "prompt_tokens_details": {
+              "cached_tokens": 11072
+            },
+            "total_tokens": 13415
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 4,
+          "http_status": 200,
+          "latency_seconds": 4.98,
+          "model": "glm-5.3-flash",
+          "usage": {
+            "completion_tokens": 65,
+            "completion_tokens_details": {
+              "reasoning_tokens": 24
+            },
+            "prompt_tokens": 13516,
+            "prompt_tokens_details": {
+              "cached_tokens": 13312
+            },
+            "total_tokens": 13581
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 5,
+          "http_status": 200,
+          "latency_seconds": 28.334,
+          "model": "glm-5.3-flash",
+          "usage": {
+            "completion_tokens": 1301,
+            "completion_tokens_details": {
+              "reasoning_tokens": 420
+            },
+            "prompt_tokens": 20455,
+            "prompt_tokens_details": {
+              "cached_tokens": 13504
+            },
+            "total_tokens": 21756
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "list_skills",
+          "arguments": {},
+          "is_error": false,
+          "result_sha256": "f1490be1ae5db8ce7c54d51f6aedaf5dce11365aaa4b330f2de68f97bbe7d036",
+          "skill_count": 12
+        },
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "使用默认流程分析 GW150914：获取公开应变数据，运行 Aframe 检测、GWAK 扫描，一致性判定后用 AMPLFI 做参数估计，最后生成报告。"
+          },
+          "is_error": false,
+          "result_sha256": "164d89d3041614134e2b2c0419eff7c06a7f2ff51378b030992527324a440b0f",
+          "plan_id": "plan_c7850ad6b7b6",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "data.fetch",
+            "data.inspect",
+            "aframe.detect",
+            "amplfi.pe",
+            "data.fetch",
+            "gwak.scan",
+            "analysis.reconcile",
+            "report.generate"
+          ]
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_c7850ad6b7b6"
+          },
+          "is_error": false,
+          "result_sha256": "c0942da924ab8aca4227d9e1f5bdba275b5f31f03dafd3edec3bd7bc68ebdc74",
+          "plan_id": "plan_c7850ad6b7b6",
+          "job_id": "job_9b7b39bbc2df",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_9b7b39bbc2df"
+          },
+          "is_error": false,
+          "result_sha256": "6d610259a90e51991e620e8542f7dd91be906979be23b636ebc0b34f608b799e",
+          "plan_id": "plan_c7850ad6b7b6",
+          "job_id": "job_9b7b39bbc2df",
+          "mode": "mock",
+          "status": "completed",
+          "error": null,
+          "simulated_report": true,
+          "artifact_count": 9,
+          "task_statuses": {
+            "fetch_data": "completed",
+            "fetch_data_4k": "completed",
+            "generate_report": "completed",
+            "inspect_data": "completed",
+            "reconcile_detections": "completed",
+            "resolve_event": "completed",
+            "run_aframe": "completed",
+            "run_amplfi": "completed",
+            "run_gwak": "completed"
+          }
+        }
+      ],
+      "final": "已完成全部流程。以下是观察到的结果总结。\n\n## 1. 已注册技能（`list_skills`）\n\n共 12 个技能，`real_enabled: false`（真实模式未启用，环境缺少 buoy/torch/ml4gw 等依赖）：\n\n| 技能 | 用途 | 真实模式可用性 |\n|---|---|---|\n| `data.resolve_event` / `catalog.lookup` | 事件解析 / 目录查询 | 可用（builtin） |\n| `data.fetch` / `data.inspect` | 应变数据获取 / 质量检查 | 缺依赖（gwosc, gwpy） |\n| `aframe.detect` / `amplfi.pe` | 建模检测 / 参数估计 | 缺依赖（buoy, torch 等） |\n| `gwak.scan` | 非建模异常扫描 | 缺依赖（torch, ml4gw） |\n| `analysis.reconcile` / `report.generate` | 检测一致性判定 / 报告生成 | 可用（builtin） |\n| `buoy.analyze` | 端到端垂直流水线 | 缺依赖 |\n| `deepclean.check_applicability` / `deepclean.clean` | 噪声扣除适用性 / 执行 | 部分可用 / 缺依赖 |\n\n## 2. 计划与执行（GW150914，默认流程）\n\n- **计划**：`plan_c7850ad6b7b6`，mock 模式，9 个任务（解析事件 → 2048/4096 Hz 取数 → 质检 → Aframe → GWAK → 一致性判定 → AMPLFI → 报告），预算允许，预计延迟约 78 秒。\n- **作业**：`job_9b7b39bbc2df`（run_4abbe4826cb0），状态 **completed**，returncode 0，实际约 0.3 秒完成，全部 9 个任务 completed，所有校验通过。\n- **记录的输出（均为模拟值）**：\n  - 事件解析：GW150914 → GWTC-2.1-confident，catalog_time 1126259462.4\n  - 数据窗口：1126259398.4–1126259526.4（H1+L1），质检通过\n  - Aframe：candidate_found=true，detection_statistic=0.98，预测并合时间 1126259462.4\n  - GWAK：anomaly_found=false（top_segments 为空）\n  - 一致性判定：route=`aframe_only`，建议继续参数估计\n  - AMPLFI：生成后验与天图产物，可信区间仅标为 \"simulated-low/high\"\n- **产物索引**：9 个产物，均带 SHA-256（如 `report.md` 3313 字节、`mock_strain.json` 161 字节 ×2、`mock_posterior.json`、`mock_skymap.json` 等），日志在 `job.log`。\n\n## 3. 重要声明：这是模拟分析\n\n- 本次运行处于 **mock 模式**；每个计算型任务的适配器均标注 *\"SIMULATED FOR ORCHESTRATION TESTING; NOT A SCIENTIFIC RESULT\"*，`simulated: true`。**所有数值（检测统计量 0.98、事件时间、天图等）均为编排测试用的确定性占位数据，不具有任何科学意义，不得用于任何物理解释。**\n- 计划层面还有 5 条警告：Aframe/AMPLFI/GWAK 模型修订版未固定（UNPINNED），且无背景校准，使用原始 0.0 阈值——因此即便在真实模式下，这些 candidate/anomaly 标志也不构成显著性声明。\n- 报告本身也带有 \"Interpretation boundary\" 说明：该报告只汇总适配器输出与校验状态，不能替代探测器特性审查、独立流水线核验或合作组发布政策。",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-glm-preflight/20260924T072246821513Z/buoy/conversation.json"
+    }
+  ],
+  "model_advertised": true,
+  "passed": false,
+  "total_requests": 5,
+  "total_tokens": 61936
+}

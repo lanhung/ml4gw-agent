@@ -1,0 +1,254 @@
+{
+  "timestamp_utc": "2026-09-24T06:39:31.149030+00:00",
+  "base_url": "http://127.0.0.1:8317/v1",
+  "requested_model": "gpt-6-sol",
+  "science_mode": "mock",
+  "live_llm": true,
+  "fallback": false,
+  "cases": [
+    {
+      "id": "busy_cancel",
+      "prompt": "Lifecycle test: this mock server has a test fixture delaying worker execution for 300 seconds. Plan Analyze GW150914 in mock mode and start it. While that job is active, try to start the same plan again to test SERVICE_BUSY. Then cancel the first job, query its status, and cancel it again to check cancellation is idempotent. Do not wait for the delayed worker to finish; report observed results.",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "busy": true,
+        "cancelled_twice": true,
+        "cancelled_record_read": true,
+        "one_job": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": "worker delayed 300s",
+      "elapsed_seconds": 29.265,
+      "requests": [
+        {
+          "http_status": 200,
+          "latency_seconds": 3.233,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 25,
+            "total_tokens": 1318,
+            "prompt_tokens": 1293,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 3.171,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 26,
+            "total_tokens": 2083,
+            "prompt_tokens": 2057,
+            "prompt_tokens_details": {
+              "cached_tokens": 1152,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 2.493,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 26,
+            "total_tokens": 2211,
+            "prompt_tokens": 2185,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 3.653,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 26,
+            "total_tokens": 2273,
+            "prompt_tokens": 2247,
+            "prompt_tokens_details": {
+              "cached_tokens": 2048,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 3.974,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 26,
+            "total_tokens": 2432,
+            "prompt_tokens": 2406,
+            "prompt_tokens_details": {
+              "cached_tokens": 2048,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 3.027,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 26,
+            "total_tokens": 2656,
+            "prompt_tokens": 2630,
+            "prompt_tokens_details": {
+              "cached_tokens": 2304,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "http_status": 200,
+          "latency_seconds": 8.982,
+          "model": "gpt-6-sol",
+          "usage": {
+            "completion_tokens": 118,
+            "total_tokens": 2907,
+            "prompt_tokens": 2789,
+            "prompt_tokens_details": {
+              "cached_tokens": 2432,
+              "cache_write_tokens": 0,
+              "cached_creation_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914",
+            "mode": "mock"
+          },
+          "is_error": false,
+          "result_sha256": "a7487ac105e37ea17d860d418543f4288268415be6a132e8db7bef09d1ee7f2c",
+          "plan_id": "plan_e2ba773c363a",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "buoy.analyze",
+            "report.generate"
+          ]
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_e2ba773c363a"
+          },
+          "is_error": false,
+          "result_sha256": "6117d448c4beb51aa7af4a756d2cbe23045b461caf5f64b757da10781a15e4ca",
+          "plan_id": "plan_e2ba773c363a",
+          "job_id": "job_3982ecfeaa54",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_e2ba773c363a"
+          },
+          "is_error": true,
+          "result_sha256": "73719008318b22bf9fd3e32b034b1103f6fcf6749a14c12e78312515db08d963",
+          "error": "Error executing tool start_analysis: SERVICE_BUSY: job job_3982ecfeaa54 is running"
+        },
+        {
+          "name": "cancel_run",
+          "arguments": {
+            "job_id": "job_3982ecfeaa54"
+          },
+          "is_error": false,
+          "result_sha256": "f50554cb327baccd3a1f30566922da721233fdde3ed0861cf9489333e6330060",
+          "plan_id": "plan_e2ba773c363a",
+          "job_id": "job_3982ecfeaa54",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown"
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_3982ecfeaa54"
+          },
+          "is_error": false,
+          "result_sha256": "f2f4cc5c494100862d25165ca7c5830e951fba320b42e33dc6c8ebea3ca9c881",
+          "plan_id": "plan_e2ba773c363a",
+          "job_id": "job_3982ecfeaa54",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown",
+          "simulated_report": false,
+          "artifact_count": 0,
+          "task_statuses": {}
+        },
+        {
+          "name": "cancel_run",
+          "arguments": {
+            "job_id": "job_3982ecfeaa54"
+          },
+          "is_error": false,
+          "result_sha256": "f50554cb327baccd3a1f30566922da721233fdde3ed0861cf9489333e6330060",
+          "plan_id": "plan_e2ba773c363a",
+          "job_id": "job_3982ecfeaa54",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown"
+        }
+      ],
+      "final": "**Lifecycle test observed:** Mock plan `plan_e2ba773c363a` started as job `job_3982ecfeaa54`. A second start attempt while it was running returned `SERVICE_BUSY`, identifying that job.\n\nThe first cancellation returned `cancelled`. A status query confirmed the terminal `cancelled` state; a second cancellation returned the same state and end time, consistent with idempotent cancellation. I did not wait for the delayed worker. The cancelled run had no report or artifacts, and mock results are simulated and have no scientific meaning.",
+      "transcript": "/home/zxc/workspace3/code/ml4gw-agent/runs/mcp-gpt/20260924T063931149013Z/busy_cancel/conversation.json"
+    }
+  ],
+  "model_advertised": true,
+  "passed": true,
+  "total_requests": 7,
+  "total_tokens": 15880
+}

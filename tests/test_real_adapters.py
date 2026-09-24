@@ -915,7 +915,7 @@ def test_decomposed_plan_skips_pe_when_no_candidate(registry, tmp_path, monkeypa
 
 def test_doctor_reports_python_adapter_probes(capsys, monkeypatch):
     # Force the "science stack not installed" picture regardless of the host.
-    monkeypatch.setattr("ml4gw_agent.cli.shutil.which", lambda _: None)
+    monkeypatch.setattr("ml4gw_agent.capabilities.shutil.which", lambda _: None)
     monkeypatch.setattr("ml4gw_agent.adapters.aframe._missing", lambda: ["buoy"])
     monkeypatch.setattr("ml4gw_agent.adapters.amplfi._missing", lambda: ["buoy"])
     assert main(["doctor", "--mode", "real"]) == 2

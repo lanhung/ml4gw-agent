@@ -1,0 +1,105 @@
+{
+  "model": "glm-5-turbo",
+  "returned_models": [
+    "glm-5-turbo"
+  ],
+  "passed": 6,
+  "total": 6,
+  "assertions_passed": 44,
+  "assertions_total": 44,
+  "elapsed_seconds": 272.283,
+  "requests": 25,
+  "http_errors": 0,
+  "transport_errors": 0,
+  "median_request_seconds": 7.248,
+  "input_tokens": 140845,
+  "output_tokens": 6360,
+  "total_tokens": 147205,
+  "cached_input_tokens": 88448,
+  "cases": [
+    {
+      "id": "buoy",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    },
+    {
+      "id": "aframe_amplfi",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    },
+    {
+      "id": "aframe_gwak",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    },
+    {
+      "id": "invalid_requests",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    },
+    {
+      "id": "budget",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    },
+    {
+      "id": "busy_cancel",
+      "passed": true,
+      "failed_checks": [],
+      "error": null
+    }
+  ],
+  "elapsed_scope": "Sum of case durations; excludes model discovery",
+  "artifact_verification": {
+    "passed": true,
+    "manifests": 3,
+    "artifacts": 19
+  },
+  "timestamp_utc": "2026-09-24T07:46:42.182014+00:00",
+  "seconds_after_matrix_finished": 100.969,
+  "reason": "All six initial cases were blocked at their first HTTP request with 429 / 1302; retry once after the matrix ends, with one model and one request stream.",
+  "workers": 1,
+  "initial_results_preserved": "../glm-matrix-2026-09-24/glm-5-turbo.json",
+  "jobs": [
+    {
+      "job_id": "job_e97d0e2732f0",
+      "status": "completed",
+      "mode": "mock",
+      "case": "buoy"
+    },
+    {
+      "job_id": "job_b9b8b9fa0e66",
+      "status": "completed",
+      "mode": "mock",
+      "case": "aframe_amplfi"
+    },
+    {
+      "job_id": "job_02e17a35c6f9",
+      "status": "completed",
+      "mode": "mock",
+      "case": "aframe_gwak"
+    },
+    {
+      "job_id": "job_45d880590010",
+      "status": "cancelled",
+      "mode": "mock",
+      "case": "busy_cancel"
+    }
+  ],
+  "http_status_counts": {
+    "200": 25
+  },
+  "model_response_ids_match_requests": true,
+  "preflight_artifact_verification": {
+    "passed": true,
+    "manifests": 1,
+    "artifacts": 9
+  },
+  "verified_at_utc": "2026-09-24T07:51:43.867645+00:00",
+  "report": "glm-5-turbo.json"
+}

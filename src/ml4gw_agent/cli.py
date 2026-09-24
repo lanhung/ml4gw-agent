@@ -3,15 +3,13 @@ from __future__ import annotations
 import argparse
 import contextlib
 import json
-import shutil
-import subprocess
 import sys
 from collections.abc import Sequence
 from pathlib import Path
 
 from pydantic import ValidationError as PydanticValidationError
 
-from .adapters import PYTHON_ADAPTERS
+from .capabilities import skill_availability
 from .errors import ML4GWAgentError
 from .executors import (
     BudgetPolicy,
@@ -247,6 +245,13 @@ def build_parser() -> argparse.ArgumentParser:
         "doctor", help="Inspect adapter availability without executing science"
     )
     doctor.add_argument("--mode", choices=["mock", "real"], default="real")
+
+    mcp = subparsers.add_parser("mcp", help="Serve complete analyses over local stdio")
+    mcp.add_argument("--runs-dir", type=Path, default=Path("runs/mcp"))
+    mcp.add_argument("--allow-real", action="store_true")
+    mcp.add_argument("--approve-high-risk", action="store_true")
+    mcp.add_argument("--max-gpu-hours", type=float, default=4.0)
+    mcp.add_argument("--authorize-budget", action="store_true")
     return parser
 
 
@@ -328,45 +333,11 @@ def _doctor(mode: str) -> int:
     vertical_ready = True
     phase1b_ready = True
     for skill in registry.all():
-        if mode == "mock":
-            availability = (
-                "builtin" if skill.adapter.kind == AdapterKind.BUILTIN else "mock"
-            )
-        elif skill.adapter.kind == AdapterKind.BUILTIN:
-            availability = "available"
-        elif skill.adapter.kind == AdapterKind.BUOY_CLI:
-            executable = shutil.which(skill.adapter.entrypoint)
-            if executable is None:
-                availability = "missing"
-            else:
-                try:
-                    probe = subprocess.run(
-                        [executable, "--help"],
-                        capture_output=True,
-                        text=True,
-                        shell=False,
-                        timeout=60,
-                        check=False,
-                    )
-                except (OSError, subprocess.TimeoutExpired) as exc:
-                    availability = f"broken: {type(exc).__name__}"
-                else:
-                    availability = (
-                        "available"
-                        if probe.returncode == 0
-                        else f"broken: exit {probe.returncode}"
-                    )
-            vertical_ready = vertical_ready and availability == "available"
-        elif skill.adapter.kind == AdapterKind.PYTHON:
-            adapter_class = PYTHON_ADAPTERS.get(skill.adapter.entrypoint)
-            if adapter_class is None:
-                availability = "broken: unregistered entrypoint"
-            else:
-                availability = adapter_class().probe()
-            if skill.name in PHASE1B_SKILLS:
-                phase1b_ready = phase1b_ready and availability == "available"
-        else:
-            availability = "planned"
+        availability = skill_availability(skill, mode)
+        if skill.adapter.kind == AdapterKind.BUOY_CLI:
+            vertical_ready = vertical_ready and availability in {"available", "mock"}
+        if skill.name in PHASE1B_SKILLS:
+            phase1b_ready = phase1b_ready and availability in {"available", "mock"}
         rows.append(
             {
                 "skill": skill.name,
@@ -392,6 +363,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == "mcp":
+            from .mcp_jobs import ServiceConfig
+            from .mcp_server import serve
+
+            serve(
+                ServiceConfig(
+                    runs_dir=args.runs_dir,
+                    allow_real=args.allow_real,
+                    approve_high_risk=args.approve_high_risk,
+                    max_gpu_hours=args.max_gpu_hours,
+                    authorize_budget=args.authorize_budget,
+                )
+            )
+            return 0
+
         if args.command == "skills":
             registry = load_default_registry()
             payload = [

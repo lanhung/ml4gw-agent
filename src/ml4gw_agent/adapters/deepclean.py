@@ -29,7 +29,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from importlib import resources
+from importlib import resources, util
 from pathlib import Path
 from typing import Any
 
@@ -295,6 +295,11 @@ class DeepCleanCleanAdapter(SkillAdapter):
     name = "deepclean-clean-v0.1"
 
     def probe(self) -> str:
+        missing = [name for name in ("torch", "ml4gw") if util.find_spec(name) is None]
+        if missing:
+            return f"missing: {', '.join(missing)}"
+        if not default_model_dir().is_dir():
+            return "missing: DeepClean model directory"
         return "available"
 
     def describe_invocation(

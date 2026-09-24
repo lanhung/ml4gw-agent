@@ -15,8 +15,38 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-      - run: uv sync --group dev
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
-      - run: uv run pytest
+      - run: uv sync --locked --group dev
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync ruff format --check .
+      - run: uv run --no-sync pytest -rs
 
+  interfaces:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --locked --group dev --extra mcp --extra web
+      - run: uv run --no-sync python -c "import mcp, fastapi, httpx"
+      - run: uv run --no-sync pytest -rs
+      - run: uv run --no-sync python examples/mcp_mock_client.py
+
+  science-dependencies:
+    runs-on: ubuntu-latest
+    env:
+      OMP_NUM_THREADS: "2"
+      OPENBLAS_NUM_THREADS: "2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+      - run: uv sync --locked --group dev --extra buoy
+      - run: uv run --no-sync python -c "import torch, ml4gw, gwpy"
+      # These CPU tests require the scientific packages, but no credentials/data/GPU.
+      # Coverage is enforced by the full suites above, not this focused extra job.
+      - run: uv run --no-sync pytest tests/test_ldg_deepclean.py tests/test_deepclean_model.py --no-cov -rs

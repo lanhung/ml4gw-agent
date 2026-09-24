@@ -1,0 +1,9 @@
+...............                                                          [100%]
+=============================== warnings summary ===============================
+tests/test_deepclean_model.py::test_train_and_clean_reduce_the_60hz_line
+  /home/zxc/workspace3/code/ml4gw-agent/src/ml4gw_agent/adapters/deepclean_model.py:257: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+    losses.append(float(loss))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+15 passed, 1 warning in 8.53s
