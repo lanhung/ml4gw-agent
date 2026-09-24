@@ -1,0 +1,135 @@
+{
+  "timestamp_utc": "2026-09-24T11:31:30.333586+00:00",
+  "base_url": "http://127.0.0.1:8399/v1",
+  "python": "3.11.15",
+  "mcp_sdk": "2.2.0",
+  "available_models": [
+    "ref-contract-agent"
+  ],
+  "model_discovery_http_status": 200,
+  "selected_models": [
+    "ref-contract-agent"
+  ],
+  "excluded_models": {},
+  "settings": {
+    "workers": 1,
+    "timeout_seconds": 90,
+    "max_rounds": 16,
+    "max_tokens": 2500,
+    "model_prefix": "ref-",
+    "exclude_prefix": [
+      "gpt-image-"
+    ],
+    "preserve_reasoning": false,
+    "thinking": "omitted (provider default)",
+    "temperature": "omitted (provider default)",
+    "reasoning_effort": "omitted (provider default)",
+    "cases": [
+      "buoy",
+      "aframe_amplfi",
+      "aframe_gwak",
+      "invalid_requests",
+      "budget",
+      "busy_cancel"
+    ],
+    "repeats": 1,
+    "retries": 0,
+    "live_llm": true,
+    "science_mode": "mock",
+    "fallback": false
+  },
+  "script_sha256": {
+    "evaluate_mcp_gpt_matrix.py": "926ac2810f3535f61c4c325bebe98a5ba12926ffd24d3ab80475b0bbae577e59",
+    "evaluate_mcp_gpt.py": "5bc34bf80d602f8610d6d1923c1fe01804fdd151f8b91742dfcba1c50d40a42d"
+  },
+  "scenario_sha256": "d779fed2f247d008139ba829656f4864f64f37454da7e8b0a30d25ad56ff82b0",
+  "product_sha256": {
+    "__init__.py": "02614270a544b3e291d2f9c83436e973ca04a10e1f6787da0830015e827cabf9",
+    "__main__.py": "307299fda7b77d22c64cb51430ec75e5f59d78e9c948786afb3b2544fe45e4b7",
+    "_version.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+    "capabilities.py": "1e24949cab79c676d25415462a452901903a71db783c2996dbccd43c9964042d",
+    "cli.py": "2e8551843a684fc8443c8970d30d70c77065e0f202714fa2ff0d624b304e54d9",
+    "errors.py": "bae9bcd664785f04ca59989aee293db11a3f83a2befe343f8150fccdd3045a40",
+    "llm_planner.py": "356f232b1e8b1caa546f43c45692c386ac2dee2a41838d3837cecb1e66909883",
+    "mcp_jobs.py": "da3b348fad3bf52395d752ed9ac32e4922121a9c1875762036724473e67265cc",
+    "mcp_server.py": "d544268a6794dd2b97c2e62f48fcd40a5bbbbcd1ee33869fbae7f4570885183d",
+    "models.py": "be4bf8ad679ea9fe32400c90410dfbc8f2902bc1980bdfbc4502077d81e6f41b",
+    "planning.py": "5156aad816b73709cbf7b336334faa0be54839a5dd48abafdc4ed522c225c533",
+    "policy.py": "dad2f50f1d8ce1002d51e32b4ff5605c355e7b9ff6df9a244ec9eb323c581c3b",
+    "provenance.py": "94f033628804b620b2b96cda867d2eb9f82adcc7e9e1f39ba4b2cfbb85af071e",
+    "registry.py": "c622fc2cd40bdae321100966be01bea36da19de4a3d9428109e60a7f37c84051",
+    "runtime.py": "b3e105c7d751811e0fb855d8e61bae6c3379801c77696153f213acb7f35e0857",
+    "validation.py": "e58dc706f6573ae3340354a59230ab6acf4b199348849174d59530f5793f3c23"
+  },
+  "status": "completed",
+  "models": [
+    {
+      "model": "ref-contract-agent",
+      "returned_models": [
+        "ref-contract-agent"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 11.817,
+      "requests": 32,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 0.004,
+      "input_tokens": 92948,
+      "output_tokens": 1024,
+      "total_tokens": 93972,
+      "cached_input_tokens": 0,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "ref-contract-agent.json"
+    }
+  ],
+  "completed_at_utc": "2026-09-24T11:31:42.580370+00:00",
+  "elapsed_seconds": 11.824,
+  "passed_cases": 6,
+  "total_cases": 6,
+  "all_passed": true
+}

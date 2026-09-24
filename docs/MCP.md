@@ -105,6 +105,14 @@ uv run --no-sync python scripts/evaluate_mcp_gpt_matrix.py \
 目录。密钥不进入命令参数、报告或会话；`--key-file` 与 `--proxy-config` 互斥。
 本轮逐模型成绩与失败分析见[GLM 测试报告](test/P0_P1_GLM_MODEL_TEST_REPORT_2026-09-24.md)。
 
+### 用新契约重跑与参考运行
+
+`scripts/rerun_mcp_matrices.sh` 在有 CLIProxy 和 GLM 密钥的机器上一条命令重跑
+两个矩阵，并用 `scripts/compare_mcp_matrices.py` 与 2026-09-24 基线逐场景对比。
+`scripts/mcp_reference_agent.py` 是一个不含模型、严格按契约调用工具的本地
+OpenAI 兼容服务，用来验证测试装置本身；其结果见
+[参考矩阵报告](test/CONTRACT_REFERENCE_RUN_2026-09-24.md)，不作为模型成绩。
+
 ## 五个工具
 
 | 工具 | 输入 | 主要返回 |
