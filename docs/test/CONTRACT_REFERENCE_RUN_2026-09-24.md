@@ -41,19 +41,45 @@
 
 ## 在你的机器上重跑真实矩阵
 
-一条命令，输出到带日期的新目录并自动与 2026-09-24 基线逐场景对比：
+在 CLIProxy 所在的 Linux / macOS 机器上，用一个独立检出目录运行。脚本会执行
+`uv sync --locked --extra mcp --group dev`，这一步会卸掉该目录 `.venv` 里其他
+extra（如 buoy），所以不要在日常使用的环境里跑。
 
 ```bash
-CLIPROXY_CONFIG=/abs/path/cli-proxy/config.yaml bash scripts/rerun_mcp_matrices.sh
-# 只跑其中一边：SKIP_GPT=1 或 SKIP_GLM=1；GLM 密钥文件默认 docs/key/glm.md
+git clone https://github.com/lanhung/ml4gw-agent ml4gw-agent-rerun
+cd ml4gw-agent-rerun
+git checkout claude/ml4gw-orchestration-layer-i86m2q
+
+read -rs GLM_API_KEY && export GLM_API_KEY     # 粘贴密钥后回车，不回显
+CLIPROXY_CONFIG=/abs/path/cli-proxy/config.yaml COMMIT=1 PUSH=1 \
+  bash scripts/rerun_mcp_matrices.sh 2>&1 | tee rerun.log
+unset GLM_API_KEY
 ```
 
-脚本依次：同步环境 → 重新生成规划器约束证据 → GPT 矩阵（CLIProxy）→
-GLM 矩阵（智谱标准接口，`--preserve-reasoning`）→
-[`scripts/compare_mcp_matrices.py`](../../scripts/compare_mcp_matrices.py)
-生成 `compare-vs-2026-09-24.md/.json`，按模型 × 场景标出 fixed / regressed /
-unchanged。测试脚本、提示词和断言与 9 月 24 日两轮矩阵完全一致，因此对比
-是同条件的。限流（HTTP 429）的模型按原方法单独串行补测。
+[`scripts/rerun_mcp_matrices.sh`](../../scripts/rerun_mcp_matrices.sh) 依次完成：
+
+1. 先检查凭据和输出目录，缺什么立即退出，不会跑到一半才失败。
+2. 同步环境，重新生成规划器约束证据。
+3. GPT 矩阵（CLIProxy）和 GLM 矩阵（智谱，`--preserve-reasoning`）。每个
+   矩阵只看得到自己的密钥，密钥来自环境变量或文件，不出现在命令行参数里。
+4. [`scripts/retry_rate_limited.py`](../../scripts/retry_rate_limited.py)：出现
+   HTTP 429 的模型等待 `RETRY_WAIT`（默认 100 秒）后单独串行补测一次，写出
+   `effective-summary.json`；原 `summary.json` 不改。408、任务图不符、参数错误
+   都不重跑。
+5. [`scripts/compare_mcp_matrices.py`](../../scripts/compare_mcp_matrices.py)
+   与 9 月 24 日基线逐模型、逐场景对比，生成 `compare-vs-2026-09-24.md/.json`，
+   并在终端打印两行汇总。
+6. [`scripts/check_no_secrets.py`](../../scripts/check_no_secrets.py) 扫描所有
+   新证据文件，只打印含密钥的文件名；发现泄露则退出且不提交。
+7. `COMMIT=1` 时提交新证据，`PUSH=1` 时再推送当前分支。
+
+只跑一边：`SKIP_GPT=1` 或 `SKIP_GLM=1`。CLIProxy 不在这台机器上时，就在这台
+机器上用 `SKIP_GPT=1`，在 CLIProxy 所在机器上用 `SKIP_GLM=1`，两次用同一个
+`DATE`。同一天再跑一次需要换一个 `DATE`，例如 `DATE=2026-09-25b`。
+
+脚本已在本仓库用参考 agent 端到端自测：参考 agent 以测试模式对第一个请求返回
+429，补测把有效汇总从 5/6 恢复到 6/6，对比与泄露检查正常，人为埋入的密钥被
+检出。测试和提示词、断言与 9 月 24 日两轮矩阵完全一致，对比是同条件的。
 
 预期要看的三件事：
 
@@ -65,5 +91,4 @@ unchanged。测试脚本、提示词和断言与 9 月 24 日两轮矩阵完全�
 3. GLM 5.3 系列 5 个"`mode` 放进 `config`"是否消失：工具说明和 schema 描述
    已写明 `mode` 是顶层参数。
 
-对比结果出来后，把 `docs/test/*-matrix-<date>/` 提交入库并在计划文档第 6 节
-追加一小节；原 6.2 / 6.3 成绩保持不改写。
+对比结果推送后，在计划文档第 6 节追加一小节；原 6.2 / 6.3 成绩保持不改写。

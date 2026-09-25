@@ -205,6 +205,7 @@ def next_step(scenario: str, calls) -> tuple[str | None, object]:
 
 class Handler(BaseHTTPRequestHandler):
     counter = 0
+    rate_limit_first = 0  # test mode: refuse the first N chat requests with 429
     lock = threading.Lock()
 
     def log_message(self, *args):  # quiet
@@ -228,6 +229,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(404, {"error": {"message": "not found"}})
         length = int(self.headers.get("Content-Length", "0"))
         request = json.loads(self.rfile.read(length) or b"{}")
+        with Handler.lock:
+            limited = Handler.rate_limit_first > 0
+            if limited:
+                Handler.rate_limit_first -= 1
+        if limited:
+            return self._json(
+                429, {"error": {"code": "1302", "message": "reference rate limit"}}
+            )
         messages = request.get("messages", [])
         prompt = next(m["content"] for m in messages if m.get("role") == "user")
         try:
@@ -278,7 +287,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8399)
+    parser.add_argument(
+        "--rate-limit-first",
+        type=int,
+        default=0,
+        help="test mode: answer the first N chat requests with HTTP 429 / 1302",
+    )
     args = parser.parse_args(argv)
+    Handler.rate_limit_first = max(0, args.rate_limit_first)
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     print(
         f"reference agent {MODEL} listening on http://{args.host}:{args.port}/v1",

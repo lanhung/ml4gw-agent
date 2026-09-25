@@ -323,8 +323,10 @@ mock manifest 和 135 个产物，全部路径、大小和哈希一致；另有 
 - 用按契约行事的确定性参考 agent（无模型）驱动**未改动**的矩阵脚本，
   六场景 6/6、44/44 断言通过，3 份 manifest / 19 个产物核验一致，证明测试
   装置对修改后的服务仍然有效，且三类失败行为在遵守契约的客户端上不再出现。
-- `scripts/rerun_mcp_matrices.sh` 一条命令完成 GPT + GLM 重跑，
-  `scripts/compare_mcp_matrices.py` 与 9 月 24 日基线逐模型、逐场景对比。
+- `scripts/rerun_mcp_matrices.sh` 一条命令完成 GPT + GLM 重跑、HTTP 429
+  模型的单次串行补测（`retry_rate_limited.py`）、与 9 月 24 日基线的逐场景
+  对比（`compare_mcp_matrices.py`）、新证据密钥扫描（`check_no_secrets.py`）
+  以及可选的提交 / 推送；已用参考 agent 的 429 测试模式端到端自测。
 
 参考运行不计入模型成绩；真实重跑的结果另行记录。
 
