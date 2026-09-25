@@ -1,0 +1,979 @@
+{
+  "timestamp_utc": "2026-09-25T02:36:55.488017+00:00",
+  "base_url": "https://open.bigmodel.cn/api/paas/v4",
+  "requested_model": "glm-4.7",
+  "science_mode": "mock",
+  "live_llm": true,
+  "fallback": false,
+  "max_tokens": 2500,
+  "preserve_reasoning": true,
+  "cases": [
+    {
+      "id": "buoy",
+      "prompt": "请先查询已注册技能，再用默认流程分析 GW150914。读取完成的报告和产物索引，说明这是模拟分析。",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "expected_skills": true,
+        "completed_mock": true,
+        "tasks_completed": true,
+        "report_and_artifacts": true,
+        "no_tool_errors": true,
+        "mock_disclosed": true,
+        "twelve_skills": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 61.072,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 6.665,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 100,
+            "completion_tokens_details": {
+              "reasoning_tokens": 64
+            },
+            "prompt_tokens": 1713,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1813
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 6.722,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 105,
+            "completion_tokens_details": {
+              "reasoning_tokens": 46
+            },
+            "prompt_tokens": 11022,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 11127
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 5.15,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 58,
+            "completion_tokens_details": {
+              "reasoning_tokens": 14
+            },
+            "prompt_tokens": 11913,
+            "prompt_tokens_details": {
+              "cached_tokens": 11008
+            },
+            "total_tokens": 11971
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 4,
+          "http_status": 200,
+          "latency_seconds": 5.339,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 59,
+            "completion_tokens_details": {
+              "reasoning_tokens": 15
+            },
+            "prompt_tokens": 12071,
+            "prompt_tokens_details": {
+              "cached_tokens": 11904
+            },
+            "total_tokens": 12130
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 5,
+          "http_status": 200,
+          "latency_seconds": 35.874,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 1218,
+            "completion_tokens_details": {
+              "reasoning_tokens": 24
+            },
+            "prompt_tokens": 15371,
+            "prompt_tokens_details": {
+              "cached_tokens": 12032
+            },
+            "total_tokens": 16589
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "list_skills",
+          "arguments": {},
+          "is_error": false,
+          "result_sha256": "f1490be1ae5db8ce7c54d51f6aedaf5dce11365aaa4b330f2de68f97bbe7d036",
+          "skill_count": 12
+        },
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914 using the default Buoy pipeline",
+            "mode": "mock"
+          },
+          "is_error": false,
+          "result_sha256": "95709c17640d76af73e1b2891f8591769e5e815c5b5263e48587bd8f41563f58",
+          "plan_id": "plan_d9c51c410577",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "buoy.analyze",
+            "report.generate"
+          ],
+          "skill_count": 3
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_d9c51c410577"
+          },
+          "is_error": false,
+          "result_sha256": "51f56eb1a2dce8e0de12c662f7738fccf1b5133f2b3b7b050edc292ddd4a2930",
+          "plan_id": "plan_d9c51c410577",
+          "job_id": "job_c917dca57227",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_c917dca57227"
+          },
+          "is_error": false,
+          "result_sha256": "a9f977e89f9b4ff9214f02b30fbdf7fded8b5be77469eca7ffd6d16e60d66c69",
+          "plan_id": "plan_d9c51c410577",
+          "job_id": "job_c917dca57227",
+          "mode": "mock",
+          "status": "completed",
+          "error": null,
+          "simulated_report": true,
+          "artifact_count": 5,
+          "task_statuses": {
+            "analyze_event": "completed",
+            "generate_report": "completed",
+            "resolve_event": "completed"
+          }
+        }
+      ],
+      "final": "分析已完成。下面是完整的报告和产物索引。\n\n---\n\n## 📋 GW150914 模拟分析报告\n\n> ⚠️ **这是一次模拟（mock）分析，所有输出数值均为编排测试的占位值，不具任何科学意义。**\n\n### 一、已注册技能一览（共 12 个）\n\n| 技能名称 | 版本 | 说明 | 本地真实可用 |\n|---|---|---|---|\n| `aframe.detect` | 0.2.0 | Aframe 致密双星探测 | ❌ |\n| `amplfi.pe` | 0.2.0 | AMPLFI 无似然参数估计 | ❌ |\n| `analysis.reconcile` | 0.1.0 | Aframe/GWAK 路由协调 | ✅ |\n| `buoy.analyze` | 0.1.0 | Buoy 垂直分析流水线 | ❌ |\n| `catalog.lookup` | 0.1.0 | GWTC/GraceDB 目录查询 | ✅ |\n| `data.fetch` | 0.2.0 | 应变数据获取 | ❌ |\n| `data.inspect` | 0.2.0 | 数据质量检查 | ✅ (部分) |\n| `data.resolve_event` | 0.1.0 | 事件标识解析 | ✅ |\n| `deepclean.check_applicability` | 0.1.0 | DeepClean 适用性判断 | ✅ |\n| `deepclean.clean` | 0.1.0 | DeepClean 噪声减除 | ❌ |\n| `gwak.scan` | 0.1.0 | GWAK 非模型化扫描 | ❌ |\n| `report.generate` | 0.1.0 | 报告生成 | ✅ |\n\n> 真实模式未启用（`real_enabled: false`），多数技能缺少 `buoy, torch, ml4gw` 等运行时依赖。\n\n---\n\n### 二、分析规划与执行\n\n| 项目 | 值 |\n|---|---|\n| plan_id | `plan_d9c51c410577` |\n| job_id | `job_c917dca57227` |\n| 路由 | **Buoy**（默认流程） |\n| 模式 | **mock** |\n| 执行任务链 | `data.resolve_event` → `buoy.analyze` → `report.generate` |\n| 最终状态 | ✅ **completed** (returncode=0) |\n\n---\n\n### 三、各任务模拟输出\n\n#### 1️⃣ resolve_event（事件解析）\n- 事件：**GW150914**\n- 类型：`gwtc`（来自 GWTC-2.1-confident 目录）\n- 目录时间：**1126259462.4** GPS\n- `simulated: true`\n\n#### 2️⃣ analyze_event（Buoy 分析）\n- 检测统计量：**0.98**（模拟值）\n- 预测并合时间：**1126259462.4** GPS（模拟值）\n- 后验样本文件：`mock_posterior_samples.json`\n- Aframe 输出文件：`mock_aframe_outputs.json`\n- 摘要 HTML：`summary.html`\n- `simulated: true`，适配器元数据明确标注 `\"scientific_result\": false`\n\n#### 3️⃣ generate_report（报告生成）\n- 报告路径：`report.md`（1562 字节，Markdown）\n\n---\n\n### 四、产物索引（5 个文件）\n\n| # | 相对路径 | 大小 | SHA-256 | 媒体类型 |\n|---|---|---|---|---|\n| 1 | `artifacts/resolve_event/event_info.json` | 350 B | `6f76baf1…` | application/json |\n| 2 | `artifacts/analyze_event/buoy/GW150914/data/mock_aframe_outputs.json` | 156 B | `a62e4f39…` | application/json |\n| 3 | `artifacts/analyze_event/buoy/GW150914/data/mock_posterior_samples.json` | 178 B | `c993ad26…` | application/json |\n| 4 | `artifacts/analyze_event/buoy/GW150914/summary.html` | 81 B | `dec08fe8…` | text/html |\n| 5 | `report.md` | 1562 B | `568d2771…` | text/markdown |\n\n---\n\n### 五、关键说明\n\n1. **本次分析为模拟（mock）模式**：所有数值（如检测统计量 0.98、并合时间 1126259462.4）均为编排框架自动生成的占位值，**不反映真实物理结果**。适配器元数据中明确标记 `scientific_result: false`。\n2. 报告正文也以醒目横幅声明：*\"SIMULATED ORCHESTRATION OUTPUT — NOT A SCIENTIFIC RESULT\"*。\n3. 要获得真实科学结果，需要在安装了 `buoy, torch, ml4gw` 等依赖的环境中以 `mode=real` 重新运行，并锁定不可变模型版本（当前规划警告：Buoy 模型修订未完全固定）。\n4. 所有 6 项验证检查均通过（输入/输出 JSON Schema、产物存在性、非空性），确认编排流程本身运行正确。",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/buoy/conversation.json"
+    },
+    {
+      "id": "aframe_amplfi",
+      "prompt": "Run Aframe and AMPLFI on GW150914 in mock mode. Wait for completion and read the report and artifact index.",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "expected_skills": true,
+        "completed_mock": true,
+        "tasks_completed": true,
+        "report_and_artifacts": true,
+        "no_tool_errors": true,
+        "mock_disclosed": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 41.701,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 6.649,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 168,
+            "completion_tokens_details": {
+              "reasoning_tokens": 93
+            },
+            "prompt_tokens": 1712,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1880
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 6.628,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 63,
+            "completion_tokens_details": {
+              "reasoning_tokens": 21
+            },
+            "prompt_tokens": 3338,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 3401
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 4.461,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 43,
+            "completion_tokens_details": {
+              "reasoning_tokens": 12
+            },
+            "prompt_tokens": 3502,
+            "prompt_tokens_details": {
+              "cached_tokens": 3328
+            },
+            "total_tokens": 3545
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 4,
+          "http_status": 200,
+          "latency_seconds": 22.555,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 743,
+            "completion_tokens_details": {
+              "reasoning_tokens": 17
+            },
+            "prompt_tokens": 8624,
+            "prompt_tokens_details": {
+              "cached_tokens": 3456
+            },
+            "total_tokens": 9367
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Run Aframe and AMPLFI on GW150914",
+            "mode": "mock",
+            "config": {
+              "ifos": [
+                "H1",
+                "L1"
+              ],
+              "pipeline": "decomposed"
+            }
+          },
+          "is_error": false,
+          "result_sha256": "4b00c3cf6b57a939e90e858273419f594495596a4dcd3ddb7ecd0a89207fe0f7",
+          "plan_id": "plan_1504f2d7d9be",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "data.fetch",
+            "data.inspect",
+            "aframe.detect",
+            "amplfi.pe",
+            "report.generate"
+          ],
+          "skill_count": 6
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_1504f2d7d9be"
+          },
+          "is_error": false,
+          "result_sha256": "83237a106857dd51d04af01b5b72ae64a0cf50cfad8a8507241a8d70793bbd86",
+          "plan_id": "plan_1504f2d7d9be",
+          "job_id": "job_7cfc919446cf",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_7cfc919446cf"
+          },
+          "is_error": false,
+          "result_sha256": "54c3ea680cb5fa235da98e1d6647349dc64d567c10b16ed9cc44f576921d9c75",
+          "plan_id": "plan_1504f2d7d9be",
+          "job_id": "job_7cfc919446cf",
+          "mode": "mock",
+          "status": "completed",
+          "error": null,
+          "simulated_report": true,
+          "artifact_count": 7,
+          "task_statuses": {
+            "fetch_data": "completed",
+            "generate_report": "completed",
+            "inspect_data": "completed",
+            "resolve_event": "completed",
+            "run_aframe": "completed",
+            "run_amplfi": "completed"
+          }
+        }
+      ],
+      "final": "The analysis completed successfully. Here is a summary of everything observed.\n\n---\n\n## Job Summary\n\n| Field | Value |\n|---|---|\n| **Job ID** | `job_7cfc919446cf` |\n| **Plan ID** | `plan_1504f2d7d9be` |\n| **Mode** | mock |\n| **Route** | decomposed |\n| **Status** | ✅ completed (returncode 0) |\n| **Duration** | < 1 s (mock mode) |\n\n---\n\n## Task Execution (6 / 6 completed)\n\n| Task | Skill | Status | Key Output |\n|---|---|---|---|\n| `resolve_event` | `data.resolve_event` | ✅ | Event GW150914 resolved from GWTC-2.1-confident at GPS 1126259462.4 |\n| `fetch_data` | `data.fetch` | ✅ | Mock strain for H1+L1, GPS 1126259398.4–1126259526.4 (128 s) |\n| `inspect_data` | `data.inspect` | ✅ | Quality passed, no issues, both IFOs available |\n| `run_aframe` | `aframe.detect` | ✅ | Candidate found at 1126259462.4, detection_statistic = 0.98 |\n| `run_amplfi` | `amplfi.pe` | ✅ | Mock posterior + skymap produced (20 000 samples, nside 64) |\n| `generate_report` | `report.generate` | ✅ | Report written to `report.md` |\n\nAll per-task validations (schema, artifact existence, non-empty, conditions) **passed**.\n\n---\n\n## Artifact Index (7 files)\n\n| Relative Path | Type | Size |\n|---|---|---|\n| `artifacts/resolve_event/event_info.json` | application/json | 350 B |\n| `artifacts/fetch_data/mock_strain.json` | application/json | 161 B |\n| `artifacts/inspect_data/mock_quality_diagnostics.json` | application/json | 182 B |\n| `artifacts/run_aframe/mock_aframe_output.json` | application/json | 183 B |\n| `artifacts/run_amplfi/mock_posterior.json` | application/json | 135 B |\n| `artifacts/run_amplfi/mock_skymap.json` | application/json | 108 B |\n| `report.md` | text/markdown | 2 299 B |\n\n---\n\n## Warnings (non-blocking)\n\n1. **No background calibration** for the requested Aframe revision / FAR; raw threshold 0.0 used — `candidate_found` is not a significance statement.\n2. **Aframe model revision is not pinned** (UNPINNED).\n3. **AMPLFI model revision is not pinned** (UNPINNED).\n\n---\n\n## ⚠️ Important Disclaimer\n\n**All results are SIMULATED (mock mode).** Every task output is produced by a deterministic-mock adapter and carries the notice:\n\n> *\"SIMULATED FOR ORCHESTRATION TESTING; NOT A SCIENTIFIC RESULT\"*\n\nValues such as `detection_statistic = 0.98`, `candidate_times`, and the AMPLFI posterior/skymap are fixtures for orchestration and validation testing only. They have **no scientific meaning** and must not be interpreted as gravitational-wave analysis results.",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/aframe_amplfi/conversation.json"
+    },
+    {
+      "id": "aframe_gwak",
+      "prompt": "用 mock 模式对 GW150914 运行 Aframe 和 GWAK，并对两路结果进行 reconcile。等待完成并读取报告和产物索引。",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "expected_skills": true,
+        "completed_mock": true,
+        "tasks_completed": true,
+        "report_and_artifacts": true,
+        "no_tool_errors": true,
+        "mock_disclosed": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 49.623,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 7.437,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 146,
+            "completion_tokens_details": {
+              "reasoning_tokens": 56
+            },
+            "prompt_tokens": 1720,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1866
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 7.528,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 167,
+            "completion_tokens_details": {
+              "reasoning_tokens": 68
+            },
+            "prompt_tokens": 3699,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 3866
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 5.486,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 64,
+            "completion_tokens_details": {
+              "reasoning_tokens": 11
+            },
+            "prompt_tokens": 3963,
+            "prompt_tokens_details": {
+              "cached_tokens": 3584
+            },
+            "total_tokens": 4027
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 4,
+          "http_status": 200,
+          "latency_seconds": 27.763,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 978,
+            "completion_tokens_details": {
+              "reasoning_tokens": 13
+            },
+            "prompt_tokens": 9942,
+            "prompt_tokens_details": {
+              "cached_tokens": 3840
+            },
+            "total_tokens": 10920
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Run Aframe and GWAK on GW150914, then reconcile the two results.",
+            "mode": "mock",
+            "config": {
+              "pipeline": "decomposed",
+              "ifos": [
+                "H1",
+                "L1"
+              ]
+            }
+          },
+          "is_error": false,
+          "result_sha256": "2194ff78a55403f7d43b8dc7cb96d4e15e01c87a390b8e1910601035ed756919",
+          "plan_id": "plan_f35007213181",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "data.fetch",
+            "data.inspect",
+            "aframe.detect",
+            "data.fetch",
+            "gwak.scan",
+            "analysis.reconcile",
+            "report.generate"
+          ],
+          "skill_count": 8
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_f35007213181"
+          },
+          "is_error": false,
+          "result_sha256": "2d3924d5538cc6bdd89984bed68779f2b155e92166ac6a6173e8faff639039bd",
+          "plan_id": "plan_f35007213181",
+          "job_id": "job_f12252b9ba3c",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_f12252b9ba3c"
+          },
+          "is_error": false,
+          "result_sha256": "06154968774d5839f3d54c5098522800cdd4844c2e54a9463cf920c9c9e91ab4",
+          "plan_id": "plan_f35007213181",
+          "job_id": "job_f12252b9ba3c",
+          "mode": "mock",
+          "status": "completed",
+          "error": null,
+          "simulated_report": true,
+          "artifact_count": 7,
+          "task_statuses": {
+            "fetch_data": "completed",
+            "fetch_data_4k": "completed",
+            "generate_report": "completed",
+            "inspect_data": "completed",
+            "reconcile_detections": "completed",
+            "resolve_event": "completed",
+            "run_aframe": "completed",
+            "run_gwak": "completed"
+          }
+        }
+      ],
+      "final": "分析已完成！以下是完整结果汇总。\n\n---\n\n## 📋 分析结果总结\n\n### 整体状态\n| 项目 | 值 |\n|---|---|\n| Job ID | `job_f12252b9ba3c` |\n| Plan ID | `plan_f35007213181` |\n| 模式 | **mock**（模拟，非科学结果） |\n| 状态 | ✅ **completed** (returncode=0) |\n| 耗时 | ~0.67 s（mock 瞬时执行） |\n\n### DAG 任务执行（8/8 全部 completed）\n\n| 任务 | Skill | 状态 | 关键输出 |\n|---|---|---|---|\n| `resolve_event` | `data.resolve_event` | ✅ | 事件 GW150914，GPS 1126259462.4，来自 GWTC-2.1-confident |\n| `fetch_data` | `data.fetch` | ✅ | H1+L1，2048 Hz，GPS [1126259398.4, 1126259526.4] |\n| `inspect_data` | `data.inspect` | ✅ | `quality_passed: true`，无问题 |\n| `fetch_data_4k` | `data.fetch` | ✅ | H1+L1，4096 Hz（供 GWAK 使用） |\n| **`run_aframe`** | `aframe.detect` | ✅ | **`candidate_found: true`**，检测统计量 0.98，候选时间 1126259462.4 |\n| **`run_gwak`** | `gwak.scan` | ✅ | **`anomaly_found: false`**，无异常段 |\n| **`reconcile_detections`** | `analysis.reconcile` | ✅ | **route: `aframe_only`**，建议继续 AMPLFI PE |\n| `generate_report` | `report.generate` | ✅ | 生成 `report.md` (2802 bytes) |\n\n### 🔀 Reconcile 结果\n\n```\naframe_candidate: true\ngwak_anomaly:     false\nroute:            aframe_only\nparameter_estimation_recommended: true\nfollow_up: \"modelled search fired without an unmodeled anomaly: \n           proceed with AMPLFI, note that GWAK did not flag the segment\"\n```\n\n**解读**：Aframe 在目标时间附近检测到候选信号（统计量 0.98），而 GWAK 未报告异常。Reconcile 路由为 `aframe_only`，建议继续执行 AMPLFI 参数估计，同时记录 GWAK 未标记该段。\n\n### 📦 产物索引（7 个文件）\n\n| 相对路径 | 大小 | SHA256 (前16) | 类型 |\n|---|---|---|---|\n| `artifacts/resolve_event/event_info.json` | 350 B | `6f76baf1…` | JSON |\n| `artifacts/fetch_data/mock_strain.json` | 161 B | `deb49b85…` | JSON |\n| `artifacts/fetch_data_4k/mock_strain.json` | 161 B | `f5895833…` | JSON |\n| `artifacts/inspect_data/mock_quality_diagnostics.json` | 182 B | `1ac58d1d…` | JSON |\n| `artifacts/run_aframe/mock_aframe_output.json` | 183 B | `75d3f921…` | JSON |\n| `artifacts/run_gwak/mock_gwak_output.json` | 127 B | `3122b4a7…` | JSON |\n| `report.md` | 2802 B | `a33867a6…` | Markdown |\n\n### ⚠️ 警告（4 条，均为 mock 下预期）\n1. Aframe 无背景校准，阈值 0.0 下 `candidate_found` 不构成显著性声明\n2. Aframe 模型 revision 未 pin\n3. GWAK 无背景校准，阈值 0.0 下 `anomaly_found` 不构成显著性声明\n4. GWAK 模型 revision 未 pin\n\n---\n\n**⚠️ 重要提醒**：以上所有数值均为 **mock 模式的模拟输出**，仅用于验证编排、验证和溯源流程，**不具备任何科学含义**。真实分析需使用 `mode=real` 并 pin 住模型 revision 与背景校准。",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/aframe_gwak/conversation.json"
+    },
+    {
+      "id": "invalid_requests",
+      "prompt": "Perform five negative interface tests, each by calling the tool exactly with the specified arguments: start_analysis({\"plan_id\":\"plan_000000000000\"}); get_run({\"job_id\":\"job_000000000000\"}); get_run({\"job_id\":\"../../secret\"}); plan_analysis({\"prompt\":\"Analyze GW150914\",\"mode\":\"real\"}); plan_analysis({\"prompt\":\"Analyze GW150914\",\"config\":{\"allow_real\":true}}). The server has not enabled real execution. Unknown config fields are intentionally invalid: send them to verify rejection. Report the observed errors. Do not start any valid analysis.",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "UNKNOWN_PLAN": true,
+        "UNKNOWN_JOB": true,
+        "INVALID_ID": true,
+        "REAL_DISABLED": true,
+        "allow_real": true,
+        "no_job_started": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 24.014,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 6.832,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 143,
+            "completion_tokens_details": {
+              "reasoning_tokens": 34
+            },
+            "prompt_tokens": 1810,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1953
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 15.835,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 449,
+            "completion_tokens_details": {
+              "reasoning_tokens": 16
+            },
+            "prompt_tokens": 2111,
+            "prompt_tokens_details": {
+              "cached_tokens": 1792
+            },
+            "total_tokens": 2560
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_000000000000"
+          },
+          "is_error": true,
+          "result_sha256": "191759663ace53510e26272d316b3a2fcd0e662c7fae22539c2495c44a147055",
+          "error": "Error executing tool start_analysis: UNKNOWN_PLAN: no saved plan with this identifier"
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_000000000000"
+          },
+          "is_error": true,
+          "result_sha256": "bf9ee6550e9ec0770770a4f960a8fc9026f122f3073ab8ef635741399da91742",
+          "error": "Error executing tool get_run: UNKNOWN_JOB: no managed job with this identifier"
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "../../secret"
+          },
+          "is_error": true,
+          "result_sha256": "e1bb43e085e6587be6afbdf498c266b83107622c062771e4fb0d2689005e7985",
+          "error": "Error executing tool get_run: INVALID_ID: invalid job identifier"
+        },
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914",
+            "mode": "real"
+          },
+          "is_error": true,
+          "result_sha256": "2f468af8ad755a32fd9e161d07a586f4d3baa75a23ef21a91dba5d44def2508c",
+          "error": "Error executing tool plan_analysis: REAL_DISABLED: restart with --allow-real to enable science"
+        },
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914",
+            "config": {
+              "allow_real": true
+            }
+          },
+          "is_error": true,
+          "result_sha256": "3f6480a007b5d1a30f41d6dc3c000657eb0b027d902daf69a474d4af4881815b",
+          "error": "Error executing tool plan_analysis: 1 validation error for plan_analysisArguments\nconfig.allow_real\n  Extra inputs are not permitted [type=extra_forbidden, input_value=True, input_type=bool]\n    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden"
+        }
+      ],
+      "final": "## Observed Results — Five Negative Interface Tests\n\n| # | Tool & Arguments | Observed Error | Error Class |\n|---|---|---|---|\n| 1 | `start_analysis({\"plan_id\":\"plan_000000000000\"})` | **UNKNOWN_PLAN**: no saved plan with this identifier | Unknown resource |\n| 2 | `get_run({\"job_id\":\"job_000000000000\"})` | **UNKNOWN_JOB**: no managed job with this identifier | Unknown resource |\n| 3 | `get_run({\"job_id\":\"../../secret\"})` | **INVALID_ID**: invalid job identifier | Malformed / path-traversal ID |\n| 4 | `plan_analysis({\"prompt\":\"Analyze GW150914\",\"mode\":\"real\"})` | **REAL_DISABLED**: restart with –-allow-real to enable science | Permission / mode not enabled |\n| 5 | `plan_analysis({\"prompt\":\"Analyze GW150914\",\"config\":{\"allow_real\":true}})` | **Pydantic validation error**: Extra inputs are not permitted (`config.allow_real`) | Schema rejection / unknown field |\n\n### Summary\n\nAll five calls were correctly **rejected** by the server:\n\n1. **Nonexistent plan_id** → `UNKNOWN_PLAN` — the server checks for a saved plan before starting.\n2. **Nonexistent job_id** → `UNKNOWN_JOB` — the server checks for a managed job before reading state.\n3. **Path-traversal job_id** (`../../secret`) → `INVALID_ID` — the server validates ID format and blocks suspicious values.\n4. **`mode=\"real\"` when real execution is disabled** → `REAL_DISABLED` — the server enforces its startup permissions; the request is denied rather than silently downgraded.\n5. **Unknown config field** (`allow_real`) → Pydantic `extra_forbidden` validation error — the config schema is strict (no additional properties); extraneous fields are rejected at the schema level.\n\nNo valid analysis was started. All errors are explicit and informative, confirming the interface is fail-closed against invalid inputs, unauthorized modes, and unknown config fields.",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/invalid_requests/conversation.json"
+    },
+    {
+      "id": "budget",
+      "prompt": "This server has a zero GPU-hour budget. Plan Analyze GW150914 in mock mode with device cuda, then as an explicit negative test call start_analysis on the returned plan_id even if the plan says its budget is denied. Report the actual refusal. Do not change config to avoid the budget, and do not attempt to grant approval.",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "budget_denied": true,
+        "start_denied": true,
+        "no_job_started": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": null,
+      "elapsed_seconds": 29.352,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 6.888,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 127,
+            "completion_tokens_details": {
+              "reasoning_tokens": 62
+            },
+            "prompt_tokens": 1754,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1881
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 6.796,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 184,
+            "completion_tokens_details": {
+              "reasoning_tokens": 54
+            },
+            "prompt_tokens": 2691,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 2875
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 14.39,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 378,
+            "completion_tokens_details": {
+              "reasoning_tokens": 21
+            },
+            "prompt_tokens": 2909,
+            "prompt_tokens_details": {
+              "cached_tokens": 2688
+            },
+            "total_tokens": 3287
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914",
+            "mode": "mock",
+            "config": {
+              "device": "cuda"
+            }
+          },
+          "is_error": false,
+          "result_sha256": "4c9482c16b1a2a24f52b4d3176e908378a8e76d23794330b9bfab887196d4f0a",
+          "plan_id": "plan_62a30b274929",
+          "mode": "mock",
+          "budget": {
+            "allowed": false,
+            "reasons": [
+              "estimated 0.01 GPU hours exceed the budget of 0"
+            ],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "buoy.analyze",
+            "report.generate"
+          ],
+          "skill_count": 3
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_62a30b274929"
+          },
+          "is_error": true,
+          "result_sha256": "af7160cd1f05881950ce3e2df73bddeb0d4782b2a34109179e831bfb72142ef2",
+          "error": "Error executing tool start_analysis: BUDGET_EXCEEDED: estimated 0.01 GPU hours exceed the budget of 0"
+        }
+      ],
+      "final": "The server refused execution. Here is the full summary:\n\n---\n\n## Results\n\n### Plan (successful creation)\n| Field | Value |\n|---|---|\n| Plan ID | `plan_62a30b274929` |\n| Mode | mock |\n| Route | buoy (3 tasks) |\n| Device | cuda |\n| Estimated GPU-hours | 0.0111 |\n| Budget allowed | **false** |\n| Budget reason | *\"estimated 0.01 GPU hours exceed the budget of 0\"* |\n\n### Start Attempt (negative test — expected failure)\n| Field | Value |\n|---|---|\n| Error type | `BUDGET_EXCEEDED` |\n| Error message | *\"estimated 0.01 GPU hours exceed the budget of 0\"* |\n\n### Observations\n1. **`plan_analysis` succeeds even when the budget is zero.** Planning is purely informational; it@ does not enforce the budget — it just reports it.\n2. **`start_analysis` enforces the budget gate.** The server returned a `BUDGET_EXCEEDED` error and did **not** create a job. The refusal is explicit and matches the reason reported in the plan's budget block.\n3. No workarounds were applied (device was left as `cuda`, no config changes, no approval grant attempted). The server's own budget enforcement blocked execution cleanly.\n\n### Limitations\n- This is a **mock-mode** plan, so even if the budget were non-zero the results would be simulated and have no scientific meaning.\n- Only the GPU-hour budget was tested; the CPU-hour budget (0.045 h) was also above zero but did not trigger a separate refusal — the GPU budget was the binding constraint.",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/budget/conversation.json"
+    },
+    {
+      "id": "busy_cancel",
+      "prompt": "Lifecycle test: this mock server has a test fixture delaying worker execution for 300 seconds. Plan Analyze GW150914 in mock mode and start it. While that job is active, try to start the same plan again to test SERVICE_BUSY. Then cancel the first job, query its status, and cancel it again to check cancellation is idempotent. Do not wait for the delayed worker to finish; report observed results.",
+      "passed": true,
+      "checks": {
+        "agent_finished": true,
+        "busy": true,
+        "cancelled_twice": true,
+        "cancelled_record_read": true,
+        "one_job": true,
+        "no_transport_failure": true
+      },
+      "error": null,
+      "fixture": "worker delayed 300s",
+      "elapsed_seconds": 54.085,
+      "requests": [
+        {
+          "round": 1,
+          "http_status": 200,
+          "latency_seconds": 9.229,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 205,
+            "completion_tokens_details": {
+              "reasoning_tokens": 134
+            },
+            "prompt_tokens": 1771,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1976
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 2,
+          "http_status": 200,
+          "latency_seconds": 5.143,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 88,
+            "completion_tokens_details": {
+              "reasoning_tokens": 26
+            },
+            "prompt_tokens": 2749,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 2837
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 3,
+          "http_status": 200,
+          "latency_seconds": 7.012,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 106,
+            "completion_tokens_details": {
+              "reasoning_tokens": 38
+            },
+            "prompt_tokens": 2938,
+            "prompt_tokens_details": {
+              "cached_tokens": 2688
+            },
+            "total_tokens": 3044
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 4,
+          "http_status": 200,
+          "latency_seconds": 5.005,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 76,
+            "completion_tokens_details": {
+              "reasoning_tokens": 17
+            },
+            "prompt_tokens": 3075,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "total_tokens": 3151
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 5,
+          "http_status": 200,
+          "latency_seconds": 4.495,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 73,
+            "completion_tokens_details": {
+              "reasoning_tokens": 23
+            },
+            "prompt_tokens": 3283,
+            "prompt_tokens_details": {
+              "cached_tokens": 1664
+            },
+            "total_tokens": 3356
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 6,
+          "http_status": 200,
+          "latency_seconds": 7.188,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 113,
+            "completion_tokens_details": {
+              "reasoning_tokens": 46
+            },
+            "prompt_tokens": 3579,
+            "prompt_tokens_details": {
+              "cached_tokens": 3200
+            },
+            "total_tokens": 3692
+          },
+          "finish_reason": "tool_calls"
+        },
+        {
+          "round": 7,
+          "http_status": 200,
+          "latency_seconds": 14.639,
+          "model": "glm-4.7",
+          "usage": {
+            "completion_tokens": 445,
+            "completion_tokens_details": {
+              "reasoning_tokens": 26
+            },
+            "prompt_tokens": 3824,
+            "prompt_tokens_details": {
+              "cached_tokens": 3456
+            },
+            "total_tokens": 4269
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "calls": [
+        {
+          "name": "plan_analysis",
+          "arguments": {
+            "prompt": "Analyze GW150914",
+            "mode": "mock"
+          },
+          "is_error": false,
+          "result_sha256": "22b257e8ab97804237b426273ab1ed89b2b8b44dc35258f56467cf12ac5e34a4",
+          "plan_id": "plan_386bdf1d548e",
+          "mode": "mock",
+          "budget": {
+            "allowed": true,
+            "reasons": [],
+            "authorization_required": false
+          },
+          "skills": [
+            "data.resolve_event",
+            "buoy.analyze",
+            "report.generate"
+          ],
+          "skill_count": 3
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_386bdf1d548e"
+          },
+          "is_error": false,
+          "result_sha256": "f3857026c45011ef82fa0abced0f62918ccf5da305156a278e4ad963ce186355",
+          "plan_id": "plan_386bdf1d548e",
+          "job_id": "job_a3169d4cf219",
+          "mode": "mock",
+          "status": "running",
+          "error": null
+        },
+        {
+          "name": "start_analysis",
+          "arguments": {
+            "plan_id": "plan_386bdf1d548e"
+          },
+          "is_error": true,
+          "result_sha256": "9a178c5c65deb6decbc2df19e6b3bfe3a277efe7c7788edb363d29f8355d6a20",
+          "error": "Error executing tool start_analysis: SERVICE_BUSY: job job_a3169d4cf219 is running"
+        },
+        {
+          "name": "cancel_run",
+          "arguments": {
+            "job_id": "job_a3169d4cf219"
+          },
+          "is_error": false,
+          "result_sha256": "0040a69d9b13776094ba940e007ecb1d744ee92de2f7136b2e9069ea70b6691a",
+          "plan_id": "plan_386bdf1d548e",
+          "job_id": "job_a3169d4cf219",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown"
+        },
+        {
+          "name": "get_run",
+          "arguments": {
+            "job_id": "job_a3169d4cf219"
+          },
+          "is_error": false,
+          "result_sha256": "dc0e8433db814a0eee7c5cc279eca3eaa1b8af349f65599d60e1daf3cf54685c",
+          "plan_id": "plan_386bdf1d548e",
+          "job_id": "job_a3169d4cf219",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown",
+          "simulated_report": false,
+          "artifact_count": 0,
+          "task_statuses": {}
+        },
+        {
+          "name": "cancel_run",
+          "arguments": {
+            "job_id": "job_a3169d4cf219"
+          },
+          "is_error": false,
+          "result_sha256": "0040a69d9b13776094ba940e007ecb1d744ee92de2f7136b2e9069ea70b6691a",
+          "plan_id": "plan_386bdf1d548e",
+          "job_id": "job_a3169d4cf219",
+          "mode": "mock",
+          "status": "cancelled",
+          "error": "CANCELLED: cancelled by client or server shutdown"
+        }
+      ],
+      "final": "Idempotent cancellation confirmed — same status, same `ended_at`, no error thrown on the redundant cancel.\n\n---\n\n## Summary of Observed Results\n\n| Step | Action | Result |\n|------|--------|--------|\n| **Plan** | `plan_analysis(\"Analyze GW150914\", mode=mock)` | Created `plan_386bdf1d548e` (buoy route, 3 skills) |\n| **Start** | `start_analysis(plan_386bdf1d548e)` | Job `job_a3169d4cf219` launched, status `running` |\n| **Double-start** | `start_analysis(plan_386bdf1d548e)` again | **SERVICE_BUSY** error: `job job_a3169d4cf219 is running` ✅ |\n| **Cancel** | `cancel_run(job_a3169d4cf219)` | Status → `cancelled`, returncode `-2`, error `CANCELLED: cancelled by client or server shutdown` |\n| **Query** | `get_run(job_a3169d4cf219)` | Confirmed `cancelled`; no tasks completed (300s fixture delay); no report/artifacts |\n| **Cancel again** | `cancel_run(job_a3169d4cf219)` | Returned identical `cancelled` state with **no error** — cancellation is idempotent ✅ |\n\n**Key findings:**\n- **SERVICE_BUSY** is correctly enforced: a plan with an active job cannot be started again.\n- **Cancellation** works: the process group is terminated and the job transitions to `cancelled` (returncode -2) with an `ended_at` timestamp.\n- **Idempotent cancellation**: cancelling an already-cancelled job returns the same final state without raising an error.\n- Because the mock fixture imposes a 300-second worker delay, no tasks completed before cancellation — this is expected behavior and all results are **simulated/mock** with no scientific meaning.",
+      "transcript": "/root/autodl-tmp/ml4gw-agent-rerun/runs/mcp-glm-matrix-2026-09-25/glm-4.7/20260925T023655487958Z/busy_cancel/conversation.json"
+    }
+  ],
+  "model_advertised": true,
+  "passed": true,
+  "total_requests": 25,
+  "total_tokens": 127383
+}

@@ -1,0 +1,831 @@
+{
+  "timestamp_utc": "2026-09-25T02:32:50.157963+00:00",
+  "base_url": "https://open.bigmodel.cn/api/paas/v4",
+  "python": "3.12.12",
+  "mcp_sdk": "2.2.0",
+  "available_models": [
+    "glm-4.5",
+    "glm-4.5-air",
+    "glm-4.6",
+    "glm-4.7",
+    "glm-5",
+    "glm-5-turbo",
+    "glm-5.1",
+    "glm-5.2",
+    "glm-5.3",
+    "glm-5.3-flash",
+    "glm-5.3-flashx"
+  ],
+  "model_discovery_http_status": 200,
+  "selected_models": [
+    "glm-4.5",
+    "glm-4.5-air",
+    "glm-4.6",
+    "glm-4.7",
+    "glm-5",
+    "glm-5-turbo",
+    "glm-5.1",
+    "glm-5.2",
+    "glm-5.3",
+    "glm-5.3-flash",
+    "glm-5.3-flashx"
+  ],
+  "excluded_models": {},
+  "settings": {
+    "workers": 2,
+    "timeout_seconds": 90,
+    "max_rounds": 16,
+    "max_tokens": 2500,
+    "model_prefix": "glm-",
+    "exclude_prefix": [
+      "gpt-image-"
+    ],
+    "preserve_reasoning": true,
+    "thinking": "omitted (provider default)",
+    "temperature": "omitted (provider default)",
+    "reasoning_effort": "omitted (provider default)",
+    "cases": [
+      "buoy",
+      "aframe_amplfi",
+      "aframe_gwak",
+      "invalid_requests",
+      "budget",
+      "busy_cancel"
+    ],
+    "repeats": 1,
+    "retries": 0,
+    "live_llm": true,
+    "science_mode": "mock",
+    "fallback": false
+  },
+  "script_sha256": {
+    "evaluate_mcp_gpt_matrix.py": "926ac2810f3535f61c4c325bebe98a5ba12926ffd24d3ab80475b0bbae577e59",
+    "evaluate_mcp_gpt.py": "5bc34bf80d602f8610d6d1923c1fe01804fdd151f8b91742dfcba1c50d40a42d"
+  },
+  "scenario_sha256": "d779fed2f247d008139ba829656f4864f64f37454da7e8b0a30d25ad56ff82b0",
+  "product_sha256": {
+    "__init__.py": "02614270a544b3e291d2f9c83436e973ca04a10e1f6787da0830015e827cabf9",
+    "__main__.py": "307299fda7b77d22c64cb51430ec75e5f59d78e9c948786afb3b2544fe45e4b7",
+    "_version.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+    "capabilities.py": "1e24949cab79c676d25415462a452901903a71db783c2996dbccd43c9964042d",
+    "cli.py": "2e8551843a684fc8443c8970d30d70c77065e0f202714fa2ff0d624b304e54d9",
+    "errors.py": "bae9bcd664785f04ca59989aee293db11a3f83a2befe343f8150fccdd3045a40",
+    "llm_planner.py": "356f232b1e8b1caa546f43c45692c386ac2dee2a41838d3837cecb1e66909883",
+    "mcp_jobs.py": "da3b348fad3bf52395d752ed9ac32e4922121a9c1875762036724473e67265cc",
+    "mcp_server.py": "d544268a6794dd2b97c2e62f48fcd40a5bbbbcd1ee33869fbae7f4570885183d",
+    "models.py": "be4bf8ad679ea9fe32400c90410dfbc8f2902bc1980bdfbc4502077d81e6f41b",
+    "planning.py": "5156aad816b73709cbf7b336334faa0be54839a5dd48abafdc4ed522c225c533",
+    "policy.py": "dad2f50f1d8ce1002d51e32b4ff5605c355e7b9ff6df9a244ec9eb323c581c3b",
+    "provenance.py": "94f033628804b620b2b96cda867d2eb9f82adcc7e9e1f39ba4b2cfbb85af071e",
+    "registry.py": "c622fc2cd40bdae321100966be01bea36da19de4a3d9428109e60a7f37c84051",
+    "runtime.py": "b3e105c7d751811e0fb855d8e61bae6c3379801c77696153f213acb7f35e0857",
+    "validation.py": "e58dc706f6573ae3340354a59230ab6acf4b199348849174d59530f5793f3c23"
+  },
+  "status": "completed",
+  "models": [
+    {
+      "model": "glm-4.5",
+      "returned_models": [
+        "glm-4.5"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 245.3,
+      "requests": 24,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 6.402,
+      "input_tokens": 109388,
+      "output_tokens": 5852,
+      "total_tokens": 115240,
+      "cached_input_tokens": 62336,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-4.5.json"
+    },
+    {
+      "model": "glm-4.5-air",
+      "returned_models": [
+        "glm-4.5-air"
+      ],
+      "passed": 5,
+      "total": 6,
+      "assertions_passed": 42,
+      "assertions_total": 44,
+      "elapsed_seconds": 92.983,
+      "requests": 32,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 1.82,
+      "input_tokens": 190902,
+      "output_tokens": 6233,
+      "total_tokens": 197135,
+      "cached_input_tokens": 148029,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": false,
+          "failed_checks": [
+            "expected_skills",
+            "no_tool_errors"
+          ],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-4.5-air.json"
+    },
+    {
+      "model": "glm-4.6",
+      "returned_models": [
+        "glm-4.6"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 279.081,
+      "requests": 26,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 7.608,
+      "input_tokens": 162373,
+      "output_tokens": 6823,
+      "total_tokens": 169196,
+      "cached_input_tokens": 108160,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-4.6.json"
+    },
+    {
+      "model": "glm-4.7",
+      "returned_models": [
+        "glm-4.7"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 260.058,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 6.832,
+      "input_tokens": 121084,
+      "output_tokens": 6299,
+      "total_tokens": 127383,
+      "cached_input_tokens": 75776,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-4.7.json"
+    },
+    {
+      "model": "glm-5",
+      "returned_models": [
+        "glm-5"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 118.745,
+      "requests": 24,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 2.937,
+      "input_tokens": 147619,
+      "output_tokens": 8670,
+      "total_tokens": 156289,
+      "cached_input_tokens": 99712,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.json"
+    },
+    {
+      "model": "glm-5-turbo",
+      "returned_models": [],
+      "passed": 0,
+      "total": 6,
+      "assertions_passed": 5,
+      "assertions_total": 44,
+      "elapsed_seconds": 8.059,
+      "requests": 6,
+      "http_errors": 6,
+      "transport_errors": 0,
+      "median_request_seconds": 0.099,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cached_input_tokens": 0,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "expected_skills",
+            "completed_mock",
+            "tasks_completed",
+            "report_and_artifacts",
+            "mock_disclosed",
+            "twelve_skills",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "expected_skills",
+            "completed_mock",
+            "tasks_completed",
+            "report_and_artifacts",
+            "mock_disclosed",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "expected_skills",
+            "completed_mock",
+            "tasks_completed",
+            "report_and_artifacts",
+            "mock_disclosed",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        },
+        {
+          "id": "invalid_requests",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "UNKNOWN_PLAN",
+            "UNKNOWN_JOB",
+            "INVALID_ID",
+            "REAL_DISABLED",
+            "allow_real",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        },
+        {
+          "id": "budget",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "budget_denied",
+            "start_denied",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        },
+        {
+          "id": "busy_cancel",
+          "passed": false,
+          "failed_checks": [
+            "agent_finished",
+            "busy",
+            "cancelled_twice",
+            "cancelled_record_read",
+            "one_job",
+            "no_transport_failure"
+          ],
+          "error": "LLM HTTP 429 (code 1302)"
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 0,
+        "artifacts": 0
+      },
+      "report": "glm-5-turbo.json"
+    },
+    {
+      "model": "glm-5.1",
+      "returned_models": [
+        "glm-5.1"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 268.425,
+      "requests": 26,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 7.165,
+      "input_tokens": 160118,
+      "output_tokens": 6032,
+      "total_tokens": 166150,
+      "cached_input_tokens": 97408,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.1.json"
+    },
+    {
+      "model": "glm-5.2",
+      "returned_models": [
+        "glm-5.2"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 121.526,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 3.026,
+      "input_tokens": 150589,
+      "output_tokens": 7547,
+      "total_tokens": 158136,
+      "cached_input_tokens": 85568,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.2.json"
+    },
+    {
+      "model": "glm-5.3",
+      "returned_models": [
+        "glm-5.3"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 198.29,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 4.931,
+      "input_tokens": 179908,
+      "output_tokens": 9019,
+      "total_tokens": 188927,
+      "cached_input_tokens": 124928,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.3.json"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "returned_models": [
+        "glm-5.3-flash"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 295.632,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 8.197,
+      "input_tokens": 204203,
+      "output_tokens": 9904,
+      "total_tokens": 214107,
+      "cached_input_tokens": 118080,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.3-flash.json"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "returned_models": [
+        "glm-5.3-flashx"
+      ],
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 44,
+      "assertions_total": 44,
+      "elapsed_seconds": 132.264,
+      "requests": 25,
+      "http_errors": 0,
+      "transport_errors": 0,
+      "median_request_seconds": 4.189,
+      "input_tokens": 199156,
+      "output_tokens": 7925,
+      "total_tokens": 207081,
+      "cached_input_tokens": 105728,
+      "cases": [
+        {
+          "id": "buoy",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_amplfi",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "aframe_gwak",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "invalid_requests",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "budget",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        },
+        {
+          "id": "busy_cancel",
+          "passed": true,
+          "failed_checks": [],
+          "error": null
+        }
+      ],
+      "artifact_verification": {
+        "passed": true,
+        "manifests": 3,
+        "artifacts": 19
+      },
+      "report": "glm-5.3-flashx.json"
+    }
+  ],
+  "completed_at_utc": "2026-09-25T02:50:33.230049+00:00",
+  "elapsed_seconds": 1063.066,
+  "passed_cases": 59,
+  "total_cases": 66,
+  "all_passed": false
+}

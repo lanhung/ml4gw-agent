@@ -1,0 +1,656 @@
+{
+  "models": [
+    "glm-4.5",
+    "glm-4.5-air",
+    "glm-4.6",
+    "glm-4.7",
+    "glm-5",
+    "glm-5-turbo",
+    "glm-5.1",
+    "glm-5.2",
+    "glm-5.3",
+    "glm-5.3-flash",
+    "glm-5.3-flashx"
+  ],
+  "cases": [
+    "buoy",
+    "aframe_amplfi",
+    "aframe_gwak",
+    "invalid_requests",
+    "budget",
+    "busy_cancel"
+  ],
+  "only_in_baseline": [],
+  "only_in_new": [],
+  "baseline_total": [
+    55,
+    66
+  ],
+  "new_total": [
+    65,
+    66
+  ],
+  "fixed": 11,
+  "regressed": 1,
+  "rows": [
+    {
+      "model": "glm-4.5",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-4.5",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "buoy",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": false,
+      "new_failed_checks": [
+        "expected_skills",
+        "no_tool_errors"
+      ],
+      "change": "regressed"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.5-air",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "buoy",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.6",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-4.7",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "buoy",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5-turbo",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "buoy",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.1",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "aframe_amplfi",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.2",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "aframe_amplfi",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "no_tool_errors"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "aframe_gwak",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "buoy",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "expected_skills"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "aframe_amplfi",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "no_tool_errors"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "aframe_gwak",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "no_tool_errors"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "buoy",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "aframe_amplfi",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "no_tool_errors"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "aframe_gwak",
+      "baseline": false,
+      "baseline_failed_checks": [
+        "no_tool_errors"
+      ],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "fixed"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "invalid_requests",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "budget",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    },
+    {
+      "model": "glm-5.3-flashx",
+      "case": "busy_cancel",
+      "baseline": true,
+      "baseline_failed_checks": [],
+      "new": true,
+      "new_failed_checks": [],
+      "change": "unchanged"
+    }
+  ]
+}

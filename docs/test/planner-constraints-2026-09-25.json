@@ -1,0 +1,271 @@
+{
+  "timestamp_utc": "2026-09-25T02:32:48.458020+00:00",
+  "live_llm": false,
+  "science_executed": false,
+  "source_file": "src/ml4gw_agent/planning.py",
+  "source_sha256": "5156aad816b73709cbf7b336334faa0be54839a5dd48abafdc4ed522c225c533",
+  "passed": 12,
+  "total": 12,
+  "cases": [
+    {
+      "id": "control",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results.",
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "negative_english",
+      "origin": "gpt-5.6-sol aframe_gwak, matrix 2026-09-24",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results. Do not run AMPLFI.",
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "expected_excluded": [
+        "amplfi.pe"
+      ],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "excluded_skills": [
+        "amplfi.pe"
+      ],
+      "passed": true
+    },
+    {
+      "id": "negative_chinese",
+      "origin": "gpt-6-sol aframe_gwak, matrix 2026-09-24",
+      "prompt": "Run Aframe and GWAK on GW150914 and reconcile the two results. 不要运行 AMPLFI 参数估计。",
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "expected_excluded": [
+        "amplfi.pe"
+      ],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "data.fetch",
+        "gwak.scan",
+        "analysis.reconcile",
+        "report.generate"
+      ],
+      "excluded_skills": [
+        "amplfi.pe"
+      ],
+      "passed": true
+    },
+    {
+      "id": "buoy_wording_forced_decomposed",
+      "origin": "gpt-6-luna aframe_amplfi, matrix 2026-09-24",
+      "prompt": "Run the Buoy event analysis pipeline for GW150914, using Aframe detection followed by AMPLFI parameter estimation.",
+      "config": {
+        "pipeline": "decomposed"
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "buoy_wording_auto",
+      "prompt": "Run the Buoy event analysis pipeline for GW150914, using Aframe detection followed by AMPLFI parameter estimation.",
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "route": "buoy",
+      "skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "generic_default_route",
+      "origin": "GLM default-route mismatches, matrix 2026-09-24",
+      "prompt": "使用默认流程分析 GW150914",
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "route": "buoy",
+      "skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "generic_forced_buoy_despite_tool_words",
+      "prompt": "Analyze GW150914 using the default pipeline: resolve event, fetch strain, run Aframe detection and AMPLFI parameter estimation.",
+      "config": {
+        "pipeline": "buoy"
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "route": "buoy",
+      "skills": [
+        "data.resolve_event",
+        "buoy.analyze",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "structured_exclusion",
+      "prompt": "Analyze GW150914.",
+      "config": {
+        "exclude_skills": [
+          "amplfi.pe"
+        ]
+      },
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "report.generate"
+      ],
+      "expected_excluded": [
+        "amplfi.pe"
+      ],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "report.generate"
+      ],
+      "excluded_skills": [
+        "amplfi.pe"
+      ],
+      "passed": true
+    },
+    {
+      "id": "contradiction_fails_closed",
+      "prompt": "Run AMPLFI parameter estimation on GW150914 and do not run AMPLFI.",
+      "expected_error": "both asks for and rules out",
+      "error": "The request both asks for and rules out ['amplfi']. Reword the prompt or pass exclude_skills explicitly.",
+      "passed": true
+    },
+    {
+      "id": "worded_prerequisite_exclusion_is_overridden",
+      "origin": "v1/v2 benchmark adv_amplfi_conditional cases",
+      "prompt": "Run AMPLFI on GW150914 without running Aframe first.",
+      "expected_skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "expected_excluded": [],
+      "route": "decomposed",
+      "skills": [
+        "data.resolve_event",
+        "data.fetch",
+        "data.inspect",
+        "aframe.detect",
+        "amplfi.pe",
+        "report.generate"
+      ],
+      "excluded_skills": [],
+      "passed": true
+    },
+    {
+      "id": "structured_prerequisite_exclusion_fails_closed",
+      "prompt": "Run AMPLFI parameter estimation on GW150914.",
+      "config": {
+        "exclude_skills": [
+          "aframe.detect"
+        ]
+      },
+      "expected_error": "cannot run with aframe.detect excluded",
+      "error": "AMPLFI needs the coalescence time that Aframe estimates; it cannot run with aframe.detect excluded.",
+      "passed": true
+    },
+    {
+      "id": "buoy_pipeline_with_gwak_fails_closed",
+      "prompt": "Run GWAK on GW150914.",
+      "config": {
+        "pipeline": "buoy"
+      },
+      "expected_error": "covers Aframe and AMPLFI only",
+      "error": "pipeline='buoy' covers Aframe and AMPLFI only; GWAK or DeepClean requests need pipeline='decomposed'.",
+      "passed": true
+    }
+  ]
+}
