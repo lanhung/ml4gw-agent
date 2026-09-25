@@ -371,7 +371,11 @@ class BaselinePlanner:
         skills: set[str] = set()
         for name in self.config.exclude_skills:
             if name not in self.registry:
-                raise PlanningError(f"exclude_skills names an unknown skill: {name}")
+                valid = ", ".join(skill.name for skill in self.registry.all())
+                raise PlanningError(
+                    f"exclude_skills names an unknown skill: {name}. "
+                    f"Valid skill names: {valid}"
+                )
             skills.add(name)
         tools = {tool for tool in found.excluded if tool != "data"}
         # A structured skill name stands for its whole tool: ruling out

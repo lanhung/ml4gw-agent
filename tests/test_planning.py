@@ -294,7 +294,7 @@ def test_structured_exclusions_and_route_field(registry):
     with pytest.raises(PlanningError, match="both asks for and rules out"):
         planner.plan("Run Aframe and GWAK on GW150914.")
 
-    with pytest.raises(PlanningError, match="unknown skill"):
+    with pytest.raises(PlanningError, match="unknown skill.*Valid skill names:.*"):
         BaselinePlanner(registry, PlannerConfig(exclude_skills=("nope.skill",))).plan(
             "Analyze GW150914."
         )

@@ -28,10 +28,12 @@ def create_server(service: JobService):
         "`config`). Routing contract: a generic request such as 'Analyze "
         "GW150914' plans the Buoy wrapper (data.resolve_event, buoy.analyze, "
         "report.generate); naming Aframe, AMPLFI, GWAK, DeepClean or data quality "
-        "plans the decomposed DAG. Force a route with config.pipeline "
-        "('buoy' | 'decomposed') and rule tools out with config.exclude_skills "
-        "or a negated phrase such as 'do not run AMPLFI'. Check the returned "
-        "`route` and `skills` before start_analysis.",
+        "plans the decomposed DAG. Name every analysis to run in the prompt "
+        "itself; config only forces a route with config.pipeline "
+        "('buoy' | 'decomposed') or rules tools out with config.exclude_skills "
+        "(registered skill names) or a negated phrase such as 'do not run "
+        "AMPLFI', and never adds tools. Check the returned `route` and "
+        "`skills` before start_analysis.",
     )
 
     def invoke(function: Callable, *args: Any) -> dict[str, Any]:
@@ -52,13 +54,15 @@ def create_server(service: JobService):
         """Plan and save a deterministic analysis DAG for one event.
 
         `mode` ('mock' | 'real') is this top-level argument; `config` holds
-        scientific options only and rejects `mode`. Routing: a generic prompt
-        uses the Buoy wrapper (3 tasks); naming Aframe, AMPLFI, GWAK, DeepClean
-        or data quality builds the decomposed DAG. Set config.pipeline to
-        'buoy' or 'decomposed' to force a route, and config.exclude_skills (for
-        example ['amplfi.pe']) or a negated phrase ('do not run AMPLFI') to rule
-        tools out. Returns plan_id, route, excluded_skills, the ordered task
-        skills, estimate, budget and warnings.
+        scientific options only and rejects `mode`. Write the analyses to run
+        into `prompt` (for example 'Run Aframe and GWAK on GW150914'): a
+        generic prompt uses the Buoy wrapper (3 tasks); naming Aframe, AMPLFI,
+        GWAK, DeepClean or data quality builds the decomposed DAG. config never
+        adds tools: config.pipeline ('buoy' | 'decomposed') forces a route and
+        config.exclude_skills (registered skill names such as 'amplfi.pe') or a
+        negated phrase ('do not run AMPLFI') rules tools out. Returns plan_id,
+        route, excluded_skills, the ordered task skills, estimate, budget and
+        warnings.
         """
         return invoke(service.plan_analysis, prompt, config, mode)
 

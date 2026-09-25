@@ -13,7 +13,6 @@ import pytest
 from pydantic import ValidationError
 
 from ml4gw_agent import mcp_jobs
-from ml4gw_agent.errors import PlanningError
 from ml4gw_agent.mcp_jobs import (
     AnalysisConfig,
     Job,
@@ -434,7 +433,12 @@ def test_plan_analysis_routing_contract(service):
         AnalysisConfig.model_validate({"mode": "mock"})
     with pytest.raises(ValidationError):
         AnalysisConfig.model_validate({"pipeline": "shell"})
-    with pytest.raises(PlanningError, match="unknown skill"):
-        service.plan_analysis(
-            "Analyze GW150914", AnalysisConfig(exclude_skills=["rm.rf"])
-        )
+    # the schema only admits registered skill names (glm-4.5-air sent
+    # 'buoy_runner' and 'deepclean' in the 2026-09-25 matrix)
+    for wrong in (["rm.rf"], ["buoy_runner"], ["deepclean"]):
+        with pytest.raises(ValidationError, match="literal_error|Input should be"):
+            AnalysisConfig.model_validate({"exclude_skills": wrong})
+    schema = AnalysisConfig.model_json_schema()
+    names = sorted(schema["properties"]["exclude_skills"]["items"]["enum"])
+    assert names == sorted(s.name for s in service.registry.all())
+    assert AnalysisConfig(exclude_skills=["amplfi.pe"]).exclude_skills == ["amplfi.pe"]

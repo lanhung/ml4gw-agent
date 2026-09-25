@@ -38,6 +38,10 @@ from .registry import load_default_registry
 
 Mode = Literal["mock", "real"]
 ACTIVE = {"starting", "running"}
+# The tool schema enumerates the registered skills so a client sees the only
+# valid exclude_skills values instead of guessing config keys or tool names.
+SKILL_NAMES: tuple[str, ...] = tuple(s.name for s in load_default_registry().all())
+SkillName = Literal[SKILL_NAMES]  # type: ignore[valid-type]
 
 
 class ServiceError(ML4GWAgentError):
@@ -80,11 +84,13 @@ class AnalysisConfig(StrictModel):
         description="auto: generic prompts use the Buoy wrapper and named tools "
         "build the decomposed DAG; buoy / decomposed force one route.",
     )
-    exclude_skills: list[str] = Field(
+    exclude_skills: list[SkillName] = Field(
         default_factory=list,
-        max_length=12,
-        description="Registered skill names that must not be scheduled, for "
-        "example ['amplfi.pe']; the plan fails closed if one would be.",
+        max_length=len(SKILL_NAMES),
+        description="Registered skill names (exactly as list_skills returns "
+        "them) that must not be scheduled, for example ['amplfi.pe']. Config "
+        "keys and tool families such as 'deepclean' are not skill names. The "
+        "plan fails closed if an excluded skill would be scheduled.",
     )
 
     def planner_config(self) -> PlannerConfig:

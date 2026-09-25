@@ -330,6 +330,28 @@ mock manifest 和 135 个产物，全部路径、大小和哈希一致；另有 
 
 参考运行不计入模型成绩；真实重跑的结果另行记录。
 
+### 6.6 新契约下的 GLM 重跑（2026-09-25）
+
+在 AutoDL GPU 节点上用 `scripts/rerun_mcp_matrices.sh` 对提交 `50a9983` 重跑 GLM
+矩阵，方法与 6.3 节完全相同。详见
+[GLM 重跑报告](../test/P0_P1_GLM_RERUN_REPORT_2026-09-25.md)。
+
+- 有效成绩 **65/66 场景、482/484 项断言**，基线 55/66、473/484；11 个场景修复，
+  1 个回归。`glm-5-turbo` 首轮再次被 429 限流，单独补测 6/6。
+- 6.3 节的两类失败全部消失：6 个默认任务图不符、5 个 `mode` 放进 `config`。
+  35 次分析规划调用中 `mode` 从未出现在 `config` 里。
+- 回归：`glm-4.5-air` 在 Aframe＋GWAK 中向 `exclude_skills` 填了 `buoy_runner` 和
+  `deepclean`，又一度把分析意图移出提示词；启动前自行纠正并正确完成，但按原标准
+  记失败。已修复：`exclude_skills` 在 schema 中改为注册技能名枚举，工具说明写明
+  分析必须写在 `prompt` 里、`config` 不会增加工具。修复后尚未重跑该模型。
+- GPT 矩阵尚未重跑：CLIProxy 不在该 GPU 节点上。
+
+本期后续：
+
+- [ ] 在 CLIProxy 所在机器用 `SKIP_GLM=1 DATE=2026-09-25` 重跑 GPT 矩阵。
+- [ ] 修复后补测 `glm-4.5-air`，确认 `exclude_skills` 枚举生效。
+- [x] 6.2 节的否定语义与路由约束项：GLM 侧已由本次重跑确认。
+
 ## 7. 待外部确认（不计作软件完成）
 
 - [x] Fan 确认 GWAK / DeepClean 训练者、训练数据、原 checkpoint 和导出链。

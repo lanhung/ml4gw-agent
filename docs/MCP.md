@@ -128,7 +128,8 @@ OpenAI 兼容服务，用来验证测试装置本身；其结果见
 ### 路由契约
 
 `mode` 是 `plan_analysis` 的顶层参数，`config` 只接受科学参数；把 `mode`
-放进 `config` 会收到 `extra_forbidden` 校验错误。规划器按下面的固定规则选路，
+放进 `config` 会收到 `extra_forbidden` 校验错误。要运行的分析必须写在
+`prompt` 里；`config` 只能强制或收窄路线，不会增加工具。规划器按下面的固定规则选路，
 返回值里的 `route` 和 `skills` 就是启动前要核对的内容：
 
 | 请求 | `route` | 任务图 |
@@ -142,7 +143,8 @@ OpenAI 兼容服务，用来验证测试装置本身；其结果见
 - `config.pipeline`：`auto`（默认，上表规则）、`buoy`（强制 Buoy；与 GWAK /
   DeepClean 请求或排除 Aframe / AMPLFI 冲突时拒绝）、`decomposed`（强制独立
   DAG；泛化请求得到 Aframe→AMPLFI）。
-- `config.exclude_skills`：注册表技能名列表，如 `["amplfi.pe"]`。排除
+- `config.exclude_skills`：注册表技能名列表，如 `["amplfi.pe"]`，schema 中
+  是 12 个技能名的枚举；配置参数名或 `deepclean` 这类工具族名会被拒绝。排除
   `buoy.analyze`、`aframe.detect` 或 `amplfi.pe` 会离开 Buoy 路线；排除
   `gwak.scan` 同时去掉 `analysis.reconcile`。未知技能名、与提示词正面请求
   冲突、或排除被请求技能的前置条件（AMPLFI 需要 Aframe）都会拒绝生成计划。
